@@ -11,3 +11,7 @@ Los documentos y archivos de cada equipo que no sean usados para el funcionamien
 El código estructurado como las carpetas que ya teníais (excepto la carpeta de test), se encuentra en <i>src\main\java\equipoX</i>
 
 Todos los archivos usados para testear (archivos de código) deben ir en <i>src\main\java\test\equipoX</i>
+
+DEBÉIS DESCARGAROS EL PROYECTO ENTERO Y TRABAJAR EN ECLIPSE CON ESTA ESTRUCTURA DE PAQUETES. DEBÉIS TRABAJAR SOBRE LA RAMA DE VUESTRO EQUIPO, NO SOBRE MASTER
+
+QUEDA TERMINANTEMENTE <b>PROHIBIDO</b> SUBIR CÓDIGO A MASTER QUE <b>NO COMPILE</b>
