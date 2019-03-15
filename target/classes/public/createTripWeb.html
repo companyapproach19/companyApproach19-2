@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Trip creation</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<link rel="stylesheet" href="createTripWeb.css">
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+
+  <header id="main-header">
+    
+    <table align="right" style="width:60%" height="-30%">
+      <tr>
+	<th>
+	  <a id="logo-header" href="index.php">
+	    <span class="site-name">OCC</span> </a>
+	</th>
+	<th>
+	  <div style="width:100%;" class="col-md-3 col-sm-3 col-xs-6", onclick="#"> <a href="#", class="btn btn-sm animated-button thar-three">Pending notifications<?php include("PendingNotifications.php");?></a> </div>
+	</th>
+      </tr>
+    </table>
+  </header>
+  
+  <br><br><!--Salto de línea para que no se peguen los botones-->
+  
+  <div id="mostrar-nav"></div>  
+  <nav>
+    <ul class="menu">
+      <li><a href="index.php" >Home</a></li>
+      <li><a href="createTripWeb.php" >Create trip</a></li>
+      <li><a href="Queries.html" >Customer y Workforce</a></li>
+      <li><a href="https://maintenancepanel.000webhostapp.com/">Maintenance</a></li>
+      <li><a href="Incidences.html" >Notifications</a></li>
+      <li><a href="mapMode.php">Map Mode</a></li>
+      <li><a href="SendNotification.php" >Send Notifications</a></li>
+    </ul>
+  </nav>
+  
+		<script>
+			$('#mostrar-nav').on('click', function(){	
+				$('nav').toggleClass('mostrar');
+			})
+		</script>
+
+		<center>
+			  <table class="table1" style="width:72%">
+			<tr>
+				<th>Departure station</th>
+				<th><select name="Station" onchange="departureStationChanged()"  id="ds">
+					<option selected value="0"> Choose a station </option>
+					<option value="MAD">Madrid</option>
+					<option value="VAL">Valencia</option>
+					<option value="BAR">Barcelona</option>
+					<option value="ALI">Alicante</option>
+					<option value="SEV">Sevilla</option>
+					<option value="MAL">Málaga</option>
+					<option value="BIL">Bilbao</option>
+					<option value="PAM">Pamplona</option>
+					<option value="MUR">Murcia</option>
+					<option value="VALL">Valladolid</option>
+					<option value="LEO">León</option>
+				</select></th>
+				<th>Departure date</th>
+				<th><p><input type="date" name="departureDate" id="dd"></p></th>
+			</tr>
+			<tr>
+				<th>Departure time</th>
+				<th><p><input type="time" name="departureTime" id="dt"></p></th>
+				<th>Platform:</th>
+				<td style = "text-align: center"; id = "departurePlatform"></td>
+				<!--<td colspan = "2", style = "text-align: center; ">The platform is available</td>-->
+			</tr>
+		</table>
+		<table class="table1" style="width:72%">
+			<tr>
+				<th>Arrival station</th>
+				<th><select name="Station" onchange="arrivalStationChanged()" id="as">
+					<option selected value="0"> Choose a station </option>
+					<option value="MAD">Madrid</option>
+					<option value="VAL">Valencia</option>
+					<option value="BAR">Barcelona</option>
+					<option value="ALI">Alicante</option>
+					<option value="SEV">Sevilla</option>
+					<option value="MAL">Málaga</option>
+					<option value="BIL">Bilbao</option>
+					<option value="PAM">Pamplona</option>
+					<option value="MUR">Murcia</option>
+					<option value="VALL">Valladolid</option>
+					<option value="LEO">León</option>
+				</select></th>
+				<th>Arrival date</th>
+				<th><p><input type="date" name="arrivalDate" id="ad"></p></th>
+			</tr>
+			<tr>
+				<th>Arrival time</th>
+				<th><p><input type="time" name="arrivalTime" id="at"></p></th>
+				<th>Platform:</th>
+				<td style = "text-align: center"; id = "arrivalPlatform"></td>
+			</tr>
+		</table>
+		<br>
+		<table class="table1" style="width:72%">
+			<tr>
+				<th>Train</th>
+				<th><select name="Train" onchange = "trainIdChanged()" id="trainId">
+					<option selected value="0"> Choose a train </option>
+				</select></th>
+				<th>Trip ID:</th>
+				<td style = "text-align: center"; id = "tripId"></td>
+				
+				<th>Garage ID:</th>
+				<td style = "text-align: center"; id = "garageId"></td>
+			</tr>
+		</table>
+
+		<table class="table1">
+			<tr>
+				<th>Route:</th>
+				<td style = "text-align: center" id = "routeList">The route has not been asigned yet</td>
+			</tr>
+		</table>
+
+		<form name="elige" action="#" >
+		<table class="table1" style="width:72%">
+			<tr>
+
+
+			<th>
+					<!-- <button onclick="getDriver()">Train driver</button> -->
+					<select multiple name="Driver" id="trainDriver" size="3"><option selected value="0"> Choose a train driver </option></select>
+				</th>
+				<th>
+					<!-- <button onclick="getReviser()">Reviser</button> -->
+					<select multiple name="Reviser" onclick="driverChanged()" id="reviser" size="3"><option selected value="0"> Choose a reviser </option></select>2
+				</th>
+				<!-- </tr> -->
+				<!-- <tr> -->
+					<th>
+						<!-- <button onclick="getAuxiliaries()">Auxiliaries</button> -->
+						<select multiple name="Aux" id="auxiliaries" size="3"><option selected value="0"> Choose an auxiliary </option></select>
+					</th>
+					<th>
+						<!-- <button onclick="dePrueba()">Restaurant staff</button> -->
+						<select multiple name="Waiter" id="waiter" size="3"><option selected value="0"> Choose a waiter </option></select>
+					</th>
+				</tr>
+
+        <!--Boton que muestra que los empleados se han recogido correctamente
+         <tr>
+        	<th><button class="button-three" onclick="check()">Check employees</button></th>
+             
+             </tr>
+         -->
+
+     </table></form>
+	  <br><form>Price <input type="number" name="price" id="pr"></form>
+      <br><br><!--Salto de línea para que no se peguen los botones-->
+    </center>
+
+    <table align = "center">
+     	<script src="createTripWeb.js"></script>
+     	<th><div style="width:10%;" class="col-md-3 col-sm-3 col-xs-6" onclick="askForPlatform()"><a href="#", class="btn btn-sm animated-button thar-three">ASK FOR PLATFORM</a> </div></th> 
+		<th><div style="width:10%;"class="col-md-3 col-sm-3 col-xs-6", onclick="askForGarage()"> <a href="#", class="btn btn-sm animated-button thar-three">ASK FOR GARAGE</a> </div></th>
+		<th><div style="width:10%;"class="col-md-3 col-sm-3 col-xs-6", onclick="createTrip()"> <a href="#", class="btn btn-sm animated-button thar-three">SUBMIT</a> </div></th>
+	</table>
+
+</section>
+</body>
+</html>
+
