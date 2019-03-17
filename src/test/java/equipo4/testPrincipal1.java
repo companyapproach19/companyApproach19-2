@@ -35,6 +35,7 @@ public class testPrincipal1 {
 		Lote lote= new Lote(new Stout(), new Date());
 		int result = Principal.moler(lote);
 		assertEquals(result, 0);
+		
 	}
 	
 	
