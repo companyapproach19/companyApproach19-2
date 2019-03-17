@@ -1,5 +1,17 @@
-package company;
-import company.metodosCompany;
+package equipo5;
+import equipo5.dao.metodosCompany;
+import equipo5.model.Agricultor;
+import equipo5.model.Cooperativa;
+import equipo5.model.Fabrica;
+import equipo5.model.Retailer;
+import equipo6.model.Actor;
+import equipo6.model.Bloque;
+import equipo6.model.DatosContainer;
+import equipo7.model.OrdenTrazabilidad;
+import equipo7.model.Productos;
+import equipo7.model.Transportista;
+import equipo8.model.Sensor;
+
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,6 +23,11 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.LinkedList;
+
+import equipo4.model.AlmacenLotes;
+import equipo4.model.AlmacenMMPP;
+import equipo4.model.Lote;
+
 import java.util.*;
 
 public class Test extends metodosCompany {
@@ -71,7 +88,7 @@ public class Test extends metodosCompany {
             
              
             //Prueba Agricultor
-            Agricultor agricultor = new Agricultor("evrf", "Juan", "calle España", 76);
+            Agricultor agricultor = new Agricultor("evrf", "Juan", "calle Espaï¿½a", 76);
             insercionAgricultor(agricultor);
             getAgricultor(agricultor.getCif());
             
@@ -116,7 +133,7 @@ public class Test extends metodosCompany {
              insercionActor(re);
              //getActor("lperez");
              
-             //prueba orden
+           /*  //prueba orden
              OrdenTrazabilidad orden = new OrdenTrazabilidad(1,"que llegue pronto por favor", em, re,
 						 a, prod);
              insertarOrdenTrazabilidad(orden);
@@ -124,8 +141,8 @@ public class Test extends metodosCompany {
              
              //prueba bloque --> NO FUNCIONA DA ERROR EL GETHASHCODE
              Bloque bloq = new Bloque("pasGD312463", 1, 2, 1, (DatosContainer) orden);
-             insertarBloqueOrden(bloq);
-             getBloqueOrden(bloq.getHashCode());
+             insertarBloque(bloq);
+             getBloque(bloq.getHashCode());*/
              
              
              System.out.print("Pasados todos los test correctamente");

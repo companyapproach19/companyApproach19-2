@@ -13,22 +13,22 @@ class TestTrazabilidad {
 	@Test
 	void test() {
 		BBDDTemporal bd = new BBDDTemporal();
-		bd.createCadena(0);
+		//bd.createCadena(0);
 		
 		BlockchainServices bcs = new BlockchainServices();
-		bcs.init(bd);
+		//bcs.init(bd);
 		
 		Traspaso t = new Traspaso(0,"Bloque 1");
-		bcs.guardarTraspaso(t);
+		//bcs.guardarTraspaso(t);
 		Traspaso t2=new Traspaso(0, "Bloque 2");
-		bcs.guardarTraspaso(t2);
+		//bcs.guardarTraspaso(t2);
 		Traspaso t3=new Traspaso(0, "Bloque 3");
-		bcs.guardarTraspaso(t3);
+		//bcs.guardarTraspaso(t3);
 		System.out.println(bcs.checkConsistencia(0));
-		Traspaso t1 = bcs.getTraspaso(0);
+		//Traspaso t1 = bcs.getTraspaso(0);
 		
 		
-		System.out.println(t1.getInfo());
+		//System.out.println(t1.getInfo());
 	}
 
 }

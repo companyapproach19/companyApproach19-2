@@ -1,14 +1,17 @@
-package test;
+package equipo7;
 import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 //NECESARIOS PARA TRAZABILIDAD:
 import equipo6.otros.BlockchainServices;
+import equipo7.model.OrdenTrazabilidad;
+import equipo7.model.Productos;
+import equipo7.model.Transportista;
+import equipo7.otros.CodificadorJSON;
+import equipo7.otros.Main_pedidos;
 
-import model.*;
-import otros.*;
-import controller.*;
+
 public class MainDePrueba {
 
     public static void main(String[] args) {
@@ -30,9 +33,9 @@ public class MainDePrueba {
                     "Juan Jose Romagosa", "Povas",
                     "08-03-2019", "13-03-2019");
 
-            Productos productos = new Productos(20, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+           // Productos productos = new Productos(20, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            OrdenTrazabilidad pedidoPrueba = new OrdenTrazabilidad(id, "Petici�n de prueba.",
+            /*OrdenTrazabilidad pedidoPrueba = new OrdenTrazabilidad(id, "Petici�n de prueba.",
                     OrdenTrazabilidad.Actor.FABRICA, OrdenTrazabilidad.Actor.COOPERATIVA,
                     transportistaPrueba, productos);
             
@@ -43,8 +46,8 @@ public class MainDePrueba {
            String json=ejemplo.crearJSON(pedidoPrueba);
            
             Main_pedidos a= new Main_pedidos(json);
-            a.crear_pedido_pedido();
-            escritor.close();
+            a.crear_pedido();
+            escritor.close();*/
         } catch (IOException e) {
             e.printStackTrace();
         }

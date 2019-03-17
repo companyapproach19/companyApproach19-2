@@ -1,4 +1,4 @@
-package equipo6.test;
+package equipo6;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +21,7 @@ class TestLogin {
 	void testInterno() {
 		BBDDTemporal bd = new BBDDTemporal();
 		CadenaActores cad = new CadenaActores();
+		/*
 		Actor ac=new Actor("jorge","jorge","jorge@gmail.com",new Actor(),0,0);
 		cad.addActor(ac);
 		Actor ac2=new Actor("jorge2","jorge2","jorge@gmail.com",ac,1,0);
@@ -30,16 +31,16 @@ class TestLogin {
 		bd.guardarCadenaActores(cad);
 		
 		UsuariosService usrv = new UsuariosService();
-		usrv.init(bd);
+		usrv.init(bd);*/
 		
 		
 		Actor acCorrecto=new Actor("jorge","jorge");		
-		Actor resp=usrv.logUsuario(acCorrecto);
-		if(resp!=null)System.out.println(resp.getNombreUsuario());
+		//Actor resp=usrv.logUsuario(acCorrecto);
+		//if(resp!=null)System.out.println(resp.getNombreUsuario());
 		
 		Actor acIncorrecto=new Actor("jorge4","jorge4");		
-		resp=usrv.logUsuario(acIncorrecto);
-		if(resp!=null)System.out.println(resp.getNombreUsuario());
+		//resp=usrv.logUsuario(acIncorrecto);
+		//if(resp!=null)System.out.println(resp.getNombreUsuario());
 	}
 	
 	void testServicioWeb() {
