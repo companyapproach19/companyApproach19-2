@@ -1,8 +1,11 @@
-package cadenaSensor;
+package equipo8;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
+import equipo6.model.DatosContainer;
+import equipo8.model.Sensor;
 
 //Clase donde se simulan posibles llamadas al método "buscar" que se encuentra en la clase"sensorPrueba"
 public class PruebasSensor extends DatosContainer{
