@@ -58,32 +58,7 @@ public class Actor implements Serializable{
         this.nombreUsuario = nombreUsuario;
         this.passwordSalt = passwordSalt;
         this.email = email;
-        //this.usuarioPrevio = usuarioPrevio;
         this.tipoActor = tipoActor;
-    }
-    //Funcion que, checkea si el Actor pasado como parametro se corresponde con este (this),
-    //y si no es asi, llama a este m�todo en el Actor guardado en el campo usuarioPrevio.
-    //De esta manera se recorre la lista de Actores desde el final al principio.
-    //Si usuario se corresponde, devolverse a si mismo (de momento, ya veremos como lo hacemos con la vista)
-    //Si no se corresponde, pero existe usuario previo, devolver lo que devuelva la llamada a logMe del usuario previo
-    //Si usuarioPrevio==Actor vacio (campos nombre y mail vacios) (inicio de la lista), se 
-    //lanza una excepcion gen�rica, y devolver null
-    //TODO gonzalo
-
-    public Actor logMe(Actor usuarioIntentaAcceder) throws Exception{
-        if(actor_compare(usuarioIntentaAcceder))
-        {
-        	System.out.println("Usuario encontrado.");
-        	return this;
-        }
-        else
-        {
-            throw new Exception
-                                (
-                                    "Error al logear usuario : " + usuarioIntentaAcceder.nombreUsuario +
-                                    " contrase�a : " + usuarioIntentaAcceder.passwordPlana
-                                );
-        }
     }
 
     //GETTERS
