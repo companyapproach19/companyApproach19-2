@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CadenaActores implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Actor> lista_actores;
 
 
@@ -12,8 +16,9 @@ public class CadenaActores implements Serializable{
 	//TODO gonzalo
 	public CadenaActores()
 	{
-		lista_actores = new ArrayList<Actor>();
+		this.lista_actores = new ArrayList<Actor>();
 	}
+	
 
 	//comprueba si el objeto Actor
 	private boolean is_user_val(Actor usuarioLogin)
@@ -26,12 +31,17 @@ public class CadenaActores implements Serializable{
                     que el usurio sea valido*/
 						);
 	}
+	
+	public List<Actor> getlista_actores() 
+	{
+		return this.lista_actores;
+	}
 
 	//retorna la longitud de la cadena
 
 	public int length()
 	{
-		return lista_actores.size();
+		return this.lista_actores.size();
 	}
 
 	//Añadir nuevo actor a la cadena. Recuerda que el nuevo tiene que tener referencia
@@ -43,7 +53,7 @@ public class CadenaActores implements Serializable{
 
 		try {
 			if(nuevoActor != null) {
-				lista_actores.add(nuevoActor);
+				this.lista_actores.add(nuevoActor);
 				return nuevoActor.getId()/*id del usuario*/;
 			}
 			else 
@@ -73,7 +83,8 @@ public class CadenaActores implements Serializable{
 			throw new Exception("Error al logear usuario, usuario no valido");
 		}
 		
-		for (Actor actor : lista_actores) {
+				
+		for (Actor actor : this.lista_actores) {
 			if(actor.actor_compare(usuarioLogin)) 
 			{
 				actor_login = actor;

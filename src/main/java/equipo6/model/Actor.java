@@ -6,7 +6,6 @@ public class Actor implements Serializable{
     private int id;
     private String nombreUsuario;
     private String passwordPlana;
-    private String passwordSalt = null;
     private String email = null;
     private int tipoActor = 0; //0->4 para Productor, Cooperativa, Transportista, Fabrica y Retailer
 
@@ -25,7 +24,6 @@ public class Actor implements Serializable{
         this.email="";
         this.tipoActor=-1;
         this.passwordPlana="";
-        this.passwordSalt="";
     }
 
     //Constructor utilizado por la vista para pasarnos los datos
@@ -39,9 +37,9 @@ public class Actor implements Serializable{
     //Constructor usado por la BBDD para instanciar el objeto que nos va a devolver
     //TODO gonzalo
 
-    public Actor(String nombreUsuario, String passwordSalt, String email, int tipoActor){
+    public Actor(String nombreUsuario, String passwordPlana, String email, int tipoActor){
         this.nombreUsuario = nombreUsuario;
-        this.passwordSalt = passwordSalt;
+        this.passwordPlana = passwordPlana;
         this.email = email;
         this.tipoActor = tipoActor;
     }
@@ -53,10 +51,10 @@ public class Actor implements Serializable{
         this.tipoActor = tipoActor;
     }
     
-    public Actor(int id, String nombreUsuario, String passwordSalt, String email, int tipoActor){
+    public Actor(int id, String nombreUsuario, String passwordPlana, String email, int tipoActor){
     	this.id = id;
         this.nombreUsuario = nombreUsuario;
-        this.passwordSalt = passwordSalt;
+        this.passwordPlana = passwordPlana;
         this.email = email;
         this.tipoActor = tipoActor;
     }
@@ -73,10 +71,10 @@ public class Actor implements Serializable{
     {
         return this.passwordPlana;
     }
-
+    
     public String getpasswordSalt()
     {
-        return this.passwordSalt;
+        return this.passwordPlana;
     }
 
     public String getEmail()
@@ -109,6 +107,12 @@ public class Actor implements Serializable{
 
 	public void setPasswordPlana(String string) {
 		this.passwordPlana=string;
+		
+	}
+	
+	public String toString() {
+		
+		return this.nombreUsuario;
 		
 	}
 }
