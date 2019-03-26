@@ -2,6 +2,7 @@ package equipo7.model;
 import java.io.Serializable;
 
 import equipo6.model.DatosContainer;
+import equipo6.model.Actor;
 
 public class OrdenTrazabilidad extends DatosContainer
 {
@@ -101,9 +102,9 @@ public class OrdenTrazabilidad extends DatosContainer
       return null;
     }
     
-		public enum Actor {
+		/*public enum Actor {
 		    PRODUCTOR, COOPERATIVA, FABRICA, RETAILER, TIENDA
-		}
+		}*/
 		
 		public enum EstadoOrden {
 			EN_PROCESO, LISTO_PARA_ENTREGAR, EN_PROCESO_DE_ENTREGA, ENTREGADO

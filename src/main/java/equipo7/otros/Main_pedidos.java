@@ -40,27 +40,8 @@ public class Main_pedidos {
 	}
 	
 	public static void sacarCodigoOrigenDestino() {
-		int contador=0;
-		OrdenTrazabilidad.Actor tipo;
-		int codigo;
-		while(contador<2) {
-			if(contador==0) {
-				tipo=OrdenTrazabilidad.getActorOrigen();
-			}
-			else {
-				tipo=OrdenTrazabilidad.getDestinatario();
-			}
-			switch(tipo) {
-				case PRODUCTOR:codigo=1;break;
-				case COOPERATIVA:codigo=2;break;
-				case FABRICA:codigo=3;break;
-				case RETAILER:codigo=4;break;
-				case TIENDA:codigo=5;break;
-				default:codigo=100;break;//caso error no existe dicho usuario 
-			}
-			if(contador==0) codorigen=codigo;
-			else coddestino=codigo;
-			contador++;
-		}
+		
+		codorigen = OrdenTrazabilidad.getActorOrigen().getTipoActor();
+		coddestino = OrdenTrazabilidad.getDestinatario().getTipoActor();
 	} 
 }
