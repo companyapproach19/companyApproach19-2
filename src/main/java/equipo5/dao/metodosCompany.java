@@ -18,6 +18,7 @@ import equipo5.model.Cooperativa;
 import equipo5.model.Fabrica;
 import equipo5.model.Retailer;
 import equipo6.model.Bloque;
+import equipo6.model.CadenaActores;
 import equipo6.model.Actor;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
@@ -261,16 +262,10 @@ public class metodosCompany {
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
          while(rs.next()) {
-         //TODO 
-           /*
-            * Aclarar como es el objeto OrdenTrazabilidad, porque sus parámetros 3 y 4 no encajan bien
-            * Ellos devuelven un ENUM, no un objeto de tipo ACTOR
-            */
-           
-         OrdenTrazabilidad buscado = null; /*new OrdenTrazabilidad(id, rs.getString(2), 
+    
+         OrdenTrazabilidad buscado = new OrdenTrazabilidad(id, rs.getString(2), 
              getActor(rs.getString(3)), getActor(rs.getString(4)),
         		 getTransportista(rs.getString(5)), getProductos(rs.getInt(6)));
-        		 */
          pst.close();
          rs.close();
          conn.close();
@@ -285,13 +280,8 @@ public class metodosCompany {
         PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
        pst.setInt(1, orden.getId());
        pst.setString(2, orden.getMensaje());
-       //TODO 
-       /*
-        * Aclarar como es el objeto OrdenTrazabilidad, porque sus parámetros 3 y 4 no encajan bien
-        * Ellos devuelven un ENUM, no un objeto de tipo ACTOR
-        */
-       //pst.setString(3, orden.getActorOrigen().getNombreUsuario());
-       //pst.setString(4, orden.getDestinatario().getNombreUsuario());
+       pst.setString(3, orden.getActorOrigen().getNombreUsuario());
+       pst.setString(4, orden.getDestinatario().getNombreUsuario());
        pst.setString(5, orden.getTransportista().getNombre());
        pst.setInt(6, orden.getProductos().getId());
         pst.executeUpdate();
@@ -341,12 +331,14 @@ public class metodosCompany {
     
     public static Cadena extraerCadena(int codLote) throws SQLException {
     	conectar();
-        String query = "SELECT * FROM company.cadena WHERE cadena.codLote = ? ";
-        PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-        pst.setInt(1, codLote);
+        String query = "SELECT * FROM company.cadena WHERE cadena.codLote = "+codLote;
+        Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
-        rs.next();
-        Cadena buscado = new Cadena(codLote, rs.getString(2), rs.getInt(3));
+        Cadena buscado = null;
+        while(rs.next()) {
+            buscado = new Cadena(codLote, rs.getString(2), rs.getInt(3));
+
+        }
         pst.close();
         rs.close();
         conn.close();
@@ -729,6 +721,20 @@ public class metodosCompany {
 	  return null;
 	  }
 		
+	  public static CadenaActores getCadenaActores() throws SQLException {
+		  conectar();
+		  CadenaActores cadena = new CadenaActores();
+		  String query = "SELECT * FROM company.actor";
+		  Statement pst = conn.createStatement();
+		  ResultSet rs = pst.executeQuery(query);
+		  while(rs.next()) {
+			  Actor buscado = new Actor(rs.getInt(1), rs.getString(2), rs.getString(4), rs.getString(5),
+	            		rs.getInt(6));
+			  cadena.addActor(buscado);
+			  }
+		  return cadena;
+		  
+	  }
 		 public static Actor getActor(String nombreUsuario) throws SQLException, ClassNotFoundException {
 			 if(nombreUsuario!= null) {
 		            conectar();
@@ -736,17 +742,19 @@ public class metodosCompany {
 		            String query = "SELECT * FROM company.actor WHERE actor.nombreUsuario = '" + nombreUsuario + "'";
 		            Statement pst = conn.createStatement();
 		            ResultSet rs = pst.executeQuery(query);
-		            rs.next();
+		            while(rs.next()) {
 		            Actor buscado = new Actor(rs.getInt(1), rs.getString(2), rs.getString(4), rs.getString(5),
 		            		rs.getInt(6));
 		            pst.close();
 		            rs.close();
 		            return buscado; 
+		            }
+		            return null;
 		        }
 		        else return null;
-		    }
+		    }		 
 		 
-		public static void insercionActor(Actor actor) throws SQLException, ClassNotFoundException {
+		public static void insercionActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException{
 		        conectar();
 		        String query = "INSERT INTO company.actor (nombreUsuario, passwdPlana, passwdSalt, email, tipoActor) VALUES (?, ?, ?, ?, ?);";
 		        PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -760,8 +768,8 @@ public class metodosCompany {
 		    }
 
 		    
-		   public static Bloque getBloque(String hashBloquePedido) throws SQLException, ClassNotFoundException {
-                /*conectar();
+		   public static Bloque getBloque(String hashBloquePedido) throws SQLException, ClassNotFoundException, RuntimeException {
+                conectar();
                 Bloque devolver =null;
                 String query = "SELECT * FROM company.bloque WHERE id = '" + hashBloquePedido + "'" ;
                 Statement pst = conn.createStatement();
@@ -781,16 +789,17 @@ public class metodosCompany {
                             devolver = buscado2;
                             break;
                     }
-                }
+            
                 pst.close();
                 rs.close();
                 conn.close();
-                return devolver;*/
+                return devolver;
+                }
 			   return null;
             }
 
-            public static void insertarBloque(Bloque bloqAinsertar) throws SQLException, ClassNotFoundException {
-                /*int data=0;
+            public static void insertarBloque(Bloque bloqAinsertar) throws SQLException, ClassNotFoundException, RuntimeException {
+                int data=0;
                 switch (bloqAinsertar.getTipoBloque()) {
                     case 0:
                         OrdenTrazabilidad aInsertar = (OrdenTrazabilidad) bloqAinsertar.getDatos();
@@ -811,12 +820,7 @@ public class metodosCompany {
                 pst.setInt(6, data);
                 pst.setFloat(7, bloqAinsertar.getTimeStamp());
                 pst.executeUpdate();
-                pst.close();*/
-            	
-
+                pst.close();
             }
-
-
-
        
 }

@@ -6,6 +6,7 @@ import equipo5.model.Fabrica;
 import equipo5.model.Retailer;
 import equipo6.model.Actor;
 import equipo6.model.Bloque;
+import equipo6.model.CadenaActores;
 import equipo6.model.DatosContainer;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
@@ -131,18 +132,23 @@ public class Test extends metodosCompany {
              insercionActor(pri);
              insercionActor(em);
              insercionActor(re);
-             //getActor("lperez");
+             getActor("lperez");
              
-           /*  //prueba orden
+             //pruebas CadenaActores
+             CadenaActores cadena;
+             cadena =  getCadenaActores();
+             
+             //prueba orden
              OrdenTrazabilidad orden = new OrdenTrazabilidad(1,"que llegue pronto por favor", em, re,
 						 a, prod);
              insertarOrdenTrazabilidad(orden);
              getOrdenTrazabalidad(1);
              
              //prueba bloque --> NO FUNCIONA DA ERROR EL GETHASHCODE
+             
              Bloque bloq = new Bloque("pasGD312463", 1, 2, 1, (DatosContainer) orden);
              insertarBloque(bloq);
-             getBloque(bloq.getHashCode());*/
+             getBloque(bloq.getHashCode());
              
              
              System.out.print("Pasados todos los test correctamente");
