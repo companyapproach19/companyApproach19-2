@@ -14,7 +14,9 @@ import equipo6.otros.BlockchainServices;
 import equipo7.otros.CodificadorJSON;
 import equipo7.otros.Main_pedidos;
 import equipo7.otros.Orden;
-
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @SpringBootApplication
 public class ManejaPeticiones {
@@ -125,9 +127,6 @@ public class ManejaPeticiones {
         bloque.guardarOrden(pedido.OrdenTrazabilidad);
         
         return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
-	}
-	
-	
-	
+	} 
 		
 }
