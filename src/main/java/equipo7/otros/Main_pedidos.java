@@ -42,6 +42,6 @@ public class Main_pedidos {
 	public static void sacarCodigoOrigenDestino() {
 		
 		codorigen = OrdenTrazabilidad.getActorOrigen().getTipoActor();
-		coddestino = OrdenTrazabilidad.getDestinatario().getTipoActor();
+		coddestino = OrdenTrazabilidad.getActorDestino().getTipoActor();
 	} 
 }
