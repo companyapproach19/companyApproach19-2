@@ -3,9 +3,7 @@ package equipo4.model;
 import java.util.*;
 
 //se implementa una pila FIFO : first in first out 
-/*
-* Es m�s �til sacar los lotes por el id que para algo est�
-*/
+
 public class AlmacenLotes{
 	private static int idBd;
 	private static final int maxCapacidad=7;

@@ -8,14 +8,29 @@ public class Lote {
 	private  Date fecha_inicio;
 	private  Date fecha_final;
 
-	public Lote(int idBd, int code, String tipo, LinkedList<String> lista, Date ini, Date end) {
+	public Lote(int idBd, Pilsner p, Date ini) {
 		this.idBd=idBd;
-		this.code=code;
-		this.tipo=tipo;
-		this.pedidos=lista;
+		this.code=p.getId();
+		this.tipo="Pilsner";
+		this.pedidos=new LinkedList<String>;
 		this.fecha_inicio=ini;
-		this.fecha_final=end;
+		Date aux = (Date) fecha_inicio.clone();
+		aux.setDate(fecha_inicio.getDate()+12);
+		this.fecha_final = aux;	
 	}
+	
+	public Lote(int idBd, Stout s, Date ini) {
+		his.idBd=idBd;
+		this.code=s.getId();
+		this.tipo="Stout";
+		this.pedidos=new LinkedList<String>;
+		this.fecha_inicio=ini;
+		Date aux = (Date) fecha_inicio.clone();
+		aux.setDate(fecha_inicio.getDate()+12);
+		this.fecha_final = aux;	
+	}
+	
+	
 	/*@SuppressWarnings({ "deprecation", "static-access" })
 	public Lote(Stout name, Date fecha_inicio) {
 		Lote.code=name.getId();
@@ -76,9 +91,6 @@ public class Lote {
 
 	public  void setFecha_inicio(Date fecha_inicio) {
 		this.fecha_inicio = fecha_inicio;
-		/*
-		 * Aqu� deber�amos inicializar la fecha final
-		 */
 	}
 	
 	public  void setFecha_final(Date fecha_final) {
