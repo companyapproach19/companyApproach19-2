@@ -1,4 +1,4 @@
-	package equipo4.model;
+	package equipo4;
 	public class Pilsner {
 		
 		public static double maltaPilsner;
