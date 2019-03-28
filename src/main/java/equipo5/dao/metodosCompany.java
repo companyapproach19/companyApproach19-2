@@ -1,5 +1,6 @@
 package equipo5.dao;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -23,6 +24,7 @@ import equipo6.model.Actor;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo7.model.Transportista;
+import equipo8.model.GeneradorQR2;
 import equipo8.model.Sensor;
 
 public class metodosCompany {
@@ -107,6 +109,7 @@ public class metodosCompany {
                         "pedido VARCHAR(45) NOT NULL ," +
                         "fecha_inicio TIMESTAMP NOT NULL ," +
                         "fecha_final TIMESTAMP NOT NULL, " +
+                        "qr BYTEA NOT NULL, " +
                         "PRIMARY KEY (idBd));"
         );
         pst3.executeUpdate();
@@ -264,8 +267,7 @@ public class metodosCompany {
          while(rs.next()) {
     
          OrdenTrazabilidad buscado = new OrdenTrazabilidad(id, rs.getString(2), 
-             getActor(rs.getString(3)), getActor(rs.getString(4)),
-        		 getTransportista(rs.getString(5)), getProductos(rs.getInt(6)));
+             getActor(rs.getString(3)), getActor(rs.getString(4)), getProductos(rs.getInt(6)));
          pst.close();
          rs.close();
          conn.close();
@@ -281,8 +283,8 @@ public class metodosCompany {
        pst.setInt(1, orden.getId());
        pst.setString(2, orden.getMensaje());
        pst.setString(3, orden.getActorOrigen().getNombreUsuario());
-       pst.setString(4, orden.getDestinatario().getNombreUsuario());
-       pst.setString(5, orden.getTransportista().getNombre());
+       pst.setString(4, orden.getActorDestino().getNombreUsuario());
+      // pst.setString(5, orden.getTransportista().getNombre());
        pst.setInt(6, orden.getProductos().getId());
         pst.executeUpdate();
         pst.close();
@@ -489,7 +491,7 @@ public class metodosCompany {
 
     }
     
-    public static void insertarLote(Lote lote) throws SQLException {
+    public static void insertarLote(Lote lote) throws Throwable {
 	    conectar();
 	    LinkedList<String> list = lote.getPedidos();
 	    
@@ -497,13 +499,17 @@ public class metodosCompany {
 	    
 	    String ped = list.get(i);
 	    
-        String query = "INSERT INTO company.lote (idLote, tipo, pedido, fecha_inicio, fecha_final) VALUES (?, ?, ?, ?, ?);";
+        String query = "INSERT INTO company.lote (idLote, tipo, pedido, fecha_inicio, fecha_final, qr) VALUES (?, ?, ?, ?, ?, ?);";
         PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
         pst.setInt(1, lote.getCode());
         pst.setString(2, lote.getTipo());
         pst.setString(3, ped);
         pst.setDate(4, (Date) lote.getFecha_inicio());
         pst.setDate(5, (Date) lote.getFecha_final());
+        //Blob blob = new javax.sql.rowset.serial.SerialBlob(GeneradorQR2.generadorQR(lote.getCode()));
+        //pst.setBlob(6, blob);
+        //pst.setBinaryStream(6, GeneradorQR2.generadorQR(lote.getCode()));
+        pst.setBytes(6, GeneradorQR2.generadorQR(lote.getCode()));
         pst.executeUpdate();
         pst.close();
         
@@ -511,17 +517,34 @@ public class metodosCompany {
 	    conn.close();
     }
     
+    public static byte [] getQR(int idLote) throws SQLException {
+    	conectar();
+        String query = "SELECT * FROM company.lote WHERE idLote =" + idLote;
+        Statement pst2 = conn.createStatement();
+        ResultSet rs2 = pst2.executeQuery(query);
+        while(rs2.next()) {
+        byte [] binario = rs2.getBytes(7);
+         pst2.close();
+         rs2.close();
+         conn.close();
+         return binario;
+
+        }
+    	return null;
+    }
+    
     public static Lote getLote(int idLote) throws SQLException {
     	conectar();
+    	
         String query = "SELECT * FROM company.lote WHERE idLote =" + idLote;
         Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
         LinkedList<String> lista = new LinkedList<String>();
         int idB = 0;
         while(rs.next()) {
-        String ped = rs.getString(4);
-        lista.add(ped);
-        idB= rs.getInt(1);
+	        String ped = rs.getString(4);
+	        lista.add(ped);
+	        idB= rs.getInt(1);
         }
         pst.close();
         rs.close();
@@ -530,11 +553,11 @@ public class metodosCompany {
         Statement pst2 = conn.createStatement();
         ResultSet rs2 = pst2.executeQuery(query);
         while(rs2.next()) {
-        Lote buscado = new Lote(idB, rs2.getInt(2), rs2.getString(3), lista, rs2.getDate(5), rs2.getDate(6));
-        pst2.close();
-        rs2.close();
-        conn.close();
-        return buscado;
+	        Lote buscado = new Lote(idB, rs2.getInt(2), rs2.getString(3), lista, rs2.getDate(5), rs2.getDate(6));
+	        pst2.close();
+	        rs2.close();
+	        conn.close();
+	        return buscado;
         }
         return null;
     }
