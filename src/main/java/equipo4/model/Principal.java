@@ -5,29 +5,70 @@ import java.util.Scanner;
 public class Principal {
 	
 	private static java.util.Date fechaActual = new java.util.Date();
+	private static double densidad;
 
 	@SuppressWarnings("deprecation")
 	public static int moler(Lote lote) throws InterruptedException {
-		//java.util.Date fechaActual = new java.util.Date();
-		//lote.setFecha_inicio(fechaActual);
-		System.out.println("Día: " + fechaActual.getDate());
+		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
 		System.out.println("Moliendo...");
 		Thread.sleep(3000);
 		fechaActual.setDate(fechaActual.getDate() + 1);
-		System.out.println("Proceso de molienda finalizado. Día: " + fechaActual.getDate());
+		System.out.println("Proceso de molienda finalizado. Día: " + fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
 		return 0;
 	}
 	
 	@SuppressWarnings("deprecation")
 	public static int cocinar(Lote lote) throws InterruptedException {
-		System.out.println("Día: "+fechaActual.getDate());
+		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
 		System.out.println("Cociendo...");
 		Thread.sleep(3000);
-		fechaActual.setDate(fechaActual.getDate()+1); 
-		System.out.println("Proceso de molienda finalizado. Día: "+fechaActual.getDate());
+		fechaActual.setDate(fechaActual.getDate() + 1); 
+		System.out.println("Proceso de cocción finalizado. Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
 		return 0;
 	}
 
+	@SuppressWarnings("deprecation")
+	public static int fermentar(Lote lote) throws InterruptedException {
+		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
+		System.out.println("Fermentando...");
+		Thread.sleep(3000);
+		fechaActual.setDate(fechaActual.getDate() + 7); 
+		densidad = 1.045 - (Math.random() * 0.5);
+		System.out.println("Proceso de fermentación finalizado. Día: "+fechaActual.getDate()+
+				"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
+		if (densidad > 1.010) {
+			System.out.println("Las pruebas de densidad indican una densidad de " + densidad + 
+					", por lo que es necesario realizar una segunda fermentación.");
+			fermentar2(lote);
+		}
+		return 0;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static int fermentar2(Lote lote) throws InterruptedException {
+		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+
+				"/"+fechaActual.getYear());
+		System.out.println("Fermentando otra vez...");
+		Thread.sleep(3000);
+		fechaActual.setDate(fechaActual.getDate()+15); 
+		densidad -= (Math.random() * 0.1);
+		System.out.println("Proceso de segunda fermentación finalizado. Día: "+fechaActual.getDate()+
+				"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
+		return 0;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static int embotellar(Lote lote) throws InterruptedException {
+		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
+		System.out.println("Embotellando...");
+		Thread.sleep(3000);
+		fechaActual.setDate(fechaActual.getDate()+2); 
+		System.out.println("Proceso de embotellado finalizado. Día: "+fechaActual.getDate()+
+				"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
+		AlmacenLotes.almacenarLote(lote);
+		return 0;
+	}
+	
 	public static void main(String[] args) throws InterruptedException {
 		System.out.println("¿Desea generar un lote? (s/n)");
 		Scanner sc = new Scanner(System.in);
@@ -46,7 +87,10 @@ public class Principal {
 				switch(pilsner.toLowerCase()) {
 				case "s":
 					a = new Pilsner();
-					lote = new Lote(a, fechaActual);
+					lote = new Lote(0, a, fechaActual); 
+					//el nuevo constructor de Lote.java incluye como parámetro idBd
+					//de momento pasamos 0 para que no falle, más adelante lo trataremos
+					//con el equipo encargado de la BBDD
 					AlmacenLotes.almacenarLote(lote);
 					//System.out.println("Se está empezando a moler su lote de cerveza Pilsner.");
 					break;
@@ -56,7 +100,8 @@ public class Principal {
 					switch(stout.toLowerCase()) {
 					case "s":
 						b = new Stout();
-						lote = new Lote(b, fechaActual);
+						lote = new Lote(0, b, fechaActual);
+						//same que pilsner
 						//System.out.println("Se está empezando a moler su lote de cerveza Stout.");
 					case "n":
 						break;
@@ -77,13 +122,10 @@ public class Principal {
 						moler(lote);
 						System.out.println("Comienza la fase de cocinado.");
 						cocinar(lote);
-						/*System.out.println("Comienza la fase de fermentación.");
-						fermentar();
-						System.out.println("Comienza la segunda fase de fermentación.");
-						fermentar();
+						System.out.println("Comienza la fase de fermentación.");
+						fermentar(lote);
 						System.out.println("Comienza la fase de embotellado.");
-						embotellar();
-						 */
+						embotellar(lote);
 					}
 					
 				} catch (InterruptedException e) {
@@ -114,3 +156,4 @@ public class Principal {
 	}
 
 }
+

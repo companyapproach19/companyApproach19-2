@@ -3,19 +3,17 @@ package equipo4.model;
 import java.util.*;
 
 //se implementa una pila FIFO : first in first out 
-/*
-* Es m�s �til sacar los lotes por el id que para algo est�
-*/
+
 public class AlmacenLotes{
 	private static int idBd;
 	private static final int maxCapacidad=7;
 	public static LinkedList<Lote> lista  = new LinkedList<Lote>();
-	private static int id=1;
+	private static int id;
 	
-	public 	AlmacenLotes(int idBd,int id, LinkedList<Lote> lista) {
+	public 	AlmacenLotes(int idBd) {
 		this.idBd=idBd;
-		this.id=id;
-		this.lista=lista;
+		this.lista= new LinkedList<Lote>();
+		id = 1;
 	}
 	
 	public static int getId() {
