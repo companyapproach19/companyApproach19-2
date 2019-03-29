@@ -259,7 +259,7 @@ public class metodosCompany {
         
     }
     
-    public static OrdenTrazabilidad getOrdenTrazabalidad(int id) throws SQLException, ClassNotFoundException {
+    public static OrdenTrazabilidad extraerOrdenTrazabalidad(int id) throws SQLException, ClassNotFoundException {
     	conectar();
     	 String query = "SELECT * FROM company.ordenTrazabilidad WHERE id = " + id;
          Statement pst = conn.createStatement();
@@ -267,7 +267,7 @@ public class metodosCompany {
          while(rs.next()) {
     
          OrdenTrazabilidad buscado = new OrdenTrazabilidad(id, rs.getString(2), 
-             getActor(rs.getString(3)), getActor(rs.getString(4)), getProductos(rs.getInt(6)));
+             getActor(rs.getString(3)), getActor(rs.getString(4)), extraerProductos(rs.getInt(6)));
          pst.close();
          rs.close();
          conn.close();
@@ -291,7 +291,7 @@ public class metodosCompany {
         conn.close();
     }
     
-    public static Productos getProductos(int id) throws SQLException {
+    public static Productos extraerProductos(int id) throws SQLException {
     	conectar();
     	 String query = "SELECT * FROM company.productos WHERE id =" + id;
          Statement pst = conn.createStatement();
@@ -443,7 +443,7 @@ public class metodosCompany {
         conn.close();
     }
 
-    public static Retailer getRetailer(String CIF) throws SQLException {
+    public static Retailer extraerRetailer(String CIF) throws SQLException {
     	conectar();
         String query = "SELECT * FROM company.retailer WHERE cif = '" + CIF + "'";
         Statement pst = conn.createStatement();
@@ -458,7 +458,7 @@ public class metodosCompany {
         return null;
     }
 
-    public static Fabrica getFabrica(String CIF) throws SQLException {
+    public static Fabrica extraerFabrica(String CIF) throws SQLException {
     	conectar();
         String query = "SELECT * FROM company.fabrica WHERE fabrica.fabrica_cif = '" + CIF + "'";
         Statement pst = conn.createStatement();
@@ -473,7 +473,7 @@ public class metodosCompany {
         return null;
     }
 
-    public static AlmacenMMPP getAlmacenMMPP(int id) throws SQLException, ClassNotFoundException {
+    public static AlmacenMMPP extraerAlmacenMMPP(int id) throws SQLException, ClassNotFoundException {
         conectar();
         String query = "SELECT * FROM company.almacenMateriasPrimas WHERE almacenMateriasPrimas.idAlmacenMateriasPrimas = " + id;
         Statement pst = conn.createStatement();
@@ -533,7 +533,7 @@ public class metodosCompany {
     	return null;
     }
     
-    public static Lote getLote(int idLote) throws SQLException {
+    public static Lote extraerLote(int idLote) throws SQLException {
     	conectar();
     	
         String query = "SELECT * FROM company.lote WHERE idLote =" + idLote;
@@ -580,7 +580,7 @@ public class metodosCompany {
 	    conn.close();
     }
    
-   public static AlmacenLotes getAlmacenLotes(int idAlm) throws SQLException {
+   public static AlmacenLotes extraerAlmacenLotes(int idAlm) throws SQLException {
 	   conectar();
        String query = "SELECT * FROM company.almacenLotes WHERE idAlmacenLotes =" + idAlm;
        Statement pst = conn.createStatement();
@@ -590,7 +590,7 @@ public class metodosCompany {
        
        while(rs.next()) {
        int idLote = rs.getInt(3);
-       Lote lote = getLote(idLote);
+       Lote lote = extraerLote(idLote);
        lista.add(lote);
        idB=rs.getInt(1);
        }
@@ -610,7 +610,7 @@ public class metodosCompany {
        return null;
    }
    
-   public static void insercionAgricultor (Agricultor agricultor) throws SQLException, ClassNotFoundException{
+   public static void insertarAgricultor (Agricultor agricultor) throws SQLException, ClassNotFoundException{
 		conectar();
 	    String query = "INSERT INTO company.agricultor (cif, nombre, direccion, cifCooperativa) VALUES (?, ?, ?, ?);"; 
 	    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -623,7 +623,7 @@ public class metodosCompany {
 	    conn.close();
    }
  
-   public static void insercionCooperativa (Cooperativa cooperativa) throws SQLException, ClassNotFoundException{
+   public static void insertarCooperativa (Cooperativa cooperativa) throws SQLException, ClassNotFoundException{
    	conectar();
 	    String query = "INSERT INTO company.cooperativa (cif, nombre, direccion) VALUES (?, ?, ?);"; 
 	    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -635,7 +635,7 @@ public class metodosCompany {
 	    conn.close();
    }
    
-	public static Agricultor getAgricultor(String cif) throws SQLException, ClassNotFoundException{
+	public static Agricultor extraerAgricultor(String cif) throws SQLException, ClassNotFoundException{
    	conectar();  
    	String query = "SELECT * FROM company.agricultor WHERE agricultor.cif = '" + cif + "'";
    	Statement pst = conn.createStatement();
@@ -649,7 +649,7 @@ public class metodosCompany {
    	return null;
    }
  
-	public static Cooperativa getCooperativa(String cif) throws SQLException, ClassNotFoundException{
+	public static Cooperativa extraerCooperativa(String cif) throws SQLException, ClassNotFoundException{
     	conectar();
     	String query = "SELECT * FROM company.cooperativa WHERE cooperativa.cif = '" + cif + "'";
     	Statement pst = conn.createStatement();
@@ -681,7 +681,7 @@ public class metodosCompany {
 
 
 
-	  public static Transportista getTransportista(String nombre_empresa) throws SQLException {
+	  public static Transportista extraerTransportista(String nombre_empresa) throws SQLException {
 	       conectar();
 	       String query = "SELECT * FROM company.transportista WHERE transportista.nombre_empresa = '" + nombre_empresa + "'";
 	       Statement pst = conn.createStatement();
@@ -721,7 +721,7 @@ public class metodosCompany {
 		}
 
 
-	  public static Sensor getSensor (int id) throws SQLException {
+	  public static Sensor extraerSensor (int id) throws SQLException {
 	  conectar();
 	  String query = "SELECT * FROM company.sensor WHERE sensor.id = " +  id;
 	  Statement pst = conn.createStatement();
@@ -777,7 +777,7 @@ public class metodosCompany {
 		        else return null;
 		    }		 
 		 
-		public static void insercionActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException{
+		public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException{
 		        conectar();
 		        String query = "INSERT INTO company.actor (nombreUsuario, passwdPlana, passwdSalt, email, tipoActor) VALUES (?, ?, ?, ?, ?);";
 		        PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -791,7 +791,7 @@ public class metodosCompany {
 		    }
 
 		    
-		   public static Bloque getBloque(String hashBloquePedido) throws SQLException, ClassNotFoundException, RuntimeException {
+		   public static Bloque extraerBloque(String hashBloquePedido) throws SQLException, ClassNotFoundException, RuntimeException {
                 conectar();
                 Bloque devolver =null;
                 String query = "SELECT * FROM company.bloque WHERE id = '" + hashBloquePedido + "'" ;
@@ -804,11 +804,11 @@ public class metodosCompany {
                     int codLote = rs.getInt(5);
                     switch (tipoBloque) {
                         case 0:
-                            Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, getOrdenTrazabalidad(rs.getInt(6)));
+                            Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerOrdenTrazabalidad(rs.getInt(6)));
                             devolver = buscado;
                             break;
                         case 2:
-                            Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, getSensor(rs.getInt(6)));
+                            Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerSensor(rs.getInt(6)));
                             devolver = buscado2;
                             break;
                     }
