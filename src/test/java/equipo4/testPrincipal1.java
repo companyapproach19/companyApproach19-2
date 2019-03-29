@@ -16,23 +16,23 @@ import equipo4.model.Stout;
 public class testPrincipal1 {
 	@Test
 	public void test1() throws InterruptedException {
-		Lote lote= new Lote(new Pilsner(), new Date());
+		Lote lote= new Lote(0, new Pilsner(), new Date());
 		int result = Principal.moler(lote);
 		assertEquals(result, 0);
 	}
 	@Test
 	public void test2() throws InterruptedException {
-		int result = Principal.cocinar(new Lote(new Pilsner(), new Date()));
+		int result = Principal.cocinar(new Lote(0, new Pilsner(), new Date()));
 		assertEquals(result, 0);
 	}
 	@Test
 	public void test3() throws InterruptedException {
-		Lote lote = new Lote(new Stout(), new Date());
+		Lote lote = new Lote(0, new Stout(), new Date());
 		int result = Principal.cocinar(lote);
 		assertEquals(result, 0);
 	}
 	public void test4() throws InterruptedException {
-		Lote lote= new Lote(new Stout(), new Date());
+		Lote lote= new Lote(0, new Stout(), new Date());
 		int result = Principal.moler(lote);
 		assertEquals(result, 0);
 		
