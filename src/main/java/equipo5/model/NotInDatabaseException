@@ -1,3 +1,5 @@
+package equipo5.model;
+
 public class NotInDatabaseException extends Exception{
 	public NotInDatabaseException(String msg) {
         super(msg);
