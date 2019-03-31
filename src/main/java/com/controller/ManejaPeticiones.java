@@ -60,7 +60,8 @@ public class ManejaPeticiones {
 		Orden origen = pedido.crear_pedido();
 		//Para cambiar el estado del pedido
 		origen.aceptarPedido();
-		this.peticiones.add(origen);
+		//this.peticiones.add(origen);
+		pedido.OrdenTrazabilidad.setOrigenOrdenes(origen);
 		
 		//NECESARIO PARA TRAZABILIDAD:
         BlockchainServices bloque = new BlockchainServices();
@@ -76,10 +77,11 @@ public class ManejaPeticiones {
 	public String listoPedido(String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
-		//Hay que compara los identificadores de los ordentrazabilidad
+		//Hay que comparar los identificadores de los ordentrazabilidad
 		//Dichos ordenTrazabilidad son: el del json y el de los arrays
+		Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
+		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
 		
-		Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
 		//Para cambiar el estado del pedido
 		origen.listoParaEntregar();
 		
@@ -123,7 +125,8 @@ public class ManejaPeticiones {
 		//Hay que compara los identificadores de los ordentrazabilidad
 		//Dichos ordenTrazabilidad son: el del json y el de los arrays
 		
-		Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
+		Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
+		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
 		//Para cambiar el estado del pedido
 		origen.firmadoEntrega();
 		

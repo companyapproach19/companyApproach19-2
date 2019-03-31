@@ -2,6 +2,7 @@ package equipo7.model;
 import java.io.Serializable;
 
 import equipo6.model.DatosContainer;
+import equipo7.otros.Orden;
 import equipo6.model.Actor;
 
 public class OrdenTrazabilidad extends DatosContainer
@@ -35,6 +36,9 @@ public class OrdenTrazabilidad extends DatosContainer
 		private boolean firmadoRecogida;
 		//en la entrega del pedido (llegada al destino)
 		private boolean firmadoEntrega;
+		//Este objeto sera de la clase Ordenes del actor de origen
+		//Contiene al objeto de la clase Ordenes del actor de destino
+		private Orden origenOrdenes;
 
 		public OrdenTrazabilidad(int identificador,String mensaje, Actor emisor, Actor receptor, Productos productos) {
 			this.id = identificador;
@@ -46,10 +50,6 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.firmadoRecogida=false;
 			this.firmadoEntrega=false;
 			this.necesitaTransportista=false;
-		}
-		
-		public void setEstadoProceso(EstadoOrden nuevo) {
-			this.estado=nuevo;
 		}
 		
 		public void setActorOrigen(Actor actorOrigen) {
@@ -78,6 +78,18 @@ public class OrdenTrazabilidad extends DatosContainer
 		
 		public void setMensaje(String mensaje) {
 			this.mensaje = mensaje;
+		}
+		
+		public void setFirmadoRecogida(boolean firmadoRecogida) {
+			this.firmadoRecogida = firmadoRecogida;
+		}
+
+		public void setFirmadoEntrega(boolean firmadoEntrega) {
+			this.firmadoEntrega = firmadoEntrega;
+		}
+		
+		public void setOrigenOrdenes(Orden origenOrdenes) {
+			this.origenOrdenes=origenOrdenes;
 		}
 		
 		public boolean getNecesitaTransportista() {
@@ -116,20 +128,13 @@ public class OrdenTrazabilidad extends DatosContainer
 			return productos;
 		}
     
-		/*public enum Actor {
-		    PRODUCTOR, COOPERATIVA, FABRICA, RETAILER, TIENDA
-		}*/
+		public Orden getOrigenOrdenes() {
+			return origenOrdenes;
+		}
 		
 		public enum EstadoOrden {
 			EN_PROCESO, LISTO_PARA_ENTREGAR, EN_PROCESO_DE_ENTREGA, ENTREGADO
 		}
 
-		public void setFirmadoRecogida(boolean firmadoRecogida) {
-			this.firmadoRecogida = firmadoRecogida;
-		}
-
-		public void setFirmadoEntrega(boolean firmadoEntrega) {
-			this.firmadoEntrega = firmadoEntrega;
-		}
  
 }
