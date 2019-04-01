@@ -7,6 +7,11 @@ public class Lote {
 	public  LinkedList<String> pedidos;
 	private  Date fecha_inicio;
 	private  Date fecha_final;
+	
+	private boolean molido;
+	private boolean cocido;
+	private boolean fermentado;
+	private boolean embotellado;
 
 	public Lote(int idBd, Pilsner p, Date ini) {
 		this.idBd=idBd;
@@ -17,6 +22,7 @@ public class Lote {
 		Date aux = (Date) fecha_inicio.clone();
 		aux.setDate(fecha_inicio.getDate()+12);
 		this.fecha_final = aux;	
+		molido=cocido=fermentado=embotellado=false;
 	}
 	
 	public Lote(int idBd, Stout s, Date ini) {
@@ -28,6 +34,7 @@ public class Lote {
 		Date aux = (Date) fecha_inicio.clone();
 		aux.setDate(fecha_inicio.getDate()+12);
 		this.fecha_final = aux;	
+		molido=cocido=fermentado=embotellado=false;
 	}
 	
 	
@@ -92,6 +99,41 @@ public class Lote {
 	
 	public  Date getFecha_final() {
 		return this.fecha_final;
+	}
+
+	public boolean isMolido() {
+		return molido;
+	}
+
+	public void setMolido(boolean molido) {
+		this.molido = molido;
+	}
+
+	public boolean isCocido() {
+		return cocido;
+	}
+
+	public boolean setCocido(boolean cocido) {
+		this.cocido = cocido;
+		return cocido;
+	}
+
+	public boolean isFermentado() {
+		return fermentado;
+	}
+
+	public boolean setFermentado(boolean fermentado) {
+		this.fermentado = fermentado;
+		return fermentado;
+	}
+
+	public boolean isEmbotellado() {
+		return embotellado;
+	}
+
+	public boolean setEmbotellado(boolean embotellado) {
+		this.embotellado = embotellado;
+		return embotellado;
 	}
 }
 

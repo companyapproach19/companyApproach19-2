@@ -14,6 +14,7 @@ public class Principal {
 		Thread.sleep(3000);
 		fechaActual.setDate(fechaActual.getDate() + 1);
 		System.out.println("Proceso de molienda finalizado. Día: " + fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
+		lote.setMolido(true);
 		return 0;
 	}
 	
@@ -24,6 +25,7 @@ public class Principal {
 		Thread.sleep(3000);
 		fechaActual.setDate(fechaActual.getDate() + 1); 
 		System.out.println("Proceso de cocción finalizado. Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
+		lote.setCocido(true);
 		return 0;
 	}
 
@@ -41,6 +43,7 @@ public class Principal {
 					", por lo que es necesario realizar una segunda fermentación.");
 			fermentar2(lote);
 		}
+		lote.setFermentado(true);
 		return 0;
 	}
 	
@@ -54,6 +57,7 @@ public class Principal {
 		densidad -= (Math.random() * 0.1);
 		System.out.println("Proceso de segunda fermentación finalizado. Día: "+fechaActual.getDate()+
 				"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
+		lote.setEmbotellado(true);
 		return 0;
 	}
 	
