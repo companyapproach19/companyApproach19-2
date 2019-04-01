@@ -1,0 +1,142 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- Include the above in your HEAD tag -->
+<link href="style.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<title>Login Page</title>
+   
+<!--Bootsrap 4 CDN-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+ 
+<!--Fontawesome CDN-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+<!--Custom styles-->
+<link rel="stylesheet" type="text/css" href="style.css">
+ 
+<!-- Import jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 
+</head>
+<body>
+<div class="main">
+    
+    
+<div class="container">
+<center>
+<div class="middle">
+      <div id="login">
+
+        <form action="javascript:void(0);" method="get">
+
+          <fieldset class="clearfix">
+
+            <p ><span class="fa fa-user"></span><input type="text"  Placeholder="Username" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fa fa-lock"></span><input type="password"  Placeholder="Password" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+            
+             <div>
+                               
+                                <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Sign In"></span>
+                            </div>
+
+          </fieldset>
+<div class="clearfix"></div>
+        </form>
+
+        <div class="clearfix"></div>
+
+      </div> <!-- end login -->
+      <div class="logo">
+      <img src="https://images.vexels.com/media/users/3/144118/isolated/lists/31093a4558d1aa47a6fcec2a174f2754-signo-de-cerveza-de-neon.png">
+          
+          <div class="clearfix"></div>
+      </div>
+      
+      </div>
+</center>
+    </div>
+
+
+
+<script>
+
+
+function login() {
+      var actor = hacerPeticion();
+ 
+      //Comprobamos que el usuario del json que nos devuelven coincide con el que nos han escrito
+      if (actor != null) {
+      window.open(actor.redirect);
+      }
+  }
+
+function hacerPeticion(){
+      var request = $.ajax({
+      // la URL para la petición
+      url : '/loginUser',
+ 
+      // la información a enviar
+      // (también es posible utilizar una cadena de datos)
+      data : "usuario=" + $("#username").val() + "&pwd=" + $("#password").val(),,
+ 
+      // especifica si será una petición POST o GET
+      type : 'POST',
+ 
+      // el tipo de información que se espera de respuesta
+      dataType : 'json',
+ 
+      // código a ejecutar si la petición es satisfactoria;
+      // la respuesta es pasada como argumento a la función
+      });
+ 
+     request.done(function(data){
+       //Problema preguntar 
+       var actor = hacerPeticion();
+ 
+     //Comprobamos que el usuario del json que nos devuelven coincide con el que nos han escrito
+     if (actor != null) {
+         //Este metodo redirige a la URL
+      windows.append(data.redirect)
+     }
+     // Else ?
+ 
+     });
+ 
+ 
+ 
+ 
+     request.fail(function(data) {
+     //TODO: //windows.append(data.redirect)
+ 
+ 
+     });
+ 
+ 
+ 
+ 
+ 
+ }
+ 
+ 
+</script>
+
+
+
+
+
+
+</div>
+
+ 
+</body>
+</html>
