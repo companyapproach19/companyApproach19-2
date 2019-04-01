@@ -53,7 +53,19 @@ public class Lote {
 		pedidos = new LinkedList<String>();
 	}*/
 
-  public  LinkedList<String> getPedidos() {
+	/*
+	 * Constructor auxiliar para la BBDD
+	 */
+	public Lote(int idBd, int code, String tipo, LinkedList<String> lista, Date ini, Date fin) {
+		this.idBd=idBd;
+		this.code=code;
+		this.tipo=tipo;
+		this.pedidos = lista;
+		this.fecha_inicio=ini;
+		this.fecha_final=fin;
+	}
+	
+	public  LinkedList<String> getPedidos() {
 		return pedidos;
 	}
 

@@ -16,6 +16,14 @@ public class AlmacenLotes{
 		id = 1;
 	}
 	
+	/*
+	 * Constructor auxiliar para que compile el código de la BBDD
+	 */
+	public AlmacenLotes(int idB, int int1, LinkedList<Lote> lista2) {
+		this.idBd=idB;
+		this.id=int1;
+		this.lista=lista2;
+	}
 	public static int getId() {
 		return id;
 	}
@@ -24,21 +32,14 @@ public class AlmacenLotes{
 		return maxCapacidad;
 	}
 
-	/*public static void setMaxCapacidad(int maxCapacidad) {
-		AlmacenLotes.maxCapacidad = maxCapacidad;
-	}*/
-
 	public static LinkedList<Lote> getLista() {
 		return lista;
 	}
-
 
 	public static void setId(int id) {
 		AlmacenLotes.id = id;
 	}
 
-	public AlmacenLotes() {
-	}
 
 	public static void almacenarLote(Lote name) {
 		if (lista.size()<=6) {

@@ -31,6 +31,7 @@ public class Lote {
 	}
 	
 	
+	
 	/*@SuppressWarnings({ "deprecation", "static-access" })
 	public Lote(Stout name, Date fecha_inicio) {
 		Lote.code=name.getId();
