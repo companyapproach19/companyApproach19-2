@@ -2,6 +2,7 @@ package com.controller;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import equipo7.model.OrdenTrazabilidad;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -48,6 +49,23 @@ public class ManejaPeticiones {
 			return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
 		}
 		else return "ERROR";
+	}
+
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/obtenerPedido")
+	@ResponseBody
+	// Recibe el ID de un pedido y devuelve su JSON asociado
+	public String creaOrden(
+			@RequestParam(name="id", required=true) int id) {
+
+		// Obtenemos el pedido de trazabilidad
+		BlockchainServices bloque = new BlockchainServices();
+		OrdenTrazabilidad pedido = bloque.getTraspaso(id);
+		if (pedido != null)
+			return CodificadorJSON.crearJSON(pedido);
+		else
+			return "ERROR: No se pudo obtener el pedido";
 	}
 	
 	//PARA EQUIPO 2: VISTAS
