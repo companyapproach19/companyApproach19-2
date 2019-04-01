@@ -20,13 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @SpringBootApplication
 public class ManejaPeticiones {
-	
-	ArrayList<Orden> peticiones;
-	
-	public ManejaPeticiones() {
-		this.peticiones = new ArrayList<Orden>();
-	}
-	
+
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
 	@RequestMapping("/creaPedido")
@@ -38,7 +32,11 @@ public class ManejaPeticiones {
 		Main_pedidos pedido = new Main_pedidos(json);
 		//TODO: configurar identificador
 		if(pedido.verificar_pedido()) {
-			pedido.OrdenTrazabilidad.setId(this.peticiones.size()+1);
+			int id;
+			while (id == 0) {
+
+			}
+			pedido.OrdenTrazabilidad.setId(id);
 			
 			//NECESARIO PARA TRAZABILIDAD:
 			//La orden se guardara en la base de datos
@@ -54,7 +52,8 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/aceptarPedido")
 	@ResponseBody
-	public String aceptarPedido(String json) {
+	public String aceptarPedido(
+			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
 		Orden origen = pedido.crear_pedido();
@@ -74,7 +73,8 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/listoPedido")
 	@ResponseBody
-	public String listoPedido(String json) {
+	public String listoPedido(
+			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
 		//Hay que comparar los identificadores de los ordentrazabilidad
@@ -97,13 +97,14 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/recogidoPedido")
 	@ResponseBody
-	public String recogidoPedido(String json) {
+	public String recogidoPedido(
+			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
 		//Hay que compara los identificadores de los ordentrazabilidad
 		//Dichos ordenTrazabilidad son: el del json y el de los arrays
-		
-		Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
+
+		Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
 		//Para cambiar el estado del pedido
 		origen.firmadoRecogida();
 		
@@ -119,7 +120,8 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/entregadoPedido")
 	@ResponseBody
-	public String entregadoPedido(String json) {
+	public String entregadoPedido(
+			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
 		//Hay que compara los identificadores de los ordentrazabilidad
