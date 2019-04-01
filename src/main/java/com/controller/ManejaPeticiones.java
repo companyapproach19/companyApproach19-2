@@ -49,33 +49,6 @@ public class ManejaPeticiones {
 		}
 		else return "ERROR";
 	}
-
-	//PARA EQUIPO 2: VISTAS
-	@Scope("request")
-	@RequestMapping("/creaPedido")
-	@ResponseBody
-	//Devuelve y recibe un json
-	public String creaOrden(
-			@RequestParam(name="json", required=true) String json) {
-
-		Main_pedidos pedido = new Main_pedidos(json);
-		//TODO: configurar identificador
-		if(pedido.verificar_pedido()) {
-			int id;
-			while (id == 0) {
-
-			}
-			pedido.OrdenTrazabilidad.setId(id);
-
-			//NECESARIO PARA TRAZABILIDAD:
-			//La orden se guardara en la base de datos
-			BlockchainServices bloque = new BlockchainServices();
-			bloque.guardarOrden(pedido.OrdenTrazabilidad);
-
-			return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
-		}
-		else return "ERROR";
-	}
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
