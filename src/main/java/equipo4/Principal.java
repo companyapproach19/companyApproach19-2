@@ -1,10 +1,11 @@
 package equipo4;
 
 import java.util.Scanner;
+import java.util.Date;
 
 public class Principal {
 	
-	private static java.util.Date fechaActual = new java.util.Date();
+	private static Date fechaActual = new Date();
 	private static double densidad;
 
 	@SuppressWarnings("deprecation")
@@ -20,57 +21,81 @@ public class Principal {
 	
 	@SuppressWarnings("deprecation")
 	public static int cocinar(Lote lote) throws InterruptedException {
-		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
-		System.out.println("Cociendo...");
-		Thread.sleep(3000);
-		fechaActual.setDate(fechaActual.getDate() + 1); 
-		System.out.println("Proceso de cocción finalizado. Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
-		lote.setCocido(true);
-		return 0;
+		System.out.println(
+				"Día: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + 
+				"/" + fechaActual.getYear());
+		if (lote.isMolido()) {
+			System.out.println("Cociendo...");
+			Thread.sleep(3000);
+			fechaActual.setDate(fechaActual.getDate() + 1);
+			System.out.println("Proceso de cocción finalizado. Día: " + fechaActual.getDate() + "/"
+					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
+			lote.setCocido(true);
+			return 0;
+		} else {
+			System.out.println("El lote no ha sido molido!");
+			return 1;
+		}
 	}
 
 	@SuppressWarnings("deprecation")
 	public static int fermentar(Lote lote) throws InterruptedException {
 		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
-		System.out.println("Fermentando...");
-		Thread.sleep(3000);
-		fechaActual.setDate(fechaActual.getDate() + 7); 
-		densidad = 1.045 - (Math.random() * 0.5);
-		System.out.println("Proceso de fermentación finalizado. Día: "+fechaActual.getDate()+
-				"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
-		if (densidad > 1.010) {
-			System.out.println("Las pruebas de densidad indican una densidad de " + densidad + 
-					", por lo que es necesario realizar una segunda fermentación.");
-			fermentar2(lote);
+		if (lote.isCocido()) {
+			System.out.println("Fermentando...");
+			Thread.sleep(3000);
+			fechaActual.setDate(fechaActual.getDate() + 7);
+			densidad = 1.045 - (Math.random() * 0.5);
+			System.out.println("Proceso de fermentación finalizado. Día: " + fechaActual.getDate() + "/"
+					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
+			if (densidad > 1.010) {
+				System.out.println("Las pruebas de densidad indican una densidad de " + densidad
+						+ ", por lo que es necesario realizar una segunda fermentación.");
+				fermentar2(lote);
+			}
+			lote.setFermentado(true);
+			return 0;
+		} else {
+			System.out.println("El lote no ha sido cocinado!");
+			return 1;
 		}
-		lote.setFermentado(true);
-		return 0;
 	}
 	
 	@SuppressWarnings("deprecation")
 	public static int fermentar2(Lote lote) throws InterruptedException {
 		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+
 				"/"+fechaActual.getYear());
-		System.out.println("Fermentando otra vez...");
-		Thread.sleep(3000);
-		fechaActual.setDate(fechaActual.getDate()+15); 
-		densidad -= (Math.random() * 0.1);
-		System.out.println("Proceso de segunda fermentación finalizado. Día: "+fechaActual.getDate()+
-				"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
-		lote.setEmbotellado(true);
-		return 0;
+		if (lote.isFermentado()) {
+			System.out.println("Fermentando otra vez...");
+			Thread.sleep(3000);
+			fechaActual.setDate(fechaActual.getDate() + 15);
+			densidad -= (Math.random() * 0.1);
+			System.out.println("Proceso de segunda fermentación finalizado. Día: " + fechaActual.getDate() + "/"
+					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
+			lote.setFermentado2(true);
+			return 0;
+		} else {
+			System.out.println("El lote no ha sido fermentado!");
+			return 1;
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
 	public static int embotellar(Lote lote) throws InterruptedException {
 		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
-		System.out.println("Embotellando...");
-		Thread.sleep(3000);
-		fechaActual.setDate(fechaActual.getDate()+2); 
-		System.out.println("Proceso de embotellado finalizado. Día: "+fechaActual.getDate()+
-				"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
-		AlmacenLotes.almacenarLote(lote);
-		return 0;
+		if (lote.isFermentado()) {
+			System.out.println("Embotellando...");
+			Thread.sleep(3000);
+			fechaActual.setDate(fechaActual.getDate() + 2);
+			System.out.println("Proceso de embotellado finalizado. Día: " + fechaActual.getDate() + "/"
+					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
+			lote.setEmbotellado(true);
+			AlmacenLotes.almacenarLote(lote);
+			return 0;
+		} else {
+			System.out.println("El lote no ha sido fermentado!");
+			return 1;
+		}
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
