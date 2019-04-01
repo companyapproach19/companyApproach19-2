@@ -1,8 +1,12 @@
 package com.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
 import equipo7.model.OrdenTrazabilidad;
+import equipo7.model.OrdenTrazabilidad.EstadoOrden;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -33,6 +37,7 @@ public class ManejaPeticiones {
 		if(pedido.verificar_pedido()) {
 			int id = 0;
 			boolean yaExiste = true;
+			//TODO: sobra la condicion de id==0 no??
 			while (id == 0 && yaExiste) {
 				// Obtiene un numero aleatorio entre 1 y 999999,
 				// que sera el ID del pedido a la hora de crearse
@@ -56,7 +61,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/obtenerPedido")
 	@ResponseBody
 	// Recibe el ID de un pedido y devuelve su JSON asociado
-	public String creaOrden(
+	public String obtenerOrden(
 			@RequestParam(name="id", required=true) int id) {
 
 		// Obtenemos el pedido de trazabilidad
@@ -67,6 +72,98 @@ public class ManejaPeticiones {
 		else
 			return "ERROR: No se pudo obtener el pedido";
 	}
+	
+	//PARA EQUIPO 2: VISTAS
+		@Scope("request")
+		@RequestMapping("/pedidosNoAceptados")
+		@ResponseBody
+		// Recibe el ID de un actor y devuelve un JSON con los pedidos no aceptados de ese actor
+		public String pedidosNoAceptados(
+				@RequestParam(name="idActor", required=true) int idActor) {
+			
+			//Obtenemos los pedidos de trazabilidad
+			BlockchainServices bloque = new BlockchainServices();
+			ArrayList<OrdenTrazabilidad> pedidos = bloque.getLista(idActor);
+			
+			if(pedidos!=null && pedidos.size()>0) {
+				ArrayList<Integer> identificadoresPedidos = new ArrayList<Integer>();
+				//Se necesitan aquellos pedidos pendientes por aceptar una persona
+				Iterator<OrdenTrazabilidad> it = pedidos.iterator();
+				while(it.hasNext()) {
+					//Hay que mirar que el actor sea destino
+					OrdenTrazabilidad actual = it.next();
+					if(actual.getActorDestino().getId()==idActor) {
+						//El estado del pedido cuando no ha sido aceptado
+						if(actual.getEstado()==null) {
+							identificadoresPedidos.add(actual.getId());
+						}
+					}
+				}
+				int ids[] = new int[identificadoresPedidos.size()];
+				for(int i=0;i<identificadoresPedidos.size();i++) {
+					ids[i] = identificadoresPedidos.get(i);
+				}
+				
+				ListaPedidos pedidosNoAceptados = new ListaPedidos(ids);
+				//Devolver lista de identificadores
+				return CodificadorJSON.crearJSONlista(pedidosNoAceptados);
+				
+			}
+			else return "ERROR: No tiene pedidos pendientes por aceptar";
+			
+		}
+		
+	
+	public class ListaPedidos{
+		
+		private int numero;
+		private int[] pedidos;
+		
+		public ListaPedidos(int[] pedidos) {
+			this.pedidos=pedidos;
+			this.numero=this.pedidos.length;
+		}
+	}
+	
+	//PARA EQUIPO 2: VISTAS
+		@Scope("request")
+		@RequestMapping("/pedidosEnProceso")
+		@ResponseBody
+		// Recibe el ID de un actor y devuelve un JSON con los pedidos en proceso de ese actor
+		public String pedidosEnProceso(
+				@RequestParam(name="idActor", required=true) int idActor) {
+			
+			//Obtenemos los pedidos de trazabilidad
+			BlockchainServices bloque = new BlockchainServices();
+			ArrayList<OrdenTrazabilidad> pedidos = bloque.getLista(idActor);
+			
+			if(pedidos!=null && pedidos.size()>0) {
+				ArrayList<Integer> identificadoresPedidos = new ArrayList<Integer>();
+				//Se necesitan aquellos pedidos pendientes por aceptar una persona
+				Iterator<OrdenTrazabilidad> it = pedidos.iterator();
+				while(it.hasNext()) {
+					//Hay que mirar que el actor sea destino
+					OrdenTrazabilidad actual = it.next();
+					if(actual.getActorDestino().getId()==idActor) {
+						//El estado del pedido debe ser en proceso
+						if(actual.getEstado().compareTo(EstadoOrden.EN_PROCESO)==0) {
+							identificadoresPedidos.add(actual.getId());
+						}
+					}
+				}
+				int ids[] = new int[identificadoresPedidos.size()];
+				for(int i=0;i<identificadoresPedidos.size();i++) {
+					ids[i] = identificadoresPedidos.get(i);
+				}
+				
+				ListaPedidos pedidosNoAceptados = new ListaPedidos(ids);
+				//Devolver lista de identificadores
+				return CodificadorJSON.crearJSONlista(pedidosNoAceptados);
+				
+			}
+			else return "ERROR: No tiene pedidos en proceso";
+		
+		}
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
