@@ -2,12 +2,7 @@
     "id": 49126,
     "actorOrigen": "FABRICA",
     "destinatario": "COOPERATIVA",
-    "transportista": {
-	"nombre": "Juan Jose Romagosa",
-	"empresa": "Povas",
-	"fecha_recogida": "08-03-2019",
-	"fecha_entrega": "13-03-2019"
-    },
+    "necesitaTransportista": true,
     "productos": {
 	"cant_malta_palida": 20,
 	"cant_malta_munich": 40,
@@ -22,6 +17,6 @@
     "cant_cajas_bisner":0
     },
     "mensaje": "Petición de prueba.",
-    "firmadoRecogida": false,
-    "firmadoEntrega": false
+    "firmaRecogida": "U0kgTEEgVElFUlJBIEVTIFJFRE9OREEgRU5UT05DRVMgUE9SIFFVw4kgRVMgUExBTkE=",
+    "firmaEntrega": null
 }

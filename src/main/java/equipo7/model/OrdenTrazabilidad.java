@@ -1,5 +1,4 @@
 package equipo7.model;
-import java.io.Serializable;
 
 import equipo6.model.DatosContainer;
 import equipo7.otros.Orden;
@@ -31,11 +30,13 @@ public class OrdenTrazabilidad extends DatosContainer
 		private String mensaje;
 		//Estado del pedido
 		private EstadoOrden estado;
-		//El transportista firma en dos ocasiones del pedido:
-		//en la recogida del pedido (llegada al origen)
-		private boolean firmadoRecogida;
+		// El transportista firma en dos ocasiones del pedido:
+		// en la recogida del pedido (llegada al origen)
+		// (se guarda el binario de la imagen de la firma
+		// en base 64)
+		private String firmaRecogida;
 		//en la entrega del pedido (llegada al destino)
-		private boolean firmadoEntrega;
+		private String firmaEntrega;
 		//Este objeto sera de la clase Ordenes del actor de origen
 		//Contiene al objeto de la clase Ordenes del actor de destino
 		private Orden origenOrdenes;
@@ -47,8 +48,8 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.productos=productos;
 			this.mensaje=mensaje;
 			this.estado=null;
-			this.firmadoRecogida=false;
-			this.firmadoEntrega=false;
+			this.firmaRecogida =null;
+			this.firmaEntrega =null;
 			this.necesitaTransportista=false;
 		}
 		
@@ -80,12 +81,12 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.mensaje = mensaje;
 		}
 		
-		public void setFirmadoRecogida(boolean firmadoRecogida) {
-			this.firmadoRecogida = firmadoRecogida;
+		public void setFirmaRecogida(String firmaRecogida) {
+			this.firmaRecogida = firmaRecogida;
 		}
 
-		public void setFirmadoEntrega(boolean firmadoEntrega) {
-			this.firmadoEntrega = firmadoEntrega;
+		public void setFirmaEntrega(String firmaEntrega) {
+			this.firmaEntrega = firmaEntrega;
 		}
 		
 		public void setOrigenOrdenes(Orden origenOrdenes) {
@@ -108,20 +109,18 @@ public class OrdenTrazabilidad extends DatosContainer
 			return actorOrigen;
 		}
 
-		public Actor getActorDestino() {
-			return actorDestino;
-		}
+		public Actor getActorDestino() { return actorDestino; }
 
 		public EstadoOrden getEstado() {
 			return estado;
 		}
 
-		public boolean isFirmadoRecogida() {
-			return firmadoRecogida;
+		public String getFirmaRecogida() {
+			return firmaRecogida;
 		}
 
-		public boolean isFirmadoEntrega() {
-			return firmadoEntrega;
+		public String getFirmaEntrega() {
+			return firmaEntrega;
 		}
 		
 		public Productos getProductos() {
