@@ -14,19 +14,22 @@ public class Orden {
 	
 	
 	public void aceptarPedido() {
-		this.pedido.setEstadoProceso(OrdenTrazabilidad.EstadoOrden.EN_PROCESO);
+		this.pedido.setEstado(OrdenTrazabilidad.EstadoOrden.EN_PROCESO);
 	}
 	
 	public void listoParaEntregar() {
-		this.pedido.setEstadoProceso(OrdenTrazabilidad.EstadoOrden.LISTO_PARA_ENTREGAR);
+		this.pedido.setEstado(OrdenTrazabilidad.EstadoOrden.LISTO_PARA_ENTREGAR);
+		if(!(pedido.getActorOrigen().getTipoActor()==1) || !(pedido.getActorDestino().getTipoActor()==0)){
+			pedido.setNecesitaTransportista(true);
+		}
 	}
 	
 	public void firmadoRecogida() {
-		this.pedido.setEstadoProceso(OrdenTrazabilidad.EstadoOrden.EN_PROCESO_DE_ENTREGA);
+		this.pedido.setEstado(OrdenTrazabilidad.EstadoOrden.EN_PROCESO_DE_ENTREGA);
 	}
 	
 	public void firmadoEntrega() {
-		this.pedido.setEstadoProceso(OrdenTrazabilidad.EstadoOrden.ENTREGADO);
+		this.pedido.setEstado(OrdenTrazabilidad.EstadoOrden.ENTREGADO);
 	}
 	
 	protected OrdenTrazabilidad getPedido() {
