@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Principal {
 	
 	private static java.util.Date fechaActual = new java.util.Date();
-	private static float densidad;
+	private static double densidad;
 
 	@SuppressWarnings("deprecation")
 	public static int moler(Lote lote) throws InterruptedException {
@@ -57,7 +57,7 @@ public class Principal {
 		return 0;
 	}
 	
-	@SupressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
 	public static int embotellar(Lote lote) throws InterruptedException {
 		System.out.println("Día: "+fechaActual.getDate()+"/"+fechaActual.getMonth()+"/"+fechaActual.getYear());
 		System.out.println("Embotellando...");
@@ -87,7 +87,7 @@ public class Principal {
 				switch(pilsner.toLowerCase()) {
 				case "s":
 					a = new Pilsner();
-					lote = new Lote(a, fechaActual);
+					lote = new Lote(0, a, fechaActual);
 					AlmacenLotes.almacenarLote(lote);
 					//System.out.println("Se está empezando a moler su lote de cerveza Pilsner.");
 					break;
@@ -97,7 +97,7 @@ public class Principal {
 					switch(stout.toLowerCase()) {
 					case "s":
 						b = new Stout();
-						lote = new Lote(b, fechaActual);
+						lote = new Lote(0, b, fechaActual);
 						//System.out.println("Se está empezando a moler su lote de cerveza Stout.");
 					case "n":
 						break;
@@ -119,9 +119,9 @@ public class Principal {
 						System.out.println("Comienza la fase de cocinado.");
 						cocinar(lote);
 						System.out.println("Comienza la fase de fermentación.");
-						fermentar();
+						fermentar(lote);
 						System.out.println("Comienza la fase de embotellado.");
-						embotellar();
+						embotellar(lote);
 					}
 					
 				} catch (InterruptedException e) {
