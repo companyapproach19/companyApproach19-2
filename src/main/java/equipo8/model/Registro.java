@@ -8,8 +8,8 @@ public class Registro {
 	private int hora;
   	private int min;
   	private int sec;
-	//private String fechaInicio;
-	//private String fechaFin;
+	private String fechaInicio;
+	private String fechaFin;
 	private int actor;
 	private int tempMax;
 	private int tempMin;
@@ -22,8 +22,8 @@ public class Registro {
 		this.hora = hora;
 		this.min = min;
 		this.sec = sec;
-		//this.fechaInicio = fechaInicio;
-		//this.fechaFin = fechaFin;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 		this.actor = actor;
 		this.tempMax = tempMax;
 		this.tempMin = tempMin;
@@ -57,13 +57,13 @@ public class Registro {
 		this.sec = sec;
 	}
 	
-	/*public void setFechaInicio (int fechaInicio) {
+	public void setFechaInicio (int fechaInicio) {
 		this.fechaInicio = fechaInicio;		
 	}
 	
 	public void setFechaFin (int fechaFin) {
 		this.fechaFin = fechaFin;
-	}*/
+	}
 	
 	public void setActor (int actor) {
 		this.actor = actor;
@@ -104,13 +104,13 @@ public class Registro {
 		return this.sec;
 	}
 	
-	/*public int getFechaInicio () {
+	public int getFechaInicio () {
 		return this.fechaInicio;
 	}
 	
 	public int getFechaFin() {
 		return this.fechaFin;
-	}*/
+	}
 	
 	public int getActor() {
 		return this.actor;
