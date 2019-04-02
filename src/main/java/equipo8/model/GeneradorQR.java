@@ -30,7 +30,7 @@ public class GeneradorQR {
     //Prueba con un array de lotes (hay que cambiarlo por los lotes buenos)
     private static String[] lotes={"accounts", "device", "search?q=cars"};
     
-    //Metemos en él el path para que guarde los fotos en una carpeta
+    //Metemos en Ã©l el path para que guarde los fotos en una carpeta
     private static FileOutputStream qrCode;
     
     //Para el blob
@@ -39,7 +39,7 @@ public class GeneradorQR {
     
 	public static void main(String[] args) throws Exception {
  
-        // URL que vamos a transformar al que le añadimos /IDlote
+        // URL que vamos a transformar al que le aÃ±adimos /IDlote
         String URL = "http://www.google.com";
         
  
