@@ -15,7 +15,7 @@ public class Registro {
 	private int tempMin;
 	
 	public Registro(int idLote,int anio, int mes, int dia, int hora, int min, int sec,int actor, int tempMax, int tempMin) {
-		tthis.idLote=idLote;
+		this.idLote=idLote;
 		this.anio = anio;
 		this.mes = mes;
 		this.dia = dia;
@@ -57,11 +57,11 @@ public class Registro {
 		this.sec = sec;
 	}
 	
-	public void setFechaInicio (int fechaInicio) {
+	public void setFechaInicio (String fechaInicio) {
 		this.fechaInicio = fechaInicio;		
 	}
 	
-	public void setFechaFin (int fechaFin) {
+	public void setFechaFin (String fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 	
@@ -104,11 +104,11 @@ public class Registro {
 		return this.sec;
 	}
 	
-	public int getFechaInicio () {
+	public String getFechaInicio () {
 		return this.fechaInicio;
 	}
 	
-	public int getFechaFin() {
+	public String getFechaFin() {
 		return this.fechaFin;
 	}
 	
