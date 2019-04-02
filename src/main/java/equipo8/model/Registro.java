@@ -33,27 +33,27 @@ public class Registro {
 		this.idLote = idLote;
 	}
 	
-	public void setAnio(int anio) {
+	private void setAnio(int anio) {
 		this.anio = anio;
 	}
 
-	public void setMes(int mes) {
+	private void setMes(int mes) {
 		this.mes = mes;
 	}
 
-	public void setDia(int dia) {
+	private void setDia(int dia) {
 		this.dia = dia;
 	}
 
-	public void setHora(int hora) {
+	private void setHora(int hora) {
 		this.hora = hora;
 	}
 
-	public void setMin(int min) {
+	private void setMin(int min) {
 		this.min = min;
 	}
 
-	public void setSec(int sec) {
+	private void setSec(int sec) {
 		this.sec = sec;
 	}
 	
@@ -80,27 +80,27 @@ public class Registro {
 	public int getIdLote() {
 		return this.idLote;
 	}
-	public int getAnio() {
+	private int getAnio() {
 		return this.anio;
 	}
 	
-	public int getMes() {
+	private int getMes() {
 		return this.mes;
 	}
 	
-	public int getDia() {
+	private int getDia() {
 		return this.dia;
 	}
 	
-	public int getHora() {
+	private int getHora() {
 		return this.hora;
 	}
 	
-	public int getMin() {
+	private int getMin() {
 		return this.min;
 	}
 	
-	public int getSec() {
+	private int getSec() {
 		return this.sec;
 	}
 	
