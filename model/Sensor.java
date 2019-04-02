@@ -6,9 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import equipo6.model.DatosContainer;
 
-public class Sensor extends DatosContainer{
+public class Sensor {
 	
     private static int id;
 	//Aquí se encuentra el .txt con el registro
