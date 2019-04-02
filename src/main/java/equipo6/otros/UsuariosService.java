@@ -2,7 +2,6 @@ package equipo6.otros;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.Actor;
-import equipo6.model.CadenaActores;
 
 //Esta es la clase a la que van a llamar el resto de grupos para hacer sus
 //gestiones con respecto a los usuarios
