@@ -264,17 +264,17 @@ public class metodosCompany {
     	 String query = "SELECT * FROM company.ordenTrazabilidad WHERE id = " + id;
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
-         while(rs.next()) {
-    
-         OrdenTrazabilidad buscado = new OrdenTrazabilidad(id, rs.getString(2), 
+	 if(!rs.next()){
+		throw new NotInDatabaseException("La orden de trazabilidad buscada no se encuentra en la base de datos.");
+	}
+	 OrdenTrazabilidad buscado = new OrdenTrazabilidad(id, rs.getString(2), 
              getActor(rs.getString(3)), getActor(rs.getString(4)), extraerProductos(rs.getInt(6)));
          pst.close();
          rs.close();
          conn.close();
          return buscado;
-         }
-         return null;	
     }
+	
     public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException {
         conectar();
         String query = "INSERT INTO company.ordenTrazabilidad (id, mensaje, id_emisor, id_receptor, id_transportista, id_productos)"
@@ -296,15 +296,15 @@ public class metodosCompany {
     	 String query = "SELECT * FROM company.productos WHERE id =" + id;
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
-         while(rs.next()) {
-         Productos buscado = new Productos(id, rs.getInt(2),  rs.getInt(3), rs.getInt(4),rs.getInt(5),
+	  if(!rs.next()){
+		throw new NotInDatabaseException("Los productos buscados no se encuentran en la base de datos.");
+	} 
+	   Productos buscado = new Productos(id, rs.getInt(2),  rs.getInt(3), rs.getInt(4),rs.getInt(5),
         		 rs.getInt(6),rs.getInt(7),rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11),rs.getInt(12));
          pst.close();
          rs.close();
          conn.close();
-         return buscado;
-         }
-         return null;	
+         return buscado	
     }
     
     public static void insertarProductos(Productos producto) throws SQLException, ClassNotFoundException {
@@ -336,11 +336,10 @@ public class metodosCompany {
         String query = "SELECT * FROM company.cadena WHERE cadena.codLote = "+codLote;
         Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
-        Cadena buscado = null;
-        while(rs.next()) {
-            buscado = new Cadena(codLote, rs.getString(2), rs.getInt(3));
-
-        }
+	if(!rs.next()){
+		throw new NotInDatabaseException("La cadena buscada no se encuentra en la base de datos.");
+	} 
+        Cadena buscado = new Cadena(codLote, rs.getString(2), rs.getInt(3));;
         pst.close();
         rs.close();
         conn.close();
@@ -448,14 +447,14 @@ public class metodosCompany {
         String query = "SELECT * FROM company.retailer WHERE cif = '" + CIF + "'";
         Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
-        while(rs.next()) {
+	if(!rs.next()){
+		throw new NotInDatabaseException("El retailer buscado no se encuentra en la base de datos.");
+	}
         Retailer buscado = new Retailer(rs.getString(1), rs.getString(2), rs.getString(3));
         pst.close();
         rs.close();
         conn.close();
         return buscado;
-        }
-        return null;
     }
 
     public static Fabrica extraerFabrica(String CIF) throws SQLException {
@@ -463,14 +462,14 @@ public class metodosCompany {
         String query = "SELECT * FROM company.fabrica WHERE fabrica.fabrica_cif = '" + CIF + "'";
         Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
-        while(rs.next()) {
-        Fabrica buscado = new Fabrica(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+	if(!rs.next()){
+		throw new NotInDatabaseException("La fábrica buscada no se encuentra en la base de datos.");
+	}
+	Fabrica buscado = new Fabrica(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
         pst.close();
         rs.close();
         conn.close();
         return buscado;
-        }
-        return null;
     }
 
     public static AlmacenMMPP extraerAlmacenMMPP(int id) throws SQLException, ClassNotFoundException {
@@ -478,17 +477,16 @@ public class metodosCompany {
         String query = "SELECT * FROM company.almacenMateriasPrimas WHERE almacenMateriasPrimas.idAlmacenMateriasPrimas = " + id;
         Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
-        while (rs.next()) {
-            AlmacenMMPP buscado = new AlmacenMMPP(rs.getInt(1), rs.getInt(2), rs.getDouble(3), rs.getDouble(4),
+	if(!rs.next()){
+		throw new NotInDatabaseException("El almacén de materias primas buscado no se encuentra en la base de datos.");
+	}
+	 AlmacenMMPP buscado = new AlmacenMMPP(rs.getInt(1), rs.getInt(2), rs.getDouble(3), rs.getDouble(4),
                    rs.getDouble(5), rs.getDouble(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9), rs.getDouble(10),
                     rs.getDouble(11), rs.getDouble(12), rs.getDouble(13), rs.getDouble(14), rs.getDouble(15));
             pst.close();
             rs.close();
             conn.close();
             return buscado;
-        }
-        return null;
-
     }
     
     public static void insertarLote(Lote lote) throws Throwable {
@@ -522,15 +520,14 @@ public class metodosCompany {
         String query = "SELECT * FROM company.lote WHERE idLote =" + idLote;
         Statement pst2 = conn.createStatement();
         ResultSet rs2 = pst2.executeQuery(query);
-        while(rs2.next()) {
-        byte [] binario = rs2.getBytes(7);
+	if(!rs.next()){
+		throw new NotInDatabaseException("El QR buscado no se encuentra en la base de datos.");
+	}
+	byte [] binario = rs2.getBytes(7);
          pst2.close();
          rs2.close();
          conn.close();
          return binario;
-
-        }
-    	return null;
     }
     
     public static Lote extraerLote(int idLote) throws SQLException {
@@ -541,25 +538,27 @@ public class metodosCompany {
         ResultSet rs = pst.executeQuery(query);
         LinkedList<String> lista = new LinkedList<String>();
         int idB = 0;
-        while(rs.next()) {
-	        String ped = rs.getString(4);
-	        lista.add(ped);
-	        idB= rs.getInt(1);
-        }
+	if(!rs.next()){
+		throw new NotInDatabaseException("El lote buscado no se encuentra en la base de datos.");
+	}
+	 String ped = rs.getString(4);
+	 lista.add(ped);
+	 idB= rs.getInt(1);
+  
         pst.close();
         rs.close();
         
         String query2 = "SELECT * FROM company.lote WHERE idBd = " + idB;
         Statement pst2 = conn.createStatement();
         ResultSet rs2 = pst2.executeQuery(query);
-        while(rs2.next()) {
-	        Lote buscado = new Lote(idB, rs2.getInt(2), rs2.getString(3), lista, rs2.getDate(5), rs2.getDate(6));
+	if(!rs2.next()){
+		throw new NotInDatabaseException("El lote buscado no se encuentra en la base de datos.");
+	}
+	   Lote buscado = new Lote(idB, rs2.getInt(2), rs2.getString(3), lista, rs2.getDate(5), rs2.getDate(6));
 	        pst2.close();
 	        rs2.close();
 	        conn.close();
-	        return buscado;
-        }
-        return null;
+	        return buscado;      
     }
 
    public static void insertarAlmacenLotes(AlmacenLotes almacen) throws SQLException {
@@ -588,26 +587,27 @@ public class metodosCompany {
        LinkedList<Lote> lista = new LinkedList<Lote>();
        int idB = 0;
        
-       while(rs.next()) {
+       if(!rs.next()){
+		throw new NotInDatabaseException("El almacén de lotes buscado no se encuentra en la base de datos.");
+	}
        int idLote = rs.getInt(3);
        Lote lote = extraerLote(idLote);
        lista.add(lote);
-       idB=rs.getInt(1);
-       }
+       idB=rs.getInt(1);   
        pst.close();
        rs.close();
-       conectar();
+       conectar(); // aqui no entiendo por que te vuelves a conectar, creo que es una errata ya que no has cerrado la conexion
        String query2 = "SELECT * FROM company.almacenLotes WHERE idBd = " + idB;
        Statement pst2 = conn.createStatement();
        ResultSet rs2 = pst2.executeQuery(query);
-       while(rs2.next()) {
-       AlmacenLotes buscado = new AlmacenLotes(idB, rs2.getInt(2), lista);
+       if(!rs2.next()){
+		throw new NotInDatabaseException("El almacén de lotes buscado no se encuentra en la base de datos.");
+	}
+	AlmacenLotes buscado = new AlmacenLotes(idB, rs2.getInt(2), lista);
        pst2.close();
        rs2.close();
-       conn.close();
+       conn.close(); //aqui si se cierra
        return buscado;
-       }
-       return null;
    }
    
    public static void insertarAgricultor (Agricultor agricultor) throws SQLException, ClassNotFoundException{
@@ -640,13 +640,13 @@ public class metodosCompany {
    	String query = "SELECT * FROM company.agricultor WHERE agricultor.cif = '" + cif + "'";
    	Statement pst = conn.createStatement();
    	ResultSet rs = pst.executeQuery(query);
-   	while(rs.next()){
-   		Agricultor buscado = new Agricultor(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+        if(!rs.next()){
+		throw new NotInDatabaseException("El agricultor buscado no se encuentra en la base de datos.");
+	} 
+        Agricultor buscado = new Agricultor(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4));
        	pst.close();
        	rs.close();
        	return buscado;
-   	}
-   	return null;
    }
  
 	public static Cooperativa extraerCooperativa(String cif) throws SQLException, ClassNotFoundException{
@@ -654,13 +654,15 @@ public class metodosCompany {
     	String query = "SELECT * FROM company.cooperativa WHERE cooperativa.cif = '" + cif + "'";
     	Statement pst = conn.createStatement();
     	ResultSet rs = pst.executeQuery(query);
-    	while(rs.next()){
-        	Cooperativa buscado = new Cooperativa(rs.getString(1), rs.getString(2), rs.getString(3));
+		
+        if(!rs.next()){
+		throw new NotInDatabaseException("La cooperativa buscada no se encuentra en la base de datos.");
+	} 
+        Cooperativa buscado = new Cooperativa(rs.getString(1), rs.getString(2), rs.getString(3));
         	pst.close();
         	rs.close();
         	return buscado;
-    	}
-    	return null;
+  
     }
 	public static void insertarTransportista (Transportista transportista) throws SQLException {
 	      conectar();
@@ -686,8 +688,11 @@ public class metodosCompany {
 	       String query = "SELECT * FROM company.transportista WHERE transportista.nombre_empresa = '" + nombre_empresa + "'";
 	       Statement pst = conn.createStatement();
 	           ResultSet rs = pst.executeQuery(query);
-	           while(rs.next()){
-	               Transportista buscado = new Transportista(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+		  if(!rs.next()){
+		throw new NotInDatabaseException("El transportista buscado no se encuentra en la base de datos.");
+	} 
+		  
+		     Transportista buscado = new Transportista(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
 	               if(rs.getBoolean(5) == true) {
 	                   buscado.aceptarPedido();
 	               }
@@ -700,8 +705,6 @@ public class metodosCompany {
 	            rs.close();
 	            conn.close();
 	            return buscado;
-	           }
-	           return null;
 	  }
 	  public static void insertarSensor (Sensor sensor) throws SQLException{
 		  conectar();
@@ -726,8 +729,10 @@ public class metodosCompany {
 	  String query = "SELECT * FROM company.sensor WHERE sensor.id = " +  id;
 	  Statement pst = conn.createStatement();
 	  ResultSet rs = pst.executeQuery(query);
-	  while(rs.next()){
-	     Sensor buscado = new Sensor();
+          if(!rs.next()){
+		throw new NotInDatabaseException("El sensor buscado no se encuentra en la base de datos.");
+	  } 
+           Sensor buscado = new Sensor();
 	     buscado.setID(rs.getInt(1));
 	     buscado.setAnio(rs.getString(2));
 	     buscado.setMes(rs.getString(3));
@@ -740,8 +745,7 @@ public class metodosCompany {
 	     rs.close();
 	     conn.close();
 	     return buscado;
-	  }
-	  return null;
+	
 	  }
 		
 	  public static CadenaActores getCadenaActores() throws SQLException {
@@ -750,11 +754,16 @@ public class metodosCompany {
 		  String query = "SELECT * FROM company.actor";
 		  Statement pst = conn.createStatement();
 		  ResultSet rs = pst.executeQuery(query);
-		  while(rs.next()) {
-			  Actor buscado = new Actor(rs.getInt(1), rs.getString(2), rs.getString(4), rs.getString(5),
+		  if(!rs.next()){
+		     throw new NotInDatabaseException("La cadena de actores buscada no se encuentra en la base de datos.");
+	         } 
+		  Actor buscado = new Actor(rs.getInt(1), rs.getString(2), rs.getString(4), rs.getString(5),
 	            		rs.getInt(6));
-			  cadena.addActor(buscado);
-			  }
+	          cadena.addActor(buscado);
+		  pst.close();
+	         rs.close();
+	         conn.close();
+		
 		  return cadena;
 		  
 	  }
@@ -765,16 +774,17 @@ public class metodosCompany {
 		            String query = "SELECT * FROM company.actor WHERE actor.nombreUsuario = '" + nombreUsuario + "'";
 		            Statement pst = conn.createStatement();
 		            ResultSet rs = pst.executeQuery(query);
-		            while(rs.next()) {
+				 
+		             if(!rs.next()){
+		                throw new NotInDatabaseException("El actor buscado no se encuentra en la base de datos.");
+	                   } 
 		            Actor buscado = new Actor(rs.getInt(1), rs.getString(2), rs.getString(4), rs.getString(5),
 		            		rs.getInt(6));
 		            pst.close();
 		            rs.close();
+			    conn.close();
 		            return buscado; 
-		            }
-		            return null;
-		        }
-		        else return null;
+
 		    }		 
 		 
 		public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException{
@@ -797,8 +807,11 @@ public class metodosCompany {
                 String query = "SELECT * FROM company.bloque WHERE id = '" + hashBloquePedido + "'" ;
                 Statement pst = conn.createStatement();
                 ResultSet rs = pst.executeQuery(query);
-                while(rs.next()) {
-                    int tipoBloque = rs.getInt(3);
+                  if(!rs.next()){
+		                throw new NotInDatabaseException("El bloque buscado no se encuentra en la base de datos.");
+	                   } 			   
+			   
+                int tipoBloque = rs.getInt(3);
                     String hashPrevio = rs.getString(2);
                     int numBloque = rs.getInt(4);
                     int codLote = rs.getInt(5);
@@ -811,14 +824,12 @@ public class metodosCompany {
                             Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerSensor(rs.getInt(6)));
                             devolver = buscado2;
                             break;
-                    }
             
                 pst.close();
                 rs.close();
                 conn.close();
                 return devolver;
-                }
-			   return null;
+             
             }
 
             public static void insertarBloque(Bloque bloqAinsertar) throws SQLException, ClassNotFoundException, RuntimeException {
