@@ -1,65 +1,71 @@
 package sensor;
 
 public class Registro {
-  	private String anio;
-  	private String mes;
-  	private String dia;
-	private String hora;
-  	private String min;
-  	private String sec;
-	private String fechaInicio;
-	private String fechaFin;
-	private String actor;
+	private int idLote;
+  	private int anio;
+  	private int mes;
+  	private int dia;
+	private int hora;
+  	private int min;
+  	private int sec;
+	//private String fechaInicio;
+	//private String fechaFin;
+	private int actor;
 	private int tempMax;
 	private int tempMin;
 	
-	public Registro(String anio, String mes, String dia, String hora, String min, String sec, String fechaInicio, String fechaFin, String actor, int tempMax, int tempMin) {
+	public Registro(int idLote,int anio, int mes, int dia, int hora, int min, int sec,int actor, int tempMax, int tempMin) {
+		tthis.idLote=idLote;
 		this.anio = anio;
 		this.mes = mes;
 		this.dia = dia;
 		this.hora = hora;
 		this.min = min;
 		this.sec = sec;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
+		//this.fechaInicio = fechaInicio;
+		//this.fechaFin = fechaFin;
 		this.actor = actor;
 		this.tempMax = tempMax;
 		this.tempMin = tempMin;
 	}
 
-	public void setAnio(String anio) {
+	public void setIdLote(int idLote) {
+		this.idLote = idLote;
+	}
+	
+	public void setAnio(int anio) {
 		this.anio = anio;
 	}
 
-	public void setMes(String mes) {
+	public void setMes(int mes) {
 		this.mes = mes;
 	}
 
-	public void setDia(String dia) {
+	public void setDia(int dia) {
 		this.dia = dia;
 	}
 
-	public void setHora(String hora) {
+	public void setHora(int hora) {
 		this.hora = hora;
 	}
 
-	public void setMin(String min) {
+	public void setMin(int min) {
 		this.min = min;
 	}
 
-	public void setSec(String sec) {
+	public void setSec(int sec) {
 		this.sec = sec;
 	}
 	
-	public void setFechaInicio (String fechaInicio) {
+	/*public void setFechaInicio (int fechaInicio) {
 		this.fechaInicio = fechaInicio;		
 	}
 	
-	public void setFechaFin (String fechaFin) {
+	public void setFechaFin (int fechaFin) {
 		this.fechaFin = fechaFin;
-	}
+	}*/
 	
-	public void setActor (String actor) {
+	public void setActor (int actor) {
 		this.actor = actor;
 	}
 	
@@ -71,40 +77,42 @@ public class Registro {
 		this.tempMin = tempMin;
 	}
 	
-	
-	public String getAnio() {
+	public int getIdLote() {
+		return this.idLote;
+	}
+	public int getAnio() {
 		return this.anio;
 	}
 	
-	public String getMes() {
+	public int getMes() {
 		return this.mes;
 	}
 	
-	public String getDia() {
+	public int getDia() {
 		return this.dia;
 	}
 	
-	public String getHora() {
+	public int getHora() {
 		return this.hora;
 	}
 	
-	public String getMin() {
+	public int getMin() {
 		return this.min;
 	}
 	
-	public String getSec() {
+	public int getSec() {
 		return this.sec;
 	}
 	
-	public String getFechaInicio () {
+	/*public int getFechaInicio () {
 		return this.fechaInicio;
 	}
 	
-	public String getFechaFin() {
+	public int getFechaFin() {
 		return this.fechaFin;
-	}
+	}*/
 	
-	public String getActor() {
+	public int getActor() {
 		return this.actor;
 	}
 	
