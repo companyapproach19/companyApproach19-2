@@ -29,13 +29,13 @@ public class GeneradorQR2 {
     //Para pasar a blob
     private static ByteArrayOutputStream bos = new ByteArrayOutputStream();
     	
-    //MÈtodo al que le pasas el id del lote como par·metro
+    //M√©todo al que le pasas el id del lote como par√°metro
     public static void generadorQR(int id) throws Exception{
     	
-        // URL a la que luego le aÒadiremos el /id
+        // URL a la que luego le a√±adiremos el /id
         String data = "http://www.google.com";
         
-        //a dÛnde escupe el qr
+        //a d√≥nde escupe el qr
         path = "C:\\Users\\Laura Colomer\\Documents\\qrcode" + id + ".png";
  
         // Pasar la URL a QR
@@ -68,7 +68,7 @@ public class GeneradorQR2 {
  
     }
     
-    //MÈtodo que convierte los blobs en png
+    //M√©todo que convierte los blobs en png
     public static void BlobaQr(byte [] bytes) throws Exception {
         
         FileOutputStream qrCode = new FileOutputStream(path);        
