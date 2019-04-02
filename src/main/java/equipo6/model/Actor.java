@@ -3,11 +3,12 @@ import java.io.Serializable;
 
 public class Actor implements Serializable{
     static final long serialVersionUID=10L;
-    private int id;
+    private String id;
     private String nombreUsuario;
     private String passwordPlana;
     private String email = null;
     private int tipoActor = 0; //0->4 para Productor, Cooperativa, Transportista, Fabrica y Retailer
+    public static Actor actor_static;
 
 
     public boolean actor_compare(Actor usuarioIntentaAcceder)
@@ -51,7 +52,7 @@ public class Actor implements Serializable{
         this.tipoActor = tipoActor;
     }
     
-    public Actor(int id, String nombreUsuario, String passwordPlana, String email, int tipoActor){
+    public Actor(String id, String nombreUsuario, String passwordPlana, String email, int tipoActor){
     	this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.passwordPlana = passwordPlana;
@@ -97,11 +98,11 @@ public class Actor implements Serializable{
     }
 
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -15,7 +15,6 @@ import equipo6.otros.UsuariosService;
 @Controller
 @SpringBootApplication
 public class LoginController {
-	
 
 	@Scope("request")
 	@RequestMapping("/loginUser")
@@ -24,6 +23,7 @@ public class LoginController {
 			@RequestParam(name="usuario", required=true) String usuario,
 			@RequestParam(name="pwd", required=true) String pwd,
 			Model model) throws Exception {
+		
 		
 		
 		

@@ -33,6 +33,9 @@ public class BlockchainServices{
         int codLote = traspaso.getId();
         try {
         	Cadena cadena = equipo5.dao.metodosCompany.extraerCadena(codLote);
+        	if(cadena == null) {
+        		cadena = new Cadena(codLote);
+        	}
         	cadena.incorporarBloque(dc, 0); //Cambiar cuando asignemos cada entero a cada tipo de bloque
         }catch (Exception ex) {
         	ex.printStackTrace();
