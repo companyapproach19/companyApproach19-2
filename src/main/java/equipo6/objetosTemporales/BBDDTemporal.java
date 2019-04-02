@@ -3,7 +3,6 @@ package equipo6.objetosTemporales;
 import java.util.HashMap;
 import java.util.Map;
 
-import equipo5.model.Cadena;
 import equipo6.model.*;
 
 public class BBDDTemporal{
