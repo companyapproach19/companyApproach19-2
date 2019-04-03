@@ -10,8 +10,7 @@ public class Stout {
 	public static double maltaChocolate;
 	public static double cebadaTostada;
 	public static double lupuloCentennial;
-	// Las levaduras no tienen cantidad, es un error???????????????????????????
-	public static boolean levaduraAle;
+	public static double levaduraAle;
 	public static int id;
 	public static boolean molido;
 	public static boolean cocinado;
@@ -20,8 +19,6 @@ public class Stout {
 	public static boolean embotellado;
 
 	public Stout() {
-		//id = AlmacenMMPP.getId();
-		//AlmacenMMPP.setId(AlmacenMMPP.getId() + 1);
 		agua = 11428571.4286;
 		maltaBasePalida = 2619047619.05;
 		AlmacenMMPP.setMaltaBasePalida(AlmacenMMPP.getMaltaBasePalida() - 2619047619.05);
@@ -39,8 +36,10 @@ public class Stout {
 		AlmacenMMPP.setMaltaCaramelo(AlmacenMMPP.getMaltaCaramelo() - 42857142.8571);
 		lupuloCentennial = 33333333.3333;
 		AlmacenMMPP.setLupuloCentennial(AlmacenMMPP.getLupuloCentennial() - 33333333.3333);
-		// Falta la levadura
+		levaduraAle=287.5;
+		AlmacenMMPP.setLevaduraAle(AlmacenMMPP.getLevaduraAle()-287.5);
 	}
+
 
 	public static double getMaltaCaramelo() {
 		return maltaCaramelo;
@@ -114,20 +113,16 @@ public class Stout {
 		Stout.lupuloCentennial = lupuloCentennial;
 	}
 
-	public static boolean isLevaduraAle() {
+	public static double getLevaduraAle() {
 		return levaduraAle;
 	}
 
-	public static void setLevaduraAle(boolean levaduraAle) {
+	public static void setLevaduraAle(double levaduraAle) {
 		Stout.levaduraAle = levaduraAle;
 	}
 
 	public static int getId() {
 		return id;
-	}
-
-	public static void setId(int id) {
-		Stout.id = id;
 	}
 
 }

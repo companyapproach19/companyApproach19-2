@@ -5,8 +5,7 @@
 		public static double maltaCaramelo;
 		public static double lupuloPerle;
 		public static double lupuloTettnanger;
-		//Las levaduras no tienen cantidad, es un error???????????????????????????
-		public static boolean levaduraLager;
+		public static double levaduraLager;
 		public static double agua;
 		public static int id;
 		public static boolean molido;
@@ -16,8 +15,6 @@
 		public static boolean embotellado;
 		
 		public Pilsner() {
-			id=AlmacenLotes.getId();
-			AlmacenLotes.setId(AlmacenLotes.getId()+1);
 			agua=11956521.7391;
 			maltaPilsner = 1739130434.78;
 			AlmacenMMPP.setMaltaPilsner(AlmacenMMPP.getMaltaPilsner()-1739130434.78);
@@ -27,7 +24,8 @@
 			AlmacenMMPP.setLupuloPerle(AlmacenMMPP.getLupuloPerle()-8695652.17391);
 			lupuloTettnanger = 17391304.3478;
 			AlmacenMMPP.setLupuloTettnanger(AlmacenMMPP.getLupuloTettnanger()-17391304.3478);
-			//Falta la levadura
+			levaduraLager=287.5;
+			AlmacenMMPP.setLevaduraLager(AlmacenMMPP.getLevaduraLager()-287.5);
 		}
 
 		public static double getMaltaPilsner() {
@@ -62,11 +60,11 @@
 			Pilsner.lupuloTettnanger = lupuloTettnanger;
 		}
 
-		public static boolean isLevaduraLager() {
+		public static double getLevaduraLager() {
 			return levaduraLager;
 		}
 
-		public static void setLevaduraLager(boolean levaduraLager) {
+		public static void setLevaduraLager(double levaduraLager) {
 			Pilsner.levaduraLager = levaduraLager;
 		}
 
@@ -81,9 +79,5 @@
 		public static int getId() {
 			return id;
 		}
-
-		public static void setId(int id) {
-			Pilsner.id = id;
-		}	
 			
 	}
