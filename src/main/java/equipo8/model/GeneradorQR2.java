@@ -30,7 +30,7 @@ public class GeneradorQR2 {
     private static ByteArrayOutputStream bos = new ByteArrayOutputStream();
     	
     //Método al que le pasas el id del lote como parámetro
-    public static void generadorQR(int id) throws Exception{
+    public static byte[] generadorQR(int id) throws Exception{
     	
         // URL a la que luego le añadiremos el /id
         String data = "http://www.google.com";
@@ -47,7 +47,7 @@ public class GeneradorQR2 {
  
         } catch (WriterException e) {
             e.printStackTrace(System.err);
-            return;
+            return null;
         }
  
         // Crea Buffered image en la que pintaremos en el QR
@@ -64,7 +64,7 @@ public class GeneradorQR2 {
         //ESTO escribe los QRs en blob
 		ImageIO.write(image, "png",  bos);
 	    byte [] binarioURL = bos.toByteArray();
-		System.out.println(binarioURL);
+		return binarioURL;
  
     }
     
