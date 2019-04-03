@@ -3,17 +3,8 @@ package equipo4;
 import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.LinkedList;
-
-//import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.Test;
-
-import iSoftware.AlmacenLotes;
-import iSoftware.AlmacenMMPP;
-import iSoftware.Lote;
-import iSoftware.Pilsner;
-import iSoftware.Principal;
-import iSoftware.Stout;
+import equipo4.model.*;
 
 public class testPrincipal1 {
 
