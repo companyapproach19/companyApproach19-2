@@ -1,10 +1,10 @@
 package equipo7.otros;
 
 
-import com.controller.ManejaPeticiones.ListaPedidos;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import equipo7.model.ListaPedidos;
 import equipo7.model.OrdenTrazabilidad;
 public class CodificadorJSON {
 

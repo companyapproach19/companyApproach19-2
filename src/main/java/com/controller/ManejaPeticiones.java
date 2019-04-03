@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
+import equipo7.model.ListaPedidos;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.OrdenTrazabilidad.EstadoOrden;
 
@@ -86,7 +87,7 @@ public class ManejaPeticiones {
 			ArrayList<OrdenTrazabilidad> pedidos = bloque.getLista(idActor);
 			
 			if(pedidos!=null && pedidos.size()>0) {
-				ArrayList<Integer> identificadoresPedidos = new ArrayList<Integer>();
+				ListaPedidos pedidosNoAceptados = new ListaPedidos();
 				//Se necesitan aquellos pedidos pendientes por aceptar una persona
 				Iterator<OrdenTrazabilidad> it = pedidos.iterator();
 				while(it.hasNext()) {
@@ -95,16 +96,11 @@ public class ManejaPeticiones {
 					if(actual.getActorDestino().getId()==idActor) {
 						//El estado del pedido cuando no ha sido aceptado
 						if(actual.getEstado()==null) {
-							identificadoresPedidos.add(actual.getId());
+							pedidosNoAceptados.anyadePedido(actual.getId());
 						}
 					}
 				}
-				int ids[] = new int[identificadoresPedidos.size()];
-				for(int i=0;i<identificadoresPedidos.size();i++) {
-					ids[i] = identificadoresPedidos.get(i);
-				}
 				
-				ListaPedidos pedidosNoAceptados = new ListaPedidos(ids);
 				//Devolver lista de identificadores
 				return CodificadorJSON.crearJSONlista(pedidosNoAceptados);
 				
@@ -113,17 +109,6 @@ public class ManejaPeticiones {
 			
 		}
 		
-	
-	public class ListaPedidos{
-		
-		private int numero;
-		private int[] pedidos;
-		
-		public ListaPedidos(int[] pedidos) {
-			this.pedidos=pedidos;
-			this.numero=this.pedidos.length;
-		}
-	}
 	
 	//PARA EQUIPO 2: VISTAS
 		@Scope("request")
@@ -138,7 +123,7 @@ public class ManejaPeticiones {
 			ArrayList<OrdenTrazabilidad> pedidos = bloque.getLista(idActor);
 			
 			if(pedidos!=null && pedidos.size()>0) {
-				ArrayList<Integer> identificadoresPedidos = new ArrayList<Integer>();
+				ListaPedidos pedidosEnProceso = new ListaPedidos();
 				//Se necesitan aquellos pedidos pendientes por aceptar una persona
 				Iterator<OrdenTrazabilidad> it = pedidos.iterator();
 				while(it.hasNext()) {
@@ -147,18 +132,13 @@ public class ManejaPeticiones {
 					if(actual.getActorDestino().getId()==idActor) {
 						//El estado del pedido debe ser en proceso
 						if(actual.getEstado().compareTo(EstadoOrden.EN_PROCESO)==0) {
-							identificadoresPedidos.add(actual.getId());
+							pedidosEnProceso.anyadePedido(actual.getId());
 						}
 					}
 				}
-				int ids[] = new int[identificadoresPedidos.size()];
-				for(int i=0;i<identificadoresPedidos.size();i++) {
-					ids[i] = identificadoresPedidos.get(i);
-				}
 				
-				ListaPedidos pedidosNoAceptados = new ListaPedidos(ids);
 				//Devolver lista de identificadores
-				return CodificadorJSON.crearJSONlista(pedidosNoAceptados);
+				return CodificadorJSON.crearJSONlista(pedidosEnProceso);
 				
 			}
 			else return "ERROR: No tiene pedidos en proceso";
@@ -215,7 +195,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/recogidoPedido")
 	@ResponseBody
 	public String recogidoPedido(
-			@RequestParam(name="id", required=true) int id) {
+			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
 		//Hay que compara los identificadores de los ordentrazabilidad
@@ -238,7 +218,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/entregadoPedido")
 	@ResponseBody
 	public String entregadoPedido(
-			@RequestParam(name="id", required=true) int id) {
+			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
 		//Hay que compara los identificadores de los ordentrazabilidad
