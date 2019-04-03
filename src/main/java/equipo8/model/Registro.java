@@ -23,6 +23,10 @@ public class Registro {
 		this.tempMin = tempMin;
 	}
 
+	public String toString(){
+		return idLote + " (" + actor + "): " + tempMax + " - " + tempMin + " -> " + fechaInicio + " | " + fechaFin;   
+	}
+	
 	public void setIdLote(int idLote) {
 		this.idLote = idLote;
 	}

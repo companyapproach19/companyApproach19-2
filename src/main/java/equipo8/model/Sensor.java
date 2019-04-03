@@ -1,6 +1,7 @@
 package equipo8.model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -32,14 +33,13 @@ public class Sensor {
 	private static String temperatura ;
 
 	// Cambiar por la ruta donde esté el log que se quiera probar
-	private static String ruta="C:\\Users\\Laura Colomer\\Documents\\datosSensor.txt" ;
+	private static String ruta="/Users/Carlos/Documents/Processing/Escritura/test5.txt" ;
 
 
 
 	//Cambiar el tipo de retorno a Regsitro
 	public  Registro registro ()throws IOException {
 
-		Registro registro= new Registro(0, 0, 0, 0, null, null);
 		HashMap<Fecha,Integer> listaRegistros= new HashMap<Fecha,Integer>();
 		log = new BufferedReader(new FileReader(ruta)); 
 		Fecha fecha = null,fechaInicio = null;
@@ -50,28 +50,29 @@ public class Sensor {
 			//Se saltan las lineas vacías
 			if(!linea.isEmpty() && linea.contains("º")){
 
-				String fecha_temp[] =linea.split("+");
-				String fecha_hora [] = fecha_temp[0].split("|");
-				String anio_mes_dia [] = fecha_hora[0].split("-");
-				String hora_min_seg [] = fecha_hora[1].split(":");
+				String fecha_temp[] =linea.split("\\+");
+				String fecha_hora [] = fecha_temp[0].split("\\|");
+				String anio_mes_dia [] = fecha_hora[0].split("\\-");
+				String hora_min_seg [] = fecha_hora[1].split("\\:");
 				int anio,mes,dia,hora,minuto,segundo,temp;
-				anio=Integer.valueOf(anio_mes_dia [0]);
-				mes=Integer.valueOf(anio_mes_dia [1]);
-				dia=Integer.valueOf(anio_mes_dia [2]);
+				anio=Integer.valueOf(anio_mes_dia [0].trim());
+				mes=Integer.valueOf(anio_mes_dia [1].trim());
+				dia=Integer.valueOf(anio_mes_dia [2].trim());
 
-				hora=Integer.valueOf(hora_min_seg [0] );
-				minuto=Integer.valueOf(hora_min_seg [1] );
-				segundo=Integer.valueOf(hora_min_seg [2] );
+				hora=Integer.valueOf(hora_min_seg [0].trim() );
+				minuto=Integer.valueOf(hora_min_seg [1].trim() );
+				segundo=Integer.valueOf(hora_min_seg [2].trim() );
 
-				temp=Integer.valueOf(fecha_temp[1].split("º")[0]);
+				temp=Integer.valueOf(fecha_temp[1].split("\\º")[0].trim());
 
-				fecha =new Fecha (anio,mes,dia,hora,minuto,segundo);
+				fecha = new Fecha (anio,mes,dia,hora,minuto,segundo);
 				if (contador==0) {
 					Tmax=temp;
 					Tmin=temp;
 					fechaInicio=fecha;
 				}
 				listaRegistros.put(fecha, temp);
+				contador++;
 
 			}
 			//al salir del bucle fecha contiene la fecha final
@@ -88,11 +89,10 @@ public class Sensor {
 
 		}
 
-		//importar clase registro y devolver el registro
-		registro.setTempMax(Tmax);
-		registro.setTempMax(Tmin);
-		registro.setFechaFin(fecha.toString());
-		registro.setFechaFin(fechaInicio.toString());
+		Registro registro= new Registro(0, 0, Tmax, Tmin,  fechaInicio.toString(), fecha.toString());
+		File file = new File(ruta);
+		file.delete();
+		file.createNewFile();
 		return registro;
 
 	}
