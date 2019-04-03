@@ -1,4 +1,4 @@
-package generarQR;
+package equipo8.model;
 
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;

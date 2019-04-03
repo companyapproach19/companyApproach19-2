@@ -1,4 +1,4 @@
-package pru;
+package equipo8.model;
 
 public class Registro {
 	private int idLote;

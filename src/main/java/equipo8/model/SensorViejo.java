@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import equipo6.model.DatosContainer;
 
-public class Sensor extends DatosContainer{
+public class SensorViejo extends DatosContainer{
 	
     private static int id;
 	//Aquí se encuentra el .txt con el registro
@@ -82,7 +82,7 @@ public class Sensor extends DatosContainer{
 	}
 
 	public static void setTemperatura(String temperatura) {
-		Sensor.temperatura = temperatura;
+		SensorViejo.temperatura = temperatura;
 	}
 
 
@@ -91,7 +91,7 @@ public class Sensor extends DatosContainer{
 	}
 
 	public static void setAnio(String anio) {
-		Sensor.anio = anio;
+		SensorViejo.anio = anio;
 	}
 
 
@@ -100,7 +100,7 @@ public class Sensor extends DatosContainer{
 	}
 
 	public static void setMes(String mes) {
-		Sensor.mes = mes;
+		SensorViejo.mes = mes;
 	}
 
 
@@ -109,7 +109,7 @@ public class Sensor extends DatosContainer{
 	}
 
 	public static void setDia(String dia) {
-		Sensor.dia = dia;
+		SensorViejo.dia = dia;
 	}
 
 
@@ -118,7 +118,7 @@ public class Sensor extends DatosContainer{
 	}
 
 	public static void setHora(String hora) {
-		Sensor.hora = hora;
+		SensorViejo.hora = hora;
 	}
 
 
@@ -127,7 +127,7 @@ public class Sensor extends DatosContainer{
 	}
 
 	public static void setMin(String min) {
-		Sensor.min = min;
+		SensorViejo.min = min;
 	}
 
 
@@ -136,11 +136,11 @@ public class Sensor extends DatosContainer{
 	}
 
 	public static void setSec(String sec) {
-		Sensor.sec = sec;
+		SensorViejo.sec = sec;
 	}
 
 	public static void setID (int id){
-    Sensor.id = id;
+    SensorViejo.id = id;
  }
  public static int getID (){
   return id;
