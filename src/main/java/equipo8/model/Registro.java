@@ -1,4 +1,4 @@
-package sensor;
+package pru;
 
 public class Registro {
 	private int idLote;
@@ -14,14 +14,8 @@ public class Registro {
 	private int tempMax;
 	private int tempMin;
 	
-	public Registro(int idLote,int anio, int mes, int dia, int hora, int min, int sec,int actor, int tempMax, int tempMin) {
+	public Registro(int idLote,int actor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
 		this.idLote=idLote;
-		this.anio = anio;
-		this.mes = mes;
-		this.dia = dia;
-		this.hora = hora;
-		this.min = min;
-		this.sec = sec;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.actor = actor;
