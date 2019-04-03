@@ -9,7 +9,7 @@ import java.util.Iterator;
 //PENDIENTE PONER CONSTRUCTOR
 public class Sensor {
 	
-    	private static int id;
+    private static int id;
 	//Aquí se encuentra el .txt con el registro
   	private static BufferedReader log; 
   	
@@ -37,10 +37,12 @@ public class Sensor {
   	
 	
 	//Cambiar el tipo de retorno a Regsitro
-	public  Object registro ()throws IOException {
+	public  Registro registro ()throws IOException {
+		
+		Registro registro= new Registro(0, 0, 0, 0, null, null);
 		HashMap<Fecha,Integer> listaRegistros= new HashMap<Fecha,Integer>();
 		log = new BufferedReader(new FileReader(ruta)); 
-		 Fecha fecha,fechaInicio;
+		 Fecha fecha = null,fechaInicio = null;
 		 int contador=0;
 		 int Tmax=0;
 		 int Tmin=0;
@@ -74,20 +76,24 @@ public class Sensor {
 			}
 			//al salir del bucle fecha contiene la fecha final
 			
-		Iterator<Fecha> it=	listaRegistros.keySet().iterator();
-		
-		while(it.hasNext()) {
-			Fecha f = it.next();
-			int t= listaRegistros.get(f);
-			if(t<Tmin)Tmin=t;
-			else if (t>Tmax)Tmax=t;	
-		}
+
+			Iterator<Fecha> it=	listaRegistros.keySet().iterator();
+			
+			while(it.hasNext()) {
+				Fecha f = it.next();
+				int t= listaRegistros.get(f);
+				if(t<Tmin)Tmin=t;
+				else if (t>Tmax)Tmax=t;	
+			}
 			
 		}
 		
 		//importar clase registro y devolver el registro
-	
-		return null;
+		registro.setTempMax(Tmax);
+		registro.setTempMax(Tmin);
+		registro.setFechaFin(fecha.toString());
+		registro.setFechaFin(fechaInicio.toString());
+		return registro;
 		
 	}
 
@@ -143,29 +149,29 @@ public class Sensor {
 	}
 	
 	
-	//clase auxiliar que vamos a usar para facilitar 
- private class Fecha {
-	 public int anio ;
-	 public int mes ;
-	 public int dia;
-	 public int hora ;
-	 public int minuto ;
-	 public int segundo ;
-	 
-	 public Fecha (int anio , int mes , int dia, int hora , int minuto , int segundo ) {
+	 //clase auxiliar que vamos a usar para facilitar 
+	 private class Fecha {
+		 public int anio ;
+		 public int mes ;
+		 public int dia;
+		 public int hora ;
+		 public int minuto ;
+		 public int segundo ;
 		 
-		 this.anio=anio;
-		 this.mes=mes;
-		 this.dia=dia;
-		 this.hora=hora;
-		 this.minuto=minuto;
-		 this.segundo=segundo;
+		 public Fecha (int anio , int mes , int dia, int hora , int minuto , int segundo ) {
+			 
+			 this.anio=anio;
+			 this.mes=mes;
+			 this.dia=dia;
+			 this.hora=hora;
+			 this.minuto=minuto;
+			 this.segundo=segundo;
+			 
+			 
+		 }
+		 
 		 
 		 
 	 }
-	 
-	 
-	 
- }
 
 }
