@@ -30,8 +30,8 @@ public class BlockchainServices{
     public void guardarOrden(OrdenTrazabilidad traspaso){
         //encapsularlo, sin tener los datos de la clase Traspaso no podemos encapsularlo
         DatosContainer dc = traspaso;
-        int codLote = traspaso.getId();
         try {
+        	int codLote = traspaso.getId();
         	Cadena cadena = equipo5.dao.metodosCompany.extraerCadena(codLote);
         	if(cadena == null) {
         		cadena = new Cadena(codLote);
