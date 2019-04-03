@@ -1,0 +1,32 @@
+URL: "/creaPedido"
+	El metodo creaOrden recibe un String llamado json y devuelve otro String.
+	Esta URL es para crear el pedido, recibimos el pedido en formato json
+	Os devolvemos otro json que es el mismo pedido pero con el identificador
+
+URL: "/obtenerPedido"
+	El metodo obtenerOrden recibe un int llamado id y devuelve un String.
+	Esta URL sirve para que dado un identificador de un pedido (int id), 
+	se devuelve el pedido en formato JSON 
+
+URL: "/pedidosNoAceptados"
+	El metodo pedidosNoAceptados recibe un int llamado idActor.
+	Devuelve un String que es un JSON con la lista de identificadores de
+	los pedidos no aceptados de un actor.
+
+
+URL: "/pedidosEnProceso"
+	El metodo pedidosEnProceso recibe un int llamado idActor.
+	Devuelve un String que es un JSON con la lista de identificadores de
+	los pedidos en proceso de un actor.
+
+URL: "/aceptarPedido"
+	El metodo aceptarPedido recibe un int llamado id
+	Devuelve un String que es el JSON del pedido con el estado cambiado a EN_PROCESO
+
+URL: "/listoPedido"
+	El metodo listoPedido recibe un int llamado id
+	Devuelve un String que es el JSON del pedido con el estado cambiado a LISTO_PARA_ENTREGAR
+
+Por cierto, faltan algunas url para la trazabilidad. Estamos en proceso
+
+		
