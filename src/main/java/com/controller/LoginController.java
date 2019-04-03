@@ -1,5 +1,8 @@
 package com.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -7,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import equipo6.model.Actor;
 import equipo6.otros.UsuariosService;
@@ -19,11 +25,10 @@ public class LoginController {
 	@Scope("request")
 	@RequestMapping("/loginUser")
 	@ResponseBody
-	public String loginUser(
+	public String loginUser(HttpServletResponse response,
 			@RequestParam(name="usuario", required=true) String usuario,
 			@RequestParam(name="pwd", required=true) String pwd,
 			Model model) throws Exception {
-		
 		
 		
 		
@@ -32,8 +37,10 @@ public class LoginController {
 		
 		//Mandamos a nuestras clases que haga la logica de negocio
 		UsuariosService usrv = new UsuariosService(); //Descomentar cuando enlacemos con BBDD
-		Actor actorRespuesta = usrv.logUsuario(usuarioLogin);		
+		Actor actorRespuesta = usrv.logUsuario(usuarioLogin);
 		
+		
+		response.addCookie(new Cookie("id", actorRespuesta.getId()));
 		
 		
 		//Devuelve el actor logeado como JSON

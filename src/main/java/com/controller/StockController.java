@@ -1,6 +1,11 @@
 package com.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,14 +16,31 @@ import com.google.gson.JsonObject;
 import equipo5.dao.metodosCompany;
 import equipo6.model.Actor;
 
+@Controller
+@SpringBootApplication
 public class StockController {
 
 	@Scope("request")
 	@RequestMapping("/dameStockActor")
 	@ResponseBody
 	public String getStockActor(
-			@RequestParam(name="id", required=true) String idActor,
+			HttpServletRequest request,
 			Model model) throws Exception {
+		
+		String idActor;
+		
+		idActor = null;
+		
+		for(Cookie c : request.getCookies()) {
+			System.out.println(c.getName()+"    "+c.getValue());
+			if(c.getName().equals("id")) 
+			{
+				idActor = c.getValue();
+				break;
+			}
+		}
+		
+		
 		
 		JsonObject json_resp;
 		Actor actor;
