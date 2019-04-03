@@ -2,10 +2,13 @@ package equipo6.otros;
 
 import java.util.List;
 
+import equipo4.model.Lote;
 import equipo6.model.Bloque;
 import equipo5.model.Cadena;
 import equipo6.model.DatosContainer;
 import equipo7.model.OrdenTrazabilidad;
+import equipo8.model.Registro;
+import equipo8.model.Sensor;
 
 
 //Esta es la clase a la que van a llamar el resto de grupos para hacer sus
@@ -27,21 +30,39 @@ public class BlockchainServices{
     //Recibe un objeto contenedor con la informacion del traspaso, y tenemos que encapsularlo
     //en DatosContainer, y guardarlo en la cadena con los metodos de la clase Cadena correspondientes
     //TODO alejandro
-    public void guardarOrden(OrdenTrazabilidad traspaso){
+    public void guardarOrden(DatosContainer datos_container){
         //encapsularlo, sin tener los datos de la clase Traspaso no podemos encapsularlo
-        DatosContainer dc = traspaso;
         try {
-        	int codLote = traspaso.getId();
+        	int tipoBlque;
+        	int codLote = get_id_datos(datos_container);
         	Cadena cadena = equipo5.dao.metodosCompany.extraerCadena(codLote);
+        	tipoBlque = get_tipo_bloque(datos_container);
         	if(cadena == null) {
         		cadena = new Cadena(codLote);
         	}
-        	cadena.incorporarBloque(dc, 0); //Cambiar cuando asignemos cada entero a cada tipo de bloque
+        	cadena.incorporarBloque(datos_container, tipoBlque); //Cambiar cuando asignemos cada entero a cada tipo de bloque
         }catch (Exception ex) {
         	ex.printStackTrace();
         }
 
           
+    }
+    
+    private int get_id_datos(DatosContainer datos_container) 
+    {
+    	if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getId();
+    	if(datos_container instanceof Registro) return ((Registro)datos_container).getIdLote();
+    	if(datos_container instanceof Lote) return ((Lote)datos_container).getCode();
+    	return -1;
+    }
+    
+    
+    private int get_tipo_bloque(DatosContainer datos_container) 
+    {
+    	if(datos_container instanceof OrdenTrazabilidad) return 0;
+    	if(datos_container instanceof Registro) return 1;
+    	if(datos_container instanceof Lote) return 2;
+    	return -1;
     }
 
 

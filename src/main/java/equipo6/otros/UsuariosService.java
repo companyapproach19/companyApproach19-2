@@ -20,7 +20,7 @@ public class UsuariosService{
     //TODO anton (habla con gonzalo si necesitas entender como funciona su clase modelo)
     public Actor logUsuario(Actor usuarioIntentaLogin) throws Exception{
     	try {
-			Actor actor = metodosCompany.getCadenaActores().logeaUsuario(usuarioIntentaLogin);
+			Actor actor = metodosCompany.extraerCadenaActores().logeaUsuario(usuarioIntentaLogin);
 			if (actor != null) {
 					System.out.println("Login de actor : "+usuarioIntentaLogin.toString()+" correcto");
 					return actor;

@@ -54,12 +54,12 @@ public class Bloque implements Serializable{
 			String input=this.toBLOBString();
 			byte[] hash = digest.digest(input.getBytes());	        
 			StringBuffer hexString = new StringBuffer(); // This will contain hash as hexidecimal
-			for (int i = 0; i < hash.length; i++) {
+			for (int i = 0; i < hash.length && i < 45; i++) {
 				String hex = Integer.toHexString(0xff & hash[i]);
 				if(hex.length() == 1) hexString.append('0');
 				hexString.append(hex);
 			}
-			return hexString.toString();
+			return hexString.toString().substring(0,40);
 		}
 		catch(Exception e) {
 			throw new RuntimeException(e);

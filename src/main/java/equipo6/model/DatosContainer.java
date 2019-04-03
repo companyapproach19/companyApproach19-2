@@ -2,8 +2,12 @@ package equipo6.model;
 
 import java.io.Serializable;
 
-public abstract class DatosContainer implements Serializable{
-    Object datos;
+public class DatosContainer implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Object datos;
     
     public DatosContainer(){}
     
@@ -11,7 +15,6 @@ public abstract class DatosContainer implements Serializable{
         this.datos=datos;
     }
     
-    public abstract int getId();
     
     public Object getDatos(){
         return this.datos;   

@@ -8,10 +8,28 @@ public class Actor implements Serializable{
     private String passwordPlana;
     private String email = null;
     private int tipoActor = 0; //0->4 para Productor, Cooperativa, Transportista, Fabrica y Retailer
-    public static Actor actor_static;
+    private String localizacion;
+    private String nombre;
+    private String direccion;
+    private String cifcooperativa;
+    
+    
 
 
-    public boolean actor_compare(Actor usuarioIntentaAcceder)
+    public Actor(String id, String nombreUsuario, String passwordPlana, String email, int tipoActor,
+			String localizacion, String nombre, String direccion, String cifcooperativa) {
+		this.id = id;
+		this.nombreUsuario = nombreUsuario;
+		this.passwordPlana = passwordPlana;
+		this.email = email;
+		this.tipoActor = tipoActor;
+		this.localizacion = localizacion;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.cifcooperativa = cifcooperativa;
+	}
+
+	public boolean actor_compare(Actor usuarioIntentaAcceder)
     {
         return (
                     this.nombreUsuario.equals(usuarioIntentaAcceder.nombreUsuario) &&
@@ -52,13 +70,6 @@ public class Actor implements Serializable{
         this.tipoActor = tipoActor;
     }
     
-    public Actor(String id, String nombreUsuario, String passwordPlana, String email, int tipoActor){
-    	this.id = id;
-        this.nombreUsuario = nombreUsuario;
-        this.passwordPlana = passwordPlana;
-        this.email = email;
-        this.tipoActor = tipoActor;
-    }
 
     //GETTERS
     //TODO gonzalo
@@ -96,6 +107,39 @@ public class Actor implements Serializable{
     	
     	return valido;
     }
+    
+
+	public String getLocalizacion() {
+		return localizacion;
+	}
+
+	public void setLocalizacion(String localizacion) {
+		this.localizacion = localizacion;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getCifcooperativa() {
+		return cifcooperativa;
+	}
+
+	public void setCifcooperativa(String cifcooperativa) {
+		this.cifcooperativa = cifcooperativa;
+	}
 
 
 	public String getId() {
