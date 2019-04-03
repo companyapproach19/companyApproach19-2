@@ -42,35 +42,35 @@ public class Test extends metodosCompany {
              crearBD();
              
             //prueba almacenMMPP
-            AlmacenMMPP almacen = new AlmacenMMPP(2,200,2.0,3.0,4.1,5.2,7.2,8.3,8.2,9.5,7.6,10.1,9.9,8.8,14.0);
-            insertarAlMMPP(almacen);
-          
-           
-           	//prueba Retailer
-             Retailer ret = new Retailer("jkl2", "Carrefour", "avda eruopa");
-             insertarRetailer(ret);
-            
-            
-            
-            //pruebas lotes
-         	Date dateini = new Date(1, 12, 2015);
-         	Date datefin = new Date(1, 12, 2019);
-         	LinkedList<String> ped = new LinkedList <String>();
-         	ped.add("primero");
-         	ped.add("segundo");
-         	ped.add("tercero");
-         	
-         	
-         	LinkedList<Lote> lotes = new LinkedList();
-             Lote lote1 = new Lote(0, 1, "malta", ped, dateini, datefin);
-             insertarLote(lote1);
-             lotes.add(lote1);
-//             Lote lote2 = new Lote(0, 2, "cebada", ped, dateini, datefin);
-//             insertarLote(lote2);
-//             lotes.add(lote2);	
-             Lote loteRes = getLote(1);
-             GeneradorQR2.BlobaQr(getQR(loteRes.getCode()));
-             
+//            AlmacenMMPP almacen = new AlmacenMMPP(2,200,2.0,3.0,4.1,5.2,7.2,8.3,8.2,9.5,7.6,10.1,9.9,8.8,14.0);
+//            insertarAlMMPP(almacen);
+//          
+//           
+//           	//prueba Retailer
+//             Retailer ret = new Retailer("jkl2", "Carrefour", "avda eruopa");
+//             insertarRetailer(ret);
+//            
+//            
+//            
+//            //pruebas lotes
+//         	Date dateini = new Date(1, 12, 2015);
+//         	Date datefin = new Date(1, 12, 2019);
+//         	LinkedList<String> ped = new LinkedList <String>();
+//         	ped.add("primero");
+//         	ped.add("segundo");
+//         	ped.add("tercero");
+//         	
+//         	
+//         	LinkedList<Lote> lotes = new LinkedList();
+//             Lote lote1 = new Lote(0, 1, "malta", ped, dateini, datefin);
+//             insertarLote(lote1);
+//             lotes.add(lote1);
+////             Lote lote2 = new Lote(0, 2, "cebada", ped, dateini, datefin);
+////             insertarLote(lote2);
+////             lotes.add(lote2);	
+//             Lote loteRes = getLote(1);
+//             GeneradorQR2.BlobaQr(getQR(loteRes.getCode()));
+//             
 //             
 //             //prueba almacen lotes
 //            AlmacenLotes alm = new AlmacenLotes(0, 1, lotes);
@@ -119,7 +119,7 @@ public class Test extends metodosCompany {
 //            //System.out.println(c1 == null);
 //             
 //             //Prueba Productos
-//             Productos prod = new Productos (1, 12, 5, 0, 4, 7, 8,10, 11, 0, 1, 4);
+             Productos prod = new Productos (1, 12, 5, 0, 4, 7, 8,10, 11, 0, 1, 4);
 //             insertarProductos(prod);
 //             getProductos(1);
 //             //devuelve cantidad de malta palida que es 12
@@ -129,10 +129,10 @@ public class Test extends metodosCompany {
 //             Actor pri = new Actor(0,"pri", "***", "correo@aux.es", 0);
 //             pri.setPasswordPlana("cont");
 //             pri.setId(0);
-//             Actor em = new Actor(1, "lperez", "**********","lperez@gmail.com", 0);
-//             em.setPasswordPlana("holahola");
-//             Actor re = new Actor(2, "mlopez", "**********", "mlopez@yahoo.es", 1);
-//             re.setPasswordPlana("holar");
+             Actor em = new Actor(1, "lperez", "**********","lperez@gmail.com", 0);
+             em.setPasswordPlana("holahola");
+             Actor re = new Actor(2, "mlopez", "**********", "mlopez@yahoo.es", 1);
+             re.setPasswordPlana("holar");
 //             insercionActor(pri);
 //             insercionActor(em);
 //             insercionActor(re);
@@ -142,10 +142,10 @@ public class Test extends metodosCompany {
 //             CadenaActores cadena;
 //             cadena =  getCadenaActores();
 //             
-//             //prueba orden
-//             OrdenTrazabilidad orden = new OrdenTrazabilidad(1,"que llegue pronto por favor", em, re, prod);
-//             insertarOrdenTrazabilidad(orden);
-//             getOrdenTrazabalidad(1);
+             //prueba orden
+             OrdenTrazabilidad orden = new OrdenTrazabilidad(1,"que llegue pronto por favor", em, re, prod);
+             insertarOrdenTrazabilidad(orden);
+             extraerOrdenTrazabalidad(1);
              
 //             //prueba bloque --> NO FUNCIONA DA ERROR EL GETHASHCODE
 //             
