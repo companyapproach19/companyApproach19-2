@@ -1,58 +1,35 @@
 package equipo8.model;
 
-public class Registro {
+import equipo6.model.DatosContainer;
+
+public class Registro extends DatosContainer{
+	
 	private int idLote;
-  	private int anio;
-  	private int mes;
-  	private int dia;
-	private int hora;
-  	private int min;
-  	private int sec;
+	private int idActor;
 	private String fechaInicio;
 	private String fechaFin;
-	private int actor;
 	private int tempMax;
 	private int tempMin;
 	
-	public Registro(int idLote,int actor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
+	public Registro(int idLote,int idactor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
 		this.idLote=idLote;
+		this.idActor = idactor;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
-		this.actor = actor;
 		this.tempMax = tempMax;
 		this.tempMin = tempMin;
 	}
 
 	public String toString(){
-		return idLote + " (" + actor + "): " + tempMax + " - " + tempMin + " -> " + fechaInicio + " | " + fechaFin;   
+		return "idLote:"+idLote +"\n"+"idActor:"+idActor+"\n"+"Temperatura máxima:"+tempMax+"ºC"+"\n"+"Temperatura mínima:"+tempMin +"ºC"+"\n"+"Fecha inicio:"+fechaInicio +"\n"+"Fecha fin:"+fechaFin+"\n";   
 	}
 	
-	public void setIdLote(int idLote) {
-		this.idLote = idLote;
+	public void setIdLote (int idLote) {
+		this.idLote = idLote;		
 	}
 	
-	private void setAnio(int anio) {
-		this.anio = anio;
-	}
-
-	private void setMes(int mes) {
-		this.mes = mes;
-	}
-
-	private void setDia(int dia) {
-		this.dia = dia;
-	}
-
-	private void setHora(int hora) {
-		this.hora = hora;
-	}
-
-	private void setMin(int min) {
-		this.min = min;
-	}
-
-	private void setSec(int sec) {
-		this.sec = sec;
+	public void setActor (int idActor) {
+		this.idActor = idActor;
 	}
 	
 	public void setFechaInicio (String fechaInicio) {
@@ -61,10 +38,6 @@ public class Registro {
 	
 	public void setFechaFin (String fechaFin) {
 		this.fechaFin = fechaFin;
-	}
-	
-	public void setActor (int actor) {
-		this.actor = actor;
 	}
 	
 	public void setTempMax (int tempMax) {
@@ -78,28 +51,9 @@ public class Registro {
 	public int getIdLote() {
 		return this.idLote;
 	}
-	private int getAnio() {
-		return this.anio;
-	}
-	
-	private int getMes() {
-		return this.mes;
-	}
-	
-	private int getDia() {
-		return this.dia;
-	}
-	
-	private int getHora() {
-		return this.hora;
-	}
-	
-	private int getMin() {
-		return this.min;
-	}
-	
-	private int getSec() {
-		return this.sec;
+
+	public int getActor() {
+		return this.idActor;
 	}
 	
 	public String getFechaInicio () {
@@ -108,10 +62,6 @@ public class Registro {
 	
 	public String getFechaFin() {
 		return this.fechaFin;
-	}
-	
-	public int getActor() {
-		return this.actor;
 	}
 	
 	public int getTempMax() {
