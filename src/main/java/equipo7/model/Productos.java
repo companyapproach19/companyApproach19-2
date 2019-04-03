@@ -1,5 +1,8 @@
 package equipo7.model;
-public class Productos {
+
+import java.io.Serializable;
+
+public class Productos implements Serializable {
 	private int id;
     private int cant_malta_palida;
     private int cant_malta_munich;
@@ -12,6 +15,7 @@ public class Productos {
     private int cant_lupulo_centenial;
     private int cant_cajas_stout;
     private int cant_cajas_bisner;
+    private static final long serialVersionUID = 1L;
 
     public Productos(int id, int cant_malta_palida, int cant_malta_munich,
                      int cant_malta_negra, int cant_malta_crystal,
