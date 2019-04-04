@@ -605,7 +605,7 @@ public class metodosCompany {
 		  conn.close();
 		}
 
-	public static Sensor extraerRegistro (int idLote) throws SQLException {
+	public static Registro extraerRegistro (int idLote) throws SQLException {
 	  conectar();
 	  String query = "SELECT * FROM company.registro WHERE registro.idLote = " +  idLote;
 	  Statement pst = conn.createStatement();
@@ -684,7 +684,7 @@ public class metodosCompany {
                     devolver = buscado;
                     break;
                 case 2:
-                    Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerSensor(rs.getInt(6)));
+                    Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerRegistro(rs.getInt(6)));
                     devolver = buscado2;
                     break;
             }
