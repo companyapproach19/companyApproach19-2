@@ -18,7 +18,7 @@ public class OrdenTrazabilidad extends DatosContainer
 	 * 
 	*/
 		//Es necesario un identificador por cada pedido
-		private int id;
+		private static int id;
 		//Actor que realiza el pedido
 		private Actor actorOrigen;
 		//Actor que recibe la peticion
@@ -97,7 +97,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			return this.necesitaTransportista;
 		}
 		
-		public int getId() {
+		public static int getId() {
 			return id;
 		}
 
