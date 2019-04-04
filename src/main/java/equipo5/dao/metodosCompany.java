@@ -183,7 +183,8 @@ public class metodosCompany {
 	               "fechaInicio VARCHAR(45), " +
 	               "fechaFin VARCHAR(45), " +
 	               "tempMax INT, " + 
-		        "tempMin INT);" 
+		        "tempMin INT, " +
+		         "PRIMARY KEY (idLote));" 
                );
                 pst14.executeUpdate();
                 
