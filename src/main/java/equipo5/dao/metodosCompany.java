@@ -25,7 +25,7 @@ import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo7.model.Transportista;
 import equipo8.model.GeneradorQR2;
-import equipo8.model.Sensor;
+import equipo8.model.Registro;
 
 public class metodosCompany {
 
@@ -176,16 +176,13 @@ public class metodosCompany {
                 pst13.executeUpdate();
                 
                 PreparedStatement pst14 = conn.prepareStatement(
-	              " CREATE TABLE company.sensor (" +
-	               "id INT NOT NULL, " +
-	                "anio VARCHAR(45), " +
-	               "mes VARCHAR(45), " +
-	               "dia VARCHAR(45), " +
-	               "hora VARCHAR(45), " +
-	               "min VARCHAR(45), " +
-	               "sec VARCHAR(45), " +
-	               "temperatura VARCHAR(45), " +
-	               "PRIMARY KEY (id));"
+	              " CREATE TABLE company.registro (" +
+	               "idLote INT NOT NULL, " +
+	                "idActor INT, " +
+	               "fechaInicio VARCHAR(45), " +
+	               "fechaFin VARCHAR(45), " +
+	               "tempMax INT, " + 
+		        "tempMin INT);" 
                );
                 pst14.executeUpdate();
                 
@@ -590,38 +587,29 @@ public class metodosCompany {
 	           return null;
 	  }
 	  
-	public static void insertarSensor (Sensor sensor) throws SQLException{
+	public static void insertarRegistro (Registro registro) throws SQLException{
 		  conectar();
-		  String query = "INSERT INTO company.sensor(id, anio, mes, dia, hora, min, sec, temperatura) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+		  String query = "INSERT INTO company.registro(idLote, idActor, fechaInio, fechaFin, tempMax, tempMin) VALUES 
+			  (?, ?, ?, ?, ?, ?);";
 		  PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-		  pst.setInt(1, sensor.getID());
-		  pst.setString(2, sensor.getAnio());
-		  pst.setString(3, sensor.getMes());
-		  pst.setString(4, sensor.getDia());
-		  pst.setString(5, sensor.getHora());
-		  pst.setString(6, sensor.getMin());
-		  pst.setString(7, sensor.getSec());
-		  pst.setString(8, sensor.getTemperatura());
+		  pst.setInt(1, registro.getIdLote());
+		  pst.setInt(2, registro.getActor());
+		  pst.setString(3, registro.getFechaInicio());
+		  pst.setString(4, registro.getFechaFin());
+		  pst.setInt(5, registro.getTempMax());
+		  pst.setInt(6, registro.getTempMin());
 		  pst.executeUpdate();
 		  pst.close();
 		  conn.close();
 		}
 
-	public static Sensor extraerSensor (int id) throws SQLException {
+	public static Sensor extraerRegistro (int idLote) throws SQLException {
 	  conectar();
-	  String query = "SELECT * FROM company.sensor WHERE sensor.id = " +  id;
+	  String query = "SELECT * FROM company.registro WHERE registro.idLote = " +  idLote;
 	  Statement pst = conn.createStatement();
 	  ResultSet rs = pst.executeQuery(query);
 	  while(rs.next()){
-	     Sensor buscado = new Sensor();
-	     buscado.setID(rs.getInt(1));
-	     buscado.setAnio(rs.getString(2));
-	     buscado.setMes(rs.getString(3));
-	     buscado.setDia(rs.getString(4));
-	     buscado.setHora(rs.getString(5));
-	     buscado.setMin(rs.getString(6));
-	     buscado.setSec(rs.getString(7));
-	     buscado.setTemperatura(rs.getString(8));
+	     Registro buscado = new Registro(rs.getInt(1), rs.getInt(2), rs.getInt(5), rs.getInt(6), rs.getString(3), rs.getString(4));
 	     pst.close();
 	     rs.close();
 	     conn.close();
