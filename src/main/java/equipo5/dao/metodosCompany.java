@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import equipo5.model.NotInDatabaseException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
@@ -608,15 +609,15 @@ public class metodosCompany {
 	  String query = "SELECT * FROM company.registro WHERE registro.idLote = " +  idLote;
 	  Statement pst = conn.createStatement();
 	  ResultSet rs = pst.executeQuery(query);
-	  while(rs.next()){
-	     Registro buscado = new Registro(rs.getInt(1), rs.getInt(2), rs.getInt(5), rs.getInt(6), rs.getString(3), rs.getString(4));
-	     pst.close();
-	     rs.close();
-	     conn.close();
-	     return buscado;
+	  if(!rs.next()){
+	     throw new NotInDatabaseException("El registro requerido no se encuentran en la base de datos.");
 	  }
-	  return null;
-	  }
+	  Registro buscado = new Registro(rs.getInt(1), rs.getInt(2), rs.getInt(5), rs.getInt(6), rs.getString(3), rs.getString(4));
+	  pst.close();
+	  rs.close();
+	  conn.close();
+	  return buscado;
+	}
 		
 	public static CadenaActores extraerCadenaActores() throws SQLException {
 	  conectar();
