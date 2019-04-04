@@ -13,15 +13,17 @@ public class Bloque implements Serializable{
     private int codLote;
     DatosContainer datos;
 	private long timeStamp;
+	private  int idCadena;
 
     //Constructor por defecto. Asignar tal cual
     //TODO anton
-    public Bloque(String hashPrevio, int tipoBloque, int numBloque, int codLote, DatosContainer datos){
+    public Bloque(String hashPrevio, int tipoBloque, int numBloque, int codLote, DatosContainer datos, int idCadena){
         this.hashPrevio = hashPrevio;
         this.tipoBloque = tipoBloque;
         this.numBloque = numBloque;
         this.codLote = codLote;
         this.datos = datos;
+        this.idCadena = idCadena;
     }
     
     //Getters para todos los campos
@@ -46,8 +48,23 @@ public class Bloque implements Serializable{
     public  DatosContainer getDatos(){
         return this.datos;
     }
+    
+    public int getIdCadena() {
+		return idCadena;
+	}
 
-    public String getHashCode() {
+	public void setIdCadena(int idCadena) {
+		this.idCadena = idCadena;
+	}
+	
+	
+	
+	public boolean is_super_blocke() 
+	{
+		return this.idCadena != -1;
+	}
+
+	public String getHashCode() {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");	        
             //Applies sha256 to our input, 
