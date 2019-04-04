@@ -1,0 +1,172 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:1-22:12
+MERGED from [com.android.support:design:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/0b15d43945312c14eacb29be1061d722/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/baa1b0ecaa25a91b3d3e97a78aed59f4/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/artorias/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/1a49828f2f364ba79e7232a1a6b4dd9f/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/8e32650bb5ae8fe46a595e8fec9da3f5/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/137e797eb40bb04c48add77d7dc67061/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/5b2ac80d72593aceffca480786c6cfa8/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/dc080e5f9fcee7fed22dce1ebce025a5/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/3de1616d8833c41b385dc1be04728c64/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/b78adbf69db8f4f79450f62f08739db6/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/98e661582f291a0721a15dffba7d21ce/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/e6b4ab1ecb6243dfc5378617d10d3011/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/dec266168b5aa77c567a5a4c1aae8db6/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/02cdbc2f2d346d347b7cec260e53dd6d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/9e1cf0c42dd38dac1ff08e649e3ba2b0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/dfa05b1dcdc69968c5c5db2afc177338/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/a3f3e4f74236ff68b8a25e50370d4399/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/50f34dc2c015ac0595b346a228c76214/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/6edbd3ca627af4e58fe0a56bfcfe8a32/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/598efaf686d9ba8b5e1c42365bb6142a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/235dad4b1d7ee9e88ced4481b702c0c2/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/dff7beee02f1ac5d79f4c4242a0ab75e/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/c707a6209bcf5bd70e91bb1f59d1416f/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/691fa57cbc4489428f2fa53b96a72d3e/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/6506bfafc078c361f5bd02f89c31ab2f/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/90f7882cc35c4cd52697042f45e993f1/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/157a5c110dee62cfd9f0129fedc05855/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/125c15da2e33403183d80fa0e00d3a0f/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/89f86c23fd154f1fa7633d3cc1d52dd6/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/ae0aa64b829932b8f1dc05a53d3adfc0/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/f0fc7925b60fbdbd4a45503cb19311aa/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/88b438d7196a7c4a992ca35fffa76ba6/AndroidManifest.xml:17:1-22:12
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:1-22:12
+	package
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:3:5-42
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:1-22:12
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:1-22:12
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:5:5-20:19
+MERGED from [com.android.support:design:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/0b15d43945312c14eacb29be1061d722/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/0b15d43945312c14eacb29be1061d722/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/artorias/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/1a49828f2f364ba79e7232a1a6b4dd9f/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/artorias/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/1a49828f2f364ba79e7232a1a6b4dd9f/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-compat:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/235dad4b1d7ee9e88ced4481b702c0c2/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/235dad4b1d7ee9e88ced4481b702c0c2/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/dff7beee02f1ac5d79f4c4242a0ab75e/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/dff7beee02f1ac5d79f4c4242a0ab75e/AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/235dad4b1d7ee9e88ced4481b702c0c2/AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:10:9-35
+	android:label
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:8:9-41
+	android:roundIcon
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:9:9-54
+	android:icon
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:7:9-43
+	android:allowBackup
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:6:9-35
+	android:theme
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:11:9-40
+activity#software.engineering.upm.es.Ficha
+ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:12:9-52
+	android:name
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:12:19-40
+activity#software.engineering.upm.es.MainActivity
+ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:13:9-19:20
+	android:name
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:13:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:14:13-18:29
+action#android.intent.action.MAIN
+ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:15:17-69
+	android:name
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:15:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:17:17-77
+	android:name
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml:17:27-74
+uses-sdk
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:design:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/0b15d43945312c14eacb29be1061d722/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/0b15d43945312c14eacb29be1061d722/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/baa1b0ecaa25a91b3d3e97a78aed59f4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/baa1b0ecaa25a91b3d3e97a78aed59f4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/artorias/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/1a49828f2f364ba79e7232a1a6b4dd9f/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/artorias/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/1a49828f2f364ba79e7232a1a6b4dd9f/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/8e32650bb5ae8fe46a595e8fec9da3f5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/8e32650bb5ae8fe46a595e8fec9da3f5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/137e797eb40bb04c48add77d7dc67061/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/137e797eb40bb04c48add77d7dc67061/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/5b2ac80d72593aceffca480786c6cfa8/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/5b2ac80d72593aceffca480786c6cfa8/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/dc080e5f9fcee7fed22dce1ebce025a5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/dc080e5f9fcee7fed22dce1ebce025a5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/3de1616d8833c41b385dc1be04728c64/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/3de1616d8833c41b385dc1be04728c64/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/b78adbf69db8f4f79450f62f08739db6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/b78adbf69db8f4f79450f62f08739db6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/98e661582f291a0721a15dffba7d21ce/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/98e661582f291a0721a15dffba7d21ce/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/e6b4ab1ecb6243dfc5378617d10d3011/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/e6b4ab1ecb6243dfc5378617d10d3011/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/dec266168b5aa77c567a5a4c1aae8db6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/dec266168b5aa77c567a5a4c1aae8db6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/02cdbc2f2d346d347b7cec260e53dd6d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/02cdbc2f2d346d347b7cec260e53dd6d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/9e1cf0c42dd38dac1ff08e649e3ba2b0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/9e1cf0c42dd38dac1ff08e649e3ba2b0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/dfa05b1dcdc69968c5c5db2afc177338/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/dfa05b1dcdc69968c5c5db2afc177338/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/a3f3e4f74236ff68b8a25e50370d4399/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/a3f3e4f74236ff68b8a25e50370d4399/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/50f34dc2c015ac0595b346a228c76214/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/50f34dc2c015ac0595b346a228c76214/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/6edbd3ca627af4e58fe0a56bfcfe8a32/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/6edbd3ca627af4e58fe0a56bfcfe8a32/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/598efaf686d9ba8b5e1c42365bb6142a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/598efaf686d9ba8b5e1c42365bb6142a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/235dad4b1d7ee9e88ced4481b702c0c2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/235dad4b1d7ee9e88ced4481b702c0c2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/dff7beee02f1ac5d79f4c4242a0ab75e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/dff7beee02f1ac5d79f4c4242a0ab75e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/c707a6209bcf5bd70e91bb1f59d1416f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/c707a6209bcf5bd70e91bb1f59d1416f/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/691fa57cbc4489428f2fa53b96a72d3e/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/691fa57cbc4489428f2fa53b96a72d3e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/6506bfafc078c361f5bd02f89c31ab2f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/6506bfafc078c361f5bd02f89c31ab2f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/90f7882cc35c4cd52697042f45e993f1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/90f7882cc35c4cd52697042f45e993f1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/157a5c110dee62cfd9f0129fedc05855/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/157a5c110dee62cfd9f0129fedc05855/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/125c15da2e33403183d80fa0e00d3a0f/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/125c15da2e33403183d80fa0e00d3a0f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/89f86c23fd154f1fa7633d3cc1d52dd6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /home/artorias/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/89f86c23fd154f1fa7633d3cc1d52dd6/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/ae0aa64b829932b8f1dc05a53d3adfc0/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/ae0aa64b829932b8f1dc05a53d3adfc0/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/f0fc7925b60fbdbd4a45503cb19311aa/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/f0fc7925b60fbdbd4a45503cb19311aa/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/88b438d7196a7c4a992ca35fffa76ba6/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /home/artorias/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/88b438d7196a7c4a992ca35fffa76ba6/AndroidManifest.xml:20:5-44
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+		ADDED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
+		INJECTED from /home/artorias/AndroidStudioProjects/Trasportistas/app/src/main/AndroidManifest.xml
