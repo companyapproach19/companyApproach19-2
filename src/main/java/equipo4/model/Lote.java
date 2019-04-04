@@ -1,7 +1,10 @@
 package equipo4.model;
 
 import java.util.*;
-public class Lote {
+
+import equipo6.model.DatosContainer;
+import equipo7.model.OrdenTrazabilidad;
+public class Lote extends DatosContainer{
 	public  int idBd;
 	public int code;
 	private  Date fecha_inicio;
@@ -50,7 +53,7 @@ public class Lote {
 	}
 	
 	public int getIdBd() {
-		return idBd;
+		return OrdenTrazabilidad.getId();
 	}
 
 	public void setIdBd(int idBd) {
@@ -108,4 +111,7 @@ public class Lote {
 		this.fermentado2 = fermentado2;
 		return fermentado2;
 	}
+
+	BlockchainServices bloque = new BlockchainServices();
+	       bloque.guardarOrden(Lote);
 }
