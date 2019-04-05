@@ -1,56 +1,113 @@
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<html lang="es">
+  <head>
+    <title>NumLote</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid register">
+      <div class="row">
+        <div class="col-md-3 register-left">
+          <img src="http://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png" alt="" />
+          <h1>Fábrica</h1>
+                        <!--<p>Pedidos recibidos</p>
+                        <input type="submit" name="" value="Log out"/><br/>
+                            -->
+        </div>
+
+        <div class="col-md-9 register-right">
+          <div class="row">
+            <div class="col-md-4 offset-md-2">
+              <h3 class="register-heading">¿Qué desea realizar?</h3>
+            </div>
+
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="home" data-toggle="submit" href="login.html" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+              </li>
+            </ul>
+          </div>
+          <br/><br/><br/><br/><br/><br/><br/>
+
+          <div class="row">
+            <div class="col-md-10 offset-md-2">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapseSeguimiento" role="button" aria-expanded="false" aria-controls="collapseSeguimiento">
+              Hacer seguimiento de un lote
+            </a>
+            
+            <div class="collapse" id="collapseSeguimiento">
+              Introduzca en número de <strong>lote:</strong>
+              <br/>
+              <div>
+                <span class="fa fa-user"></span>
+                <input type="text"  Placeholder="1234..." required>
+                <div class="input-group-append">
+                  <a class="btn btn-primary btnRegister" href="Lote.html" role="button">Buscar</a>
+                </div>
+              </div> <!-- JS because of IE support; better: placeholder="Username" -->
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-10 offset-md-2">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapseCreacion" role="button" aria-expanded="false" aria-controls="collapseCreacion">
+                Crear un Lote
+              </a>
+
+              <div class="collapse" id="collapseCreacion">
+                <span class="row">Selecciona el <strong>lote</strong> de cerveza que deseea crear:</span>
+                <div class="row">
+                  <a class="btn btn-primary" href="Pilsner.html" role="button">Crear lote Pilsner</a>
+                  <a class="btn btn-primary" href="Stout.html" role="button">Crear lote Stout</a>
+                </div>            
+              </div>
+            </div>
+          </div>
+
+            <div class="row">
+              <div class="col-md-10 offset-md-2">
+                <a class="btn btn-primary" data-toggle="collapseVisualizar" href="fabrica2.html" role="button" aria-expanded="false" aria-controls="collapseVisualizar">
+                  Visualizar cadena
+                </a>
+              </div>
+           </div>
+           <br/><br/><br/><br/><br/><br/>
+           </div>
+         </div>
+       </div>
+  </body>
+</html>
+
+
+
+
+
+
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<link href="prueba.css" rel="stylesheet" id="bootstrap-css">
 
-<div class="container register">
-                <div class="row">
-             
-                    <div class="col-md-3 register-left">
-                        <img src="http://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png" alt=""/>
-                        <h1>Fábrica</h1>
-                        <!--<p>Pedidos recibidos</p>-->
-                        <!--<input type="submit" name="" value="Log out"/><br/>
-                            -->
-                    </div>
-                    <div class="col-md-9 register-right">
-                        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="login.html" role="submit" aria-controls="home" aria-selected="true">Log out</a>
-                            </li>
-                        </ul>
-                        <div class="row register-form">
-                        <h3 class="register-heading">¿Qué desea realizar?</h3>
-                        <div class="row register-form">
+<!-- <div class="clearfix">
+  <a class="nav-link" href="Pilsner.html"  style= 'text-decoration: none;color:white'>
+                  <input type="button" class="btnRegister" value="Crear lote Pilsner">
+                </a>
+
+                <a class="nav-link" href="Stout.html"  style= 'text-decoration: none;color:white'>
+                  <input type="button" class="btnRegister" value="Crear lote Stout">
+                </a>
+<div class="row register-form">
                         <div class="col-md-9">
                         <div class="container">
                             <div class="row">
-
-
-                                <p>
-                                  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    Hacer seguimiento de un lote
-                                  </a>
-                                </p>
-                                <div class="collapse" id="collapseExample">
-                                    Introduzca en número de <strong>lote:</strong>
-                                    <br></br>
-                                  <p ><span class="fa fa-user"></span><input type="text"  Placeholder="1234..." required><div class="input-group-append">
-                    
-                    <a class="nav-link" href="Lote.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="Buscar"></a>
-                  </div></p> <!-- JS because of IE support; better: placeholder="Username" -->
-                                  
-                               </div>
-                                
-
-                            </div>
-                            <div class="row">
+                            <a class="nav-link" href="Lote.html"  style="text-decoration: none;color:white">
+                  <input type="button" class="btnRegister" value="Buscar">
+                </a> 
+              <div class="row">
 
 
                                 
@@ -59,42 +116,6 @@
                                     Crear un Lote
                                   </a>
                                 </p>
-                                <div class="collapse" id="collapseExample2">
-                                  
-                                  Selecciona el <strong>lote</strong> de cerveza que deseea crear:
-                                  
-                                  <div class="clearfix">
-                                  
-                                  <a class="nav-link" href="Pilsner.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="Crear lote Pilsner"></a>
-
-                                   <a class="nav-link" href="Stout.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="Crear lote Stout"></a>
-
-
-                                </div>
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-
-
-                                
-                                <p>
-                                  <a class="btn btn-primary" data-toggle="collapse" href="fabrica2.html" role="button" aria-expanded="false" aria-controls="collapseExample2">
-                                    Visualizar cadena
-                                  </a>
-                                </p>
                                 
 
-                            </div>
-                        </div>
-                        
-                        </div>
-                        
-                                
-                </div>
-            </div>
-                           
-             
-</div>                
-
+                            </div>-->
