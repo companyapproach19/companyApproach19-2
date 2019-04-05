@@ -1,25 +1,34 @@
-package equipo4;
+package equipo4.model;
+
 import java.util.*;
 public class Lote {
 	public  int idBd;
-	public  int code;
-	public  String tipo;
-	public  LinkedList<String> pedidos;
-	private  Date fecha_inicio;
-	private  Date fecha_final;
+	public int code;
+	public  Date fecha_inicio;
+	public  Date fecha_final;
 	private byte[] qr;
-	
-	private boolean molido;
-	private boolean cocido;
-	private boolean fermentado;
-	private boolean fermentado2;
-	private boolean embotellado;
+	public boolean molido;
+	public boolean cocido;
+	public boolean fermentado;
+	public boolean fermentado2;
+	public boolean embotellado;
 
-	public Lote(int idBd, Pilsner p, Date ini) {
-		this.idBd=idBd;
+	public Lote(int idBd, int code, Date fecha_inicio, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr) {
+		this.idBd= idBd;
+		this.code=code;
+		this.fecha_inicio=fecha_inicio;
+		this.fecha_final=fecha_final;
+		this.molido=molido;
+		this.cocido=cocido;
+		this.fermentado=fermentado;
+		this.fermentado2 = fermentado2;
+		this.embotellado=embotellado;
+		
+	}
+	
+	public Lote(Pilsner p, Date ini) {
+		this.idBd=metodosCompany.idLote();
 		this.code=p.getId();
-		this.tipo="Pilsner";
-		this.pedidos=new LinkedList<String>();
 		this.fecha_inicio=ini;
 		Date aux = (Date) fecha_inicio.clone();
 		aux.setDate(fecha_inicio.getDate()+12);
@@ -27,51 +36,22 @@ public class Lote {
 		molido=cocido=fermentado=fermentado2=embotellado=false;
 	}
 	
-	public Lote(int idBd, Stout s, Date ini) {
-		this.idBd=idBd;
+	public Lote(Stout s, Date ini) {
+		this.idBd=metodosCompany.idLote();
 		this.code=s.getId();
-		this.tipo="Stout";
-		this.pedidos=new LinkedList<String>();
 		this.fecha_inicio=ini;
 		Date aux = (Date) fecha_inicio.clone();
 		aux.setDate(fecha_inicio.getDate()+12);
 		this.fecha_final = aux;	
 		molido=cocido=fermentado=fermentado2=embotellado=false;
 	}
-	
-	/*@SuppressWarnings({ "deprecation", "static-access" })
-	public Lote(Stout name, Date fecha_inicio) {
-		Lote.code=name.getId();
-		Lote.tipo="Stout";
-		Lote.fecha_inicio = fecha_inicio;
-		Date aux = (Date) fecha_inicio.clone();
-		aux.setDate(fecha_inicio.getDate()+12);
-		Lote.fecha_final = aux;
-		pedidos = new LinkedList<String>();
-	}
-	
-	@SuppressWarnings({ "deprecation", "static-access" })
-	public Lote (Pilsner name, Date fecha_inicio) {
-		Lote.code=name.getId();
-		Lote.tipo="Pilsner";
-		Lote.fecha_inicio = fecha_inicio;
-		Date aux = (Date) fecha_inicio.clone();
-		aux.setDate(fecha_inicio.getDate()+12);
-		Lote.fecha_final = aux;
-		pedidos = new LinkedList<String>();
-	}*/
 
-	public void generarQR() {
-		if (embotellado)
-			qr = main.java.equipo8.model.GeneradorQR2.generadorQR(code);
-	}
-	
-	public  LinkedList<String> getPedidos() {
-		return pedidos;
+	public byte[] getQr() {
+		return qr;
 	}
 
-	public  void setPedidos(LinkedList<String> pedidos) {
-		this.pedidos = pedidos;
+	public void setQr(byte[] qr) {
+		this.qr = qr;
 	}
 
 	public  int getCode() {
@@ -82,14 +62,6 @@ public class Lote {
 		this.code = code;
 	}
 
-	public  String getTipo() {
-		return tipo;
-	}
-
-	public  void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
 	public  Date getFecha_inicio() {
 		return fecha_inicio;
 	}
@@ -98,6 +70,14 @@ public class Lote {
 		this.fecha_inicio = fecha_inicio;
 	}
 	
+	public int getIdBd() {
+		return idBd;
+	}
+
+	public void setIdBd(int idBd) {
+		this.idBd = idBd;
+	}
+
 	public  void setFecha_final(Date fecha_final) {
 		this.fecha_final = fecha_final;
 	}
@@ -150,5 +130,3 @@ public class Lote {
 		return fermentado2;
 	}
 }
-
-
