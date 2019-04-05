@@ -1,19 +1,33 @@
 package equipo8.model;
 
+import equipo4.model.Lote;
+import equipo6.model.Actor;
 import equipo6.model.DatosContainer;
 
 public class Registro extends DatosContainer{
 	
-	private int idLote;
-	private String idActor;
+	private int id;
+	private Lote lote;
+	private Actor actor;
 	private String fechaInicio;
 	private String fechaFin;
 	private int tempMax;
 	private int tempMin;
 	
-	public Registro(int idLote,String idactor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
-		this.idLote=idLote;
-		this.idActor = idactor;
+	public Registro(int id,Lote lote, Actor actor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
+		this.id = id;
+		this.lote=lote;
+		this.actor = actor;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.tempMax = tempMax;
+		this.tempMin = tempMin;
+	}
+	
+	public Registro(Lote lote, Actor actor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
+		//this.id = metodosCompany.idRegistro(); //Metodo a la espera de que se suba a master
+		this.lote=lote;
+		this.actor = actor;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.tempMax = tempMax;
@@ -21,15 +35,15 @@ public class Registro extends DatosContainer{
 	}
 
 	public String toString(){
-		return "idLote:"+idLote +"\n"+"idActor:"+idActor+"\n"+"Temperatura máxima:"+tempMax+"ºC"+"\n"+"Temperatura mínima:"+tempMin +"ºC"+"\n"+"Fecha inicio:"+fechaInicio +"\n"+"Fecha fin:"+fechaFin+"\n";   
+		return "idLote:" +"\n"+"idActor:"+ actor.getNombreUsuario() +"\n"+"Temperatura máxima:"+tempMax+"ºC"+"\n"+"Temperatura mínima:"+tempMin +"ºC"+"\n"+"Fecha inicio:"+fechaInicio +"\n"+"Fecha fin:"+fechaFin+"\n";   
 	}
 	
-	public void setIdLote (int idLote) {
-		this.idLote = idLote;		
+	public void setIdLote (Lote lote) {
+		this.lote = lote;		
 	}
 	
-	public void setActor (String idActor) {
-		this.idActor = idActor;
+	public void setActor (Actor actor) {
+		this.actor = actor;
 	}
 	
 	public void setFechaInicio (String fechaInicio) {
@@ -48,12 +62,12 @@ public class Registro extends DatosContainer{
 		this.tempMin = tempMin;
 	}
 	
-	public int getIdLote() {
-		return this.idLote;
+	public Lote getIdLote() {
+		return this.lote;
 	}
 
-	public String getActor() {
-		return this.idActor;
+	public Actor getActor() {
+		return this.actor;
 	}
 	
 	public String getFechaInicio () {

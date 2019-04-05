@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import equipo4.model.Lote;
+import equipo6.model.Actor;
+
 // Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
 public class Sensor {
 
@@ -22,7 +25,7 @@ public class Sensor {
 	}
 	
 	
-	public  Registro crearRegistro(int idLote, String idActor,String ruta)throws IOException {
+	public  Registro crearRegistro(Lote lote, Actor actor,String ruta) throws IOException {
 
 		HashMap<Fecha,Integer> listaRegistros= new HashMap<Fecha,Integer>();
 		log = new BufferedReader(new FileReader(ruta)); 
@@ -72,7 +75,7 @@ public class Sensor {
 		}
 		
 		//al salir del bucle fecha contiene la fecha final
-		Registro registro= new Registro(idLote, idActor, Tmax, Tmin,  fechaInicio.toString(), fecha.toString());
+		Registro registro= new Registro(lote, actor, Tmax, Tmin,  fechaInicio.toString(), fecha.toString());
 		//File file = new File(ruta);
 		//file.delete();
 		//file.createNewFile();
