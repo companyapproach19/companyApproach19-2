@@ -1,27 +1,35 @@
 package equipo4.model;
 
 public class MateriaPrima {
+	private static String nombre;
+	private static int id ;
 	private static double capacidad;
-	private static double maxCapacidad;
 
-	public MateriaPrima(double capacidad, double maxCapacidad) {
-		this.capacidad=capacidad;
-		this.maxCapacidad=maxCapacidad;
+	public MateriaPrima(String nombre, int id) {
+		this.nombre=nombre;
+		this.id=id;
+		this.capacidad=0;
+	}
+	public MateriaPrima(String nombre) {
+		this.nombre=nombre;
+		//id de alberto
+		this.id=metodosCompany.idMateriaPrima();
+		this.capacidad=0;
 	}
 
-	public static double getCapacidad() {
-		return capacidad;
+	public static String getNombre() {
+		return nombre;
 	}
 
-	public static void setCapacidad(double capacidad) {
-		MateriaPrima.capacidad = capacidad;
+	public static void setNombre(String nombre) {
+		MateriaPrima.nombre = nombre;
 	}
 
-	public static double getMaxCapacidad() {
-		return maxCapacidad;
+	public static int getId() {
+		return id;
 	}
 
-	public static void setMaxCapacidad(double maxCapacidad) {
-		MateriaPrima.maxCapacidad = maxCapacidad;
+	public static void setId(int id) {
+		MateriaPrima.id = id;
 	}
 }
