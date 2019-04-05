@@ -2,62 +2,109 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<html lang="es">
+  <head>
+    <title>Lote</title>
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    
 
-<div class="container register">
-                <div class="row">
-             
-                    <div class="col-md-3 register-left">
-                        <img src="http://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png" alt=""/>
-                        <h1>Fábrica</h1>
+<div class="container-fluid register">
+    <div class="row"> 
+        <div class="col-md-3 register-left">
+             <img src="http://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png" alt=""/>
+             <h3>Fábrica</h3>
                         <!--<p>Pedidos recibidos</p>-->
-                        <!--<input type="submit" name="" value="Log out"/><br/>
-                            -->
-                    </div>
-                    <div class="col-md-9 register-right">
-                        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="login.html" role="submit" aria-controls="home" aria-selected="true">Log out</a>
-                            </li>
-                        </ul>
-                        <div class="row register-form">
-                        <h3 class="register-heading">Proceso de fabricación</h3>
-                        <div class="row register-form" style="width: 500px">
-                        
-                        <div class="container">
-                            Lote: <strong>/numLote/<strong>.</p>
-                              <p>1. Llegada a la fábrica </p>
-                                <a class="nav-link" href="Llegada.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="+ info"></a>
-                                <br><br/>
-                              <p>2. Molienda </p>
-                                <a class="nav-link" href="Molienda.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="+ info"></a>
-                                <br><br/>
-                              <p>3. Cocción </p>
-                               <a class="nav-link" href="Coccion.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="+ info"></a>
-                               <br><br/>
-                              <p>4. Fermentación </p>
-                               <a class="nav-link" href="Fermentacion.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="+ info"></a>
-                               <br><br/>
-                              <p>5. Embotellado </p>
-                               <a class="nav-link" href="Embotellado.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="+ info"></a>
-                               <br><br/>
-                              <p>6. Salida a la fábrica </p>
-                               <a class="nav-link" href="Salida.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="+ info"></a>
-                              
-                               
-                        </div>
-                        <a class="nav-link" href="numLote.html"  style= 'text-decoration: none;color:white'><input type="button" class="btnRegister" value="Volver"></a>
-                        
-                        
-                                
-                </div>
-                
+                    <!--<input type="submit" name="" value="Log out"/><br/>-->
+        </div>
+        <div class="col-md-9 register-right">
+            <div class="row">
+                <div class="col-md-5 offset-md-2">
+                 <h3 class="register-heading">Proceso de fabricación</h3>
             </div>
+
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="home" data-toggle="submit" href="login.html" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+              </li>
+            </ul>
+          </div>
+          <br/><br/><br/><br/><br/>
+            <div class="row">
+                <div class="col-md-10 offset-md-2">
+                   <p><strong>Lote:</strong> (numLote)
+                      </br><br>
+
+                    </p>
+                    <p><strong>1. Llegada a la fábrica</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="Llegada.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                      </div>
+                      </br>
+                    </p>     
+                    <p><strong>2. Molienda</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="Molienda.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                      </div>
+                      </br>
+                    </p>   
+                    <p><strong>3. Cocción</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="Coccion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                      </div>
+                      </br>
+                    </p>   
+                    <p><strong>4. Fermentación</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="Fermentacion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                      </div>
+                      </br>
+                    </p>   
+                    <p><strong>5. Embotellado</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="Embotellado.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                      </div>
+                      </br>
+                    </p>   
+                    <p><strong>6. Salida de la fábrica</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="Salida.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                      </div>
+                      
+                    </p>   
+                    
+                    <br/><br/><br/>
+                    <div class="row">
+                        <div class="col-md-10 offset-md-2">
+                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item" >
+                                <a class="nav-link" id="home" data-toggle="submit" href="Lote.html" role="submit" aria-controls="home" aria-selected="true">volver</a>
+                            </li>
+                            </ul>
+                        </div>
+            
+                    </div>
+
+                    <br/><br/><br/>
+
+                </div>
+            </div>
+        </div>
+        <br/><br/><br/><br/><br/><br/>
+    </div> 
+</div>
+
+</body>
+
+
                            
-             
-</div>                
