@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import equipo5.model.NotInDatabaseException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
