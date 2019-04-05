@@ -1,8 +1,5 @@
 	package equipo4.model;
-
-import java.io.Serializable;
-
-public class Pilsner implements Serializable{
+	public class Pilsner implements Serializable{
 		
 		public static double maltaPilsner;
 		public static double maltaCaramelo;
@@ -16,7 +13,6 @@ public class Pilsner implements Serializable{
 		public static boolean fermentacion1;
 		public static boolean fermentacion2;
 		public static boolean embotellado;
-		
 		public Pilsner() {
 			agua=11956521.7391;
 			maltaPilsner = 1739130434.78;

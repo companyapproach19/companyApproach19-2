@@ -1,8 +1,6 @@
 package equipo4.model;
 
-import java.io.Serializable;
-
-public class Stout implements Serializable{
+public class Stout implements Serializable {
 	public static double maltaCaramelo;
 	public static double maltaBasePalida;
 	public static double maltaMunich;
