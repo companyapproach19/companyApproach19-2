@@ -1,19 +1,20 @@
 package equipo7.otros;
+import equipo6.model.Actor;
 import equipo7.model.OrdenTrazabilidad;
 
 public class CooperativaOrdenes  extends Orden {
 	
 	AgricultoresOrdenes receptor;
 	
-	public CooperativaOrdenes(OrdenTrazabilidad peticion) {
+	public CooperativaOrdenes() {
 		//super(peticion);
 	}
 	
 	public void crearPedido() {
-		receptor = new AgricultoresOrdenes(super.getPedido());
+		//receptor = new AgricultoresOrdenes(super.getPedido());
 	}
 
-	public void notificacion(int cod) {// se notifica un mensaje
+	public String notificacion(int cod, Actor origen) {// se notifica un mensaje
 		// en funcion del codigo lanzaremos un mensaje u otro
 		String mensaje="";
 		switch (cod) {
@@ -24,15 +25,17 @@ public class CooperativaOrdenes  extends Orden {
 			mensaje+="Su pedido ha sido entregado";
 			break;
 		case 4:
-			mensaje+="El usuario "+this.getPedido().getActorOrigen()+"desea encargarle el siguiente pedido :"+this.getPedido().getProductos();
+			mensaje+="El usuario "+origen.getNombreUsuario()+" desea encargarle un siguiente pedido";
 			break;
 		case 5:
 			mensaje+="El producto no ha sido aceptado";
 			break; 
 
 		}
-		this.getPedido().setMensaje(mensaje);
+		//this.getPedido().setMensaje(mensaje);
+		return mensaje;
 	}
+	
 	public boolean listo_recoger() {
 		return true;
 	}

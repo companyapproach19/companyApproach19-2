@@ -1,17 +1,17 @@
 package equipo7.otros;
-import equipo7.model.OrdenTrazabilidad;
+import equipo6.model.Actor;
 public class FabricaOrdenes  extends Orden{
 	
 	CooperativaOrdenes receptor;
 	
-	public FabricaOrdenes(OrdenTrazabilidad peticion) {
-		super(peticion);
+	public FabricaOrdenes() {
+		//super(peticion);
 	}
 	
 	public void crearPedido() {
-		receptor = new CooperativaOrdenes(super.getPedido());
+		//receptor = new CooperativaOrdenes(super.getPedido());
 	}
-	public void notificacion(int cod) {
+	public String notificacion(int cod, Actor origen) {
 		// todos los mensajes que se han de pasar por pantalla dependiendo del
 		// proceso
 		String mensaje="";
@@ -35,12 +35,12 @@ public class FabricaOrdenes  extends Orden{
 			mensaje+="El producto no ha sido aceptado";
 			break; 
 		case 7:
-			mensaje+="El usuario "+this.getPedido().getActorOrigen()+"desea encargarle el siguiente pedido :"+this.getPedido().getProductos();
+			mensaje+="El usuario "+origen.getNombreUsuario()+"desea encargarle el siguiente pedido";
 			break; 
 
 		}
-		this.getPedido().setMensaje(mensaje);
-
+		//this.getPedido().setMensaje(mensaje);
+		return mensaje;
 	}
 
 }
