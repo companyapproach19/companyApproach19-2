@@ -149,7 +149,7 @@ public class BlockchainServices{
     {
     	if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getId();
     	if(datos_container instanceof Registro) return ((Registro)datos_container).getIdLote();
-    	if(datos_container instanceof Lote) return ((Lote)datos_container).getCode();
+    	if(datos_container instanceof Lote) return ((Lote)datos_container).getIdBd();
     	return -1;
     }
     
