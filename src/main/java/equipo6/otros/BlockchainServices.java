@@ -56,7 +56,7 @@ public class BlockchainServices{
           
     }
     
-    public void guardarRespuestaPedido(int id_pedido_destino, ArrayList<Integer> ids_stock_origen) throws SQLException 
+    public void guardarRespuestaPedido(int id_pedido_destino, ArrayList<Integer> ids_stock_origen) throws Throwable 
     {
     	
     	Cadena origen;
@@ -147,8 +147,8 @@ public class BlockchainServices{
     
     private int get_id_datos(DatosContainer datos_container) 
     {
-    	if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getId();
-    	if(datos_container instanceof Registro) return ((Registro)datos_container).getIdLote();
+    	if(datos_container instanceof OrdenTrazabilidad) return OrdenTrazabilidad.getId();
+    	if(datos_container instanceof Registro) return ((Registro)datos_container).getIdLote().idBd;
     	if(datos_container instanceof Lote) return ((Lote)datos_container).getIdBd();
     	return -1;
     }
