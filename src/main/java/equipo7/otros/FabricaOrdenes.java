@@ -26,7 +26,7 @@ public class FabricaOrdenes  extends Orden{
 			mensaje+="Su pedido se encuentra listo para ser recogido";
 			break;
 		case 4:
-			mensaje+="Su producto se encuentra en transporte ";
+			mensaje+="Su producto se encuentra en transporte";
 			break;
 		case 5:
 			mensaje+="El producto ha sido entregado";
