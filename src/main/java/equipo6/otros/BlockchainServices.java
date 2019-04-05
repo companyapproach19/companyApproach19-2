@@ -130,6 +130,11 @@ public class BlockchainServices{
     	return respuesta.toString();
     }
     
+    ArrayList<OrdenTrazabilidad> extraerPedido(String idActor) throws ClassNotFoundException, SQLException
+    {
+    	return metodosCompany.extraerPedidosActorDestino(idActor);
+    }
+    
     
     private JsonObject convert_to_json(DatosContainer datos) 
     {
