@@ -11,7 +11,7 @@ public class TiendaOrdenes  extends Orden{
 		//receptor = new RetailerOrdenes(super.getPedido());
 	}
 	
-	public String notificacion(int cod) {
+	public String notificacion(int cod){
 		// todos los mensajes que se han de pasar por pantalla dependiendo del
 		// proceso
 		String mensaje = "";
@@ -34,6 +34,9 @@ public class TiendaOrdenes  extends Orden{
 		case 6:
 			mensaje+="El producto no ha sido aceptado";
 			break;  
+		default:
+			return "Error en el codigo de notificacion";
+			
 
 		}
 		//this.getPedido().setMensaje(mensaje);

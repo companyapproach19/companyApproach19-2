@@ -30,9 +30,13 @@ public class Main_pedidos {
 			case 4:
 				devolver = new TiendaOrdenes();
 				break;
+			default:
+				System.out.println("Error en el codigo de notificacion");
+				break;
 			}
 			devolver.crearPedido();
 			return devolver;
+
 	}	    
 	
 	//El sistema verifica que el pedido sea valido

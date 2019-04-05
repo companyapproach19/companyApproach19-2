@@ -38,6 +38,9 @@ public class RetailerOrdenes  extends Orden {
 		case 7:
 			mensaje+="El usuario "+origen.getNombreUsuario()+"desea encargarle el siguiente pedido";
 			break; 
+		default:
+			return "Error en el codigo de notificacion";
+			
 
 		}
 		//this.getPedido().setMensaje(mensaje);

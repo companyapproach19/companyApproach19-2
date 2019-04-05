@@ -14,6 +14,8 @@ public class AgricultoresOrdenes extends Orden{
 		case 1:
 			mensaje+="El usuario "+origen.getNombreUsuario()+" desea encargarle un pedido ";
 			break;  
+		default:
+			return "Error en el codigo de notificacion";	
 		}
     	return mensaje;
     } 

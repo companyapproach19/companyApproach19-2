@@ -16,14 +16,25 @@ import org.junit.runners.Parameterized.Parameters;
 import equipo6.model.Actor;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
+import equipo7.otros.AgricultoresOrdenes;
+import equipo7.otros.TiendaOrdenes;
 
 import org.junit.runner.RunWith;
 import static org.junit.Assert.assertEquals;
 public class AgricultoresOrdenesTest {
 
+
+	private Actor actor = new Actor();
+	private AgricultoresOrdenes agricultoresOrden = new AgricultoresOrdenes();
+	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testNotificacion() {
+		
+		//ACIERTO
+	     assertEquals("El usuario "+actor.getNombreUsuario()+"desea encargarle el siguiente pedido", agricultoresOrden.notificacion(7, actor));
+	     //FALLO
+	      assertEquals("El pedido ha sido aceptado", agricultoresOrden.notificacion(15, actor));
+		
 	}
 
 }

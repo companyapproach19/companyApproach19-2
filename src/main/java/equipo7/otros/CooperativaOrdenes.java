@@ -21,15 +21,17 @@ public class CooperativaOrdenes  extends Orden {
 		case 2:
 			mensaje+="Su pedido ha sido aceptado y se encuentra en proceso";
 			break;
-		case 3:
+		case 1:
 			mensaje+="Su pedido ha sido entregado";
 			break;
-		case 4:
+		case 3:
 			mensaje+="El usuario "+origen.getNombreUsuario()+" desea encargarle un siguiente pedido";
 			break;
-		case 5:
+		case 4:
 			mensaje+="El producto no ha sido aceptado";
 			break; 
+		default:
+			return "Error en el codigo de notificacion";
 
 		}
 		//this.getPedido().setMensaje(mensaje);

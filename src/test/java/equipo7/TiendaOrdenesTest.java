@@ -4,21 +4,23 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import equipo6.model.Actor;
+import equipo7.otros.RetailerOrdenes;
+import equipo7.otros.TiendaOrdenes;
+
 public class TiendaOrdenesTest {
 
-	@Test
-	public void testCrearPedido() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testTiendaOrdenes() {
-		fail("Not yet implemented");
-	}
+	private Actor actor = new Actor();
+	private TiendaOrdenes tiendaOrden = new TiendaOrdenes();
 
 	@Test
 	public void testNotificacion() {
-		fail("Not yet implemented");
+	
+		//ACIERTO
+	      assertEquals("El pedido ha sido aceptado", tiendaOrden.notificacion(1));
+	     //FALLO
+	      assertEquals("El pedido ha sido aceptado", tiendaOrden.notificacion(15));
 	}
+
 
 }
