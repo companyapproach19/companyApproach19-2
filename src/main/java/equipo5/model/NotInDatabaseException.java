@@ -1,5 +1,8 @@
 package equipo5.model;
 
-public class NotInDatabaseException {
+public class NotInDatabaseException extends Throwable {
+
+	public NotInDatabaseException(String mensaje) {
+	}
 
 }

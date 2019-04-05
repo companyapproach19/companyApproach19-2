@@ -690,7 +690,7 @@ public class metodosCompany {
          return buscado;
     }
     	else if (actor.getTipoActor()==3) { // se necesita relacionar la tabla fabrica con actor
-    		String query = "SELECT * FROM company.almacenLotes WHERE idBd = " + actor.getId().getIdAlmacenLotes();//???
+    		String query = "SELECT * FROM company.stockFabricaLotes WHERE idBd = " + actor.getId().getIdAlmacenLotes();//???
             Statement pst = conn.createStatement();
             ResultSet rs = pst.executeQuery(query);
    	 if(!rs.next()){
@@ -755,26 +755,27 @@ public class metodosCompany {
     
 	public void insertarStockLote(Actor actor, Lote lote) throws SQLException, ClassNotFoundException{
 	   	conectar();
-	   	if(actor.getTipoActor()==4) {
-	    String query = "INSERT INTO company.stockRetailer (idStockRetailer, tipoLote, cantidad) VALUES ( ?, ?, ?);"; 
-	    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-	    pst.setString(1, actor.getId());
-	    pst.setString(3, lote.getTipo());//nose si es asi el metodo porque no tenemos hecha la clase lote
-	    pst.setInt(4, extraerStockLote(actor)+1);
-	    pst.executeUpdate();
-	    pst.close();
-	    conn.close();
+	   	switch(actor.getTipoActor()){
+	   		case 4:
+			    String query = "INSERT INTO company.stockRetailer (idRetailer, idLote, cantidad) VALUES ( ?, ?, ?);"; 
+			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+			    pst.setString(1, actor.getId());
+			    pst.setInt(2, lote.getIdBd());
+			    pst.setInt(3, lote.getCantidad);
+			    pst.executeUpdate();
+			    pst.close();
+			    conn.close();
+			    break;
+	   		case 3:
+			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, cantidad) VALUES (?, ?);"; 
+			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
+			    pst.setInt(1, lote.getIdBd());
+			    pst.setInt(2, lote.getCantidad);
+			    pst2.executeUpdate();
+			    pst2.close();
+			    conn.close();
+			    break;
 	    } 	
-	   	if(actor.getTipoActor()==3) {
-		    String query = "INSERT INTO company.almacenLotes (, tipoLote, cantidad) VALUES (?, ?, ?);"; //hay que modificar la tabla almacenLotes
-		    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-		    pst.setString(1, actor.getId());
-		    pst.setString(3, lote.getTipo());
-		    pst.setInt(4, extraerStockLote(actor)+1);
-		    pst.executeUpdate();
-		    pst.close();
-		    conn.close();
-		    } 	
     }
     
 	public static int idOrdenTrazabilidad() throws SQLException, ClassNotFoundException{
