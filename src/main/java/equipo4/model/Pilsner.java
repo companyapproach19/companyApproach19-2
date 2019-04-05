@@ -1,5 +1,8 @@
 	package equipo4.model;
-	public class Pilsner implements Serializable{
+
+import java.io.Serializable;
+
+public class Pilsner implements Serializable{
 		
 		public static double maltaPilsner;
 		public static double maltaCaramelo;

@@ -2,8 +2,12 @@ package equipo4.model;
 
 import java.util.Scanner;
 import java.util.Date;
+import java.util.*;
 
-public class Principal {
+import equipo5.dao.metodosCompany;
+import equipo6.model.DatosContainer;
+
+public class Principal extends DatosContainer{
 
 	private static Date fechaActual = new Date();
 	private static double densidad;
@@ -12,11 +16,11 @@ public class Principal {
 	public static void moler(Lote lote) throws InterruptedException {
 		lote.setFecha_inicio(fechaActual);
 		System.out
-				.println("Dï¿½a: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
+				.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
 		System.out.println("Moliendo...");
 		Thread.sleep(3000);
 		fechaActual.setDate(fechaActual.getDate() + 1);
-		System.out.println("Proceso de molienda finalizado. Dï¿½a: " + fechaActual.getDate() + "/"
+		System.out.println("Proceso de molienda finalizado. Dia: " + fechaActual.getDate() + "/"
 				+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 		lote.setMolido(true);
 	}
@@ -24,12 +28,12 @@ public class Principal {
 	@SuppressWarnings("deprecation")
 	public static void cocinar(Lote lote) throws InterruptedException {
 		System.out
-				.println("Dï¿½a: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
+				.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
 		if (lote.isMolido()) {
 			System.out.println("Cociendo...");
 			Thread.sleep(3000);
 			fechaActual.setDate(fechaActual.getDate() + 1);
-			System.out.println("Proceso de cocciï¿½n finalizado. Dï¿½a: " + fechaActual.getDate() + "/"
+			System.out.println("Proceso de coccion finalizado. Dia: " + fechaActual.getDate() + "/"
 					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 			lote.setCocido(true);
 		}
@@ -38,17 +42,17 @@ public class Principal {
 	@SuppressWarnings("deprecation")
 	public static void fermentar(Lote lote) throws InterruptedException {
 		System.out
-				.println("Dï¿½a: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
+				.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
 		if (lote.isCocido()) {
 			System.out.println("Fermentando...");
 			Thread.sleep(3000);
 			fechaActual.setDate(fechaActual.getDate() + 7);
 			densidad = 1.045 - (Math.random() * 0.5);
-			System.out.println("Proceso de fermentaciï¿½n finalizado. Dï¿½a: " + fechaActual.getDate() + "/"
+			System.out.println("Proceso de fermentacion finalizado. Dia: " + fechaActual.getDate() + "/"
 					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 			if (densidad > 1.010) {
 				System.out.println("Las pruebas de densidad indican una densidad de " + densidad
-						+ ", por lo que es necesario realizar una segunda fermentaciï¿½n.");
+						+ ", por lo que es necesario realizar una segunda fermentacion.");
 				fermentar2(lote);
 			}
 			lote.setFermentado(true);
@@ -58,13 +62,13 @@ public class Principal {
 	@SuppressWarnings("deprecation")
 	public static void fermentar2(Lote lote) throws InterruptedException {
 		System.out
-				.println("Dï¿½a: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
+				.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
 		if (lote.isFermentado()) {
 			System.out.println("Fermentando otra vez...");
 			Thread.sleep(3000);
 			fechaActual.setDate(fechaActual.getDate() + 15);
 			densidad -= (Math.random() * 0.1);
-			System.out.println("Proceso de segunda fermentaciï¿½n finalizado. Dï¿½a: " + fechaActual.getDate() + "/"
+			System.out.println("Proceso de segunda fermentacion finalizado. Dia: " + fechaActual.getDate() + "/"
 					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 			lote.setFermentado2(true);
 		}
@@ -73,22 +77,23 @@ public class Principal {
 	@SuppressWarnings("deprecation")
 	public static void embotellar(Lote lote) throws InterruptedException {
 		System.out
-				.println("Dï¿½a: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
+				.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
 		if (lote.isFermentado()) {
 			System.out.println("Embotellando...");
 			Thread.sleep(3000);
 			fechaActual.setDate(fechaActual.getDate() + 2);
-			System.out.println("Proceso de embotellado finalizado. Dï¿½a: " + fechaActual.getDate() + "/"
+			System.out.println("Proceso de embotellado finalizado. Dia: " + fechaActual.getDate() + "/"
 					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 			lote.setEmbotellado(true);
 			AlmacenLotes.almacenarLote(lote);
+			guardarOrden(lote);
 			lote.setQr(GeneradorQR2.generadorQR(lote.getIdBd()));
 			lote.setFecha_final(fechaActual);
 		}
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		System.out.println("ï¿½Desea generar un lote? (s/n)");
+		System.out.println("¿Desea generar un lote? (s/n)");
 		Scanner sc = new Scanner(System.in);
 		String answ = sc.nextLine();
 		switch(answ.toLowerCase()) {
@@ -99,7 +104,7 @@ public class Principal {
 			}
 			else {
 				Pilsner a; 
-				System.out.println("ï¿½Desea generar un pedido de tipo Pilsner? (s/n)" );
+				System.out.println("¿Desea generar un pedido de tipo Pilsner? (s/n)" );
 				String pilsner = sc.nextLine();
 				Lote lote = null;
 				
@@ -112,7 +117,7 @@ public class Principal {
 					moler(lote);
 					System.out.println("Comienza la fase de cocinado.");
 					cocinar(lote);
-					System.out.println("Comienza la fase de fermentaciï¿½n.");
+					System.out.println("Comienza la fase de fermentacion.");
 					fermentar(lote);
 					System.out.println("Comienza la fase de embotellado.");
 					embotellar(lote);
@@ -122,7 +127,7 @@ public class Principal {
 					}
 		
 		Stout b;	
-		System.out.println("ï¿½Desea generar un pedido de tipo Stout? (s/n)" );
+		System.out.println("¿Desea generar un pedido de tipo Stout? (s/n)" );
 		String stout = sc.nextLine();
 		Lote lote2 = null;
 		switch(pilsner.toLowerCase()) {
@@ -134,7 +139,7 @@ public class Principal {
 			moler(lote);
 			System.out.println("Comienza la fase de cocinado.");
 			cocinar(lote);
-			System.out.println("Comienza la fase de fermentaciï¿½n.");
+			System.out.println("Comienza la fase de fermentacion.");
 			fermentar(lote);
 			System.out.println("Comienza la fase de embotellado.");
 			embotellar(lote);
@@ -144,7 +149,7 @@ public class Principal {
 		}
 		
 		Scanner sca = new Scanner(System.in);
-		System.out.println("ï¿½Desea consultar informacion sobre algun lote? (s/n)");
+		System.out.println("¿Desea consultar informacion sobre algun lote? (s/n)");
 		String ans = sca.nextLine();
 		switch(ans.toLowerCase()) {
 		case "s":
@@ -156,7 +161,7 @@ public class Principal {
 			if(AlmacenLotes.getLista()!=null && AlmacenLotes.existeLoteId(id)) {
 			for(int i=0;i<AlmacenLotes.getLista().size() && !encontrado;i++) {
 			if (AlmacenLotes.getLista().get(i).getIdBd()-id==0) {
-				System.out.println("En preparaciï¿½n.");
+				System.out.println("En preparacion.");
 				encontrado=true;
 			}
 			}

@@ -1,5 +1,9 @@
 package equipo4.model;
 
+import com.controller.StockController;
+
+import equipo5.dao.metodosCompany;
+
 public class AlmacenMMPP {
 	public static int id;
 	public static int capacidad;	
