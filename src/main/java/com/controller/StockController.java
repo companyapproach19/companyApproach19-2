@@ -1,7 +1,10 @@
 package com.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +18,7 @@ import com.google.gson.JsonObject;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.Actor;
+import equipo6.otros.BlockchainServices;
 @Controller
 @SpringBootApplication
 public class StockController {
@@ -127,6 +131,22 @@ public class StockController {
 		 */
 		
 		
+	}
+	
+	@Scope("request")
+	@RequestMapping("/get_trazabilidad")
+	@ResponseBody
+	public String get_trazabilidad(HttpServletResponse response,
+			@RequestParam(name="id_pedido", required=true) int id_pedido,
+			Model model) throws SQLException 
+	{
+		BlockchainServices bcs;
+		
+		bcs = new BlockchainServices();
+		
+		System.out.println(id_pedido);
+		
+		return bcs.get_trazabilidad(id_pedido);
 	}
 
 }
