@@ -98,10 +98,16 @@ public class OrdenTrazabilidad extends DatosContainer
 		
 		public void setFirmaRecogida(byte[] firmaRecogida) {
 			this.firmaRecogida = firmaRecogida;
+			if(this.firmaRecogida!=null && this.firmaRecogida.length>0) {
+				this.origenOrdenes.firmadoRecogida(this.estado);
+			}
 		}
 
 		public void setFirmaEntrega(byte[] firmaEntrega) {
 			this.firmaEntrega = firmaEntrega;
+			if(this.firmaEntrega!=null && this.firmaEntrega.length>0) {
+				this.origenOrdenes.firmadoRecogida(this.estado);
+			}
 		}
 		
 		public void setOrigenOrdenes(Orden origenOrdenes) {
