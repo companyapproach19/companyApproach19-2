@@ -117,13 +117,15 @@ public class Cadena{
         6. LLamar a BBDD para almacenar la tabla de referencia
         */
 
-        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc);
+        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc, -1);
         nuevoBloque.setTimeStamp();
         String hashNuevo = nuevoBloque.getHashCode();
 		try {
-			metodosCompany.insertarBloque(nuevoBloque);
-			this.hashUltimoBloque = hashNuevo;
-			metodosCompany.insertarCadena(this);
+			boolean insercionCorrecta = true;//metodosCompany.insertarBloque(nuevoBloque);
+			if (insercionCorrecta) {
+				this.hashUltimoBloque = hashNuevo;
+				metodosCompany.insertarCadena(this);
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -140,5 +142,15 @@ public class Cadena{
 	public String getHashUltimoBloque() {
 		// TODO Auto-generated method stub
 		return hashUltimoBloque;
+	}
+
+	public void setHashUltimoBloque(String new_utimo_hash) {
+		this.hashUltimoBloque = new_utimo_hash;
+		
+	}
+
+	public void incrementarNumBloques() {
+		this.numBloques++;
+		
 	}
 }
