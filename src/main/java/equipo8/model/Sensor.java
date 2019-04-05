@@ -75,7 +75,7 @@ public class Sensor {
 		}
 		
 		//al salir del bucle fecha contiene la fecha final
-		Registro registro= new Registro(lote, actor, Tmax, Tmin,  fechaInicio.toString(), fecha.toString());
+		Registro registro= new Registro(lote, actor,  fechaInicio.toString(), fecha.toString(), Tmax, Tmin);
 		//File file = new File(ruta);
 		//file.delete();
 		//file.createNewFile();

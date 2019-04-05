@@ -14,7 +14,7 @@ public class Registro extends DatosContainer{
 	private int tempMax;
 	private int tempMin;
 	
-	public Registro(int id,Lote lote, Actor actor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
+	public Registro(int id,Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
 		this.id = id;
 		this.lote=lote;
 		this.actor = actor;
@@ -24,7 +24,7 @@ public class Registro extends DatosContainer{
 		this.tempMin = tempMin;
 	}
 	
-	public Registro(Lote lote, Actor actor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
+	public Registro(Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
 		//this.id = metodosCompany.idRegistro(); //Metodo a la espera de que se suba a master
 		this.lote=lote;
 		this.actor = actor;
