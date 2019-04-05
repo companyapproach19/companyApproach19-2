@@ -54,6 +54,27 @@ public class OrdenTrazabilidad extends DatosContainer
 		
 		
 
+		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
+				Productos productos, String mensaje, int estado,byte[] firmaRecogida, byte[] firmaEntrega,
+				int idPadre, int idHijo, Actor transportista, Registro registro) {
+			this.firmaRecogida=id;
+			this.actorOrigen=actorOrigen;
+			this.actorDestino=actorDestino;
+			this.necesitaTransportista=necesitaTransportista;
+			this.productos=productos;
+			this.mensaje=mensaje;
+			this.estado=estado;
+			this.firmaRecogida=firmaRecogida;
+			this.firmaEntrega=firmaEntrega;
+			this.idPadre=idPadre;
+			this.idHijo=idHijo;
+			this.transportista=transportista;
+			this.registro=registro;
+			this.origenOrdenes=new Orden();
+			
+		}
+		
+		
 		public OrdenTrazabilidad(int identificador,String mensaje, Actor emisor, Actor receptor, Productos productos) {
 			this.id = identificador;
 			this.actorDestino=receptor;
@@ -67,6 +88,8 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.idPadre = -1;
 			this.idHijo = -1;
 		}
+		
+		
 		
 		public void setActorOrigen(Actor actorOrigen) {
 			this.actorOrigen = actorOrigen;
