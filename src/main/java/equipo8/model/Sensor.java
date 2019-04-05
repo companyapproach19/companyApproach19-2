@@ -22,7 +22,7 @@ public class Sensor {
 	}
 	
 	
-	public  Registro crearRegistro(int idLote, int idActor,String ruta)throws IOException {
+	public  Registro crearRegistro(int idLote, String idActor,String ruta)throws IOException {
 
 		HashMap<Fecha,Integer> listaRegistros= new HashMap<Fecha,Integer>();
 		log = new BufferedReader(new FileReader(ruta)); 

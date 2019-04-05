@@ -5,13 +5,13 @@ import equipo6.model.DatosContainer;
 public class Registro extends DatosContainer{
 	
 	private int idLote;
-	private int idActor;
+	private String idActor;
 	private String fechaInicio;
 	private String fechaFin;
 	private int tempMax;
 	private int tempMin;
 	
-	public Registro(int idLote,int idactor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
+	public Registro(int idLote,String idactor, int tempMax, int tempMin, String fechaInicio, String fechaFin) {
 		this.idLote=idLote;
 		this.idActor = idactor;
 		this.fechaInicio = fechaInicio;
@@ -28,7 +28,7 @@ public class Registro extends DatosContainer{
 		this.idLote = idLote;		
 	}
 	
-	public void setActor (int idActor) {
+	public void setActor (String idActor) {
 		this.idActor = idActor;
 	}
 	
@@ -52,7 +52,7 @@ public class Registro extends DatosContainer{
 		return this.idLote;
 	}
 
-	public int getActor() {
+	public String getActor() {
 		return this.idActor;
 	}
 	
