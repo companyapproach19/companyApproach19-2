@@ -96,7 +96,7 @@ public class ManejaPeticiones {
 		@ResponseBody
 		// Recibe el ID de un actor y devuelve un JSON con los pedidos no aceptados de ese actor
 		public String pedidosNoAceptados(
-				@RequestParam(name="idActor", required=true) int idActor) {
+				@RequestParam(name="idActor", required=true) String idActor) {
 			
 			//Obtenemos los pedidos de trazabilidad
 			BlockchainServices bloque = new BlockchainServices();
@@ -125,7 +125,7 @@ public class ManejaPeticiones {
 			
 		}
 	
-	private ListaPedidos pedidosPendientes(int idActor){
+	private ListaPedidos pedidosPendientes(String idActor){
 			//Obtenemos los pedidos de trazabilidad
 			BlockchainServices bloque = new BlockchainServices();
 			ArrayList<OrdenTrazabilidad> pedidos = bloque.getLista(idActor);
@@ -155,7 +155,7 @@ public class ManejaPeticiones {
 		@ResponseBody
 		// Recibe el ID de un actor y devuelve un JSON con los pedidos en proceso de ese actor
 		public String pedidosEnProceso(
-				@RequestParam(name="idActor", required=true) int idActor) {
+				@RequestParam(name="idActor", required=true) String idActor) {
 			
 			ListaPedidos pedidosEnProceso=this.pedidosPendientes(idActor);
 			if(pedidosEnProceso!=null){
