@@ -34,8 +34,10 @@ public class ManejaPeticiones {
 			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
-		//TODO: configurar identificador
-		if(pedido.verificar_pedido()) {
+        BlockchainServices bloque = new BlockchainServices();
+        
+		//TODO: verificar pedido
+		//if(pedido.verificar_pedido()) {
 			int id = 0;
 			boolean yaExiste = true;
 			//TODO: sobra la condicion de id==0 no??
@@ -47,14 +49,29 @@ public class ManejaPeticiones {
 			}
 			pedido.OrdenTrazabilidad.setId(id);
 			
+			//Rellenar listas de pedidos padre y pedidos hijo
+			ListaPedidos pendientes = this.pedidosPendientes(pedido.OrdenTrazabilidad.getActorOrigen().getId());
+			
+			if(pendientes!=null && pendientes.getListaIDs().length==1){
+				//Si el origen de este pedido tiene algun pedido pendiente,
+				//entendemos que usara este pedido para corresponder al anterior
+				ArrayList<Integer> padre = new ArrayList<Integer>();
+				padre.add(pendientes.getListaIDs()[0]);
+				pedido.OrdenTrazabilidad.setPadres(padre);
+				//Ahora hay que insertar en la lista de hijos del padre a esta orden
+				ArrayList<Integer> hijo = new ArrayList<Integer>();
+				hijo.add(id);
+				//Obtenemos el objeto del padre
+				bloque.getTraspaso(pendientes.getListaIDs()[0]).setHijos(hijo);
+			}
+			
 			//NECESARIO PARA TRAZABILIDAD:
 			//La orden se guardara en la base de datos
-	        BlockchainServices bloque = new BlockchainServices();
 	        bloque.guardarOrden(pedido.OrdenTrazabilidad);
 	        
 			return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
-		}
-		else return "ERROR";
+		//}
+		//else return "ERROR";
 	}
 
 	//PARA EQUIPO 2: VISTAS
@@ -108,16 +125,8 @@ public class ManejaPeticiones {
 			else return "ERROR: No tiene pedidos pendientes por aceptar";
 			
 		}
-		
 	
-	//PARA EQUIPO 2: VISTAS
-		@Scope("request")
-		@RequestMapping("/pedidosEnProceso")
-		@ResponseBody
-		// Recibe el ID de un actor y devuelve un JSON con los pedidos en proceso de ese actor
-		public String pedidosEnProceso(
-				@RequestParam(name="idActor", required=true) int idActor) {
-			
+		private ListaPedidos pedidosPendientes(int idActor){
 			//Obtenemos los pedidos de trazabilidad
 			BlockchainServices bloque = new BlockchainServices();
 			ArrayList<OrdenTrazabilidad> pedidos = bloque.getLista(idActor);
@@ -136,7 +145,22 @@ public class ManejaPeticiones {
 						}
 					}
 				}
-				
+				return pedidosEnProceso;
+			}
+			return null;
+		}
+	
+	//PARA EQUIPO 2: VISTAS
+		@Scope("request")
+		@RequestMapping("/pedidosEnProceso")
+		@ResponseBody
+		// Recibe el ID de un actor y devuelve un JSON con los pedidos en proceso de ese actor
+		public String pedidosEnProceso(
+				@RequestParam(name="idActor", required=true) int idActor) {
+			
+			ListaPedidos pedidosEnProceso=this.pedidosPendientes(idActor);
+			if(pedidosEnProceso!=null){
+			
 				//Devolver lista de identificadores
 				return CodificadorJSON.crearJSONlista(pedidosEnProceso);
 				

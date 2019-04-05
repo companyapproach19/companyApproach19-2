@@ -2,6 +2,9 @@ package equipo7.model;
 
 import equipo6.model.DatosContainer;
 import equipo7.otros.Orden;
+
+import java.util.ArrayList;
+
 import equipo6.model.Actor;
 
 public class OrdenTrazabilidad extends DatosContainer
@@ -40,7 +43,11 @@ public class OrdenTrazabilidad extends DatosContainer
 		//Este objeto sera de la clase Ordenes del actor de origen
 		//Contiene al objeto de la clase Ordenes del actor de destino
 		private Orden origenOrdenes;
-
+		//Lista de padres
+		private ArrayList<Integer> padres;
+		//Lista de hijos
+		private ArrayList<Integer> hijos;
+		
 		public OrdenTrazabilidad(int identificador,String mensaje, Actor emisor, Actor receptor, Productos productos) {
 			this.id = identificador;
 			this.actorDestino=receptor;
@@ -51,6 +58,8 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.firmaRecogida =null;
 			this.firmaEntrega =null;
 			this.necesitaTransportista=false;
+			padres=new ArrayList<Integer>();
+			hijos=new ArrayList<Integer>();
 		}
 		
 		public void setActorOrigen(Actor actorOrigen) {
@@ -92,7 +101,15 @@ public class OrdenTrazabilidad extends DatosContainer
 		public void setOrigenOrdenes(Orden origenOrdenes) {
 			this.origenOrdenes=origenOrdenes;
 		}
-		
+
+		public void setPadres(ArrayList<Integer> padres) {
+			this.padres = padres;
+		}
+
+		public void setHijos(ArrayList<Integer> hijos) {
+			this.hijos = hijos;
+		}
+
 		public boolean getNecesitaTransportista() {
 			return this.necesitaTransportista;
 		}
@@ -129,6 +146,14 @@ public class OrdenTrazabilidad extends DatosContainer
     
 		public Orden getOrigenOrdenes() {
 			return origenOrdenes;
+		}
+		
+		public ArrayList<Integer> getPadres() {
+			return padres;
+		}
+		
+		public ArrayList<Integer> getHijos() {
+			return hijos;
 		}
 		
 		public enum EstadoOrden {
