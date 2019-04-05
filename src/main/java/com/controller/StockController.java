@@ -15,10 +15,11 @@ import com.google.gson.JsonObject;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.Actor;
-
 @Controller
 @SpringBootApplication
 public class StockController {
+	
+	String idActor;
 
 	@Scope("request")
 	@RequestMapping("/dameStockActor")
@@ -27,7 +28,6 @@ public class StockController {
 			HttpServletRequest request,
 			Model model) throws Exception {
 		
-		String idActor;
 		
 		idActor = null;
 		
