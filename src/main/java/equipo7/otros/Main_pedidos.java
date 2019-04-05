@@ -16,19 +16,19 @@ public class Main_pedidos {
 	   //Devuelve el objeto de la orden del actor de origen
 	   public Orden crear_pedido () { 
 		  sacarCodigoOrigenDestino();
-		  Orden devolver = new Orden(OrdenTrazabilidad);
+		  Orden devolver = new Orden();
 			switch(codorigen) {
 			case 1:
-				devolver = new CooperativaOrdenes(OrdenTrazabilidad);
+				devolver = new CooperativaOrdenes();
 				break;
 			case 2:
-				devolver = new FabricaOrdenes(OrdenTrazabilidad);
+				devolver = new FabricaOrdenes();
 				break;
 			case 3:
-				devolver = new RetailerOrdenes(OrdenTrazabilidad);
+				devolver = new RetailerOrdenes();
 				break;
 			case 4:
-				devolver = new TiendaOrdenes(OrdenTrazabilidad);
+				devolver = new TiendaOrdenes();
 				break;
 			}
 			devolver.crearPedido();
