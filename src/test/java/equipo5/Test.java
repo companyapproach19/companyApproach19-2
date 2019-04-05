@@ -12,7 +12,6 @@ import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo7.model.Transportista;
 import equipo8.model.GeneradorQR2;
-import equipo8.model.Sensor;
 
 import java.sql.Blob;
 import java.sql.Connection;
@@ -119,7 +118,7 @@ public class Test extends metodosCompany {
 //            //System.out.println(c1 == null);
 //             
 //             //Prueba Productos
-             Productos prod = new Productos (1, 12, 5, 0, 4, 7, 8,10, 11, 0, 1, 4);
+//             Productos prod = new Productos (1, 12, 5, 0, 4, 7, 8,10, 11, 0, 1, 4);
 //             insertarProductos(prod);
 //             getProductos(1);
 //             //devuelve cantidad de malta palida que es 12
@@ -129,10 +128,10 @@ public class Test extends metodosCompany {
 //             Actor pri = new Actor(0,"pri", "***", "correo@aux.es", 0);
 //             pri.setPasswordPlana("cont");
 //             pri.setId(0);
-             Actor em = new Actor(1, "lperez", "**********","lperez@gmail.com", 0);
-             em.setPasswordPlana("holahola");
-             Actor re = new Actor(2, "mlopez", "**********", "mlopez@yahoo.es", 1);
-             re.setPasswordPlana("holar");
+//             Actor em = new Actor(1, "lperez", "**********","lperez@gmail.com", 0);
+//             em.setPasswordPlana("holahola");
+//             Actor re = new Actor(2, "mlopez", "**********", "mlopez@yahoo.es", 1);
+//             re.setPasswordPlana("holar");
 //             insercionActor(pri);
 //             insercionActor(em);
 //             insercionActor(re);
@@ -142,10 +141,10 @@ public class Test extends metodosCompany {
 //             CadenaActores cadena;
 //             cadena =  getCadenaActores();
 //             
-             //prueba orden
-             OrdenTrazabilidad orden = new OrdenTrazabilidad(1,"que llegue pronto por favor", em, re, prod);
-             insertarOrdenTrazabilidad(orden);
-             extraerOrdenTrazabalidad(1);
+//             //prueba orden
+//             OrdenTrazabilidad orden = new OrdenTrazabilidad(1,"que llegue pronto por favor", em, re, prod);
+//             insertarOrdenTrazabilidad(orden);
+//             extraerOrdenTrazabalidad(1);
              
 //             //prueba bloque --> NO FUNCIONA DA ERROR EL GETHASHCODE
 //             

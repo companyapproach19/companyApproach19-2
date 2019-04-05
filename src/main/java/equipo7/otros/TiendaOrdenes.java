@@ -1,18 +1,17 @@
 package equipo7.otros;
-import equipo7.model.OrdenTrazabilidad;
 public class TiendaOrdenes  extends Orden{
 	
 	RetailerOrdenes receptor;
 	
-	public TiendaOrdenes(OrdenTrazabilidad peticion) {
-		super(peticion);
+	public TiendaOrdenes() {
+		//super(peticion);
 	}
 	
 	public void crearPedido() {
-		receptor = new RetailerOrdenes(super.getPedido());
+		//receptor = new RetailerOrdenes(super.getPedido());
 	}
 	
-	public void notificacion(int cod) {
+	public String notificacion(int cod) {
 		// todos los mensajes que se han de pasar por pantalla dependiendo del
 		// proceso
 		String mensaje = "";
@@ -37,8 +36,8 @@ public class TiendaOrdenes  extends Orden{
 			break;  
 
 		}
-		this.getPedido().setMensaje(mensaje);
-
+		//this.getPedido().setMensaje(mensaje);
+		return mensaje;
 	}
 
 }

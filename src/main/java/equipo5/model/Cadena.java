@@ -117,7 +117,7 @@ public class Cadena{
         6. LLamar a BBDD para almacenar la tabla de referencia
         */
 
-        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc);
+        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc, -1);
         nuevoBloque.setTimeStamp();
         String hashNuevo = nuevoBloque.getHashCode();
 		try {
@@ -142,5 +142,15 @@ public class Cadena{
 	public String getHashUltimoBloque() {
 		// TODO Auto-generated method stub
 		return hashUltimoBloque;
+	}
+
+	public void setHashUltimoBloque(String new_utimo_hash) {
+		this.hashUltimoBloque = new_utimo_hash;
+		
+	}
+
+	public void incrementarNumBloques() {
+		this.numBloques++;
+		
 	}
 }

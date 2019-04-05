@@ -32,6 +32,31 @@ public class CadenaActores implements Serializable{
 						);
 	}
 	
+	public Actor get_actor_by_id(String id) throws Exception 
+	{
+		if(id == null) 
+		{
+			throw new Exception("Id nulo");
+		}
+		
+		Actor buscado;
+		
+		buscado = null;
+		
+		for (Actor actor : this.lista_actores) {
+			if(actor.getId().equals(id)) 
+			{
+				buscado = actor;
+				break;
+			}
+				
+		}
+		
+		return buscado;
+		
+		
+	}
+	
 	public List<Actor> getlista_actores() 
 	{
 		return this.lista_actores;
@@ -49,7 +74,7 @@ public class CadenaActores implements Serializable{
 	//Devuelve id de usuario
 	//TODO gonzalo
 
-	public int addActor(Actor nuevoActor) {
+	public String addActor(Actor nuevoActor) {
 
 		try {
 			if(nuevoActor != null) {
@@ -63,7 +88,7 @@ public class CadenaActores implements Serializable{
 		}	
 		catch (Exception errorActor) {
 			System.err.println(errorActor.getMessage());
-			return -1;
+			return null;
 		}
 	}
 
