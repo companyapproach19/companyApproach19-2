@@ -2,6 +2,7 @@ package equipo7.model;
 
 import equipo6.model.DatosContainer;
 import equipo7.otros.Orden;
+import equipo8.model.Registro;
 
 import java.util.ArrayList;
 
@@ -35,19 +36,23 @@ public class OrdenTrazabilidad extends DatosContainer
 		private EstadoOrden estado;
 		// El transportista firma en dos ocasiones del pedido:
 		// en la recogida del pedido (llegada al origen)
-		// (se guarda el binario de la imagen de la firma
-		// en base 64)
-		private String firmaRecogida;
+		private byte[] firmaRecogida;
 		//en la entrega del pedido (llegada al destino)
-		private String firmaEntrega;
+		private byte[] firmaEntrega;
 		//Este objeto sera de la clase Ordenes del actor de origen
 		//Contiene al objeto de la clase Ordenes del actor de destino
 		private Orden origenOrdenes;
 		//Lista de padres
-		private ArrayList<Integer> padres;
+		private int idPadre;
 		//Lista de hijos
-		private ArrayList<Integer> hijos;
+		private int idHijo;
+		//Datos del transportista
+		private Actor transportista;
+		//Registro de sensor del transporte
+		private Registro registro;
 		
+		
+
 		public OrdenTrazabilidad(int identificador,String mensaje, Actor emisor, Actor receptor, Productos productos) {
 			this.id = identificador;
 			this.actorDestino=receptor;
@@ -58,8 +63,8 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.firmaRecogida =null;
 			this.firmaEntrega =null;
 			this.necesitaTransportista=false;
-			padres=new ArrayList<Integer>();
-			hijos=new ArrayList<Integer>();
+			this.idPadre = -1;
+			this.idHijo = -1;
 		}
 		
 		public void setActorOrigen(Actor actorOrigen) {
@@ -90,11 +95,11 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.mensaje = mensaje;
 		}
 		
-		public void setFirmaRecogida(String firmaRecogida) {
+		public void setFirmaRecogida(byte[] firmaRecogida) {
 			this.firmaRecogida = firmaRecogida;
 		}
 
-		public void setFirmaEntrega(String firmaEntrega) {
+		public void setFirmaEntrega(byte[] firmaEntrega) {
 			this.firmaEntrega = firmaEntrega;
 		}
 		
@@ -102,12 +107,21 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.origenOrdenes=origenOrdenes;
 		}
 
-		public void setPadres(ArrayList<Integer> padres) {
-			this.padres = padres;
+		public void setPadres(int idPadre) {
+			this.idPadre = idPadre;
 		}
 
-		public void setHijos(ArrayList<Integer> hijos) {
-			this.hijos = hijos;
+		public void setHijos(int idHijo) {
+			this.idHijo = idHijo;
+		}
+		
+		public void setTransportista(Actor transportista) {
+			this.transportista = transportista;
+		}
+		
+
+		public void setRegistro(Registro registro) {
+			this.registro = registro;
 		}
 
 		public boolean getNecesitaTransportista() {
@@ -132,11 +146,11 @@ public class OrdenTrazabilidad extends DatosContainer
 			return estado;
 		}
 
-		public String getFirmaRecogida() {
+		public byte[] getFirmaRecogida() {
 			return firmaRecogida;
 		}
 
-		public String getFirmaEntrega() {
+		public byte[] getFirmaEntrega() {
 			return firmaEntrega;
 		}
 		
@@ -148,13 +162,23 @@ public class OrdenTrazabilidad extends DatosContainer
 			return origenOrdenes;
 		}
 		
-		public ArrayList<Integer> getPadres() {
-			return padres;
+		public int getIdPadre() {
+			return idPadre;
 		}
 		
-		public ArrayList<Integer> getHijos() {
-			return hijos;
+		public int getIdHijo() {
+			return idHijo;
 		}
+		
+		public Actor getTransportista() {
+			return transportista;
+		}
+		
+		public Registro getRegistro() {
+			return registro;
+		}
+
+
 		
 		public enum EstadoOrden {
 			EN_PROCESO, LISTO_PARA_ENTREGAR, EN_PROCESO_DE_ENTREGA, ENTREGADO
