@@ -4,14 +4,14 @@
 <html>
 <head>
 
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- Include the above in your HEAD tag -->
 <link href="style.css" rel="stylesheet" id="bootstrap-css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 <title>Login</title>
    
@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 <!--Custom styles-->
-<link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
+<link rel="stylesheet" type="text/css" href="login.css">
  
 <!-- Import jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -72,22 +72,20 @@
 
 
 function login() {
-      var actor = hacerPeticion();
+
+      hacerPeticion();
  
-      //Comprobamos que el usuario del json que nos devuelven coincide con el que nos han escrito
-      if (actor != null) {
-      window.open(actor.redirect);
-      }
   }
 
 function hacerPeticion(){
+
       var request = $.ajax({
       // la URL para la petición
       url : '/loginUser',
  
       // la información a enviar
       // (también es posible utilizar una cadena de datos)
-      data : "usuario=" + $("#username").val() + "&pwd=" + $("#password").val(),,
+      data : "usuario=" + $("#username").val() + "&pwd=" + $("#password").val(),
  
       // especifica si será una petición POST o GET
       type : 'POST',
@@ -95,48 +93,25 @@ function hacerPeticion(){
       // el tipo de información que se espera de respuesta
       dataType : 'json',
  
-      // código a ejecutar si la petición es satisfactoria;
-      // la respuesta es pasada como argumento a la función
       });
  
      request.done(function(data){
-       //Problema preguntar 
-       var actor = hacerPeticion();
- 
-     //Comprobamos que el usuario del json que nos devuelven coincide con el que nos han escrito
-     if (actor != null) {
-         //Este metodo redirige a la URL
+      
+      //Este metodo redirige a la URL
       windows.append(data.redirect)
-     }
-     // Else ?
- 
+    
      });
- 
- 
- 
  
      request.fail(function(data) {
-     //TODO: //windows.append(data.redirect)
- 
- 
+	 
+     alert("Error en el servidor");
+	 
      });
- 
- 
- 
- 
  
  }
  
- 
-</script>
-
-
-
-
-
+ </script>
 
 </div>
-
- 
 </body>
 </html>
