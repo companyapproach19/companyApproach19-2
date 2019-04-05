@@ -6,7 +6,7 @@ public class CooperativaOrdenes  extends Orden {
 	AgricultoresOrdenes receptor;
 	
 	public CooperativaOrdenes(OrdenTrazabilidad peticion) {
-		super(peticion);
+		//super(peticion);
 	}
 	
 	public void crearPedido() {

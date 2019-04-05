@@ -6,7 +6,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import equipo7.model.ListaPedidos;
 import equipo7.model.OrdenTrazabilidad;
-import equipo7.model.OrdenTrazabilidad.EstadoOrden;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
@@ -35,18 +34,21 @@ public class ManejaPeticiones {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
         BlockchainServices bloque = new BlockchainServices();
+        Orden origen = pedido.crear_pedido();
+        pedido.OrdenTrazabilidad.setOrigenOrdenes(origen);
         
 		//TODO: verificar pedido
 		//if(pedido.verificar_pedido()) {
 			int id = 0;
 			boolean yaExiste = true;
-			//TODO: sobra la condicion de id==0 no??
+			id = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
+			/*//TODO: sobra la condicion de id==0 no??
 			while (id == 0 && yaExiste) {
 				// Obtiene un numero aleatorio entre 1 y 999999,
 				// que sera el ID del pedido a la hora de crearse
 				id = ThreadLocalRandom.current().nextInt(1, 1000000);
 				yaExiste = equipo5.dao.metodosCompany.existeIdOrdenTrazabilidad(id);
-			}
+			}*/
 			pedido.OrdenTrazabilidad.setId(id);
 			
 			//Rellenar listas de pedidos padre y pedidos hijo
@@ -55,14 +57,11 @@ public class ManejaPeticiones {
 			if(pendientes!=null && pendientes.getListaIDs().length==1){
 				//Si el origen de este pedido tiene algun pedido pendiente,
 				//entendemos que usara este pedido para corresponder al anterior
-				ArrayList<Integer> padre = new ArrayList<Integer>();
-				padre.add(pendientes.getListaIDs()[0]);
-				pedido.OrdenTrazabilidad.setPadres(padre);
+				
+				pedido.OrdenTrazabilidad.setPadres(pendientes.getListaIDs()[0]);
 				//Ahora hay que insertar en la lista de hijos del padre a esta orden
-				ArrayList<Integer> hijo = new ArrayList<Integer>();
-				hijo.add(id);
 				//Obtenemos el objeto del padre
-				bloque.getTraspaso(pendientes.getListaIDs()[0]).setHijos(hijo);
+				bloque.getTraspaso(pendientes.getListaIDs()[0]).setHijos(id);
 			}
 			
 			//NECESARIO PARA TRAZABILIDAD:
@@ -112,7 +111,7 @@ public class ManejaPeticiones {
 					OrdenTrazabilidad actual = it.next();
 					if(actual.getActorDestino().getId()==idActor) {
 						//El estado del pedido cuando no ha sido aceptado
-						if(actual.getEstado()==null) {
+						if(actual.getEstado()==0) {
 							pedidosNoAceptados.anyadePedido(actual.getId());
 						}
 					}
@@ -126,7 +125,7 @@ public class ManejaPeticiones {
 			
 		}
 	
-		private ListaPedidos pedidosPendientes(int idActor){
+	private ListaPedidos pedidosPendientes(int idActor){
 			//Obtenemos los pedidos de trazabilidad
 			BlockchainServices bloque = new BlockchainServices();
 			ArrayList<OrdenTrazabilidad> pedidos = bloque.getLista(idActor);
@@ -140,7 +139,7 @@ public class ManejaPeticiones {
 					OrdenTrazabilidad actual = it.next();
 					if(actual.getActorDestino().getId()==idActor) {
 						//El estado del pedido debe ser en proceso
-						if(actual.getEstado().compareTo(EstadoOrden.EN_PROCESO)==0) {
+						if(actual.getEstado()==1) {
 							pedidosEnProceso.anyadePedido(actual.getId());
 						}
 					}
@@ -176,18 +175,18 @@ public class ManejaPeticiones {
 	public String aceptarPedido(
 			@RequestParam(name="id", required=true) int id) {
 		
-		Main_pedidos pedido = new Main_pedidos(json);
-		Orden origen = pedido.crear_pedido();
-		//Para cambiar el estado del pedido
-		origen.aceptarPedido();
-		//this.peticiones.add(origen);
-		pedido.OrdenTrazabilidad.setOrigenOrdenes(origen);
-		
 		//NECESARIO PARA TRAZABILIDAD:
         BlockchainServices bloque = new BlockchainServices();
-        bloque.guardarOrden(pedido.OrdenTrazabilidad);
+        OrdenTrazabilidad pedido = bloque.getTraspaso(id);
+		
+		//Main_pedidos pedido = new Main_pedidos(json);
+		
+		//Para cambiar el estado del pedido
+		pedido.getOrigenOrdenes().aceptarPedido(pedido.getEstado());
+
+        bloque.guardarOrden(pedido);
         
-        return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
+        return CodificadorJSON.crearJSON(pedido);
 	}
 	
 	//PARA EQUIPO 2: VISTAS
@@ -197,22 +196,23 @@ public class ManejaPeticiones {
 	public String listoPedido(
 			@RequestParam(name="id", required=true) int id) {
 		
-		Main_pedidos pedido = new Main_pedidos(json);
+		//NECESARIO PARA TRAZABILIDAD:
+        BlockchainServices bloque = new BlockchainServices();
+        OrdenTrazabilidad pedido = bloque.getTraspaso(id);
+		//Main_pedidos pedido = new Main_pedidos(json);
 		//Hay que comparar los identificadores de los ordentrazabilidad
 		//Dichos ordenTrazabilidad son: el del json y el de los arrays
-		Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
+		//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
 		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
 		
 		//Para cambiar el estado del pedido
-		origen.listoParaEntregar();
+		pedido.getOrigenOrdenes().listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
 		
-		
-		//NECESARIO PARA TRAZABILIDAD:
-        BlockchainServices bloque = new BlockchainServices();
-        bloque.guardarOrden(pedido.OrdenTrazabilidad);
+        bloque.guardarOrden(pedido);
         
-        return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
+        return CodificadorJSON.crearJSON(pedido);
 	}
+	
 	
 	//PARA EQUIPO 3: TRANSPORTISTAS
 	@Scope("request")
@@ -225,9 +225,9 @@ public class ManejaPeticiones {
 		//Hay que compara los identificadores de los ordentrazabilidad
 		//Dichos ordenTrazabilidad son: el del json y el de los arrays
 
-		Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
+		//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
 		//Para cambiar el estado del pedido
-		origen.firmadoRecogida();
+		pedido.OrdenTrazabilidad.getOrigenOrdenes().firmadoRecogida(pedido.OrdenTrazabilidad.getEstado());
 		
 		
 		//NECESARIO PARA TRAZABILIDAD:
@@ -251,7 +251,7 @@ public class ManejaPeticiones {
 		Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
 		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
 		//Para cambiar el estado del pedido
-		origen.firmadoEntrega();
+		pedido.OrdenTrazabilidad.getOrigenOrdenes().firmadoEntrega(pedido.OrdenTrazabilidad.getEstado());
 		
 		
 		//NECESARIO PARA TRAZABILIDAD:

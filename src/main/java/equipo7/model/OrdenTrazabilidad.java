@@ -15,8 +15,8 @@ public class OrdenTrazabilidad extends DatosContainer
 	 * Los objetos que hay que pasar al grupo de trazabilidad seran de esta clase
 	 * Contienen la siguiente informacion:
 	 * Identificador(id) para cada pedido
-	 * Origen del pedido(quien hace la orden): (productor, cooperativa, f�brica, retailer, tienda)
-	 * Destino del pedido(a quien le hacen la peticion): (productor, cooperativa, f�brica, retailer, tienda)
+	 * Origen del pedido(quien hace la orden): (productor, cooperativa, fabrica, retailer, tienda)
+	 * Destino del pedido(a quien le hacen la peticion): (productor, cooperativa, fabrica, retailer, tienda)
 	 * Mensaje del pedido
 	 * Estado del pedido (definidos los estados en el ENUM EstadoOrden)
 	 * 
@@ -33,7 +33,8 @@ public class OrdenTrazabilidad extends DatosContainer
 		private Productos productos;
 		private String mensaje;
 		//Estado del pedido
-		private EstadoOrden estado;
+		//Siendo 0=noAceptado;1=enProceso;2=ListoParaEntregar;3=EnProcesoDeEntrega;4=Entregado
+		private int estado;
 		// El transportista firma en dos ocasiones del pedido:
 		// en la recogida del pedido (llegada al origen)
 		private byte[] firmaRecogida;
@@ -59,7 +60,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.actorOrigen=emisor;
 			this.productos=productos;
 			this.mensaje=mensaje;
-			this.estado=null;
+			this.estado=0;
 			this.firmaRecogida =null;
 			this.firmaEntrega =null;
 			this.necesitaTransportista=false;
@@ -79,7 +80,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.productos = productos;
 		}
 
-		public void setEstado(EstadoOrden estado) {
+		public void setEstado(int estado) {
 			this.estado = estado;
 		}
 
@@ -142,7 +143,7 @@ public class OrdenTrazabilidad extends DatosContainer
 
 		public Actor getActorDestino() { return actorDestino; }
 
-		public EstadoOrden getEstado() {
+		public int getEstado() {
 			return estado;
 		}
 
@@ -177,12 +178,11 @@ public class OrdenTrazabilidad extends DatosContainer
 		public Registro getRegistro() {
 			return registro;
 		}
-
-
 		
+		/*
 		public enum EstadoOrden {
 			EN_PROCESO, LISTO_PARA_ENTREGAR, EN_PROCESO_DE_ENTREGA, ENTREGADO
-		}
+		}*/
 
  
 }
