@@ -98,23 +98,49 @@ public class StockController {
 		json_resp.addProperty("email", actor.getEmail());
 		json_resp.addProperty("tipoActor", actor.getTipoActor());
 		JsonObject stock = new JsonObject();
-		//stock.addProperty("malta_palida", metodosCompany.extraerStockMateriaPrima(actor, MateriaPrima materiaPrima));
-		stock.addProperty("malta_palida", 10);
-		stock.addProperty("malta_tostada", 11);
-		stock.addProperty("malta_negra", 12);
-		stock.addProperty("malta_crystal", 13);
-		stock.addProperty("malta_chocolate", 14);
-		stock.addProperty("malta_caramelo",15);
-		stock.addProperty("malta_pilsner", 16);
-		stock.addProperty("malta_munich", 17);
-		stock.addProperty("lupulo_perle", 18);
-		stock.addProperty("lupulo_tettnager", 19);
-		stock.addProperty("lupulo_centennial", 20);
-		stock.addProperty("levadura_ale", 21);
-		stock.addProperty("levadura_lagger", 22);
-		stock.addProperty("lotes_pilsner", 0);
-		stock.addProperty("lotes_stout", 0);
-		
+		stock.addProperty("malta_palida", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("maltaBasePalida")));
+		stock.addProperty("malta_tostada", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("maltaTostada")));
+		stock.addProperty("malta_negra", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("maltaNegra")));
+		stock.addProperty("malta_crystal", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("maltaCrystal")));
+		stock.addProperty("malta_chocolate", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("maltaChocolate")));
+		stock.addProperty("malta_caramelo",metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("maltaCaramelo")));
+		stock.addProperty("malta_pilsner", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("maltaPilsner")));
+		stock.addProperty("malta_munich", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("maltaMunich")));
+		stock.addProperty("lupulo_perle", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("lupuloPerle")));
+		stock.addProperty("lupulo_tettnanger", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("lupuloTettnanger")));
+		stock.addProperty("lupulo_centennial", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("lupuloCentennial")));
+		stock.addProperty("levadura_ale", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("levaduraAle")));
+		stock.addProperty("levadura_lagger", metodosCompany.extraerStockMateriaPrima(
+				actor, 
+				metodosCompany.extraerMateriaPrima("levaduraAle")));
+		stock.addProperty("lotes_pilsner", getStockLote(actor, "aaais"));  //TODO
+		stock.addProperty("lotes_stout", getStockLote(actor, "aaaais"));   //TODO
+		//insertarStockMateriaPrima(
+		//insertarStockLote(Actor, Lote)
 		
 		
 		
@@ -122,54 +148,23 @@ public class StockController {
 		//obtener el stock asociado a un actor consultando a la base de datos
 		//metodosCompani.dameStockActor(string idActor)
 		
-		return json_resp.toString();
+		return json_resp.toString();		
+	}
+	
+	@Scope("request")
+	@RequestMapping("/get_trazabilidad")
+	@ResponseBody
+	public String get_trazabilidad(HttpServletResponse response,
+			@RequestParam(name="id_pedido", required=true) int id_pedido,
+			Model model) throws SQLException 
+	{
+		BlockchainServices bcs;
 		
+		bcs = new BlockchainServices();
 		
-		/*
-		 {
-
-  "nomUsuario":"nombre del actor" ,
-
-  "email":"email asociado" ,
-
-  "tipoActor":"tipo asociado" ,
-
-  "stock" {
-
-   "malta_palida": "la cantidad que tenga",
-
-   "malta_tostada": "la cantidad que tenga",
-
-   "malta_negra": "la cantidad que tenga",
-
-   "malta_crystal": "la cantidad que tenga",
-
-   "malta_chocolate": "la cantidad que tenga",
-
-   "malta_caramelo": "la cantidad que tenga",
-
-   "malta_pilsner": "la cantidad que tenga",
-
-   "malta_munich": "la cantidad que tenga",
-
-   "lupulo_perle": "la cantidad que tenga",
-
-   "lupulo_tettnager": "la cantidad que tenga",
-
-   "lupulo_centennial": "la cantidad que tenga",
-
-   "levadura_ale": "la cantidad que tenga",
-
-   "levadura_lagger": "la cantidad que tenga",    
-   
-   "lotes_pilsner":"la cantidad de lotes que tenga",
-
-   "lotes_stout":"la cantidad de lotes que tenga",   }
-
-}
-		 */
+		System.out.println(id_pedido);
 		
-		
+		return bcs.get_trazabilidad(id_pedido);
 	}
 	
 	@Scope("request")
