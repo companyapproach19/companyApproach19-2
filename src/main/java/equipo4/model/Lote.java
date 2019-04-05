@@ -1,9 +1,10 @@
 package equipo4.model;
 
 import java.util.*;
-public class Lote {
+
+import equipo5.dao.metodosCompany;
+public class Lote extends DatosContainer{
 	public  int idBd;
-	public int code;
 	public  Date fecha_inicio;
 	public  Date fecha_final;
 	private byte[] qr;
@@ -13,9 +14,8 @@ public class Lote {
 	public boolean fermentado2;
 	public boolean embotellado;
 
-	public Lote(int idBd, int code, Date fecha_inicio, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr) {
+	public Lote(int idBd, Date fecha_inicio, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr) {
 		this.idBd= idBd;
-		this.code=code;
 		this.fecha_inicio=fecha_inicio;
 		this.fecha_final=fecha_final;
 		this.molido=molido;
@@ -28,7 +28,6 @@ public class Lote {
 	
 	public Lote(Pilsner p, Date ini) {
 		this.idBd=metodosCompany.idLote();
-		this.code=p.getId();
 		this.fecha_inicio=ini;
 		Date aux = (Date) fecha_inicio.clone();
 		aux.setDate(fecha_inicio.getDate()+12);
@@ -38,7 +37,6 @@ public class Lote {
 	
 	public Lote(Stout s, Date ini) {
 		this.idBd=metodosCompany.idLote();
-		this.code=s.getId();
 		this.fecha_inicio=ini;
 		Date aux = (Date) fecha_inicio.clone();
 		aux.setDate(fecha_inicio.getDate()+12);
@@ -54,13 +52,6 @@ public class Lote {
 		this.qr = qr;
 	}
 
-	public  int getCode() {
-		return code;
-	}
-
-	public  void setCode(int code) {
-		this.code = code;
-	}
 
 	public  Date getFecha_inicio() {
 		return fecha_inicio;

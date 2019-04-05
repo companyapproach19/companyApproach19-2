@@ -1,5 +1,7 @@
 package equipo4.model;
 
+import equipo5.dao.metodosCompany;
+
 public class MateriaPrima {
 	private static String nombre;
 	private static int id ;
@@ -21,9 +23,17 @@ public class MateriaPrima {
 		return nombre;
 	}
 
+	public static void setCapacidad(double c) {
+		MateriaPrima.capacidad = c;
+	}
+	public static double getCapacidad() {
+		return capacidad;
+	}
+
 	public static void setNombre(String nombre) {
 		MateriaPrima.nombre = nombre;
 	}
+	
 
 	public static int getId() {
 		return id;
