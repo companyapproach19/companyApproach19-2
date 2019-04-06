@@ -227,7 +227,7 @@ nav-item{
 }
  div.linea1 {
     position: absolute;
-    left: 150px;
+    left: 170px;
     top: 200px;
     height: 10px;
     width: 200px;
@@ -236,14 +236,14 @@ nav-item{
  div.linea2 {
     position: absolute;
     left: 500px;
-    top: 200px;
+    top: 205px;
     height: 10px;
     width: 200px;
     z-index: 0;
     }
  div.linea3 {
     position: absolute;
-    left: 500px;
+    left: 520px;
     top: 200px;
     height: 10px;
     width: 200px;
