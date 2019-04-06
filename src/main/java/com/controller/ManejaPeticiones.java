@@ -100,7 +100,7 @@ public class ManejaPeticiones {
 			
 			//Obtenemos los pedidos de trazabilidad
 			BlockchainServices bloque = new BlockchainServices();
-			ArrayList<OrdenTrazabilidad> pedidos = bloque.getLista(idActor);
+			ArrayList<OrdenTrazabilidad> pedidos = bloque.extraerPedido(idActor);
 			
 			if(pedidos!=null && pedidos.size()>0) {
 				ListaPedidos pedidosNoAceptados = new ListaPedidos();
@@ -128,7 +128,7 @@ public class ManejaPeticiones {
 	private ListaPedidos pedidosPendientes(String idActor){
 			//Obtenemos los pedidos de trazabilidad
 			BlockchainServices bloque = new BlockchainServices();
-			ArrayList<OrdenTrazabilidad> pedidos = bloque.getLista(idActor);
+			ArrayList<OrdenTrazabilidad> pedidos = bloque.extraerPedido(idActor);
 			
 			if(pedidos!=null && pedidos.size()>0) {
 				ListaPedidos pedidosEnProceso = new ListaPedidos();
