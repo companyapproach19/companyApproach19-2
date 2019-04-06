@@ -1,17 +1,4 @@
 
-package equipo8.model;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-
-import equipo4.model.Lote;
-import equipo6.model.Actor;
-
-// Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
-public class Sensor {
 
 	private static int idSensor;
 	//Aquí se encuentra el .txt con el registro
@@ -24,11 +11,14 @@ public class Sensor {
 		Sensor.idSensor=idSensor;
 	}
 	
-	
-	public  Registro crearRegistro(Lote lote, Actor actor,String ruta) throws IOException {
 
+	
+	public  Registro crearRegistro(Lote lote, Actor actor,String fichero) throws IOException {
+
+	
+	        URL fileUrl = getClass().getResource(fichero);
 		HashMap<Fecha,Integer> listaRegistros= new HashMap<Fecha,Integer>();
-		log = new BufferedReader(new FileReader(ruta)); 
+		log = new BufferedReader(new FileReader(fileUrl.toString().substring(5))); 
 		Fecha fecha = null,fechaInicio = null;
 		int contador=0;
 		int Tmax=0;
@@ -36,7 +26,6 @@ public class Sensor {
 		while ((linea = log.readLine()) != null) {
 			//Se saltan las lineas vacías
 			if(!linea.isEmpty() && linea.contains("º")){
-
 				String fecha_temp[] =linea.split("\\+");
 				String fecha_hora [] = fecha_temp[0].split("\\|");
 				String anio_mes_dia [] = fecha_hora[0].split("\\-");
@@ -74,11 +63,8 @@ public class Sensor {
 
 		}
 		
-		//al salir del bucle fecha contiene la fecha final
 		Registro registro= new Registro(lote, actor,  fechaInicio.toString(), fecha.toString(), Tmax, Tmin);
-		//File file = new File(ruta);
-		//file.delete();
-		//file.createNewFile();
+		
 		return registro;
 	}
 
