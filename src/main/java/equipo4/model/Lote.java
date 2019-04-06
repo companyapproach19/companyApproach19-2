@@ -1,5 +1,6 @@
 package equipo4.model;
 
+
 import java.util.*;
 
 import equipo5.dao.metodosCompany;
@@ -14,8 +15,9 @@ public class Lote extends DatosContainer{
 	public boolean fermentado;
 	public boolean fermentado2;
 	public boolean embotellado;
+	public String tipo;
 
-	public Lote(int idBd, Date fecha_inicio, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr) {
+	public Lote(int idBd, Date fecha_inicio, String tipo, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr) {
 		this.idBd= idBd;
 		this.fecha_inicio=fecha_inicio;
 		this.fecha_final=fecha_final;
@@ -24,6 +26,7 @@ public class Lote extends DatosContainer{
 		this.fermentado=fermentado;
 		this.fermentado2 = fermentado2;
 		this.embotellado=embotellado;
+		this.tipo=tipo;
 		
 	}
 	
@@ -34,6 +37,7 @@ public class Lote extends DatosContainer{
 		aux.setDate(fecha_inicio.getDate()+12);
 		this.fecha_final = aux;	
 		molido=cocido=fermentado=fermentado2=embotellado=false;
+		this.tipo="pilsner";
 	}
 	
 	public Lote(Stout s, Date ini) {
@@ -43,6 +47,7 @@ public class Lote extends DatosContainer{
 		aux.setDate(fecha_inicio.getDate()+12);
 		this.fecha_final = aux;	
 		molido=cocido=fermentado=fermentado2=embotellado=false;
+		this.tipo="stout";
 	}
 
 	public byte[] getQr() {
