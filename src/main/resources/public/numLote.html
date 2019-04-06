@@ -11,7 +11,7 @@
     <div class="container-fluid register">
       <div class="row">
         <div class="col-md-3 register-left">
-          <img src="http://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png" alt="" />
+          <img src="https://image.flaticon.com/icons/png/512/25/25007.png" alt="" />
           <h1>Fábrica</h1>
                         <!--<p>Pedidos recibidos</p>
                         <input type="submit" name="" value="Log out"/><br/>
@@ -123,3 +123,35 @@
                                 </p>
                                 
                             </div>-->
+
+        <script>
+          function Lote(){
+            var num = $("#numLote").val();
+            console.log(num);
+
+            if(num.length<1){
+              alert("Debes introducir un número de lote");
+              return false;
+            }
+
+            $.ajax({
+              type: "POST",
+              data: JSON.stringify(lote),
+              url: "http://localhot:8080/user/register",
+              contentType:'application/json; charset=utf-8',
+            }).done(function(response){
+              console.log(response["error"]);
+              if response["error"] == "Ese lote no existe."){
+                alert("No existe ese lote");
+              }
+              else{
+                localStorage.setItem("currentLote", JSON.stringify(response));
+                console.log("Lote correcto")
+                location.href="Lote.html";
+              }
+            }).fail(function(response){
+              alert("No existe ese lote");
+
+            }).
+          }
+        </script>

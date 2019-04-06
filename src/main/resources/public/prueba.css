@@ -116,7 +116,7 @@
   border-radius: 0;
   padding: 18px 80px 20px;
   transition: all 0.7s ease-out;
-  background-image: linear-gradient(to right, #2b5876 25%, #0264d6 51%, #1c2b5a 80%);
+  background-image: linear-gradient(to right, #0264D6 15%, #004798 71%, #002F65 80%);
 
 
   background-position: 1% 50%;
@@ -159,4 +159,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 300vh;
+}
+input:invalid {
+  box-shadow: 0 0 5px 1px red;
 }
