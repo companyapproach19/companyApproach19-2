@@ -1,4 +1,26 @@
 
+package equipo8.model;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import equipo4.model.Lote;
+import equipo6.model.Actor;
+
+// Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
+public class Sensor {
+
+	private static int idSensor;
+	//Aquí se encuentra el .txt con el registro
+	private static BufferedReader log; 
+
+	//Contiene cada linea del registro
+	private static String linea;	
+	
 
 	private static int idSensor;
 	//Aquí se encuentra el .txt con el registro
