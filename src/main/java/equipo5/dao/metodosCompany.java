@@ -508,7 +508,7 @@ public class metodosCompany {
 
 	public static void insertarRegistro (Registro registro) throws SQLException{
 		conectar();
-		String query = "INSERT INTO company.sensor(id, idLote, idActor, fechaInicio, fechaFin, tempMax, tempMin) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO company.registro (id, idLote, idActor, fechaInicio, fechaFin, tempMax, tempMin) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, registro.getId());
 		pst.setInt(2, registro.getLote().getIdBd());
