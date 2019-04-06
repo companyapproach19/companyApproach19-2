@@ -1,17 +1,38 @@
-package equipo8.model;
+package equipo8;
+
+import equipo4.model.Lote;
+import equipo6.model.Actor;
+import equipo8.model.Registro;
+import equipo8.model.Sensor;
 
 public class PruebasSensorYRegistro {
 
+	
+
+	
+	
+	//Ejemplo registro temperatura del Lote id 54 en dos trayectos:
 	public static void main(String[] args) {
-		Sensor sensor = new Sensor(54);
-		Registro reg1,reg2,reg3;
+		
+		// Solo tenemos un sensor, id 1
+		int idSensor=1;
+		Sensor sensor = new Sensor(idSensor);
+		
+		// El Lote lo tiene Dani?
+		Lote lote=new Lote(idSensor, idSensor, null, null, null, null);
+		// El Actor lo tiene Dani?
+		Actor actor=new Actor();
+	
+		// Registro de dos trayectos:
+		Registro reg1,reg2;
+		
 		try {
-			reg1 = sensor.crearRegistro(609,990,"/home/marisol/Desktop/Pruebas/2019-04-03|11:03:23.txt");
-			System.out.println(reg1.toString());
-			reg2 = sensor.crearRegistro(8869,75,"/home/marisol/Desktop/Pruebas/2019-04-05|11:03:23.txt");
-			System.out.println(reg2.toString());
-			reg3 = sensor.crearRegistro(1008,7565,"/home/marisol/Desktop/Pruebas/2019-04-04|11:03:23.txt");
-			System.out.println(reg3.toString());
+			reg1 = sensor.crearRegistro(lote,actor,"datosSensor.txt");
+			System.out.println("\nEJEMPLO 1: \n\n"+reg1.toString());
+
+			reg2 = sensor.crearRegistro(lote,actor,"testTemp1Hora.txt");
+			System.out.println("\n\nEJEMPLO 2: MEDICIÓN DURANTE 1H \n\n"+reg2.toString());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
