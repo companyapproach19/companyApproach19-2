@@ -212,6 +212,7 @@ body{
 #bt3 {
   margin-left: 200px;
   margin-right: 100px;
+  z-index: 10;
 }
 
 #mapa {
@@ -225,7 +226,8 @@ body{
 nav-item{
 	 margin-right: 30px;
 }
- div.linea1 {
+
+ .linea1 {
     position: absolute;
     left: 170px;
     top: 200px;
@@ -233,7 +235,7 @@ nav-item{
     width: 200px;
     z-index: 0;
     }
- div.linea2 {
+ .linea2 {
     position: absolute;
     left: 500px;
     top: 205px;
@@ -241,7 +243,17 @@ nav-item{
     width: 200px;
     z-index: 0;
     }
- div.linea3 {
+
+  .linea2bis {
+    position: absolute;
+    left: 512px;
+    top: 212px;
+    height: 12px;
+    width: 205px;
+    z-index: 2;
+    }
+
+ .linea3 {
     position: absolute;
     left: 520px;
     top: 200px;
@@ -252,6 +264,10 @@ nav-item{
     [data-linea2] {
         border-top: black dashed 3px;
     }
+    [data-linea3] {
+        border: #f8f9fa solid 20px;
+    }
+
 #popup1, #popup2, #popup3, #popup4 {
   display:none;
   position:fixed;
@@ -278,7 +294,7 @@ nav-item{
   color:#000000;
   box-sizing:border-box;
   max-height: 500px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 #popup1 .inner h1, #popup2 .inner h1, #popup3 .inner h1, #popup4 .inner h1 {
