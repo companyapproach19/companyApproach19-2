@@ -673,30 +673,29 @@ public class metodosCompany {
 		conn.close();
 		return lista;	
 	}
-	
-	public static int extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException {
+	 public static int extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException {
     	conectar();
-    	if (actor.getTipoActor()==4) {
-    	 String query = "SELECT * FROM company.stockRetailer WHERE idStockRetailer = " + actor.getId();
+    	if (actor.getTipoActor==4) {
+    	 String query = "SELECT * FROM company.stockRetailer WHERE idRetailer = " + actor.getId;
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
 	 if(!rs.next()){
 		throw new NotInDatabaseException("El stock del retailer buscado no se encuentra en la base de datos.");
 	}
-	 int buscado = rs.getInt(4);
+	 int buscado = rs.getInt(5);
          pst.close();
          rs.close();
          conn.close();
          return buscado;
     }
-    	else if (actor.getTipoActor()==3) { // se necesita relacionar la tabla fabrica con actor
-    		String query = "SELECT * FROM company.stockFabricaLotes WHERE idBd = " + actor.getId().getIdAlmacenLotes();//???
+    	else if (actor.getTipoActor==3) {
+    		String query = "SELECT * FROM company.stockFabricaLotes"; // WHERE idStockFabricaLotes  = " + actor.getId.getIdAlmacenLotes;???
             Statement pst = conn.createStatement();
             ResultSet rs = pst.executeQuery(query);
    	 if(!rs.next()){
    		throw new NotInDatabaseException("El stock de fabrica buscado no se encuentra en la base de datos.");
    	}
-   	 int buscado = rs.getInt(5);//seria la cantidad? pero no está en la tabla almacenLotes
+   	 int buscado = rs.getInt(4);
             pst.close();
             rs.close();
             conn.close();
@@ -706,37 +705,38 @@ public class metodosCompany {
     		System.out.println("el actor suministrado no almacena lotes");
     	return 0;
     }
+	
     
-	public static int extraerStockMP(Actor actor) throws SQLException, ClassNotFoundException {
+public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLException, ClassNotFoundException {
     	conectar();
-    	if (actor.getTipoActor()==1) {
-    	 String query = "SELECT * FROM company.stockCooperativa WHERE idStockCooperativa = " + actor.getId();
+    	if (actor.getTipoActor==1) {
+    	 String query = "SELECT * FROM company.stockCooperativa WHERE idCooperativa = " + actor.getId;
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
 	 if(!rs.next()){
 		throw new NotInDatabaseException("El stock de la cooperativa buscado no se encuentra en la base de datos.");
 	}
-	 int buscado = rs.getInt(4);
+	 int buscado = rs.getInt(5);
          pst.close();
          rs.close();
          conn.close();
          return buscado;
     }
-     if (actor.getTipoActor()==0) {
-    		String query = "SELECT * FROM company.stockAgricultor WHERE idStockAgricultor = " + actor.getId();
+     if (actor.getTipoActor==0) {
+    		String query = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = " + actor.getId;
             Statement pst = conn.createStatement();
             ResultSet rs = pst.executeQuery(query);
    	 if(!rs.next()){
    		throw new NotInDatabaseException("El stock del agricultor buscado no se encuentra en la base de datos.");
    	}
-   	 int buscado = rs.getInt(4);
+   	 int buscado = rs.getInt(5);
             pst.close();
             rs.close();
             conn.close();
             return buscado;
     	}
-     if (actor.getTipoActor()==3) {
- 		String query = "SELECT * FROM company.stockFabricaMateriasPrimas WHERE idstockFabricaMateriasPrimas = " + actor.getId().getIdAlmacenMaterias();
+     if (actor.getTipoActor==3) {
+ 		String query = "SELECT * FROM company.stockFabricaMMPP WHERE idstockMMPP = " + actor.getId;
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
 	 if(!rs.next()){
@@ -753,7 +753,7 @@ public class metodosCompany {
     	return 0;
     }
     
-	public void insertarStockLote(Actor actor, Lote lote) throws SQLException, ClassNotFoundException{
+	public static void insertarStockLote(Actor actor, Lote lote) throws SQLException, ClassNotFoundException{
 	   	conectar();
 	   	switch(actor.getTipoActor()){
 	   		case 4:
@@ -777,6 +777,42 @@ public class metodosCompany {
 			    break;
 	    } 	
     }
+    public static void insertarStockMP(Actor actor, MateriaPrima mp, int cantidad) throws SQLException, ClassNotFoundException{
+	   	conectar();
+	   	switch(actor.getTipoActor()){
+	   		case 0:
+			    String query = "INSERT INTO company.stockAgricultor (idAgricultor, idMateriaPrima, cantidad) VALUES ( ?, ?, ?);"; 
+			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+			    pst.setString(1, actor.getId());
+			    pst.setInt(2, mp.getIdMateriaPrima());
+			    pst.setInt(3, cantidad);
+			    pst.executeUpdate();
+			    pst.close();
+			    conn.close();
+			    break;
+	   		case 1:
+			    String query2 = "INSERT INTO company.stockCooperativa (idCooperativa, idMateriaPrima, cantidad) VALUES (?, ?, ?);"; 
+			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
+			    pst.setString(1, actor.getId());
+			    pst.setInt(2, mp.getIdMateriaPrima());
+			    pst.setInt(3, cantidad);
+			    pst2.executeUpdate();
+			    pst2.close();
+			    conn.close();
+			    break;
+	   		case 3:
+			    String query2 = "INSERT INTO company.stockFabricaMMPP (idLote, cantidad) VALUES (?, ?);"; 
+			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
+			    pst.setString(1, actor.getId());
+			    pst.setInt(2, mp.getIdMateriaPrima());
+			    pst.setInt(3, cantidad);
+			    pst2.executeUpdate();
+			    pst2.close();
+			    conn.close();
+			    break;
+	    } 	
+    }    
+
     
 	public static int idOrdenTrazabilidad() throws SQLException, ClassNotFoundException{
         conectar();
