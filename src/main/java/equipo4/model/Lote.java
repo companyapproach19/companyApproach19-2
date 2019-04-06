@@ -1,23 +1,25 @@
 package equipo4.model;
 
 
+import java.sql.SQLException;
 import java.util.*;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.DatosContainer;
 public class Lote extends DatosContainer{
-	public  int idBd;
-	public  Date fecha_inicio;
-	public  Date fecha_final;
+	private  int idBd;
+	private  Date fecha_inicio;
+	private  Date fecha_final;
 	private byte[] qr;
-	public boolean molido;
-	public boolean cocido;
-	public boolean fermentado;
-	public boolean fermentado2;
-	public boolean embotellado;
-	public String tipo;
+	private boolean molido;
+	private boolean cocido;
+	private boolean fermentado;
+	private boolean fermentado2;
+	private boolean embotellado;
+	private String tipo;
+	private int cantidad;
 
-	public Lote(int idBd, Date fecha_inicio, String tipo, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr) {
+	public Lote(int idBd, Date fecha_inicio, String tipo, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr, int cantidad) {
 		this.idBd= idBd;
 		this.fecha_inicio=fecha_inicio;
 		this.fecha_final=fecha_final;
@@ -27,10 +29,11 @@ public class Lote extends DatosContainer{
 		this.fermentado2 = fermentado2;
 		this.embotellado=embotellado;
 		this.tipo=tipo;
+		this.cantidad=cantidad;
 		
 	}
 	
-	public Lote(Pilsner p, Date ini) {
+	public Lote(Pilsner p, Date ini) throws ClassNotFoundException, SQLException {
 		this.idBd=metodosCompany.idLote();
 		this.fecha_inicio=ini;
 		Date aux = (Date) fecha_inicio.clone();
@@ -38,9 +41,10 @@ public class Lote extends DatosContainer{
 		this.fecha_final = aux;	
 		molido=cocido=fermentado=fermentado2=embotellado=false;
 		this.tipo="pilsner";
+		this.cantidad=1;
 	}
 	
-	public Lote(Stout s, Date ini) {
+	public Lote(Stout s, Date ini) throws ClassNotFoundException, SQLException {
 		this.idBd=metodosCompany.idLote();
 		this.fecha_inicio=ini;
 		Date aux = (Date) fecha_inicio.clone();
@@ -48,6 +52,7 @@ public class Lote extends DatosContainer{
 		this.fecha_final = aux;	
 		molido=cocido=fermentado=fermentado2=embotellado=false;
 		this.tipo="stout";
+		this.cantidad=1;
 	}
 
 	public byte[] getQr() {
@@ -125,5 +130,21 @@ public class Lote extends DatosContainer{
 	public boolean setFermentado2(boolean fermentado2) {
 		this.fermentado2 = fermentado2;
 		return fermentado2;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 }

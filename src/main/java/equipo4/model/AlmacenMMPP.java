@@ -5,22 +5,22 @@ import com.controller.StockController;
 import equipo5.dao.metodosCompany;
 
 public class AlmacenMMPP {
-	public static int id;
-	public static int capacidad;	
-	public static Actor actor = new Actor(3,null,null,null,null);
-	public static MateriaPrima m1=metodosCompany.extraerMateriaPrima("maltaPilsner");
-	public static MateriaPrima m2=metodosCompany.extraerMateriaPrima("maltaCaramelo");
-	public static MateriaPrima m3 = metodosCompany.extraerMateriaPrima("maltaBasePalida");
-	public static MateriaPrima m4 = metodosCompany.extraerMateriaPrima("maltaMunich");
-	public static MateriaPrima m5 = metodosCompany.extraerMateriaPrima("maltaNegra");
-	public static MateriaPrima m6 = metodosCompany.extraerMateriaPrima("maltaCrystal");
-	public static MateriaPrima m7 = metodosCompany.extraerMateriaPrima("maltaChocolate");
-	public static MateriaPrima m8 = metodosCompany.extraerMateriaPrima("cebadaTostada");
-	public static MateriaPrima m9 = metodosCompany.extraerMateriaPrima("lupuloPerle");
-	public static MateriaPrima m10 = metodosCompany.extraerMateriaPrima("lupuloTettnanger");
-	public static MateriaPrima m11 = metodosCompany.extraerMateriaPrima("lupuloCentennial");
-	public static MateriaPrima m12 = metodosCompany.extraerMateriaPrima("levaduraAle");
-	public static MateriaPrima m13 = metodosCompany.extraerMateriaPrima("levaduraLager");
+	private static int id;
+	private static int capacidad;	
+	private static Actor actor = new Actor(3,null,null,null,null);
+	private static MateriaPrima m1=metodosCompany.extraerMateriaPrima("maltaPilsner");
+	private static MateriaPrima m2=metodosCompany.extraerMateriaPrima("maltaCaramelo");
+	private static MateriaPrima m3 = metodosCompany.extraerMateriaPrima("maltaBasePalida");
+	private static MateriaPrima m4 = metodosCompany.extraerMateriaPrima("maltaMunich");
+	private static MateriaPrima m5 = metodosCompany.extraerMateriaPrima("maltaNegra");
+	private static MateriaPrima m6 = metodosCompany.extraerMateriaPrima("maltaCrystal");
+	private static MateriaPrima m7 = metodosCompany.extraerMateriaPrima("maltaChocolate");
+	private static MateriaPrima m8 = metodosCompany.extraerMateriaPrima("cebadaTostada");
+	private static MateriaPrima m9 = metodosCompany.extraerMateriaPrima("lupuloPerle");
+	private static MateriaPrima m10 = metodosCompany.extraerMateriaPrima("lupuloTettnanger");
+	private static MateriaPrima m11 = metodosCompany.extraerMateriaPrima("lupuloCentennial");
+	private static MateriaPrima m12 = metodosCompany.extraerMateriaPrima("levaduraAle");
+	private static MateriaPrima m13 = metodosCompany.extraerMateriaPrima("levaduraLager");
 
 	
 	public static double getLupuloCentennial() {

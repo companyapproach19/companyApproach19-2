@@ -3,22 +3,22 @@ package equipo4.model;
 import java.io.Serializable;
 
 public class Stout implements Serializable {
-	public static double maltaCaramelo;
-	public static double maltaBasePalida;
-	public static double maltaMunich;
-	public static double maltaNegra;
-	public static double maltaCrystal;
-	public static double agua;
-	public static double maltaChocolate;
-	public static double cebadaTostada;
-	public static double lupuloCentennial;
-	public static double levaduraAle;
-	public static int id;
-	public static boolean molido;
-	public static boolean cocinado;
-	public static boolean fermentacion1;
-	public static boolean fermentacion2;
-	public static boolean embotellado;
+	private static double maltaCaramelo;
+	private static double maltaBasePalida;
+	private static double maltaMunich;
+	private static double maltaNegra;
+	private static double maltaCrystal;
+	private static double agua;
+	private static double maltaChocolate;
+	private static double cebadaTostada;
+	private static double lupuloCentennial;
+	private static double levaduraAle;
+	private static int id;
+	private static boolean molido;
+	private static boolean cocinado;
+	private static boolean fermentacion1;
+	private static boolean fermentacion2;
+	private static boolean embotellado;
 
 	public Stout() {
 		agua = 11428571.4286;
