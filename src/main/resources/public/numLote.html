@@ -7,6 +7,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
+
     <div class="container-fluid register">
       <div class="row">
         <div class="col-md-3 register-left">
@@ -39,12 +40,16 @@
             
             <div class="collapse" id="collapseSeguimiento">
               Introduzca en número de <strong>lote:</strong>
-              <br/>
+              <br/></br>
               <div>
                 <span class="fa fa-user"></span>
                 <input type="text"  Placeholder="1234..." required>
                 <div class="input-group-append">
-                  <a class="btn btn-primary btnRegister" href="Lote.html" role="button">Buscar</a>
+                  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item" >
+                       <a class="nav-link" id="home" data-toggle="submit" href="Lote.html" role="submit" aria-controls="home" aria-selected="true">Buscar</a>
+                    </li>
+                  </ul>
                 </div>
               </div> <!-- JS because of IE support; better: placeholder="Username" -->
             </div>
@@ -59,8 +64,17 @@
               <div class="collapse" id="collapseCreacion">
                 <span class="row">Selecciona el <strong>lote</strong> de cerveza que deseea crear:</span>
                 <div class="row">
-                  <a class="btn btn-primary" href="Pilsner.html" role="button">Crear lote Pilsner</a>
-                  <a class="btn btn-primary" href="Stout.html" role="button">Crear lote Stout</a>
+                  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item" >
+                       <a class="nav-link" id="home" data-toggle="submit" href="Pilsner.html" role="submit" aria-controls="home" aria-selected="true">Crear lote Pilsner</a>
+                    </li>
+                  </ul>
+
+                  <ul class="nav nav-tabs nav-justified ml-2" id="myTab" role="tablist">
+                    <li class="nav-item">
+                       <a class="nav-link" id="home" data-toggle="submit" href="Stout.html" role="submit" aria-controls="home" aria-selected="true">Crear Lote Stout</a>
+                    </li>
+                  </ul>
                 </div>            
               </div>
             </div>
@@ -79,12 +93,6 @@
        </div>
   </body>
 </html>
-
-
-
-
-
-
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -96,7 +104,6 @@
   <a class="nav-link" href="Pilsner.html"  style= 'text-decoration: none;color:white'>
                   <input type="button" class="btnRegister" value="Crear lote Pilsner">
                 </a>
-
                 <a class="nav-link" href="Stout.html"  style= 'text-decoration: none;color:white'>
                   <input type="button" class="btnRegister" value="Crear lote Stout">
                 </a>
@@ -108,8 +115,6 @@
                   <input type="button" class="btnRegister" value="Buscar">
                 </a> 
               <div class="row">
-
-
                                 
                                 <p>
                                   <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
@@ -117,5 +122,4 @@
                                   </a>
                                 </p>
                                 
-
                             </div>-->
