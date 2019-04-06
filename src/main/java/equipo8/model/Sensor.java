@@ -21,14 +21,6 @@ public class Sensor {
 	//Contiene cada linea del registro
 	private static String linea;	
 	
-
-	private static int idSensor;
-	//Aquí se encuentra el .txt con el registro
-	private static BufferedReader log; 
-
-	//Contiene cada linea del registro
-	private static String linea;	
-	
 	public Sensor(int idSensor) {
 		Sensor.idSensor=idSensor;
 	}
