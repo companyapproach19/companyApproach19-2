@@ -26,7 +26,6 @@ import java.sql.SQLType;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.LinkedList;
 
 import equipo4.model.AlmacenLotes;
 import equipo4.model.AlmacenMMPP;
@@ -40,8 +39,8 @@ public class Test extends metodosCompany {
 		try {
 			conectar();
 			crearBD();
+			
 			// Pruebas Actor
-
 			Actor prueba = new Actor("10", "Agricultor", "password", "agri@gmail.es", 1, "Calle Ribera", "juan",
 					"Calle Goicocechea", "fg3");
 
@@ -66,6 +65,11 @@ public class Test extends metodosCompany {
 			extraerActor("rick");
 
 			CadenaActores cadena = extraerCadenaActores();
+			List<Actor> list = cadena.getlista_actores();
+			System.out.println("Prueba cadena actores: ");
+			for(int i = 0; i<list.size();i++) {
+				System.out.println(list.get(i).getNombreUsuario());
+			}
 
 			// Prueba lotes
 			Date dateini1 = new Date(2, 12, 2015);
@@ -85,13 +89,13 @@ public class Test extends metodosCompany {
 			Lote lote2 = new Lote(2, dateini2, datefin2, true, false, true, false, false, qr2);
 			Lote lote3 = new Lote(3, dateini3, datefin3, false, false, true, false, true, qr3);
 
-//			insertarLote(lote1);
-//			insertarLote(lote2);
-//			insertarLote(lote3);
-//
-//			extraerLote(1);
-//			extraerLote(2);
-//			extraerLote(3);
+			insertarLote(lote1);
+			insertarLote(lote2);
+			insertarLote(lote3);
+
+			extraerLote(1);
+			extraerLote(2);
+			extraerLote(3);
 
 			// Pruebas Productos
 			Productos productos1 = new Productos(1, 12, 5, 0, 4, 7, 8, 10, 11, 0, 1, 4);
@@ -119,15 +123,15 @@ public class Test extends metodosCompany {
 					18);
 			registro3.setId(3);
 
-//			insertarRegistro(registro1);
-//			insertarRegistro(registro2);
-//			insertarRegistro(registro3);
-//
-//			extraerRegistro(1);
-//			extraerRegistro(2);
-//			extraerRegistro(3);
+			insertarRegistro(registro1);
+			insertarRegistro(registro2);
+			insertarRegistro(registro3);
 
-			// Pruebas OrdenTrazabilidad()
+			extraerRegistro(1);
+			extraerRegistro(2);
+			extraerRegistro(3);
+
+			// Pruebas OrdenTrazabilidad
 
 			Productos productosord1 = new Productos(4, 2, 9, 2, 4, 7, 8, 6, 11, 4, 7, 9);
 			Productos productosord2 = new Productos(5, 1, 5, 0, 4, 7, 81, 10, 11, 9, 1, 4);
@@ -137,13 +141,13 @@ public class Test extends metodosCompany {
 
 			OrdenTrazabilidad orden1 = new OrdenTrazabilidad(1, emisor1, emisor2, true, productosord1, "", 1, firmarec,
 					firmaent, 1, 2, emisor2, registro1);
-//			insertarOrdenTrazabilidad(orden1);
-//			extraerOrdenTrazabalidad(1);
+			insertarOrdenTrazabilidad(orden1);
+			extraerOrdenTrazabalidad(1);
 
 			OrdenTrazabilidad orden2 = new OrdenTrazabilidad(2, emisor2, emisor1, false, productosord2, "", 2, firmarec,
 					firmaent, 1, 2, receptor2, registro2);
-//			insertarOrdenTrazabilidad(orden2);
-//			extraerOrdenTrazabalidad(2);
+			insertarOrdenTrazabilidad(orden2);
+			extraerOrdenTrazabalidad(2);
 
 			// Pruebas cadena
 
@@ -167,6 +171,38 @@ public class Test extends metodosCompany {
 
 			extraerBloque("hashPrevio1");
 			extraerBloque("hashPrevio2");
+			
+			//Prueba extraerPedidosActorDestino
+			ArrayList<OrdenTrazabilidad> ord1 = extraerPedidosActorDestino("1");
+			ArrayList<OrdenTrazabilidad> ord2 = extraerPedidosActorDestino("2");
+			
+			System.out.print("Prueba ord1 de extraerPedidosActorDestino");
+			for(int i=0; i<ord1.size(); i++) {
+				System.out.println(ord1.get(i).getId());
+			}
+			
+			System.out.print("Prueba ord2 de extraerPedidosActorDestino");
+			for(int i=0; i<ord2.size(); i++) {
+				System.out.println(ord2.get(i).getId());
+			}
+			
+			//Prueba extraerStockLote, extraerStockMP
+			
+			int stocklote1 = extraerStockLote(emisor1);
+			int stocklote2 = extraerStockLote(emisor2);
+			int stocklote3 = extraerStockLote(receptor1);
+			
+			int stockMp1 = extraerStockMP(emisor1);
+			int stockMp2 = extraerStockMP(emisor2);
+			int stockMp3 = extraerStockMP(receptor1);
+			
+			//Prueba insertarStockLote
+			
+			insertarStockLote(emisor1, lote1);
+			insertarStockLote(emisor2, lote2);
+			insertarStockLote(receptor1, lote3);
+			
+			
 
 //             
 //             //prueba almacen lotes
