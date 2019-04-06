@@ -1,4 +1,4 @@
-package generarQR;
+package equipo8.model;
 
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
@@ -29,13 +29,13 @@ public class GeneradorQR3 {
     //Para pasar a blob
     private static ByteArrayOutputStream bos = new ByteArrayOutputStream();
     	
-    //MÈtodo al que le pasas el id del lote como par·metro
+    //M√©todo al que le pasas el id del lote como par√°metro
     public static byte[] generadorQR(int id, String path, String data) throws Exception{
     	
-        // URL a la que luego le aÒadiremos el /id
+        // URL a la que luego le a√±adiremos el /id
         //String data = "http://www.google.com";
         
-        //a dÛnde escupe el qr
+        //a d√≥nde escupe el qr
        // path = "C:\\Users\\Laura Colomer\\Documents\\qrcode" + id + ".png";
  
         // Pasar la URL a QR
@@ -67,7 +67,7 @@ public class GeneradorQR3 {
 	    return binarioURL;
     }
     
-    //MÈtodo que convierte los blobs en png
+    //M√©todo que convierte los blobs en png
     public static void BlobaQr(byte [] bytes, String path) throws Exception {
         
         FileOutputStream qrCode = new FileOutputStream(path);        
