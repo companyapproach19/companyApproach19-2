@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
 
+import equipo4.model.Lote;
+import equipo4.model.MateriaPrima;
 import equipo5.dao.metodosCompany;
 import equipo6.model.Actor;
 import equipo6.otros.BlockchainServices;
@@ -29,38 +31,41 @@ public class StockController {
 	/*
 	 * dado un actor y una materia prima devuelve la cantidad de esa materia prima
 	 */
-	//hay que referenciar bien las clases materia prima, lote y los metodos referidos a bbdd
-	public double getCantidadStock (Actor actor, MateriaPrima mp){
-		return 0;
+	public static double getCantidadStock (Actor actor, MateriaPrima mp){
+		return metodosCompany.extraerStockMateriaPrima(actor,mp);		
 	}
 	
 	/*
 	 * dado un actor y un lote devuelve el stock de un tipo de lote
 	 */
-	public int getStockLote(Actor actor, Lote lote) {
+	public static int getStockLote(Actor actor, Lote lote) {
 		
-		//nos devuleve una lista con todos los lotes de un actor, ahora tenemos que buscar
-		//los lotes del tipo
-		LinkedList<Lote> lotes= extraerStockLote(actor);
-		return 0;
+		//nos devuleve una lista con todos los lotes de un actor, luego tenemos que buscar
+		//los lotes del tipo lote que nos pasan
+		LinkedList<Lote> lotes= metodosCompany.extraerStockLote(actor);
+		Iterator<Lote> iter = lotes.iterator();
+		int resultado = 0;
+		while(iter.hasNext()){			
+			if(lote.getTipo().equals(iter.next().getTipo())) {
+				resultado++;
+			}
+		}
+		return resultado;
 	}
 	
 	
 	/*
-	 * metodo para cambiar la cantidad de stock de materia prima, tanto aqui como en  
-	 * el siguiente metodo es donde puede haber problemas con las cookies
-	 */
-	
-	public void setCantidadMateriaPrima(Actor actor, MateriaPrima mp, double cantidad) {			
-		insertarStockMateriaPrima(actor, mp, cantidad);		
+	 * metodo para cambiar la cantidad de stock de materia prima
+	 */	
+	public static void setCantidadMateriaPrima(Actor actor, MateriaPrima mp, double cantidad) {
+		metodosCompany.insertarStockMateriaPrima(actor, mp, cantidad);		
 	}
 	
 	/*
 	 * metodo para cambiar la cantidad de stock de un lote, se insertar de uno en uno.
-	 */
-	
-	public void setCantidadLote(Actor actor, Lote lote) {		
-		insertarStockLote(actor, lote);		
+	 */	
+	public static void setCantidadLote(Actor actor, Lote lote) {
+		metodosCompany.insertarStockLote(actor, lote);
 	}
 	
 	
