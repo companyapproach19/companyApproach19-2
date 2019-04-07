@@ -18,29 +18,20 @@ public class UsuariosService{
     //Funcion para logear usuarios
     //Obtiene la cadena de BBDD, y utiliza el metodo logIn de la cadena
     //TODO anton (habla con gonzalo si necesitas entender como funciona su clase modelo)
-    public Actor logUsuario(Actor usuarioIntentaLogin){
+    public Actor logUsuario(Actor usuarioIntentaLogin) throws Exception{
     	try {
-			Actor actor = metodosCompany.getActor(usuarioIntentaLogin.getNombreUsuario());
+			Actor actor = metodosCompany.extraerCadenaActores().logeaUsuario(usuarioIntentaLogin);
 			if (actor != null) {
-				if (actor.actor_compare(usuarioIntentaLogin)) {
+					System.out.println("Login de actor : "+usuarioIntentaLogin.toString()+" correcto");
 					return actor;
-				} else {
-					return new Actor();
-				}
 			} else {
-				return new Actor();
+				throw new Exception("\nFallo al logear actor : "+usuarioIntentaLogin.getNombreUsuario());
 			}
     	}catch(Exception ex) {
-    		ex.printStackTrace();
+    		System.err.println(ex.getMessage());
+    		return new Actor();
     	}
-      return null;
-    	
-//    	try {
-//			return cad.logeaUsuario(usuarioIntentaLogin);
-//		} catch (Exception e) {
-//			System.err.println(e.getMessage());
-//			return null;
-//		}
+   
     }
 
     
