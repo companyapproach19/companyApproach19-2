@@ -18,7 +18,7 @@ import equipo7.model.Productos;
 import equipo7.otros.CodificadorJSON;
 import equipo7.otros.DescodificadorJson;
 
-public class Decodificacionycodificacion {
+public class DecodificacionycodificacionTest {	
 	Actor emisor =new Actor();
 	Actor receptor =new Actor();
 	Productos m=new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);

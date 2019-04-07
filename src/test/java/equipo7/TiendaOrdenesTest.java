@@ -19,7 +19,7 @@ public class TiendaOrdenesTest {
 		//ACIERTO
 	      assertEquals("El pedido ha sido aceptado", tiendaOrden.notificacion(1));
 	     //FALLO
-	      assertEquals("El pedido ha sido aceptado", tiendaOrden.notificacion(15));
+	      assertNotEquals("El pedido ha sido aceptado", tiendaOrden.notificacion(15));
 	}
 
 

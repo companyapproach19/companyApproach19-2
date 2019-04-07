@@ -31,9 +31,9 @@ public class AgricultoresOrdenesTest {
 	public void testNotificacion() {
 		
 		//ACIERTO
-	     assertEquals("El usuario "+actor.getNombreUsuario()+"desea encargarle el siguiente pedido", agricultoresOrden.notificacion(7, actor));
+	     assertEquals("El usuario "+actor.getNombreUsuario()+" desea encargarle un pedido ", agricultoresOrden.notificacion(1, actor));
 	     //FALLO
-	      assertEquals("El pedido ha sido aceptado", agricultoresOrden.notificacion(15, actor));
+	     assertNotEquals("El pedido ha sido aceptado", agricultoresOrden.notificacion(15, actor));
 		
 	}
 

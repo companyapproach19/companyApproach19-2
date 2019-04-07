@@ -33,7 +33,7 @@ public class FabricaOrdenesTest {
 		//ACIERTO
 	     assertEquals("El usuario "+actor.getNombreUsuario()+"desea encargarle el siguiente pedido", fabricaOrden.notificacion(7, actor));
 	     //FALLO
-	      assertEquals("El pedido ha sido aceptado", fabricaOrden.notificacion(15, actor));
+	      assertNotEquals("El pedido ha sido aceptado", fabricaOrden.notificacion(15, actor));
 	}
 
 	
