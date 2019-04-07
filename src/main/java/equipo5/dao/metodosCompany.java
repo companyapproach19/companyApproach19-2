@@ -250,12 +250,12 @@ public class metodosCompany {
 	                    "idMateriaPrima INT NOT NULL ," +
 	                    "cantidad INT NOT NULL ," +
 	                    "PRIMARY KEY (idStockCooperativa)," +
-	                    "CONSTRAINT sc_stockCooperativa_1 " +
+	                    "CONSTRAINT fk_stockCooperativa_1 " +
 	                    "  FOREIGN KEY (idCooperativa) " +
 	                    "  REFERENCES company.actor(cif) " +
 	                    "  ON DELETE NO ACTION " +
 	                    "  ON UPDATE NO ACTION, " +
-	                    "CONSTRAINT sc_stockCooperativa_2 " +
+	                    "CONSTRAINT fk_stockCooperativa_2 " +
 	                    "  FOREIGN KEY (idMateriaPrima) " +
 	                    "  REFERENCES company.materiaPrima(idMateriaPrima) " +	//con que tabla se relaciona? también ponerlo en StockAgricultor
 	                    "  ON DELETE NO ACTION " +
@@ -273,12 +273,12 @@ public class metodosCompany {
 	                    "idLote INT NOT NULL ," +
 	                    "cantidad INT NOT NULL ," +
 	                    "PRIMARY KEY (idStockRetailer)," +
-	                    "CONSTRAINT sc_stockRetailer_1" +
+	                    "CONSTRAINT fk_stockRetailer_1" +
 	                    "  FOREIGN KEY (idRetailer) " +
 	                    "  REFERENCES company.actor(cif) " +
 	                    "  ON DELETE NO ACTION " +
 	                    "  ON UPDATE NO ACTION, " +
-	                    "CONSTRAINT sc_stockRetailer_2" +
+	                    "CONSTRAINT fk_stockRetailer_2" +
 	                    "  FOREIGN KEY (idLote) " +
 	                    "  REFERENCES company.lote(idLote) " +
 	                    "  ON DELETE NO ACTION " +
@@ -295,12 +295,12 @@ public class metodosCompany {
 	                    "idMateriaPrima INT NOT NULL ," + 
 	                    "cantidad INT NOT NULL ," +
 	                    "PRIMARY KEY (idStockAgricultor)," + 
-	                    "CONSTRAINT sc_stockAgricultor_1 " +
+	                    "CONSTRAINT fk_stockAgricultor_1 " +
 	                    "  FOREIGN KEY (idAgricultor) " +
 	                    "  REFERENCES company.actor(cif) " +
 	                    "  ON DELETE NO ACTION " +
 	                    "  ON UPDATE NO ACTION, " +
-	                    "CONSTRAINT sc_stockAgricultor_2 " +
+	                    "CONSTRAINT fk_stockAgricultor_2 " +
 	                    "  FOREIGN KEY (idMateriaPrima) " +
 	                    "  REFERENCES company.materiaPrima(idMateriaPrima) " +//tabla??
 	                    "  ON DELETE NO ACTION " +
@@ -316,12 +316,12 @@ public class metodosCompany {
 	                    "idMateriaPrima INT NOT NULL ," + 
 	                    "cantidad INT NOT NULL ," +
 	                    "PRIMARY KEY (fecha)," + 
-	                    "CONSTRAINT sc_stockMMPP_1 " +
+	                    "CONSTRAINT fk_stockMMPP_1 " +
 	                    "  FOREIGN KEY (idStockMMPP) " +
 	                    "  REFERENCES company.actor(cif) " +
 	                    "  ON DELETE NO ACTION " +
 	                    "  ON UPDATE NO ACTION, " +
-	                    "CONSTRAINT sc_stockMMPP_2 " +
+	                    "CONSTRAINT fk_stockMMPP_2 " +
 	                    "  FOREIGN KEY (idMateriaPrima) " +
 	                    "  REFERENCES company.materiaPrima(idMateriaPrima) " +
 	                    "  ON DELETE NO ACTION " +
@@ -465,11 +465,11 @@ public class metodosCompany {
 			pst.setInt(1, lote.getIdBd());
 			pst.setDate(2, (Date) lote.getFecha_inicio());
 			pst.setDate(3, (Date)lote.getFecha_final());
-			pst.setBoolean(4, lote.molido);
-			pst.setBoolean(5, lote.cocido);
-			pst.setBoolean(6, lote.fermentado);
-			pst.setBoolean(7, lote.fermentado2);
-			pst.setBoolean(8, lote.embotellado);
+			pst.setBoolean(4, lote.isMolido());
+			pst.setBoolean(5, lote.isCocido());
+			pst.setBoolean(6, lote.isFermentado());
+			pst.setBoolean(7, lote.isFermentado2());
+			pst.setBoolean(8, lote.isEmbotellado());
 			pst.setBytes(9, lote.getQr());
 			pst.setInt(10, lote.getCantidad());
 			pst.setString(11, lote.getTipo());
@@ -715,7 +715,7 @@ public class metodosCompany {
 public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLException, ClassNotFoundException, NotInDatabaseException {
     	conectar();
     	if (actor.getTipoActor()==1) {
-    	 String query = "SELECT * FROM company.stockCooperativa WHERE idCooperativa = " + actor.getId();
+    	 String query = "SELECT * FROM company.stockCooperativa WHERE idCooperativa =  'actor.getId()' AND idMateriaPrima = 'mp.getIdMateriaPrima()' ";
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
 	 if(!rs.next()){
@@ -728,7 +728,7 @@ public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLExcepti
          return buscado;
     }
      if (actor.getTipoActor()==0) {
-    		String query = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = " + actor.getId();
+    		String query = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = 'actor.getId()' AND idMateriaPrima = 'mp.getIdMateriaPrima()' ";
             Statement pst = conn.createStatement();
             ResultSet rs = pst.executeQuery(query);
    	 if(!rs.next()){
@@ -741,7 +741,7 @@ public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLExcepti
             return buscado;
     	}
      if (actor.getTipoActor()==3) {
- 		String query = "SELECT * FROM company.stockFabricaMMPP WHERE idstockMMPP = " + actor.getId();
+ 		String query = "SELECT * FROM company.stockFabricaMMPP WHERE idMateriaPrima" + mp.getId();
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
 	 if(!rs.next()){

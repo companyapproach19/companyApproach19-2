@@ -7,17 +7,17 @@ import java.util.*;
 import equipo5.dao.metodosCompany;
 import equipo6.model.DatosContainer;
 public class Lote extends DatosContainer{
-	public  int idBd;
-	public  Date fecha_inicio;
-	public  Date fecha_final;
+	private  int idBd;
+	private  Date fecha_inicio;
+	private  Date fecha_final;
 	private byte[] qr;
-	public boolean molido;
-	public boolean cocido;
-	public boolean fermentado;
-	public boolean fermentado2;
-	public boolean embotellado;
-	public String tipo;
-	public int cantidad;
+	private boolean molido;
+	private boolean cocido;
+	private boolean fermentado;
+	private boolean fermentado2;
+	private boolean embotellado;
+	private String tipo;
+	private int cantidad;
 
 	public Lote(int idBd, Date fecha_inicio, String tipo, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr, int cantidad) {
 		this.idBd= idBd;
@@ -122,7 +122,15 @@ public class Lote extends DatosContainer{
 		this.embotellado = embotellado;
 		return embotellado;
 	}
-	
+
+	public boolean isFermentado2() {
+		return fermentado2;
+	}
+
+	public boolean setFermentado2(boolean fermentado2) {
+		this.fermentado2 = fermentado2;
+		return fermentado2;
+	}
 
 	public String getTipo() {
 		return tipo;
@@ -138,14 +146,5 @@ public class Lote extends DatosContainer{
 
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
-	}
-
-	public boolean isFermentado2() {
-		return fermentado2;
-	}
-
-	public boolean setFermentado2(boolean fermentado2) {
-		this.fermentado2 = fermentado2;
-		return fermentado2;
 	}
 }
