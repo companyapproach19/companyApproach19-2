@@ -1,6 +1,8 @@
 package equipo4;
 
 import static org.junit.Assert.*;
+
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
 import org.junit.Test;
@@ -9,7 +11,7 @@ import equipo4.model.*;
 public class testPrincipal1 {
 
 	@Test
-	public void testAlmacenLotes() throws InterruptedException {
+	public void testAlmacenLotes() throws InterruptedException, ClassNotFoundException, SQLException {
 		int idBd = -1;
 		Date fechaActual = new Date();
 		LinkedList<Lote> lista = new LinkedList<Lote>();
@@ -37,16 +39,16 @@ public class testPrincipal1 {
 		assertNotNull(c21);
 		assertNotNull(c22);
 
-		Lote l1 = new Lote(idBd, c11, fechaActual);
-		Lote l2 = new Lote(idBd, c12, fechaActual);
-		Lote l3 = new Lote(idBd, c13, fechaActual);
-		Lote l4 = new Lote(idBd, c14, fechaActual);
-		Lote l5 = new Lote(idBd, c15, fechaActual);
-		Lote l6 = new Lote(idBd, c16, fechaActual);
-		Lote l7 = new Lote(idBd, c17, fechaActual);
-		Lote l8 = new Lote(idBd, c18, fechaActual);
-		Lote l21 = new Lote(idBd, c21, fechaActual);
-		Lote l22 = new Lote(idBd, c22, fechaActual);
+		Lote l1 = new Lote(c11, fechaActual);
+		Lote l2 = new Lote(c12, fechaActual);
+		Lote l3 = new Lote(c13, fechaActual);
+		Lote l4 = new Lote(c14, fechaActual);
+		Lote l5 = new Lote(c15, fechaActual);
+		Lote l6 = new Lote(c16, fechaActual);
+		Lote l7 = new Lote(c17, fechaActual);
+		Lote l8 = new Lote(c18, fechaActual);
+		Lote l21 = new Lote(c21, fechaActual);
+		Lote l22 = new Lote(c22, fechaActual);
 
 		assertNotNull(l1);
 		assertNotNull(l2);
@@ -147,9 +149,9 @@ public class testPrincipal1 {
 	}
 	
 	@Test
-	public void testFabricacion() throws InterruptedException {
+	public void testFabricacion() throws InterruptedException, ClassNotFoundException, SQLException {
 		Date date = new Date();
-		Lote lote1 = new Lote(0, new Pilsner(), date);
+		Lote lote1 = new Lote(new Pilsner(), date);
 		Principal.moler(lote1);
 		Principal.cocinar(lote1);
 		Principal.fermentar(lote1);
@@ -162,7 +164,7 @@ public class testPrincipal1 {
 	}
 	
 	@Test
-	public void testMain() throws InterruptedException {
+	public void testMain() throws InterruptedException, ClassNotFoundException, SQLException {
 		Principal.main(null);
 	}
 	
