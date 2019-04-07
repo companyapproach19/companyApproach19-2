@@ -907,5 +907,15 @@ public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLExcepti
 		}
 		return null;
     }
+    public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException{
+		conectar();
+		String query = "INSERT INTO company.materiaPrima (idMateriaPrima, nombre) VALUES (?, ?);";
+		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+		pst.setInt(1, mp.getId());
+		pst.setString(2, mp.getNombre());
+		pst.executeUpdate();
+		pst.close();
+	}
+    
 
 }
