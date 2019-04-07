@@ -4,6 +4,7 @@ package equipo7.otros;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import equipo7.model.ListaPedidos;
 import equipo7.model.OrdenTrazabilidad;
 public class CodificadorJSON {
 
@@ -16,5 +17,13 @@ public class CodificadorJSON {
         Gson gson = builder.setPrettyPrinting().create();
         return gson.toJson(ordenTrazabilidad);
     }
+    
+    //Pasar una lista de pedidos a json
+    public static String crearJSONlista(ListaPedidos pedidos) {
+    	GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        return gson.toJson(pedidos);
+    }
+   
 
 }

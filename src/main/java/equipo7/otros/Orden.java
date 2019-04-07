@@ -1,35 +1,43 @@
 package equipo7.otros;
 
-import equipo7.model.OrdenTrazabilidad;
+import equipo6.model.Actor;
 
 public class Orden {
 	
-	private OrdenTrazabilidad pedido;
+	//private OrdenTrazabilidad pedido;
 	
-	public Orden(OrdenTrazabilidad ordenTrazabilidad) {
-		this.pedido=ordenTrazabilidad;
+	public Orden() {
+		//this.pedido=ordenTrazabilidad;
 	}
 	
 	public void crearPedido() {}
 	
 	
-	public void aceptarPedido() {
-		this.pedido.setEstadoProceso(OrdenTrazabilidad.EstadoOrden.EN_PROCESO);
+	public int aceptarPedido(int estado) {
+		if(estado == 0) return 1;
+		else return -1;
 	}
 	
-	public void listoParaEntregar() {
-		this.pedido.setEstadoProceso(OrdenTrazabilidad.EstadoOrden.LISTO_PARA_ENTREGAR);
+	//Devuelve si se necesita transportista
+	public boolean listoParaEntregar(int estado, Actor origen, Actor destino) {
+		if(estado==1){
+			estado=2;
+			if(origen.getTipoActor()!=1 && destino.getTipoActor()!=0){
+				return true;
+			}
+		}
+		return false;
 	}
 	
-	public void firmadoRecogida() {
-		this.pedido.setEstadoProceso(OrdenTrazabilidad.EstadoOrden.EN_PROCESO_DE_ENTREGA);
+	//TODO: comrobar que se cambia el estado viendo si esta firmado
+	public int firmadoRecogida(int estado) {
+		if(estado==2) return 3;
+		else return -1;
 	}
 	
-	public void firmadoEntrega() {
-		this.pedido.setEstadoProceso(OrdenTrazabilidad.EstadoOrden.ENTREGADO);
+	public int firmadoEntrega(int estado) {
+		if(estado==3) return 4;
+		else return -1;
 	}
-	
-	protected OrdenTrazabilidad getPedido() {
-		return this.pedido;
-	}
+
 }
