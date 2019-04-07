@@ -250,12 +250,12 @@ public class metodosCompany {
 	                    "idMateriaPrima INT NOT NULL ," +
 	                    "cantidad INT NOT NULL ," +
 	                    "PRIMARY KEY (idStockCooperativa)," +
-	                    "CONSTRAINT sc_stockCooperativa_1 " +
+	                    "CONSTRAINT fk_stockCooperativa_1 " +
 	                    "  FOREIGN KEY (idCooperativa) " +
 	                    "  REFERENCES company.actor(cif) " +
 	                    "  ON DELETE NO ACTION " +
 	                    "  ON UPDATE NO ACTION, " +
-	                    "CONSTRAINT sc_stockCooperativa_2 " +
+	                    "CONSTRAINT fk_stockCooperativa_2 " +
 	                    "  FOREIGN KEY (idMateriaPrima) " +
 	                    "  REFERENCES company.materiaPrima(idMateriaPrima) " +	//con que tabla se relaciona? también ponerlo en StockAgricultor
 	                    "  ON DELETE NO ACTION " +
@@ -273,12 +273,12 @@ public class metodosCompany {
 	                    "idLote INT NOT NULL ," +
 	                    "cantidad INT NOT NULL ," +
 	                    "PRIMARY KEY (idStockRetailer)," +
-	                    "CONSTRAINT sc_stockRetailer_1" +
+	                    "CONSTRAINT fk_stockRetailer_1" +
 	                    "  FOREIGN KEY (idRetailer) " +
 	                    "  REFERENCES company.actor(cif) " +
 	                    "  ON DELETE NO ACTION " +
 	                    "  ON UPDATE NO ACTION, " +
-	                    "CONSTRAINT sc_stockRetailer_2" +
+	                    "CONSTRAINT fk_stockRetailer_2" +
 	                    "  FOREIGN KEY (idLote) " +
 	                    "  REFERENCES company.lote(idLote) " +
 	                    "  ON DELETE NO ACTION " +
@@ -295,12 +295,12 @@ public class metodosCompany {
 	                    "idMateriaPrima INT NOT NULL ," + 
 	                    "cantidad INT NOT NULL ," +
 	                    "PRIMARY KEY (idStockAgricultor)," + 
-	                    "CONSTRAINT sc_stockAgricultor_1 " +
+	                    "CONSTRAINT fk_stockAgricultor_1 " +
 	                    "  FOREIGN KEY (idAgricultor) " +
 	                    "  REFERENCES company.actor(cif) " +
 	                    "  ON DELETE NO ACTION " +
 	                    "  ON UPDATE NO ACTION, " +
-	                    "CONSTRAINT sc_stockAgricultor_2 " +
+	                    "CONSTRAINT fk_stockAgricultor_2 " +
 	                    "  FOREIGN KEY (idMateriaPrima) " +
 	                    "  REFERENCES company.materiaPrima(idMateriaPrima) " +//tabla??
 	                    "  ON DELETE NO ACTION " +
@@ -316,12 +316,12 @@ public class metodosCompany {
 	                    "idMateriaPrima INT NOT NULL ," + 
 	                    "cantidad INT NOT NULL ," +
 	                    "PRIMARY KEY (fecha)," + 
-	                    "CONSTRAINT sc_stockMMPP_1 " +
+	                    "CONSTRAINT fk_stockMMPP_1 " +
 	                    "  FOREIGN KEY (idStockMMPP) " +
 	                    "  REFERENCES company.actor(cif) " +
 	                    "  ON DELETE NO ACTION " +
 	                    "  ON UPDATE NO ACTION, " +
-	                    "CONSTRAINT sc_stockMMPP_2 " +
+	                    "CONSTRAINT fk_stockMMPP_2 " +
 	                    "  FOREIGN KEY (idMateriaPrima) " +
 	                    "  REFERENCES company.materiaPrima(idMateriaPrima) " +
 	                    "  ON DELETE NO ACTION " +
