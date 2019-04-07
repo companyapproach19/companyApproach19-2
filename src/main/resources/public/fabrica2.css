@@ -136,22 +136,26 @@
 }
 
 #bt1 {
-  background-image:url(https://cdn.icon-icons.com/icons2/53/PNG/256/farmer_10763.png);
+    /* Imagen obtenida de https://cdn.icon-icons.com/icons2/53/PNG/256/farmer_10763.png */
+  background-image:url(/Documentos/equipo1/Imagenes/agri.png);
   background-size: 120px;
 }
 
 #bt2 {
-  background-image:url(https://images.vexels.com/media/users/3/149778/isolated/preview/1f81375bf0c5b07e551aed611ef4bdc1-ilustraci--n-del-edificio-de-la-f--brica-by-vexels.png);
+    /* Imagen obtenida de https://images.vexels.com/media/users/3/149778/isolated/preview/1f81375bf0c5b07e551aed611ef4bdc1-ilustraci--n-del-edificio-de-la-f--brica-by-vexels.png */
+  background-image:url(/Documentos/equipo1/Imagenes/fabr.png);
   background-size: 140px;
 }
 
 #bt3 {
-  background-image:url(https://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png);
+    /* Imagen obtenida de https://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png */
+  background-image:url(/Documentos/equipo1/Imagenes/coop.png);
   background-size: 120px;
 }
 
 #bt4 {
-  background-image:url(https://img.icons8.com/plasticine/2x/shop.png);
+    /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
+  background-image:url(/Documentos/equipo1/Imagenes/ret.png);
   background-size: 140px;
 }
 
