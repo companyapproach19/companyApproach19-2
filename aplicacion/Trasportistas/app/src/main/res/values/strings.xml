@@ -24,6 +24,12 @@
     <string name="seleccionar_fecha">Seleccionar Fecha</string>
     <string name="trasportista">Trasportista</string>
 
+    <string name="start_new">New</string>
+    <string name="brush">Brush</string>
+    <string name="erase">Erase</string>
+    <string name="save">Save</string>
+    <string name="paint">Paint</string>
+
     <string name="errorData">Error al procesar los datos</string>
     <string name="errorAPI">Error en el acceso al API</string>
     <string name="sinRegistros">La consulta no devuelve ningún registro</string>
