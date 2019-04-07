@@ -1,21 +1,145 @@
 package equipo4.model;
 
+import com.controller.*;
+
+import equipo5.dao.metodosCompany;
+import equipo6.model.Actor;
+
 public class AlmacenMMPP {
-	public static int id;
-	public static int capacidad;
-	public static  double maltaPilsner;
-	public static  double maltaCaramelo;
-	public static  double maltaBasePalida;
-	public static  double maltaMunich;
-	public static  double maltaNegra;
-	public static  double maltaCrystal;
-	public static  double maltaChocolate;
-	public static  double cebadaTostada;
-	public static  double lupuloPerle;
-	public static  double lupuloTettnanger;
-	public static  double lupuloCentennial;
-	public static  double levaduraAle;
-	public static  double levaduraLager;
+	private static int id;
+	private static int capacidad;	
+	private static Actor actor = new Actor(null,null,null,3);
+	private static MateriaPrima m1=metodosCompany.extraerMateriaPrima("maltaPilsner");
+	private static MateriaPrima m2=metodosCompany.extraerMateriaPrima("maltaCaramelo");
+	private static MateriaPrima m3 = metodosCompany.extraerMateriaPrima("maltaBasePalida");
+	private static MateriaPrima m4 = metodosCompany.extraerMateriaPrima("maltaMunich");
+	private static MateriaPrima m5 = metodosCompany.extraerMateriaPrima("maltaNegra");
+	private static MateriaPrima m6 = metodosCompany.extraerMateriaPrima("maltaCrystal");
+	private static MateriaPrima m7 = metodosCompany.extraerMateriaPrima("maltaChocolate");
+	private static MateriaPrima m8 = metodosCompany.extraerMateriaPrima("cebadaTostada");
+	private static MateriaPrima m9 = metodosCompany.extraerMateriaPrima("lupuloPerle");
+	private static MateriaPrima m10 = metodosCompany.extraerMateriaPrima("lupuloTettnanger");
+	private static MateriaPrima m11 = metodosCompany.extraerMateriaPrima("lupuloCentennial");
+	private static MateriaPrima m12 = metodosCompany.extraerMateriaPrima("levaduraAle");
+	private static MateriaPrima m13 = metodosCompany.extraerMateriaPrima("levaduraLager");
+
+	
+	public static double getLupuloCentennial() {
+		return StockController.getCantidadStock(actor,m11);
+	}
+
+	public static void setLupuloCentennial(double c) {
+		StockController.setCantidadMateriaPrima(actor,m11,c);
+	}
+	
+	public static double getLevaduraAle() {
+		return StockController.getCantidadStock(actor,m12);
+	}
+
+	public static void setLevaduraAle(double c) {
+		StockController.setCantidadMateriaPrima(actor,m12,c);
+	}
+	
+	public static double getLevaduraLager() {
+		return StockController.getCantidadStock(actor,m13);
+	}
+
+	public static void setLevaduraLager(double c) {
+		StockController.setCantidadMateriaPrima(actor,m13,c);
+	}
+	
+	
+	public static double getCebadaTostada() {
+		return StockController.getCantidadStock(actor,m8);
+	}
+
+	public static void setCebadaTostada(double c) {
+		StockController.setCantidadMateriaPrima(actor,m8,c);
+	}
+	
+	public static double getMaltaChocolate() {
+		return StockController.getCantidadStock(actor,m7);
+	}
+
+	public static void setMaltaChocolate(double c) {
+		StockController.setCantidadMateriaPrima(actor,m7,c);
+	}
+	
+	
+	public static double getMaltaCrystal() {
+		return StockController.getCantidadStock(actor,m6);
+	}
+
+	public static void setMaltaCrystal(double c) {
+		StockController.setCantidadMateriaPrima(actor,m6,c);
+	}
+	
+	public static double getMaltaNegra() {
+		return StockController.getCantidadStock(actor,m5);
+	}
+
+	public static void setMaltaNegra(double c) {
+		StockController.setCantidadMateriaPrima(actor,m5,c);
+	}
+	
+	public static double getMaltaMunich() {
+		return StockController.getCantidadStock(actor,m4);
+	}
+
+	public static void setMaltaMunich(double c) {
+		StockController.setCantidadMateriaPrima(actor,m4,c);
+	}
+	
+	
+	public static double getMaltaBasePalida() {
+		return StockController.getCantidadStock(actor,m3);
+	}
+
+	public static void setMaltaBasePalida(double c) {
+		StockController.setCantidadMateriaPrima(actor,m3,c);
+	}
+	
+	
+	public static double getMaltaPilsner() {
+		return StockController.getCantidadStock(actor,m1);
+	}
+
+	public static void setMaltaPilsner(double c) {
+		StockController.setCantidadMateriaPrima(actor,m1,c);
+	}
+
+	public static double getMaltaCaramelo() {
+		return StockController.getCantidadStock(actor,m2);
+	}
+
+	public static void setMaltaCaramelo(double c) {
+		StockController.setCantidadMateriaPrima(actor,m2,c);
+	}
+
+	public static double getLupuloPerle() {
+		return StockController.getCantidadStock(actor,m9);
+	}
+
+	public static void setLupuloPerle(double c) {
+		StockController.setCantidadMateriaPrima(actor,m9,c);
+	}
+
+	public static double getLupuloTettnanger() {
+		return StockController.getCantidadStock(actor,m10);
+	}
+
+	public static void setLupuloTettnanger(double c) {
+		StockController.setCantidadMateriaPrima(actor,m10,c);
+	}
+
+	public static double getLevaduraLager1() {
+		return StockController.getCantidadStock(actor,m13);
+	}
+
+	public static void setLevaduraLager1(double c) {
+		StockController.setCantidadMateriaPrima(actor,m13,c);
+	}
+
 	public static  int maxcapacidad;
 	public static  double maxmaltaPilsner;
 	public static  double maxmaltaCaramelo;
@@ -32,190 +156,8 @@ public class AlmacenMMPP {
 	public static  double maxlevaduraLager;
 
 
-
-	public int getCapacidad() {
-		return capacidad;
-	}
-	public static void setCapacidad (int capacidad) {
-		AlmacenMMPP.capacidad = capacidad;
-	}
-	public static int getMaxcapacidad() {
-		return maxcapacidad;
-	}
-	public static void setMaxcapacidad(int maxcapacidad) {
-		AlmacenMMPP.maxcapacidad = maxcapacidad;
-	}
-		/*public static int getId() {
-			return id;
-		}
-		public static void setId(int id) {
-			AlmacenMMPP.id = id;
-		}*/
-	public static double getMaltaPilsner() {
-		return maltaPilsner;
-    }
-	public static void setMaltaPilsner(double maltaPilsner) {
-        AlmacenMMPP.maltaPilsner = maltaPilsner;
-    }
-    public static double getMaltaCaramelo() {
-    		return maltaCaramelo;
-    }
-    public static void setMaltaCaramelo(double maltaCaramelo) {
-    		AlmacenMMPP.maltaCaramelo = maltaCaramelo;
-    }
-    public static double getMaltaBasePalida() {
-    		return maltaBasePalida;
-    }
-    public static void setMaltaBasePalida(double maltaBasePalida) {
-    		AlmacenMMPP.maltaBasePalida = maltaBasePalida;
-    }
-    public static double getMaltaMunich() {
-             return maltaMunich;
-     }
-     public static void setMaltaMunich(double maltaMunich) {
-    	 AlmacenMMPP.maltaMunich = maltaMunich;
-     }
-     public static double getMaltaNegra() {
-             return maltaNegra;
-     }
-     public static void setMaltaNegra(double maltaNegra) {
-    	 AlmacenMMPP.maltaNegra = maltaNegra;
-     }
-     public static double getMaltaCrystal() {
-             return maltaCrystal;
-     }
-     public static void setMaltaCrystal(double maltaCrystal) {
-    	 AlmacenMMPP.maltaCrystal = maltaCrystal;
-     }
-     public static double getMaltaChocolate() {
-             return maltaChocolate;
-     }
-     public static void setMaltaChocolate(double maltaChocolate) {
-    	 AlmacenMMPP.maltaChocolate = maltaChocolate;
-     }
-     public static double getCebadaTostada() {
-             return cebadaTostada;
-     }
-     public static void setCebadaTostada(double cebadaTostada) {
-    	 AlmacenMMPP.cebadaTostada = cebadaTostada;
-     }
-     public static double getLupuloPerle() {
-             return lupuloPerle;
-     }
-     public static void setLupuloPerle(double lupuloPerle) {
-    	 AlmacenMMPP.lupuloPerle = lupuloPerle;
-     }
-     public static double getLupuloTettnanger() {
-             return lupuloTettnanger;
-     }
-     public static void setLupuloTettnanger(double lupuloTettnanger) {
-    	 AlmacenMMPP.lupuloTettnanger = lupuloTettnanger;
-     }
-     public static double getLupuloCentennial() {
-             return lupuloCentennial;
-     }
-     public static void setLupuloCentennial(double lupuloCentennial) {
-    	 AlmacenMMPP.lupuloCentennial = lupuloCentennial;
-     }
-     public static double getLevaduraAle() {
-             return levaduraAle;
-     }
-     public static void setLevaduraAle(double levaduraAle) {
-    	 AlmacenMMPP.levaduraAle = levaduraAle;
-     }
-     public static double getLevaduraLager() {
-             return levaduraLager;
-     }
-     public static void setLevaduraLager(double levaduraLager) {
-    	 AlmacenMMPP.levaduraLager = levaduraLager;
-     }
-	public static double getMaxmaltaPilsner() {
-		return maxmaltaPilsner;
-	}
-	public static void setMaxmaltaPilsner(double maxmaltaPilsner) {
-		AlmacenMMPP.maxmaltaPilsner = maxmaltaPilsner;
-	}
-	public static double getMaxmaltaCaramelo() {
-		return maxmaltaCaramelo;
-	}
-	public static void setMaxmaltaCaramelo(double maxmaltaCaramelo) {
-		AlmacenMMPP.maxmaltaCaramelo = maxmaltaCaramelo;
-	}
-	public static double getMaxmaltaBasePalida() {
-		return maxmaltaBasePalida;
-	}
-	public static void setMaxmaltaBasePalida(double maxmaltaBasePalida) {
-		AlmacenMMPP.maxmaltaBasePalida = maxmaltaBasePalida;
-	}
-	public static double getMaxmaltaMunich() {
-		return maxmaltaMunich;
-	}
-	public static void setMaxmaltaMunich(double maxmaltaMunich) {
-		AlmacenMMPP.maxmaltaMunich = maxmaltaMunich;
-	}
-	public static double getMaxmaltaNegra() {
-		return maxmaltaNegra;
-	}
-	public static void setMaxmaltaNegra(double maxmaltaNegra) {
-		AlmacenMMPP.maxmaltaNegra = maxmaltaNegra;
-	}
-	public static double getMaxmaltaCrystal() {
-		return maxmaltaCrystal;
-	}
-	public static void setMaxmaltaCrystal(double maxmaltaCrystal) {
-		AlmacenMMPP.maxmaltaCrystal = maxmaltaCrystal;
-	}
-	public static double getMaxmaltaChocolate() {
-		return maxmaltaChocolate;
-	}
-	public static void setMaxmaltaChocolate(double maxmaltaChocolate) {
-		AlmacenMMPP.maxmaltaChocolate = maxmaltaChocolate;
-	}
-	public static double getMaxcebadaTostada() {
-		return maxcebadaTostada;
-	}
-	public static void setMaxcebadaTostada(double maxcebadaTostada) {
-		AlmacenMMPP.maxcebadaTostada = maxcebadaTostada;
-	}
-	public static double getMaxlupuloPerle() {
-		return maxlupuloPerle;
-	}
-	public static void setMaxlupuloPerle(double maxlupuloPerle) {
-		AlmacenMMPP.maxlupuloPerle = maxlupuloPerle;
-	}
-	public static double getMaxlupuloTettnanger() {
-		return maxlupuloTettnanger;
-	}
-	public static void setMaxlupuloTettnanger(double maxlupuloTettnanger) {
-		AlmacenMMPP.maxlupuloTettnanger = maxlupuloTettnanger;
-	}
-	public static double getMaxlupuloCentennial() {
-		return maxlupuloCentennial;
-	}
-	public static void setMaxlupuloCentennial(double maxlupuloCentennial) {
-		AlmacenMMPP.maxlupuloCentennial = maxlupuloCentennial;
-	}
-	public static double getMaxlevaduraAle() {
-		return maxlevaduraAle;
-	}
-	public static void setMaxlevaduraAle(double maxlevaduraAle) {
-		AlmacenMMPP.maxlevaduraAle = maxlevaduraAle;
-	}
-	public static double getMaxlevaduraLager() {
-		return maxlevaduraLager;
-	}
-	public static void setMaxlevaduraLager(double maxlevaduraLager) {
-		AlmacenMMPP.maxlevaduraLager = maxlevaduraLager;
-	}
-	
-	/*
-	 * Constructor inicial que "llena" el almac�n de materias primas
-	 * teniendo en cuente que tiene capacidad para 5 lotes de producci�n
-	 * de 10.000 hl cada uno.
-	 */
 	public AlmacenMMPP() {
-		maxcapacidad = 3714286 * 1000; //gr
-		maxmaltaPilsner = 1739130434.7826 * 5;
+		maxcapacidad =  3714286 * 1000; //gr
 		maxmaltaCaramelo = 217391304.3478 * 5;
 		maxmaltaBasePalida = 2621426571.428571 * 5;
 		maxmaltaCrystal = 6666666.6666667 * 5;
@@ -225,45 +167,32 @@ public class AlmacenMMPP {
 		maxmaltaChocolate = 57142857.14285714 * 5;
 		maxlupuloPerle = 9523809.523809524 * 5;
 		maxlupuloCentennial = 33333333.33333333 * 5;
-		//inicializacion
-		 maltaPilsner = maxmaltaPilsner;
-		 maltaCaramelo = maxmaltaCaramelo;
-		 maltaBasePalida = maxmaltaBasePalida;
-		 maltaCrystal = maxmaltaCrystal;
-		 maltaMunich = maxmaltaMunich;
-		 cebadaTostada = maxcebadaTostada;
-		 maltaNegra = maxmaltaNegra;
-		 maltaChocolate = maxmaltaChocolate;
-		 lupuloPerle= maxlupuloPerle;
-		 lupuloCentennial = maxlupuloCentennial;
-
-
-	}
-	public AlmacenMMPP(int id, int capacidad, double maltaPilsner, double maltaCaramelo, double maltaBasePalida, 
-			double maltaMunich,double maltaNegra , 
-			double maltaCrystal, double maltaChocolate ,double cebadaTostada , double lupuloPerle, 
-			double lupuloTettnanger, double lupuloCentennial, 
-			double levaduraAle, double levaduraLager) {
-		this.id=id;
-		this.capacidad=capacidad;
-		this.maltaPilsner=maltaPilsner;
-		this.maltaCaramelo=maltaCaramelo;
-		this.maltaBasePalida=maltaBasePalida;
-		this.maltaMunich=maltaMunich;
-		this.maltaNegra=maltaNegra;
-		this.maltaCrystal=maltaCrystal;
-		this.maltaChocolate=maltaChocolate;
-		this.cebadaTostada=cebadaTostada;
-		this.lupuloPerle=lupuloPerle;
-		this.lupuloTettnanger=lupuloTettnanger;
-		this.lupuloCentennial=lupuloCentennial;
-		this.levaduraAle=levaduraAle;
-		this.levaduraLager=levaduraLager;
+		maxmaltaPilsner= 1739130434.7826 * 5;
+		maxlupuloTettnanger=2621426571.428571 * 5;
+		maxlevaduraAle= 16541665;
+		maxlevaduraLager=687464;
 		
+		m2.setCapacidad(maxmaltaCaramelo);
+		m3.setCapacidad(maxmaltaBasePalida);
+		m4.setCapacidad(maxmaltaMunich);
+		m5.setCapacidad(maxmaltaNegra);
+		m6.setCapacidad(maxmaltaCrystal);
+		m7.setCapacidad(maxmaltaChocolate);
+		m8.setCapacidad(maxcebadaTostada);
+		m9.setCapacidad(maxlupuloPerle);
+		m1.setCapacidad(maxmaltaPilsner);
+		m11.setCapacidad(maxlupuloCentennial);
+		m10.setCapacidad(maxlupuloTettnanger);
+		m12.setCapacidad(maxlevaduraAle);
+		m13.setCapacidad(maxlevaduraLager);
+
+
 
 	}
-	public int getId() {
+
+	public static int getId() {
 		return id;
 	}
+	
 
 }
