@@ -1,8 +1,11 @@
 package software.engineering.upm.es;
 
+
+
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.view.View;
-import android.content.Context;
 import android.util.AttributeSet;
 
 import android.graphics.Bitmap;
@@ -23,6 +26,8 @@ public class DrawingView extends View {
     private Canvas drawCanvas;
     //canvas bitmap
     private Bitmap canvasBitmap;
+
+    private boolean erase=false;
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -82,5 +87,13 @@ public class DrawingView extends View {
         return true;
     }
 
+
+    public void setErase(boolean isErase){
+        erase=isErase;
+        if(erase) drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        else {
+            drawPaint.setXfermode(null);
+        }
+    }
 
 }

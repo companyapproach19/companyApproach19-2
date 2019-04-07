@@ -1,8 +1,12 @@
 package software.engineering.upm.es;
 
 
+import android.content.Context;
+import android.util.AttributeSet;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +22,13 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
 public class Ficha extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    public static final String EXTRA_MESSAGE = "MESSAGE";
 
     // Declaramos las Views
     private EditText nombre, fechE, fechR;
@@ -26,6 +36,10 @@ public class Ficha extends AppCompatActivity implements AdapterView.OnItemSelect
     private ImageButton selecFechE, selecFechR;
     private Spinner spinner;
     private Button firma;
+
+    private DrawingView drawView;
+
+    public Pedido pedido;
 
     // Para las fechas
     private int mMonth, mDay, mYear;
@@ -52,17 +66,17 @@ public class Ficha extends AppCompatActivity implements AdapterView.OnItemSelect
         pos = extras.getInt("pos");
 
         // Inicializamos nuestras views
-        nombre = (EditText) findViewById(R.id.campo_nombre);
-        id = (TextView) findViewById(R.id.campo_id);
+       // nombre = (EditText) findViewById(R.id.campo_nombre);
+      //  id = (TextView) findViewById(R.id.campo_id);
         fechE = (EditText) findViewById(R.id.campo_date_entrega);
         fechR = (EditText) findViewById(R.id.campo_date_recogida);
 
         // Configuramos el spinner
-        spinner = (Spinner) findViewById(R.id.spinner);
-        empresas = new String[]{"Empresa Paco", "Empresa Pepito", "Autónomo"};
+      //  spinner = (Spinner) findViewById(R.id.spinner);
+      /*  empresas = new String[]{"Empresa Paco", "Empresa Pepito", "Autónomo"};
         spinnerAdapter = new ArrayAdapter<String>(this ,android.R.layout.simple_spinner_dropdown_item, empresas);
         spinner.setAdapter(spinnerAdapter);
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(this); */
 
         // Instanciamos nuestros botones
         selecFechE = (ImageButton) findViewById(R.id.button_date_entrega);
@@ -82,19 +96,28 @@ public class Ficha extends AppCompatActivity implements AdapterView.OnItemSelect
         });
 
         firma = (Button) findViewById(R.id.button_firma);
+
+
+
         firma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firmarPedido();
+                Intent intent = new Intent (v.getContext(), MainActivity.class);
+                startActivity(intent);
+
             }
         });
 
         // Introducimos la información de nuestras views
-        nombre.setText(trasportista.getNombre());
+     /*   nombre.setText(trasportista.getNombre());
         fechR.setText(trasportista.getFecha_recogida());
-        fechE.setText(trasportista.getFecha_entrega());
+        fechE.setText(trasportista.getFecha_entrega());*/
 
-        id.setText(""+identificador);
+     /*   id.setText(""+identificador); */
+
+        drawView = (DrawingView)findViewById(R.id.drawing);
+
+
 
 
     }
@@ -139,6 +162,13 @@ public class Ficha extends AppCompatActivity implements AdapterView.OnItemSelect
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+
+
+
+    public void firmarEntrega(){
+        pedido.setFirmadoRecogida(true);
     }
 
     @Override
