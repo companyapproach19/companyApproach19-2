@@ -120,9 +120,6 @@ function hacerPeticion(){
  
  function paraJson() {
 	//Aqui convertimos parametros -> json
- 
- 
- 
     /*
     var miObjeto = new Object();
 		miObjeto.destino = document.getElementById("destino").value;
@@ -146,23 +143,43 @@ function hacerPeticion(){
  
  
     var object = { 
-            
-			destino: document.getElementById("destino").value,
-            identificador: document.getElementById("identificador").value,
-			
-			malta_palida: document.getElementById("malta_palida").value,
-			malta_munich: document.getElementById("malta_munich").value,
-			malta_negra: document.getElementById("malta_negra").value,
-			malta_crystal: document.getElementById("malta_crystal").value,
-			malta_chocolate: document.getElementById("malta_chocolate").value,
-			malta_caramelo: document.getElementById("malta_caramelo").value,
-
-
-			cebada: document.getElementById("cebada").value,  
-			cebada_tostada: document.getElementById("cebada_tostada").value,
-	
-			lupulo_centinental: document.getElementById("lupulo_centinental").value
-			
+	    id: "",
+    actorOrigen: {
+      id: 15,
+      nombreUsuario: "Juan Jose Romagosa",
+      email: "hipojuan@empresaperros.com",
+      tipoActor: 1
+    },
+    "actorDestino": {
+        id: document.getElementById("identificador").value,
+     nombreUsuario: "",
+      email: "",
+      "tipoActor": 0
+    },
+    necesitaTransportista: true,
+    productos: {
+	cant_malta_palida: document.getElementById("malta_palida").value,
+	cant_malta_munich: document.getElementById("malta_munich").value,
+	cant_malta_negra: document.getElementById("malta_negra").value,
+	cant_malta_crystal: document.getElementById("malta_crystal").value,
+	cant_malta_chocolate: document.getElementById("malta_chocolate").value,
+	cant_malta_caramelo: malta_caramelo: document.getElementById("malta_caramelo").value,
+	cant_cebada: document.getElementById("cebada").value, 
+	cant_cebada_tostada: document.getElementById("cebada_tostada").value,
+	cant_lupulo_centenial:document.getElementById("lupulo_centinental").value,
+	cant_cajas_stout:0,
+    	cant_cajas_bisner:0
+    },
+    mensaje: "Petición de prueba.",
+    estado: 0,
+    idPadre: 0,
+    idHijo: 0,
+    transportista: {
+      id: 0 ,
+      nombreUsuario: "",
+      email: "",
+      tipoActor": 0
+    }
 			
         };
 		
