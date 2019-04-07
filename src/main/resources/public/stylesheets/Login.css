@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
 
 
 
@@ -66,8 +66,7 @@ p {
 
 .clearfix {
   *zoom: 1;
-    margin-top:40px;
-		  
+  margin-top:40px;
 
   &:before,
   &:after {
@@ -166,6 +165,5 @@ fieldset{
 .middle {
   display: flex;
   width: 600px;
-    height:250px;
-	   
+  height:250px;
 }
