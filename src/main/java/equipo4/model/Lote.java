@@ -1,11 +1,11 @@
 package equipo4.model;
 
+
 import java.sql.SQLException;
 import java.util.*;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.DatosContainer;
-
 public class Lote extends DatosContainer{
 	public  int idBd;
 	public  Date fecha_inicio;
@@ -16,8 +16,10 @@ public class Lote extends DatosContainer{
 	public boolean fermentado;
 	public boolean fermentado2;
 	public boolean embotellado;
+	public String tipo;
+	public int cantidad;
 
-	public Lote(int idBd, Date fecha_inicio, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr) {
+	public Lote(int idBd, Date fecha_inicio, String tipo, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr, int cantidad) {
 		this.idBd= idBd;
 		this.fecha_inicio=fecha_inicio;
 		this.fecha_final=fecha_final;
@@ -26,6 +28,8 @@ public class Lote extends DatosContainer{
 		this.fermentado=fermentado;
 		this.fermentado2 = fermentado2;
 		this.embotellado=embotellado;
+		this.tipo=tipo;
+		this.cantidad=cantidad;
 		
 	}
 	
@@ -36,6 +40,8 @@ public class Lote extends DatosContainer{
 		aux.setDate(fecha_inicio.getDate()+12);
 		this.fecha_final = aux;	
 		molido=cocido=fermentado=fermentado2=embotellado=false;
+		this.tipo="pilsner";
+		this.cantidad=1;
 	}
 	
 	public Lote(Stout s, Date ini) throws ClassNotFoundException, SQLException {
@@ -45,6 +51,8 @@ public class Lote extends DatosContainer{
 		aux.setDate(fecha_inicio.getDate()+12);
 		this.fecha_final = aux;	
 		molido=cocido=fermentado=fermentado2=embotellado=false;
+		this.tipo="stout";
+		this.cantidad=1;
 	}
 
 	public byte[] getQr() {
@@ -113,6 +121,23 @@ public class Lote extends DatosContainer{
 	public boolean setEmbotellado(boolean embotellado) {
 		this.embotellado = embotellado;
 		return embotellado;
+	}
+	
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public boolean isFermentado2() {
