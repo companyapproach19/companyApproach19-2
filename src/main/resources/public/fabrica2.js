@@ -29,12 +29,12 @@ $(document).ready(function(){
         return false;
     });
     $("#bt2").on('click', function() {
-	pedirStock("2");
+	pedirStock("3");
         $("#popup2").show();
         return false;
     });
     $("#bt3").on('click', function() {
-	pedirStock("3");
+	pedirStock("2");
         $("#popup3").show();
         return false;
     });
@@ -52,7 +52,6 @@ function pedirStock(actor) {
     var request = $.ajax({
 	
 	// la URL para la petición del stock
-	//TODO: Ponerla bien
 	url : '/dameStockActor',
 	
 	// la información a enviar (parámetros que se le pasan a la url)
@@ -74,27 +73,31 @@ function pedirStock(actor) {
 	
     });
     request.fail(function(data) {
+
 	// Escribe en el popup "Petición al servidor fallida"
 	// De momento, si la petición falla lee el JSON auxiliar que tenemos
-	$("popup" + actor).text("Petición al servidor fallida. Se utilizarán datos locales");
 	
 	switch(actor) {
-	case "1": 
+	case "1":
+    	    $("popup1").text("Petición al servidor fallida. Se utilizarán datos locales");
 	    rellenaPopup(JSON.parse(json_aux1), actor);
 	    break;
-	case "2": 
+	case "2":
+    	    $("popup3").text("Petición al servidor fallida. Se utilizarán datos locales");
 	    rellenaPopup(JSON.parse(json_aux2), actor);
 	    break;
-	case "3": 
+	case "3":
+    	    $("popup2").text("Petición al servidor fallida. Se utilizarán datos locales");
 	    rellenaPopup(JSON.parse(json_aux3), actor);
 	    break;
-	case "4": 
+	case "4":
+    	    $("popup4").text("Petición al servidor fallida. Se utilizarán datos locales");
 	    rellenaPopup(JSON.parse(json_aux4), actor);
 	    break;
 	default:
 	    break;
 	}
-	
+
     });
 }
 function rellenaPopup(stock,actor) {
@@ -107,83 +110,65 @@ function rellenaPopup(stock,actor) {
     }
     
     // Leer info del JSON y ponerla en el popup correspondiente
-    // TODO: cuando pongan las etiquetas en el popup, enlazar con los datos del JSON
     switch(stock.tipoActor) {
 
     case "Agricultor":
-  $("popup" + actor).append("<br><br>Datos del Agricultor<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida:" +"<br>2.Cebada tostada:" +"<br>3.Negra:" +"<br>4.Crystal:"+ "<br>5.Chocolate:"+ "<br>6.Caramelo:"+ "<br>7.Pilsner:"+ "<br>8.Munich:" + "<br><br>LÚPULO:" + "<br>1.Perle:" +"<br>2.Tettnager:"+"<br>3.Centennial:"+"<br><br>LEVADURA:"+"<br>1.Ale:","<br>2.Lagger:");
-  break;
+	$("popup1").append("<br><br>Datos del Agricultor<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg");
+	break;
 
-  case "Cooperativa":
-  $("popup" + actor).append("<br><br>Datos de la Cooperativa<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock de la Cooperativa: " + "<br>MALTA:" + "<br>1.Base pálida:" +"<br>2.Cebada tostada:" +"<br>3.Negra:" +"<br>4.Crystal:"+ "<br>5.Chocolate:"+ "<br>6.Caramelo:"+ "<br>7.Pilsner:"+ "<br>8.Munich:" + "<br><br>LÚPULO:" + "<br>1.Perle:" +"<br>2.Tettnager:"+"<br>3.Centennial:"+"<br><br>LEVADURA:"+"<br>1.Ale:","<br>2.Lagger:");
-  break;
-
+    case "Cooperativa":
+	$("popup3").append("<br><br>Datos de la Cooperativa<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg");
+	break;
 
     case "Fabrica":
-  $("popup" + actor).append("<br><br>Datos de la Fábrica<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock de la Fábrica: " + "<br>MALTA:" + "<br>1.Base pálida:" +"<br>2.Cebada tostada:" +"<br>3.Negra:" +"<br>4.Crystal:"+ "<br>5.Chocolate:"+ "<br>6.Caramelo:"+ "<br>7.Pilsner:"+ "<br>8.Munich:" + "<br><br>LÚPULO:" + "<br>1.Perle:" +"<br>2.Tettnager:"+"<br>3.Centennial:"+"<br><br>LEVADURA:"+"<br>1.Ale:","<br>2.Lagger:");
-  break;
+	$("popup2").append("<br><br>Datos de la Fábrica<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg<br><br>LOTES:"+"<br>1. Cerveza Pilsner: "+ stock.stock.lotes_pilsner +" lotes<br>2. Cerveza Stout: " + stock.stock.lotes_stout + " lotes");
+	break;
 
     case "Retailer":
-  $("popup" + actor).append("<br><br>Datos del Retailer<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Retailer: MUCHO STOCK, TIENE MUCHOS ELEMENTOS DE ESTOC (organizar los tipos de materias y lotes en columnas (malta, levadura, lotes, etc, y ya los asociaré a la info del JSON)");
-  break;
+	$("popup4").append("<br><br>Datos del Retailer<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Retailer: "+"<br>LOTES:"+"<br>1. Cerveza Pilsner: "+ stock.stock.lotes_pilsner +" lotes<br>2. Cerveza Stout: " + stock.stock.lotes_stout + " lotes");
+	break;
 
     default :
-  break;
+	$("popup" + actor).append("<br><br>Respuesta del servidor o datos locales erróneos. No hay stock para mostrar");
+	break;
 
     }   
 }
 
-var json_aux1 = '{"nomUsuario":"Nelson el Agricultor","tipoActor":"Agricultor","email":"terratenienteNelson@email.com","stock":{ "malta_palida":"2000","malta_palida":"2343","malta_tostada":"234252","malta_negra":"74564","malta_crystal":"09340234","malta_chocolate":"324","malta_caramelo":"90428042","malta_pilsner":"23424","malta_munich":"54353","lupulo_perle":"4242","lupulo_tettnager":"4242342","lupulo_centennial":"34242","levadura_ale": "34243","levadura_lagger": "84092","lotes_pilsner":"","lotes_stout":""}}';
 
-var json_aux2 = '{"nomUsuario":"Nelson el Cooperativista","tipoActor":"Cooperativa","email":"cooperativasNelsonSL@email.com","stock":{ "malta_palida":"2000", "malta_palida": "2343","malta_tostada": "234252","malta_negra": "74564","malta_crystal": "09340234","malta_chocolate": "324","malta_caramelo": "90428042","malta_pilsner": "23424","malta_munich": "54353","lupulo_perle": "4242","lupulo_tettnager": "4242342", "lupulo_centennial": "34242","levadura_ale": "34243","levadura_lagger": "84092","lotes_pilsner":"","lotes_stout":""}}';
-
-var json_aux3 = '{"nomUsuario":"Nelson el Fabricante","tipoActor":"Fabrica","email":"nelsonFactory@email.com","stock":{ "malta_palida":"2000","malta_palida": "2343","malta_tostada": "234252","malta_negra": "74564","malta_crystal": "09340234","malta_chocolate": "324","malta_caramelo": "90428042","malta_pilsner": "23424","malta_munich": "54353","lupulo_perle": "4242","lupulo_tettnager": "4242342","lupulo_centennial": "34242","levadura_ale": "34243","levadura_lagger": "84092","lotes_pilsner":"32424","lotes_stout":"23424"}}';
-
-var json_aux4 = '{"nomUsuario":"Nelson el Comerciante","tipoActor":"Retailer","email":"barCafeteriaNelson@email.com", "stock":{ "malta_palida":"","malta_palida": "","malta_tostada": "","malta_negra": "","malta_crystal": "","malta_chocolate": "","malta_caramelo": "","malta_pilsner": "","malta_munich": "","lupulo_perle": "","lupulo_tettnager": "","lupulo_centennial": "","levadura_ale": "","levadura_lagger": "","lotes_pilsner":"94208","lotes_stout":"23424"}}';
-
-
-
-/*******************ANIMACIONNNNNNNNNNNNNNNNNN*/////////////////////
+/*******************ANIMACIONNNNNNNNNNNNNNNNNN*/
 document.addEventListener("DOMContentLoaded", function(event) { 
-  initialize();
+    initialize();
 });
-
-
 
 function initialize(){
 
-	var select = function(s) { return document.querySelector(s); };
-	var selectAll = function(s) { return document.querySelectorAll(s); }
-	TweenMax.set('#ad', {opacity:1});
+    var select = function(s) { return document.querySelector(s); };
+    var selectAll = function(s) { return document.querySelectorAll(s); }
+    TweenMax.set('#ad', {opacity:1});
 
-	var banner = new TimelineMax({repeat:0, delay:1, yoyo:false, paused:false});
-	/*frame1*/
-	banner
-	
-	
-	
+    var banner = new TimelineMax({repeat:0, delay:1, yoyo:false, paused:false});
+    /*frame1*/
+    banner
+     
 	.from('#bt1', 1, {alpha:0, ease:Back.easeOut})
 	.from('#linea1', 1, {scale:0})
-	
 	.from('#bt3', 1, {alpha:0, ease:Back.easeOut})
-	
-	
-	.to(linea2bis, 1, {scale:0})
+    	.to(linea2bis, 1, {scale:0})
 	.from('#bt2', 1, {alpha:0, ease:Back.easeOut})
 	.from('#linea3', 1, {scale:0})
 	.from('#bt4', 1, {alpha:0, ease:Back.easeOut})
-	
-	
-	
-	
-	
-	
-
-	
-	
-
-
-	
-	
-	
+    
 }
+
+
+/* JSON local por si el servidor falla o no hay datos */
+
+var json_aux1 = '{"nomUsuario":"Nelson el Agricultor","tipoActor":"Agricultor","email":"terratenienteNelson@email.com","stock":{ "malta_palida":"2343","malta_tostada":"234252","malta_negra":"74564","malta_crystal":"09340234","malta_chocolate":"324","malta_caramelo":"90428042","malta_pilsner":"23424","malta_munich":"54353","lupulo_perle":"4242","lupulo_tettnager":"4242342","lupulo_centennial":"34242","levadura_ale": "34243","levadura_lagger": "84092","lotes_pilsner":"","lotes_stout":""}}';
+
+var json_aux2 = '{"nomUsuario":"Nelson el Cooperativista","tipoActor":"Cooperativa","email":"cooperativasNelsonSL@email.com","stock":{ "malta_palida": "2343","malta_tostada": "234252","malta_negra": "74564","malta_crystal": "09340234","malta_chocolate": "324","malta_caramelo": "90428042","malta_pilsner": "23424","malta_munich": "54353","lupulo_perle": "4242","lupulo_tettnager": "4242342", "lupulo_centennial": "34242","levadura_ale": "34243","levadura_lagger": "84092","lotes_pilsner":"","lotes_stout":""}}';
+
+var json_aux3 = '{"nomUsuario":"Nelson el Fabricante","tipoActor":"Fabrica","email":"nelsonFactory@email.com","stock":{ "malta_palida": "2343","malta_tostada": "234252","malta_negra": "74564","malta_crystal": "09340234","malta_chocolate": "324","malta_caramelo": "90428042","malta_pilsner": "23424","malta_munich": "54353","lupulo_perle": "4242","lupulo_tettnager": "4242342","lupulo_centennial": "34242","levadura_ale": "34243","levadura_lagger": "84092","lotes_pilsner":"32424","lotes_stout":"23424"}}';
+
+var json_aux4 = '{"nomUsuario":"Nelson el Comerciante","tipoActor":"Retailer","email":"barCafeteriaNelson@email.com", "stock":{ "malta_palida": "","malta_tostada": "","malta_negra": "","malta_crystal": "","malta_chocolate": "","malta_caramelo": "","malta_pilsner": "","malta_munich": "","lupulo_perle": "","lupulo_tettnager": "","lupulo_centennial": "","levadura_ale": "","levadura_lagger": "","lotes_pilsner":"596","lotes_stout":"756"}}';
+
