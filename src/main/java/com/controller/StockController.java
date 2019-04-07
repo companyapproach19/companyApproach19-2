@@ -31,14 +31,14 @@ public class StockController {
 	/*
 	 * dado un actor y una materia prima devuelve la cantidad de esa materia prima
 	 */
-	public double getCantidadStock (Actor actor, MateriaPrima mp){
+	public static double getCantidadStock (Actor actor, MateriaPrima mp){
 		return metodosCompany.extraerStockMateriaPrima(actor,mp);		
 	}
 	
 	/*
 	 * dado un actor y un lote devuelve el stock de un tipo de lote
 	 */
-	public int getStockLote(Actor actor, Lote lote) {
+	public static int getStockLote(Actor actor, Lote lote) {
 		
 		//nos devuleve una lista con todos los lotes de un actor, luego tenemos que buscar
 		//los lotes del tipo lote que nos pasan
@@ -57,14 +57,14 @@ public class StockController {
 	/*
 	 * metodo para cambiar la cantidad de stock de materia prima
 	 */	
-	public void setCantidadMateriaPrima(Actor actor, MateriaPrima mp, double cantidad) {
+	public static void setCantidadMateriaPrima(Actor actor, MateriaPrima mp, double cantidad) {
 		metodosCompany.insertarStockMateriaPrima(actor, mp, cantidad);		
 	}
 	
 	/*
 	 * metodo para cambiar la cantidad de stock de un lote, se insertar de uno en uno.
 	 */	
-	public void setCantidadLote(Actor actor, Lote lote) {
+	public static void setCantidadLote(Actor actor, Lote lote) {
 		metodosCompany.insertarStockLote(actor, lote);
 	}
 	
