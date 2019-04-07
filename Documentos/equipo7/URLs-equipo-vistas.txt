@@ -9,13 +9,13 @@ URL: "/obtenerPedido"
 	se devuelve el pedido en formato JSON 
 
 URL: "/pedidosNoAceptados"
-	El metodo pedidosNoAceptados recibe un int llamado idActor.
+	El metodo pedidosNoAceptados recibe un String llamado idActor.
 	Devuelve un String que es un JSON con la lista de identificadores de
 	los pedidos no aceptados de un actor.
 
 
 URL: "/pedidosEnProceso"
-	El metodo pedidosEnProceso recibe un int llamado idActor.
+	El metodo pedidosEnProceso recibe un String llamado idActor.
 	Devuelve un String que es un JSON con la lista de identificadores de
 	los pedidos en proceso de un actor.
 
