@@ -190,7 +190,8 @@ public class StockController {
 				{
 						if(or.getNecesitaTransportista()) 
 						{
-							json_resp.add(index+"", parse.parse(gson.toJson(or)).getAsJsonObject());
+							json_resp.add(or.getId()+"", parse.parse(gson.toJson(or)).getAsJsonObject());
+							index++;
 						}
 				}
 			}
@@ -199,6 +200,7 @@ public class StockController {
 
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "{\"respuesta\":\"Error\"}";
 		}
 		

@@ -91,15 +91,15 @@ class TestTrazabilidad {
 
 		
 		
-		bcs.guardarOrden(new OrdenTrazabilidad(0, actor_o, actor_d, false, prod[0], "primero", 0, null, null, 0, 0, actor_d, reg[0]));
+		bcs.guardarOrden(new OrdenTrazabilidad(0, actor_o, actor_d, true, prod[0], "primero", 0, null, null, 0, 0, actor_d, reg[0]));
 		bcs.guardarOrden(new OrdenTrazabilidad(1, actor_o, actor_d, false, prod[1], "segundo", 0, null, null, 0, 0, actor_d, reg[1]));
-		bcs.guardarOrden(new OrdenTrazabilidad(2, actor_o, actor_d, false, prod[2], "tercero", 0, null, null, 0, 0, actor_d, reg[2]));
-		bcs.guardarOrden(new OrdenTrazabilidad(3, actor_o, actor_d, false, prod[3], "tercero", 0, null, null, 0, 0, actor_d, reg[3]));	
-		bcs.guardarOrden(new OrdenTrazabilidad(0, actor_o, actor_d, false, prod[4], "primero", 0, null, null, 0, 0, actor_d, reg[4]));
+		bcs.guardarOrden(new OrdenTrazabilidad(2, actor_o, actor_d, true, prod[2], "tercero", 0, null, null, 0, 0, actor_d, reg[2]));
+		bcs.guardarOrden(new OrdenTrazabilidad(3, actor_o, actor_d, true, prod[3], "tercero", 0, null, null, 0, 0, actor_d, reg[3]));	
+		bcs.guardarOrden(new OrdenTrazabilidad(0, actor_o, actor_d, true, prod[4], "primero", 0, null, null, 0, 0, actor_d, reg[4]));
 		bcs.guardarOrden(new OrdenTrazabilidad(1, actor_o, actor_d, false, prod[5], "segundo", 0, null, null, 0, 0, actor_d, reg[5]));
-		bcs.guardarOrden(new OrdenTrazabilidad(2, actor_o, actor_d, false, prod[6], "tercero", 0, null, null, 0, 0, actor_d, reg[6]));
-		bcs.guardarOrden(new OrdenTrazabilidad(3, actor_o, actor_d, false, prod[7], "tercero", 0, null, null, 0, 0, actor_d, reg[7]));	
-		bcs.guardarOrden(new OrdenTrazabilidad(0, actor_o, actor_d, false, prod[8], "primero", 0, null, null, 0, 0, actor_d, reg[8]));
+		bcs.guardarOrden(new OrdenTrazabilidad(2, actor_o, actor_d, true, prod[6], "tercero", 0, null, null, 0, 0, actor_d, reg[6]));
+		bcs.guardarOrden(new OrdenTrazabilidad(3, actor_o, actor_d, true, prod[7], "tercero", 0, null, null, 0, 0, actor_d, reg[7]));	
+		bcs.guardarOrden(new OrdenTrazabilidad(0, actor_o, actor_d, true, prod[8], "primero", 0, null, null, 0, 0, actor_d, reg[8]));
 		bcs.guardarOrden(new OrdenTrazabilidad(1, actor_o, actor_d, false, prod[9], "segundo", 0, null, null, 0, 0, actor_d, reg[9]));
 		
 		
