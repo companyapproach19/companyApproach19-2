@@ -34,7 +34,7 @@ public class metodosCompany {
 	public static void conectar(){
 		try {
 			
-			if(conn.isClosed()) conn= DriverManager.getConnection(JDBC_DATABASE_URL);
+			if(conn==null || conn.isClosed()) conn= DriverManager.getConnection(JDBC_DATABASE_URL);
 			//System.out.println("Conectado");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -312,14 +312,20 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-
-			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), extraerActor(rs.getString(2)), extraerActor(rs.getString(3)), rs.getBoolean(4), extraerProductos(rs.getInt(5)),
-					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11), extraerActor(rs.getString(12)), extraerRegistro(rs.getInt(13)));
+			Actor actor = extraerActor(rs.getString(2));
+			Actor actor1 = extraerActor(rs.getString(3));
+			Productos productos = extraerProductos(rs.getInt(5));
+			Actor actor2 = extraerActor(rs.getString(12));
+			Registro registro = extraerRegistro(rs.getInt(13));
+			conectar();
+			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actor, actor1, rs.getBoolean(4), productos,
+					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11),actor2, registro);
 			pst.close();
 			rs.close();
 			conn.close();
 			return buscado;
 		}
+		conn.close();
 		return null;	
 	}
 
@@ -669,7 +675,7 @@ public class metodosCompany {
 			Registro registro = extraerRegistro(rs.getInt(13));
 			conectar();
 			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actor, actor1, rs.getBoolean(4), productos,
-					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11),actor2, registro );
+					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11),actor2, registro);
 			lista.add(buscado);
 		}		
 		pst.close();
