@@ -1,6 +1,5 @@
 package equipo5.dao;
 
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -10,25 +9,15 @@ import java.sql.SQLException;
 import equipo5.model.NotInDatabaseException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.LinkedList;
-
-import equipo4.model.AlmacenLotes;
-import equipo4.model.AlmacenMMPP;
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
-import equipo5.model.Agricultor;
 import equipo5.model.Cadena;
-import equipo5.model.Cooperativa;
-import equipo5.model.Fabrica;
-import equipo5.model.Retailer;
 import equipo6.model.Bloque;
 import equipo6.model.CadenaActores;
 import equipo6.model.DatosContainer;
 import equipo6.model.Actor;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
-import equipo7.model.Transportista;
-import equipo8.model.GeneradorQR2;
 import equipo8.model.Registro;
 
 public class metodosCompany {
@@ -560,7 +549,6 @@ public class metodosCompany {
 	public static Actor extraerActor(String nombreUsuario) throws SQLException, ClassNotFoundException {
 		if(nombreUsuario!= null) {
 			conectar();
-			Actor actor = new Actor();
 			String query = "SELECT * FROM company.actor WHERE actor.nombreUsuario = '" + nombreUsuario + "'";
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
