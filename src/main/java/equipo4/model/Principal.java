@@ -87,14 +87,14 @@ public class Principal extends DatosContainer{
 					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 			lote.setEmbotellado(true);
 			AlmacenLotes.almacenarLote(lote);
-			guardarOrden(lote);
-			lote.setQr(GeneradorQR2.generadorQR(lote.getIdBd()));
+			//guardarOrden(lote);
+			//lote.setQr(GeneradorQR2.generadorQR(lote.getIdBd()));
 			lote.setFecha_final(fechaActual);
 		}
 	}
 
 	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, SQLException {
-		System.out.println("¿Desea generar un lote? (s/n)");
+		System.out.println("Â¿Desea generar un lote? (s/n)");
 		Scanner sc = new Scanner(System.in);
 		String answ = sc.nextLine();
 		switch(answ.toLowerCase()) {
@@ -105,7 +105,7 @@ public class Principal extends DatosContainer{
 			}
 			else {
 				Pilsner a; 
-				System.out.println("¿Desea generar un pedido de tipo Pilsner? (s/n)" );
+				System.out.println("Â¿Desea generar un pedido de tipo Pilsner? (s/n)" );
 				String pilsner = sc.nextLine();
 				Lote lote = null;
 				
@@ -128,7 +128,7 @@ public class Principal extends DatosContainer{
 					}
 		
 		Stout b;	
-		System.out.println("¿Desea generar un pedido de tipo Stout? (s/n)" );
+		System.out.println("Â¿Desea generar un pedido de tipo Stout? (s/n)" );
 		String stout = sc.nextLine();
 		Lote lote2 = null;
 		switch(pilsner.toLowerCase()) {
@@ -150,7 +150,7 @@ public class Principal extends DatosContainer{
 		}
 		
 		Scanner sca = new Scanner(System.in);
-		System.out.println("¿Desea consultar informacion sobre algun lote? (s/n)");
+		System.out.println("Â¿Desea consultar informacion sobre algun lote? (s/n)");
 		String ans = sca.nextLine();
 		switch(ans.toLowerCase()) {
 		case "s":
@@ -175,5 +175,4 @@ public class Principal extends DatosContainer{
 		sc.close();
 	}
 		}
-
-}}
+	}}
