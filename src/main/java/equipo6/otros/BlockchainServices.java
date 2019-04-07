@@ -16,7 +16,6 @@ import equipo5.model.Cadena;
 import equipo6.model.DatosContainer;
 import equipo7.model.OrdenTrazabilidad;
 import equipo8.model.Registro;
-import equipo8.model.Sensor;
 
 
 //Esta es la clase a la que van a llamar el resto de grupos para hacer sus
