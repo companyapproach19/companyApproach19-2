@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
@@ -174,11 +175,14 @@ public class StockController {
 			JsonObject json_resp;
 			Gson gson;
 			int index;
+			JsonParser parse;
+	    
 			
 			index = 0;
 			json_resp = new JsonObject();
 			cadena = metodosCompany.extraerCadenaActores();
 			gson = new Gson();
+			parse = new JsonParser();
 			
 			for(Actor actor : cadena.getlista_actores()) 
 			{
@@ -186,7 +190,7 @@ public class StockController {
 				{
 						if(or.getNecesitaTransportista()) 
 						{
-							json_resp.addProperty(index+"", gson.toJson(or));
+							json_resp.add(index+"", parse.parse(gson.toJson(or)).getAsJsonObject());
 						}
 				}
 			}
