@@ -13,8 +13,8 @@
                 <div class="row">
              
                     <div class="col-md-3 register-left">
-                        <img src="http://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png" alt=""/>
-                        <h1>Cooperativa</h1>
+                        <img src="https://es.seaicons.com/wp-content/uploads/2015/10/Farmer-icon.png" alt=""/>
+                        <h1>Agricultores</h1>
                         <!--<p>Pedidos recibidos</p>-->
                     </div>
                     <div class="col-md-9 register-right">
@@ -79,41 +79,3 @@
 
             </div>
 </div>
-<script>
- function hacerPeticion(){
-   var valor = 1;
-      var request = $.ajax({
-      // la URL para la petición
-      url : '/pedidoNoAceptados',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos) //ID del actor
-      data : valor ,
- 
-      // especifica si será una petición POST o GET
-      type : 'GET',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-      });
- 
-     request.done(function(data){
-      
-     imprimirjson(data);
-    
-     });
- 
-     request.fail(function(data) {
-     
-     alert("Error en el servidor");
-     
-     });
- 
- function imprimirjson(var data){
- var local_data = JSON.parse(data);
-//TODO local_data es ya un json, json de ids
- }
-  
-  
-</script>
