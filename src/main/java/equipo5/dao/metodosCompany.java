@@ -741,7 +741,7 @@ public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLExcepti
             return buscado;
     	}
      if (actor.getTipoActor()==3) {
- 		String query = "SELECT * FROM company.stockFabricaMMPP WHERE idstockMMPP = 'actor.getId()' AND idMateriaPrima = 'mp.getIdMateriaPrima()' ";
+ 		String query = "SELECT * FROM company.stockFabricaMMPP WHERE idMateriaPrima" = + mp.getIdMateriaPrima();
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
 	 if(!rs.next()){
