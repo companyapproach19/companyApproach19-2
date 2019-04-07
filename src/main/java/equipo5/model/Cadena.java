@@ -33,12 +33,12 @@ public class Cadena{
     public List<Bloque> getBloque(int tipoBloque){
     	List<Bloque> lista = new LinkedList<Bloque>();
     	try {
-			Bloque anadir = metodosCompany.getBloque(hashUltimoBloque);
+			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
 			for (int j = 0; j < numBloques; j++) {
 				if (anadir.getTipoBloque() == tipoBloque) {
 					lista.add(anadir);
 				}
-				anadir = metodosCompany.getBloque(anadir.getHashPrevio());
+				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
 			}
 			return lista;
     	}catch(Exception ex) {
@@ -53,10 +53,11 @@ public class Cadena{
     public List<Bloque> getCadena(){
 		try {
 			List<Bloque> lista = new LinkedList<Bloque>();
-			Bloque anadir = metodosCompany.getBloque(hashUltimoBloque);
+			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
 			for (int j = 0; j < numBloques; j++) {
+				System.out.println(j);
 				lista.add(anadir);
-				anadir = metodosCompany.getBloque(anadir.getHashPrevio());
+				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
 			}
 			return lista;
 		} catch (Exception ex) {
@@ -83,9 +84,9 @@ public class Cadena{
     //TODO alejandro
     public boolean checkConsistencia(){
 		try {
-			Bloque anadir = metodosCompany.getBloque(hashUltimoBloque);
+			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
 			for (int j = 0; j < numBloques - 1; j++) {
-				anadir = metodosCompany.getBloque(anadir.getHashPrevio());
+				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
 			}
 			if (anadir.getHashPrevio().equals("INICIO")) {
 				return true;
@@ -117,15 +118,13 @@ public class Cadena{
         6. LLamar a BBDD para almacenar la tabla de referencia
         */
 
-        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc);
+        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc, -1);
         nuevoBloque.setTimeStamp();
         String hashNuevo = nuevoBloque.getHashCode();
 		try {
-			boolean insercionCorrecta = true;//metodosCompany.insertarBloque(nuevoBloque);
-			if (insercionCorrecta) {
+				metodosCompany.insertarBloque(nuevoBloque);
 				this.hashUltimoBloque = hashNuevo;
 				metodosCompany.insertarCadena(this);
-			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -142,5 +141,15 @@ public class Cadena{
 	public String getHashUltimoBloque() {
 		// TODO Auto-generated method stub
 		return hashUltimoBloque;
+	}
+
+	public void setHashUltimoBloque(String new_utimo_hash) {
+		this.hashUltimoBloque = new_utimo_hash;
+		
+	}
+
+	public void incrementarNumBloques() {
+		this.numBloques++;
+		
 	}
 }
