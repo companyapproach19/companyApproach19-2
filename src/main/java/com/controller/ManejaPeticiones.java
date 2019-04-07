@@ -109,7 +109,7 @@ public class ManejaPeticiones {
 				while(it.hasNext()) {
 					//Hay que mirar que el actor sea destino
 					OrdenTrazabilidad actual = it.next();
-					if(actual.getActorDestino().getId()==idActor) {
+					if(actual.getActorDestino().getId().compareTo(idActor)==0) {
 						//El estado del pedido cuando no ha sido aceptado
 						if(actual.getEstado()==0) {
 							pedidosNoAceptados.anyadePedido(actual.getId());
@@ -137,7 +137,7 @@ public class ManejaPeticiones {
 				while(it.hasNext()) {
 					//Hay que mirar que el actor sea destino
 					OrdenTrazabilidad actual = it.next();
-					if(actual.getActorDestino().getId()==idActor) {
+					if(actual.getActorDestino().getId().compareTo(idActor)==0) {
 						//El estado del pedido debe ser en proceso
 						if(actual.getEstado()==1) {
 							pedidosEnProceso.anyadePedido(actual.getId());
@@ -182,7 +182,14 @@ public class ManejaPeticiones {
 		//Main_pedidos pedido = new Main_pedidos(json);
 		
 		//Para cambiar el estado del pedido
+        if(pedido.getOrigenOrdenes()!=null) {
 		pedido.getOrigenOrdenes().aceptarPedido(pedido.getEstado());
+        }
+        else {
+        	Orden origenOrden = new Orden();
+        	pedido.setOrigenOrdenes(origenOrden);
+        	origenOrden.aceptarPedido(pedido.getEstado());
+        }
 
         bloque.guardarOrden(pedido);
         
@@ -206,7 +213,14 @@ public class ManejaPeticiones {
 		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
 		
 		//Para cambiar el estado del pedido
+        if(pedido.getOrigenOrdenes()!=null) {
 		pedido.getOrigenOrdenes().listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
+        }
+        else {
+        	Orden origenOrden = new Orden();
+        	pedido.setOrigenOrdenes(origenOrden);
+        	origenOrden.listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
+        }
 		
         bloque.guardarOrden(pedido);
         
@@ -227,7 +241,14 @@ public class ManejaPeticiones {
 
 		//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
 		//Para cambiar el estado del pedido
+		if(pedido.OrdenTrazabilidad.getOrigenOrdenes()!=null) {
 		pedido.OrdenTrazabilidad.getOrigenOrdenes().firmadoRecogida(pedido.OrdenTrazabilidad.getEstado());
+		}
+		else {
+			Orden origenOrden = new Orden();
+			pedido.OrdenTrazabilidad.setOrigenOrdenes(origenOrden);
+			origenOrden.firmadoRecogida(pedido.OrdenTrazabilidad.getEstado());
+		}
 		
 		
 		//NECESARIO PARA TRAZABILIDAD:
@@ -248,11 +269,17 @@ public class ManejaPeticiones {
 		//Hay que compara los identificadores de los ordentrazabilidad
 		//Dichos ordenTrazabilidad son: el del json y el de los arrays
 		
-		Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
+		//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
 		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
 		//Para cambiar el estado del pedido
+		if(pedido.OrdenTrazabilidad.getOrigenOrdenes()!=null) {
 		pedido.OrdenTrazabilidad.getOrigenOrdenes().firmadoEntrega(pedido.OrdenTrazabilidad.getEstado());
-		
+		}
+		else {
+			Orden origenOrden = new Orden();
+			pedido.OrdenTrazabilidad.setOrigenOrdenes(origenOrden);
+			origenOrden.firmadoEntrega(pedido.OrdenTrazabilidad.getEstado());
+		}
 		
 		//NECESARIO PARA TRAZABILIDAD:
         BlockchainServices bloque = new BlockchainServices();
