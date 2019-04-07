@@ -3,9 +3,6 @@ Serial mySerial;
 //import java.text.*;
 //import java.util.*;
 PrintWriter output;  
-long startMillis;  //some global variables available anywhere in the program
-long currentMillis;
-long period = 3600000;  //the value is a number of milliseconds
 
 void setup() {
   printArray(Serial.list());
@@ -18,7 +15,6 @@ void setup() {
 
 void draw() {
 if (mySerial.available() > 0 ) {
-     delay(2000);
      String value = mySerial.readString();
      if ( value != null ) {
         fill(50);
@@ -26,22 +22,24 @@ if (mySerial.available() > 0 ) {
         println(value);
         output.print(year() + "-");
         output.print(month() + "-");
-        output.print(day() + "|");
+        output.print(day() + " ");
         output.print(hour() + ":");
         output.print(minute() + ":");
-        output.print(second() + " + ");
+        output.print(second() + " ");
         output.println(value);
         delay(2000);
      } 
-     
-     currentMillis = millis();
-     if (currentMillis - startMillis >= period) {
-        output.flush(); // Writes the remaining data to the file
-        startMillis = currentMillis;
-     }
   } 
+  
+  if (mousePressed && (mouseButton == LEFT)){
+      output.flush(); // Writes the remaining data to the file
+      output.close(); // Finishes the file
+      exit(); // Stops the program
+  }
 }
 
 void keyPressed() {
-  
+  output.flush(); // Writes the remaining data to the file
+  output.close(); // Finishes the file
+  exit(); // Stops the program
 }
