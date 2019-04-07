@@ -20,10 +20,10 @@
                     <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true">Volver</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='Cooperativa1.html';">Volver</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='Login.html';">Log out</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -32,10 +32,10 @@
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Destino *" value="" />
+                                            <input type="text" class="form-control" placeholder="Destino *" id="destino" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Identificador *" value="" />
+                                            <input type="text" class="form-control" placeholder="Identificador *" id="identificador" value="" />
                                         </div>
                                        
                                         <div class="form-group">
@@ -46,33 +46,33 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Malta de base palida" value="" min=0 />
+                                            <input type="number" class="form-control" placeholder="Malta de base palida" id="malta_palida" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Malta Munich" value="" min=0 />
+                                            <input type="number" class="form-control"  placeholder="Malta Munich" id="malta_munich" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Malta negra" value="" min=0 />
+                                            <input type="number" class="form-control" placeholder="Malta negra" id="malta_negra" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Malta crystal" value="" min=0 />
+                                            <input type="number" class="form-control"  placeholder="Malta crystal" id="malta_crystal" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Malta chocolate" value="" min=0 />
+                                            <input type="number" class="form-control" placeholder="Malta chocolate" id="malta_chocolate" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Malta caramelo" value="" min=0 />
+                                            <input type="number" class="form-control"  placeholder="Malta caramelo" id="malta_caramelo" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Cebada" value="" />
+                                            <input type="number" class="form-control" placeholder="Cebada" id="cebada" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Cebada tostada" value="" />
+                                            <input type="number" class="form-control"  placeholder="Cebada tostada" id="cebada_tostada" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Lupulo centenial" value="" />
+                                            <input type="number" class="form-control"  placeholder="Lupulo centenial" id="lupulo_centinental" value="" />
                                         </div>
-                                        <input type="submit" class="btnRegister"  value="Enviar pedido"/>
+                                        <input type="submit" class="btnRegister"  onClick="paraJson();" value="Enviar pedido"/>
                                     </div>
                                 </div>
                             </div>
@@ -117,8 +117,78 @@ function hacerPeticion(){
      });
  
  }
+ 
+ function paraJson() {
+	//Aqui convertimos parametros -> json
+    /*
+    var miObjeto = new Object();
+		miObjeto.destino = document.getElementById("destino").value;
+		miObjeto.identificador = document.getElementById("identificador").value;
+		
+		miObjeto.malta_palida = document.getElementById("malta_palida").value;
+		miObjeto.malta_munich = document.getElementById("malta_munich").value;
+		miObjeto.malta_negra = document.getElementById("malta_negra").value;
+		miObjeto.malta_crystal = document.getElementById("malta_crystal").value;
+		miObjeto.malta_chocolate = document.getElementById("malta_chocolate").value;
+		miObjeto.malta_caramelo = document.getElementById("malta_caramelo").value;
+		
+		miObjeto.cebada = document.getElementById("cebada").value;
+		miObjeto.cebada_tostada = document.getElementById("cebada_tostada").value;
+		
+		miObjeto.lupulo_centinental = document.getElementById("lupulo_centinental").value;
+		
+		
+    var jsonText = JSON.stringify(miObjeto);
+    */
+ 
+ 
+    var object = { 
+	    id: "",
+    actorOrigen: {
+      id: 15,
+      nombreUsuario: "Juan Jose Romagosa",
+      email: "hipojuan@empresaperros.com",
+      tipoActor: 1
+    },
+    "actorDestino": {
+        id: document.getElementById("identificador").value,
+     nombreUsuario: "",
+      email: "",
+      "tipoActor": 0
+    },
+    necesitaTransportista: true,
+    productos: {
+	cant_malta_palida: document.getElementById("malta_palida").value,
+	cant_malta_munich: document.getElementById("malta_munich").value,
+	cant_malta_negra: document.getElementById("malta_negra").value,
+	cant_malta_crystal: document.getElementById("malta_crystal").value,
+	cant_malta_chocolate: document.getElementById("malta_chocolate").value,
+	cant_malta_caramelo: malta_caramelo: document.getElementById("malta_caramelo").value,
+	cant_cebada: document.getElementById("cebada").value, 
+	cant_cebada_tostada: document.getElementById("cebada_tostada").value,
+	cant_lupulo_centenial:document.getElementById("lupulo_centinental").value,
+	cant_cajas_stout:0,
+    	cant_cajas_bisner:0
+    },
+    mensaje: "Petición de prueba.",
+    estado: 0,
+    idPadre: 0,
+    idHijo: 0,
+    transportista: {
+      id: 0 ,
+      nombreUsuario: "",
+      email: "",
+      tipoActor: 0
+    }
+			
+        };
+		
+		var jsonText = JSON.stringify(object);
+    
+
+  }
+ 
+ 
  //TODO 
- function json(){
- //Aqui convertimos todo lo que cogemos en la plantilla json
- }
+ 
 </script>
