@@ -33,6 +33,6 @@ public class Main {
   
   @RequestMapping("/")
   String index() {
-    return "Login";
+    return "login";
   }
 }

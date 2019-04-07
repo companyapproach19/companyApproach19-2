@@ -10,7 +10,6 @@ public class Main_pedidos {
 		   DescodificadorJson este=new DescodificadorJson();
 		   OrdenTrazabilidad=este.DescodificadorJson(pedido);
 	   }
-	  
 	   //Se crearan los objetos de las ordenes de los actores de origen y destino del pedido
 	   //Crea el objeto del actor de origen y este creara el de su destinatario
 	   //Devuelve el objeto de la orden del actor de origen

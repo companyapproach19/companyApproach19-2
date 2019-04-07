@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class PrimeNumberCheckerTest {
+public class OrdenTrazabilidadOrdenCodificadorDecodificador {
    private int id; 
    private String mensaje;
    private Actor emisor;
@@ -36,7 +36,7 @@ public class PrimeNumberCheckerTest {
    // Every time runner triggers, it will pass the arguments
    // from parameters we defined in primeNumbers() method
 	
-   public PrimeNumberCheckerTest(int id,String mensaje,Actor emisor,Actor receptor,Productos m) {
+   public OrdenTrazabilidadOrdenCodificadorDecodificador(int id,String mensaje,Actor emisor,Actor receptor,Productos m) {
       this.id=id;
       this.mensaje=mensaje;
       this.emisor=emisor;

@@ -33,7 +33,7 @@ public class RetailerOrdenesTest {
 	      assertEquals("El pedido ha sido aceptado", retailerOrden.notificacion(1, actor));
 	     assertEquals("El usuario "+actor.getNombreUsuario()+"desea encargarle el siguiente pedido", retailerOrden.notificacion(7, actor));
 	     //FALLO
-	      assertEquals("El pedido ha sido aceptado", retailerOrden.notificacion(15, actor));
+	      assertNotEquals("El pedido ha sido aceptado", retailerOrden.notificacion(15, actor));
 		
 		
 		

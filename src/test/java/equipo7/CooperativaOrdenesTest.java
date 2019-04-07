@@ -31,8 +31,8 @@ public class CooperativaOrdenesTest {
 	public void testNotificacion() {
 		
 		//ACIERTO
-	     assertEquals("El usuario "+actor.getNombreUsuario()+"desea encargarle el siguiente pedido", cooperativaOrden.notificacion(3, actor));
+	     assertEquals("El usuario "+actor.getNombreUsuario()+" desea encargarle un siguiente pedido", cooperativaOrden.notificacion(3, actor));
 	     //FALLO
-	     assertEquals("El pedido ha sido aceptado", cooperativaOrden.notificacion(15, actor));
+	     assertNotEquals("El pedido ha sido aceptado", cooperativaOrden.notificacion(15, actor));
 	}
 }
