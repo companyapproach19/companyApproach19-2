@@ -175,21 +175,21 @@ public class Test extends metodosCompany {
 
 			// Pruebas OrdenTrazabilidad
 
-//			Productos productosord1 = new Productos(4, 2, 9, 2, 4, 7, 8, 6, 11, 4, 7, 9);
-//			Productos productosord2 = new Productos(5, 1, 5, 0, 4, 7, 81, 10, 11, 9, 1, 4);
-//
-//			byte[] firmarec = null;
-//			byte[] firmaent = null;
-//
-//			OrdenTrazabilidad orden1 = new OrdenTrazabilidad(1, emisor1, emisor2, true, productosord1, "", 1, firmarec,
-//					firmaent, 1, 2, emisor2, registro1);
-//			insertarOrdenTrazabilidad(orden1);
-//			extraerOrdenTrazabalidad(1);
-//
-//			OrdenTrazabilidad orden2 = new OrdenTrazabilidad(2, emisor2, emisor1, false, productosord2, "", 2, firmarec,
-//					firmaent, 1, 2, receptor2, registro2);
-//			insertarOrdenTrazabilidad(orden2);
-//			extraerOrdenTrazabalidad(2);
+			Productos productosord1 = new Productos(4, 2, 9, 2, 4, 7, 8, 6, 11, 4, 7, 9);
+			Productos productosord2 = new Productos(5, 1, 5, 0, 4, 7, 81, 10, 11, 9, 1, 4);
+
+			byte[] firmarec = null;
+			byte[] firmaent = null;
+
+			OrdenTrazabilidad orden1 = new OrdenTrazabilidad(1, emisor1, emisor2, true, productosord1, "", 1, firmarec,
+					firmaent, 1, 2, emisor2, registro1);
+			insertarOrdenTrazabilidad(orden1);
+			extraerOrdenTrazabilidad(1);
+
+			OrdenTrazabilidad orden2 = new OrdenTrazabilidad(2, emisor2, emisor1, false, productosord2, "", 2, firmarec,
+					firmaent, 1, 2, receptor2, registro2);
+			insertarOrdenTrazabilidad(orden2);
+			extraerOrdenTrazabilidad(2);
 
 //			// Pruebas cadena
 
@@ -204,17 +204,21 @@ public class Test extends metodosCompany {
 
 			// Prueba bloques
 
-//			DatosContainer datos1 = registro1;
-//			DatosContainer datos2 = lote1;
-//			
-//			Bloque bloque1 = new Bloque("hashPrevio1", 1, 1, lote1.getIdBd(), datos1, 1);
-//			Bloque bloque2 = new Bloque("hashPrevio2", 2, 2, lote2.getIdBd(), datos2, 2);
+			DatosContainer datos1 = registro1;
+			DatosContainer datos2 = lote1;
+			
+			Bloque bloque1 = new Bloque("hashPrevio1", 1, 1, lote1.getIdBd(), datos1, 1);
+			Bloque bloque2 = new Bloque("hashPrevio2", 2, 2, lote2.getIdBd(), datos2, 2);
+
+			insertarBloque(bloque1);
+			insertarBloque(bloque2);
+			
+			System.out.println(bloque1.getHashCode().length());
+			
+//			extraerBloque(bloque1.getHashCode());
 //
-//			insertarBloque(bloque1);
-//			insertarBloque(bloque2);
-//
-//			extraerBloque("hashPrevio1");
-//			extraerBloque("hashPrevio2");
+//			extraerBloque(bloque2.getHashCode());
+			
 
 			// Prueba extraerPedidosActorDestino (Relacionado con OrdenTrazabilidad
 //			ArrayList<OrdenTrazabilidad> ord1 = extraerPedidosActorDestino("1");
@@ -277,5 +281,4 @@ public class Test extends metodosCompany {
 			e.printStackTrace();
 		}
 	}
-
 }
