@@ -45,3 +45,115 @@
                     </div>
                 </div>
 </div>      
+  
+  <script>
+function login() {
+      hacerPeticion();
+ 
+  }
+function hacerPeticion(){
+      var request = $.ajax({
+      // la URL para la petición
+      url : '/obtenerPedido',
+ 
+      // la información a enviar
+      // (también es posible utilizar una cadena de datos)
+      data : "aqui va el id del pedido",
+ 
+      // especifica si será una petición POST o GET
+      type : 'Get',
+ 
+      // el tipo de información que se espera de respuesta
+      dataType : 'json',
+ 
+      });
+ 
+     request.done(function(data){
+      
+      //TODO Este metodo redirige a la URL
+      windows.append('/Cooperativa');
+    
+     });
+ 
+     request.fail(function(data) {
+     
+     alert("Error en el servidor");
+     
+     });
+ 
+ }
+ 
+ function paraJson() {
+	//Aqui convertimos parametros -> json
+    /*
+    var miObjeto = new Object();
+		miObjeto.destino = document.getElementById("destino").value;
+		miObjeto.identificador = document.getElementById("identificador").value;
+		
+		miObjeto.malta_palida = document.getElementById("malta_palida").value;
+		miObjeto.malta_munich = document.getElementById("malta_munich").value;
+		miObjeto.malta_negra = document.getElementById("malta_negra").value;
+		miObjeto.malta_crystal = document.getElementById("malta_crystal").value;
+		miObjeto.malta_chocolate = document.getElementById("malta_chocolate").value;
+		miObjeto.malta_caramelo = document.getElementById("malta_caramelo").value;
+		
+		miObjeto.cebada = document.getElementById("cebada").value;
+		miObjeto.cebada_tostada = document.getElementById("cebada_tostada").value;
+		
+		miObjeto.lupulo_centinental = document.getElementById("lupulo_centinental").value;
+		
+		
+    var jsonText = JSON.stringify(miObjeto);
+    */
+ 
+ 
+    var object = { 
+	    id: "",
+    actorOrigen: {
+      id: 15,
+      nombreUsuario: "",
+      email: "",
+      tipoActor: 1
+    },
+    "actorDestino": {
+        id: document.getElementById("identificador").value,
+     nombreUsuario: "",
+      email: "",
+      "tipoActor": 0
+    },
+    necesitaTransportista: true,
+    productos: {
+	cant_malta_palida: document.getElementById("malta_palida").value,
+	cant_malta_munich: document.getElementById("malta_munich").value,
+	cant_malta_negra: document.getElementById("malta_negra").value,
+	cant_malta_crystal: document.getElementById("malta_crystal").value,
+	cant_malta_chocolate: document.getElementById("malta_chocolate").value,
+	cant_malta_caramelo: malta_caramelo: document.getElementById("malta_caramelo").value,
+	cant_cebada: document.getElementById("cebada").value, 
+	cant_cebada_tostada: document.getElementById("cebada_tostada").value,
+	cant_lupulo_centenial:document.getElementById("lupulo_centinental").value,
+	cant_cajas_stout:0,
+    	cant_cajas_bisner:0
+    },
+    mensaje: "Petición de prueba.",
+    estado: 0,
+    idPadre: 0,
+    idHijo: 0,
+    transportista: {
+      id: 0 ,
+      nombreUsuario: "",
+      email: "",
+      tipoActor: 0
+    }
+			
+        };
+		
+		var jsonText = JSON.stringify(object);
+    
+
+  }
+ 
+ 
+ //TODO 
+ 
+</script>
