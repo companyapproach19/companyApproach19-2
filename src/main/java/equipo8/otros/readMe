@@ -23,5 +23,3 @@ Para poder ejecutar el código de Arduino se necesita tener instalado el siguien
   En este link en el step 6 vienen los comandos que se tienen que ejecutar para hacer un volcado periódico de la carpeta en cuestión
   http://sivareddy.in/automatic-backup-project-data-git
 
-
-  Queda pendiente ver si está idea se va a llevar a cabo y si es así crear el script para automatizarlo.

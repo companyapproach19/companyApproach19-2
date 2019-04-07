@@ -66,8 +66,7 @@ p {
 
 .clearfix {
   *zoom: 1;
-    margin-top:40px;
-		  
+  margin-top:40px;
 
   &:before,
   &:after {
@@ -166,6 +165,5 @@ fieldset{
 .middle {
   display: flex;
   width: 600px;
-    height:250px;
-	   
+  height:250px;
 }
