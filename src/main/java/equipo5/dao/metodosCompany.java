@@ -715,7 +715,7 @@ public class metodosCompany {
 public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLException, ClassNotFoundException, NotInDatabaseException {
     	conectar();
     	if (actor.getTipoActor()==1) {
-    	 String query = "SELECT * FROM company.stockCooperativa WHERE idCooperativa = " + actor.getId();
+    	 String query = "SELECT * FROM company.stockCooperativa WHERE idCooperativa =  'actor.getId()' AND idMateriaPrima = 'mp.getIdMateriaPrima()' ";
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
 	 if(!rs.next()){
@@ -728,7 +728,7 @@ public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLExcepti
          return buscado;
     }
      if (actor.getTipoActor()==0) {
-    		String query = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = " + actor.getId();
+    		String query = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = 'actor.getId()' AND idMateriaPrima = 'mp.getIdMateriaPrima()' ";
             Statement pst = conn.createStatement();
             ResultSet rs = pst.executeQuery(query);
    	 if(!rs.next()){
@@ -741,7 +741,7 @@ public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLExcepti
             return buscado;
     	}
      if (actor.getTipoActor()==3) {
- 		String query = "SELECT * FROM company.stockFabricaMMPP WHERE idstockMMPP = " + actor.getId();
+ 		String query = "SELECT * FROM company.stockFabricaMMPP WHERE idstockMMPP = 'actor.getId()' AND idMateriaPrima = 'mp.getIdMateriaPrima()' ";
          Statement pst = conn.createStatement();
          ResultSet rs = pst.executeQuery(query);
 	 if(!rs.next()){
