@@ -427,11 +427,11 @@ public class metodosCompany {
 			pst.close();
 			conn.close();
 		}
+		conn.close();
 	}
 
 	public static void insertarLote(Lote lote) throws Throwable {
 		conectar();
-
 			String query = "INSERT INTO company.lote (idLote, fecha_inicio, fecha_final, molido, cocido, fermentado, fermentado2, embotellado, qr, cantidad, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			pst.setInt(1, lote.getIdBd());
@@ -447,7 +447,6 @@ public class metodosCompany {
 			pst.setString(11, lote.getTipo());
 			pst.executeUpdate();
 			pst.close();
-
 		conn.close();
 	}
 
@@ -469,7 +468,6 @@ public class metodosCompany {
 
 	public static Lote extraerLote(int idLote) throws SQLException {
 		conectar();
-
 		String query = "SELECT * FROM company.lote WHERE idLote = " + idLote;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
@@ -480,6 +478,7 @@ public class metodosCompany {
 			conn.close();
 			return buscado;
 		}
+		conn.close();
 		return null;
 	}
 
@@ -505,12 +504,16 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()){
-			Registro buscado = new Registro(rs.getInt(1), extraerLote(rs.getInt(2)), extraerActor(rs.getString(3)), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
+			Lote lote = extraerLote(rs.getInt(2));
+			Actor actor = extraerActor(rs.getString(3));
+			conectar();
+			Registro buscado = new Registro(rs.getInt(1), lote , actor, rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
 			pst.close();
 			rs.close();
 			conn.close();
 			return buscado;
 		}
+		conn.close();
 		return null;
 	}
 
@@ -525,6 +528,7 @@ public class metodosCompany {
 					rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
 			cadena.addActor(buscado);
 		}
+		conn.close();
 		return cadena;
 
 	}
@@ -542,6 +546,7 @@ public class metodosCompany {
 				rs.close();
 				return buscado; 
 			}
+			conn.close();
 			return null;
 		}
 		else return null;
@@ -562,6 +567,7 @@ public class metodosCompany {
 		pst.setString(9, actor.getCifcooperativa());
 		pst.executeUpdate();
 		pst.close();
+		conn.close();
 	}
 
 	public static Bloque extraerBloque(String hashBloquePedido) throws SQLException, ClassNotFoundException, RuntimeException {
@@ -578,15 +584,21 @@ public class metodosCompany {
 			int idCadena = rs.getInt(8);
 			switch (tipoBloque) {
 			case 0:
-				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer (extraerOrdenTrazabilidad(rs.getInt(6))), idCadena);
+				DatosContainer datos = new DatosContainer (extraerOrdenTrazabilidad(rs.getInt(6)));
+				conectar();
+				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, datos, idCadena);
 				devolver = buscado;
 				break;
 			case 1:
-				Bloque buscado1 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer (extraerRegistro(rs.getInt(6))), idCadena);
+				DatosContainer datos2 = new DatosContainer (extraerRegistro(rs.getInt(6)));
+				conectar();
+				Bloque buscado1 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, datos2, idCadena);
 				devolver = buscado1;
 				break;
 			case 2:
-				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer (extraerLote(rs.getInt(6))), idCadena);
+				DatosContainer datos3 = new DatosContainer (extraerLote(rs.getInt(6)));
+				conectar();
+				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, datos3, idCadena);
 				devolver = buscado2;
 				break;
 			}
@@ -596,6 +608,7 @@ public class metodosCompany {
 			conn.close();
 			return devolver;
 		}
+		conn.close();
 		return null;
 	}
 
@@ -638,6 +651,7 @@ public class metodosCompany {
 		pst.setInt(8, bloqAinsertar.getIdCadena());
 		pst.executeUpdate();
 		pst.close();
+		conn.close();
 	}
 	
 	public static ArrayList<OrdenTrazabilidad> extraerPedidosActorDestino(String idActor) throws SQLException, ClassNotFoundException{
