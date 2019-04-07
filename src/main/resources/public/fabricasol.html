@@ -201,36 +201,54 @@ function getJson(){
 //Aqui se hace json de verdad
 var myJson = JSON.stringify(hola);  
 
-
-
-/*
-
-$.ajax({
-    // la URL para la petición
-    url : '',
- 
-    // la información a enviar
-    // (también es posible utilizar una cadena de datos)
-    data : myJson,
- 
-    // especifica si será una petición POST o GET
-    type : 'POST',
- 
-    // el tipo de información que se espera de respuesta
-    dataType : 'json',
- 
-    // código a ejecutar si la petición es satisfactoria;
-    // la respuesta es pasada como argumento a la función
-
-    })
-
-
-*/
-
-
-
-
 }
+	
+function hacerPeticion(){
+      var request = $.ajax({
+      // la URL para la petición
+      url : '/',
+ 
+      // la información a enviar
+      // (también es posible utilizar una cadena de datos)
+      data : json(),
+ 
+      // especifica si será una petición POST o GET
+      type : 'POST',
+ 
+      // el tipo de información que se espera de respuesta
+      dataType : 'json',
+ 
+      });
+
+
+ 
+     request.done(function(data){
+      
+      //TODO Este metodo redirige a la URL
+      windows.append('/src/main/resources/public/Agricultores.html');
+    
+     });
+ 
+     request.fail(function(data) {
+	 
+     alert("Error en el servidor");
+	 
+     });
+ 
+ }
+
+
+ //TODO 
+ function json(){
+ //Aqui convertimos todo lo que cogemos en la plantilla json
+
+
+
+ }
+
+
+
+
 
 </script>
 
