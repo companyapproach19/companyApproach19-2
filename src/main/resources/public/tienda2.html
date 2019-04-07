@@ -83,7 +83,7 @@ function hacerPeticion(){
      request.done(function(data){
       
       //TODO Este metodo redirige a la URL
-      windows.append('/Tienda');
+      windows.append('/tienda1');
     
      });
  
@@ -122,16 +122,16 @@ function hacerPeticion(){
     var object = { 
 	    id: "",
     actorOrigen: {
-      id: 15,
+      id: 1,
       nombreUsuario: "",
       email: "",
-      tipoActor: 1
+      tipoActor: 5
     },
     "actorDestino": {
         id: document.getElementById("identificador").value,
      nombreUsuario: "",
       email: "",
-      "tipoActor": 0
+      "tipoActor": 4
     },
     necesitaTransportista: true,
     productos: {
