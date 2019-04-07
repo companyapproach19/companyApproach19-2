@@ -1,7 +1,17 @@
 {
     "id": 49126,
-    "actorOrigen": "FABRICA",
-    "destinatario": "COOPERATIVA",
+    "actorOrigen": {
+      "id": 15,
+      "nombreUsuario": "Juan Jose Romagosa",
+      "email": "hipojuan@empresaperros.com",
+      "tipoActor": 1
+    },
+    "actorDestino": {
+      "id": 54,
+      "nombreUsuario": "Chocu El Magnate del Cereal",
+      "email": "monitochocu@desatranquesjaen.com",
+      "tipoActor": 3
+    },
     "necesitaTransportista": true,
     "productos": {
 	"cant_malta_palida": 20,
@@ -17,6 +27,13 @@
     "cant_cajas_bisner":0
     },
     "mensaje": "Petición de prueba.",
-    "firmaRecogida": "U0kgTEEgVElFUlJBIEVTIFJFRE9OREEgRU5UT05DRVMgUE9SIFFVw4kgRVMgUExBTkE=",
-    "firmaEntrega": null
+    "estado": 0,
+    "idPadre": 5196,
+    "idHijo": 1952,
+    "transportista": {
+      "id": 92,
+      "nombreUsuario": "Doctor Jirafa",
+      "email": "dortoc@refranes.com",
+      "tipoActor": 2
+    }
 }
