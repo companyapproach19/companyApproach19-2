@@ -36,7 +36,7 @@ public class Test extends metodosCompany {
 		try {
 			conectar();
 			crearBD();
-
+			
 			// MateriaPrima pedida Grupo 4
 			MateriaPrima maltaPilsner = new MateriaPrima("maltaPilsner", 1);
 			insertarMateriaPrima(maltaPilsner);
@@ -175,23 +175,23 @@ public class Test extends metodosCompany {
 
 			// Pruebas OrdenTrazabilidad
 
-//			Productos productosord1 = new Productos(4, 2, 9, 2, 4, 7, 8, 6, 11, 4, 7, 9);
-//			Productos productosord2 = new Productos(5, 1, 5, 0, 4, 7, 81, 10, 11, 9, 1, 4);
-//
-//			byte[] firmarec = null;
-//			byte[] firmaent = null;
-//
-//			OrdenTrazabilidad orden1 = new OrdenTrazabilidad(1, emisor1, emisor2, true, productosord1, "", 1, firmarec,
-//					firmaent, 1, 2, emisor2, registro1);
-//			insertarOrdenTrazabilidad(orden1);
-//			extraerOrdenTrazabalidad(1);
-//
-//			OrdenTrazabilidad orden2 = new OrdenTrazabilidad(2, emisor2, emisor1, false, productosord2, "", 2, firmarec,
-//					firmaent, 1, 2, receptor2, registro2);
-//			insertarOrdenTrazabilidad(orden2);
-//			extraerOrdenTrazabalidad(2);
+			Productos productosord1 = new Productos(4, 2, 9, 2, 4, 7, 8, 6, 11, 4, 7, 9);
+			Productos productosord2 = new Productos(5, 1, 5, 0, 4, 7, 81, 10, 11, 9, 1, 4);
 
-//			// Pruebas cadena
+			byte[] firmarec = null;
+			byte[] firmaent = null;
+
+			OrdenTrazabilidad orden1 = new OrdenTrazabilidad(1, emisor1, emisor2, true, productosord1, "", 1, firmarec,
+					firmaent, 1, 2, emisor2, registro1);
+			insertarOrdenTrazabilidad(orden1);
+			extraerOrdenTrazabilidad(1);
+
+			OrdenTrazabilidad orden2 = new OrdenTrazabilidad(2, emisor2, emisor1, false, productosord2, "", 2, firmarec,
+					firmaent, 1, 2, receptor2, registro2);
+			insertarOrdenTrazabilidad(orden2);
+			extraerOrdenTrazabilidad(2);
+
+			// Pruebas cadena
 
 			Cadena cadenaPrueba1 = new Cadena(1, "INICIO", 1);
 			insertarCadena(cadenaPrueba1);
@@ -201,20 +201,21 @@ public class Test extends metodosCompany {
 
 			extraerCadena(1);
 			extraerCadena(2);
+			System.out.println("Pruebas Cadena OK");
 
 			// Prueba bloques
 
-//			DatosContainer datos1 = registro1;
-//			DatosContainer datos2 = lote1;
-//			
-//			Bloque bloque1 = new Bloque("hashPrevio1", 1, 1, lote1.getIdBd(), datos1, 1);
-//			Bloque bloque2 = new Bloque("hashPrevio2", 2, 2, lote2.getIdBd(), datos2, 2);
-//
-//			insertarBloque(bloque1);
-//			insertarBloque(bloque2);
-//
-//			extraerBloque("hashPrevio1");
-//			extraerBloque("hashPrevio2");
+			DatosContainer datos1 = registro1;
+			DatosContainer datos2 = lote1;
+			
+			Bloque bloque1 = new Bloque("hashPrevio1", 1, 1, lote1.getIdBd(), datos1, 1);
+			Bloque bloque2 = new Bloque("hashPrevio2", 2, 2, lote2.getIdBd(), datos2, 2);
+
+			insertarBloque(bloque1);
+			insertarBloque(bloque2);
+
+//			extraerBloque(bloque1.getHashCode());
+//			extraerBloque(bloque2.getHashCode());
 
 			// Prueba extraerPedidosActorDestino (Relacionado con OrdenTrazabilidad
 //			ArrayList<OrdenTrazabilidad> ord1 = extraerPedidosActorDestino("1");
@@ -235,42 +236,37 @@ public class Test extends metodosCompany {
 			insertarStockMP(emisor2, cebadaTostada, 5);
 			insertarStockMP(productor, maltaPilsner, 12);
 			insertarStockMP(cooperativa, maltaChocolate, 12);
-			// insertarStockMP(fabrica, maltaPilsner,12);
+			insertarStockMP(fabrica, maltaPilsner,12);
 			insertarStockMP(productor, cebadaTostada, 10);
 			insertarStockMP(cooperativa, maltaPilsner, 8);
-			// insertarStockMP(fabrica, lupuloTettnanger,7);
+			insertarStockMP(fabrica, lupuloTettnanger,7);
 			insertarStockMP(retailer, cebadaTostada, 19);
 			insertarStockMP(receptor2, maltaNegra, 11);
 
 			insertarStockLote(emisor1, lote1);
 			insertarStockLote(emisor2, lote2);
-			// insertarStockLote(receptor1, lote3);
+			insertarStockLote(receptor1, lote3);
 			insertarStockLote(productor, lote1);
-			// insertarStockLote(fabrica, lote2);
+			insertarStockLote(fabrica, lote2);
 			insertarStockLote(cooperativa, lote3);
 
 			// Prueba extraerStockLote, extraerStockMP
 			extraerStockLote(emisor1);
 			extraerStockLote(emisor2);
-			// int stocklote3 = extraerStockLote(receptor1);
+			extraerStockLote(receptor1);
 			extraerStockLote(productor);
 			extraerStockLote(cooperativa);
+			System.out.println(extraerStockLote(fabrica).getFirst().getIdBd());
 
-			//extraerStockMP(emisor1, maltaPilsner);
+
+			System.out.println(extraerStockMP(emisor1, maltaPilsner));
 			extraerStockMP(emisor2, cebadaTostada);
-			//extraerStockMP(productor, lupuloPerle);
-			//extraerStockMP(retailer, cebadaTostada);
+			extraerStockMP(productor, cebadaTostada);
+			extraerStockMP(retailer, cebadaTostada);
 			extraerStockMP(receptor2, maltaNegra);
 
 			// SQL INJECTION
-//            extraerTransportista("pedro OR 1=1");
-//            extraerAgricultor("evrf; DROP TABLE Agricultor");
-//            extraerCooperativa("rbg OR 1=1");
-//            extraerFabrica("lkmn; DROP TABLE Actor; DROP TABLE Productos"); 
-//            
-//            
-//            
-//            
+
 			System.out.print("Pasados todos los test correctamente");
 
 		} catch (Exception e) {
