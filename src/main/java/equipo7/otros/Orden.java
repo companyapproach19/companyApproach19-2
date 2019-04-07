@@ -13,9 +13,9 @@ public class Orden {
 	public void crearPedido() {}
 	
 	
-	public void aceptarPedido(int estado) {
-		if(estado == 0) estado=1;
-		else estado= -1;
+	public int aceptarPedido(int estado) {
+		if(estado == 0) return 1;
+		else return -1;
 	}
 	
 	//Devuelve si se necesita transportista
@@ -30,14 +30,14 @@ public class Orden {
 	}
 	
 	//TODO: comrobar que se cambia el estado viendo si esta firmado
-	public void firmadoRecogida(int estado) {
-		if(estado==2) estado=3;
-		else estado=-1;
+	public int firmadoRecogida(int estado) {
+		if(estado==2) return 3;
+		else return -1;
 	}
 	
-	public void firmadoEntrega(int estado) {
-		if(estado==3) estado=4;
-		else estado=-1;
+	public int firmadoEntrega(int estado) {
+		if(estado==3) return 4;
+		else return -1;
 	}
 
 }
