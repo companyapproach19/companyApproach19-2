@@ -601,17 +601,24 @@ public class metodosCompany {
 		case 0:
 			OrdenTrazabilidad aInsertar = (OrdenTrazabilidad) bloqAinsertar.getDatos();
 			data = aInsertar.getId();
+			if(extraerOrdenTrazabalidad(data)==null) {
+				insertarOrdenTrazabilidad(aInsertar);
+			}
 			insertarOrdenTrazabilidad(aInsertar);
 			break;
 		case 1: //Registro
 			Registro aInsertar2 = (Registro) bloqAinsertar.getDatos();
 			data = aInsertar2.getId();
-			insertarRegistro(aInsertar2);
+			if(extraerRegistro(data)==null) {
+				insertarRegistro(aInsertar2);
+			}
 			break;
 		case 2: //Lote
 			Lote aInsertar3 = (Lote) bloqAinsertar.getDatos();
 			data = aInsertar3.getIdBd();
-			insertarLote(aInsertar3);
+			if(extraerLote(data)==null) {
+				insertarLote(aInsertar3);
+			}			
 			break;
 		}
 		conectar();
