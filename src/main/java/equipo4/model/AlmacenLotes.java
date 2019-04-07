@@ -7,7 +7,7 @@ import java.util.*;
 public class AlmacenLotes {
 	private static int idBd;
 	private static final int maxCapacidad = 7;
-	private static LinkedList<Lote> lista = new LinkedList<Lote>();
+	static LinkedList<Lote> lista = new LinkedList<Lote>();
 	private static int id = 1;
 
 	public AlmacenLotes(int idBd, LinkedList<Lote> lista) {

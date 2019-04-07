@@ -1,13 +1,14 @@
 package equipo4.model;
 
-import com.controller.StockController;
+import com.controller.*;
 
 import equipo5.dao.metodosCompany;
+import equipo6.model.Actor;
 
 public class AlmacenMMPP {
 	private static int id;
 	private static int capacidad;	
-	private static Actor actor = new Actor(3,null,null,null,null);
+	private static Actor actor = new Actor(null,null,null,3);
 	private static MateriaPrima m1=metodosCompany.extraerMateriaPrima("maltaPilsner");
 	private static MateriaPrima m2=metodosCompany.extraerMateriaPrima("maltaCaramelo");
 	private static MateriaPrima m3 = metodosCompany.extraerMateriaPrima("maltaBasePalida");
@@ -127,15 +128,15 @@ public class AlmacenMMPP {
 		return StockController.getCantidadStock(actor,m10);
 	}
 
-	public static void setLupuloTettnanger(double lupuloTettnanger) {
+	public static void setLupuloTettnanger(double c) {
 		StockController.setCantidadMateriaPrima(actor,m10,c);
 	}
 
-	public static double getLevaduraLager() {
+	public static double getLevaduraLager1() {
 		return StockController.getCantidadStock(actor,m13);
 	}
 
-	public static void setLevaduraLager(double levaduraLager) {
+	public static void setLevaduraLager1(double c) {
 		StockController.setCantidadMateriaPrima(actor,m13,c);
 	}
 

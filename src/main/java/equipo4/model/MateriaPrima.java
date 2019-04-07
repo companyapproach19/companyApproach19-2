@@ -1,5 +1,7 @@
 package equipo4.model;
 
+import java.sql.SQLException;
+
 import equipo5.dao.metodosCompany;
 
 public class MateriaPrima {
@@ -12,7 +14,7 @@ public class MateriaPrima {
 		this.id=id;
 		this.capacidad=0;
 	}
-	public MateriaPrima(String nombre) {
+	public MateriaPrima(String nombre) throws ClassNotFoundException, SQLException {
 		this.nombre=nombre;
 		//id de alberto
 		this.id=metodosCompany.idMateriaPrima();

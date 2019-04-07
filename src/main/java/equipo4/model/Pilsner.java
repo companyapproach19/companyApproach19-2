@@ -17,7 +17,7 @@ public class Pilsner implements Serializable {
 	private static boolean fermentacion2;
 	private static boolean embotellado;
 
-	private Pilsner() {
+	Pilsner() {
 		agua = 11956521.7391;
 		maltaPilsner = 1739130434.78;
 		AlmacenMMPP.setMaltaPilsner(AlmacenMMPP.getMaltaPilsner() - 1739130434.78);

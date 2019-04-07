@@ -2,6 +2,7 @@ package equipo4.model;
 
 import java.util.Scanner;
 import java.util.Date;
+import java.sql.SQLException;
 import java.util.*;
 
 import equipo5.dao.metodosCompany;
@@ -92,7 +93,7 @@ public class Principal extends DatosContainer{
 		}
 	}
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, SQLException {
 		System.out.println("¿Desea generar un lote? (s/n)");
 		Scanner sc = new Scanner(System.in);
 		String answ = sc.nextLine();
