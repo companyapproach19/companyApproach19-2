@@ -6,6 +6,10 @@ import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.Base64;
 
+import com.google.gson.Gson;
+
+import equipo7.model.OrdenTrazabilidad;
+
 public class Bloque implements Serializable{
     private String hashPrevio;
     private int tipoBloque;
@@ -85,7 +89,9 @@ public class Bloque implements Serializable{
 	
 	
 	private String toBLOBString() throws IOException {
-		Serializable o = this;
+		Gson gson;
+		gson = new Gson();
+		Serializable o = this/*gson.toJson((this.datos))*/;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream( baos );
         oos.writeObject( o );

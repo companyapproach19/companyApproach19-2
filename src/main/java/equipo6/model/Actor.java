@@ -12,6 +12,7 @@ public class Actor implements Serializable{
     private String nombre;
     private String direccion;
     private String cifcooperativa;
+    private static int prueva;
     
     
 

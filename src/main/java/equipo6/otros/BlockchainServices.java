@@ -38,7 +38,7 @@ public class BlockchainServices{
     //Recibe un objeto contenedor con la informacion del traspaso, y tenemos que encapsularlo
     //en DatosContainer, y guardarlo en la cadena con los metodos de la clase Cadena correspondientes
     //TODO alejandro
-    public void guardarOrden(DatosContainer datos_container){
+    public void guardarOrden(DatosContainer datos_container) throws Throwable{
         //encapsularlo, sin tener los datos de la clase Traspaso no podemos encapsularlo
         try {
         	int tipoBlque;
@@ -70,8 +70,8 @@ public class BlockchainServices{
     	for(Integer id : ids_stock_origen) 
     	{
     		origen = metodosCompany.extraerCadena(id);
-    		destino.incrementarNumBloques();
     		new_super_block = new Bloque(destino.getHashUltimoBloque(), -1, destino.getNumBloques(), destino.getCodLote(), new DatosContainer(), origen.getCodLote());
+    		destino.incrementarNumBloques();
     		new_utimo_hash = new_super_block.getHashCode();
     		try {
     			metodosCompany.insertarBloque(new_super_block);
@@ -143,7 +143,6 @@ public class BlockchainServices{
     	
     	convert_to_json = new Gson();
     	parse = new JsonParser();
-    	
     	if(datos instanceof OrdenTrazabilidad) return parse.parse(convert_to_json.toJson((OrdenTrazabilidad)datos)).getAsJsonObject();
     	if(datos instanceof Registro) return parse.parse(convert_to_json.toJson((Registro)datos)).getAsJsonObject();
     	if(datos instanceof Lote) return parse.parse(convert_to_json.toJson((Lote)datos)).getAsJsonObject();
@@ -152,8 +151,8 @@ public class BlockchainServices{
     
     private int get_id_datos(DatosContainer datos_container) 
     {
-    	if(datos_container instanceof OrdenTrazabilidad) return OrdenTrazabilidad.getId();
-    	if(datos_container instanceof Registro) return ((Registro)datos_container).getIdLote().idBd;
+    	if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getId();
+    	if(datos_container instanceof Registro) return ((Registro)datos_container).getIdLote().getIdBd();
     	if(datos_container instanceof Lote) return ((Lote)datos_container).getIdBd();
     	return -1;
     }
