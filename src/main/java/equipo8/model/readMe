@@ -1,6 +1,15 @@
-Clase que representa el Sensor, contiene los siguientes métodos:
-
-  - Buscar temperatura según una fecha.
-  - Getters/Setters fecha, hora y temperatura.
+La clase Sensor representa a Arduino, desde allí se pueden crear Registros desde .txt generados por Arduino.
+Cada Registro contiene:
+  - Actor que tomó los datos
+  - Lote del que se toman las medidas
+  - Fecha inicio del registro
+  - Fecha fin
+  - Temeperatura máxima
+  - Temperatura minima
   
- Está comunicada con el container para que en el futuro la cadena pueda obtener los datos que necesite.
+Por otra parte nos encontramos con las clases GenerarQR, GenerarQR2, GenerarQR3 . La clase que vamos a usar en el 
+proyecto va a ser GenerarQR2 puesto que apartir de un idLote genera un array de bytes (método byte[] generadorQR(int id) ),
+puede ser convertido en una imagen QR através del método BlobaQr(byte [] bytes). La idea es que cada Lote tenga un QR
+asociado, la información del QR se almacena en BBDD como array de bytes.
+
+Las clases GenerarQR,GenerarQR3 permiten guardar los QR en carpetas locales para hacer pruebas.
