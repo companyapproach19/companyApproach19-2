@@ -102,9 +102,7 @@ public class Ficha extends AppCompatActivity implements AdapterView.OnItemSelect
         firma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), MainActivity.class);
-                startActivity(intent);
-
+              firmarPedido();
             }
         });
 
