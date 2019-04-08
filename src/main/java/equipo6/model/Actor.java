@@ -29,9 +29,15 @@ public class Actor implements Serializable{
 		this.direccion = direccion;
 		this.cifcooperativa = cifcooperativa;
 	}
+	
+	//constructor que necesitan los de pedidos
+	public Actor(String id, String nombreUsuario, int tipoActor){
+		this.id=id;
+		this.nombreUsuario = nombreUsuario;
+		this.tipoActor = tipoActor;	
+	}
 
-	public boolean actor_compare(Actor usuarioIntentaAcceder)
-    {
+	public boolean actor_compare(Actor usuarioIntentaAcceder){
         return (
                     this.nombreUsuario.equals(usuarioIntentaAcceder.nombreUsuario) &&
                     this.passwordPlana.equals(usuarioIntentaAcceder.passwordPlana)
