@@ -1,6 +1,7 @@
 package equipo4.model;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 
 public class Stout implements Serializable {
 	private static double maltaCaramelo;
@@ -20,7 +21,7 @@ public class Stout implements Serializable {
 	private static boolean fermentacion2;
 	private static boolean embotellado;
 
-	public Stout() {
+	public Stout() throws ClassNotFoundException, SQLException {
 		agua = 11428571.4286;
 		maltaBasePalida = 2619047619.05;
 		AlmacenMMPP.setMaltaBasePalida(AlmacenMMPP.getMaltaBasePalida() - 2619047619.05);

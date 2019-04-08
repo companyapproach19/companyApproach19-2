@@ -33,6 +33,17 @@ public class Lote extends DatosContainer{
 		
 	}
 	
+	public Lote() {
+		this.idBd=metodosCompany.idLote();
+		this.fecha_inicio=new Date();
+		Date aux = (Date) fecha_inicio.clone();
+		aux.setDate(fecha_inicio.getDate()+12);
+		this.fecha_final = aux;	
+		molido=cocido=fermentado=fermentado2=embotellado=false;
+		this.tipo="pilsner";
+		this.cantidad=1;
+	}
+	
 	public Lote(Pilsner p, Date ini) throws ClassNotFoundException, SQLException {
 		this.idBd=metodosCompany.idLote();
 		this.fecha_inicio=ini;
