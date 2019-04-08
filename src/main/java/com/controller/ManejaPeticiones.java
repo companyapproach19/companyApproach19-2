@@ -54,14 +54,14 @@ public class ManejaPeticiones {
 			//Rellenar listas de pedidos padre y pedidos hijo
 			ListaPedidos pendientes = this.pedidosPendientes(pedido.OrdenTrazabilidad.getActorOrigen().getId());
 			
-			if(pendientes!=null && pendientes.getListaIDs().length==1){
+			if(pendientes!=null && pendientes.getListaIDs().size()>0){
 				//Si el origen de este pedido tiene algun pedido pendiente,
 				//entendemos que usara este pedido para corresponder al anterior
 				
-				pedido.OrdenTrazabilidad.setPadres(pendientes.getListaIDs()[0]);
+				pedido.OrdenTrazabilidad.setPadres(pendientes.getListaIDs().get(0));
 				//Ahora hay que insertar en la lista de hijos del padre a esta orden
 				//Obtenemos el objeto del padre
-				bloque.getTraspaso(pendientes.getListaIDs()[0]).setHijos(id);
+				bloque.getTraspaso(pendientes.getListaIDs().get(0)).setHijos(id);
 			}
 			
 			//NECESARIO PARA TRAZABILIDAD:
