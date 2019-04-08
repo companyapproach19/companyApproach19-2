@@ -104,7 +104,7 @@ public class StockController {
 	@ResponseBody
 	public String getStockActor(
 			HttpServletRequest request,
-			@RequestParam String id,
+			@RequestParam(name="id") String id,
 			Model model) throws Exception {
 				
 		
