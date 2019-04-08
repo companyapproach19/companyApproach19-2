@@ -24,7 +24,7 @@ class TestStockController {
 	// test hecho anadiendo a mano maltaCrystal en la bbdd con el id pertinente y
 	// comentando en el constructor de materia prima esta linea:
 	// this.id=metodosCompany.idMateriaPrima();
-	/*
+	/* esto esta comentado para no llenar a l bbdd
 	@Test
 	// test de getCantidadStock cuando el actor no tiene MP
 	void test() throws ClassNotFoundException, SQLException, NotInDatabaseException {
