@@ -1,7 +1,5 @@
-
-
 .register{
-	
+  
     background: #0264d6;    
     background: -moz-radial-gradient(center, ellipse cover,  #0264d6 1%, #1c2b5a 100%); /* FF3.6+ */
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#0264d6), color-stop(100%,#1c2b5a)); /* Chrome,Safari4+ */
@@ -10,10 +8,10 @@
     background: -ms-radial-gradient(center, ellipse cover,  #0264d6 1%,#1c2b5a 100%); /* IE10+ */
     background: radial-gradient(ellipse at center,  #0264d6 1%,#1c2b5a 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0264d6', endColorstr='#1c2b5a',GradientType=1 );
-	
-	padding-top:13%;
-	max-width:100%;
-	
+  
+  padding-top:13%;
+  max-width:100%;
+  
 }
 
 .register-right{
@@ -58,21 +56,8 @@
 .register .register-form .btncenter{
   padding-right: 0;
 }
-.register .register-form .btncooperativa{
-  padding-right: 0;
-  margin-top: 0;
-}
-#box{
-  margin-top: 0;
-  padding-top: 6%;
-}
-
 .titlecenter{
   padding-right: 6%;
-}
-.titlecooperativa{
-  padding-right: 6%;
-  padding-bottom: 5%;
 }
 .register .register-form{
     padding: 8%;
@@ -98,17 +83,21 @@
     border: none;
     background: #0062cc; /*Letras log out*/
     border-radius: 1.5rem;
-    width: 28%;
+    width: 170px; /*tamaño boton*/
     float: right;
 }
+
 .register .nav-tabs .nav-link{
+    margin-left: 25%;
     padding: 2%;
     height: 34px;
+    width: 80px; /*colocacion letras detro de boton*/
     font-weight: 600; /*Grosor letras log out*/
     color: #fff;      /*Color letras log out*/
     border-top-right-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
 }
+
 .register .nav-tabs .nav-link:hover{
     border: none;
 }
