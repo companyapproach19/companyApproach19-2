@@ -1,4 +1,16 @@
 # companyApproach19-2
+<b>INFORMACIÓN IMPORTANTE SOBRE REDIRECCIÓN EN VISTAS</b>
+
+La redirección desde cualquier página web a login deberá hacerse poniendo "/" como dirección a la que redirigir, NO debe ponerse ni "/login" ni "/login.html" ni "login.html"
+
+Todas las referencias que hagáis en vuestros archivos .html o .css hacia páginas de código externas o librerías como jquery o bootstrap deben ir con "https" y no con "http"
+
+Las cargas de librerías jquery <b>deben</b> ir puestas las primeras antes de las demás que tengáis en vuestros archivos .html, como las de bootstrap, porque si no pueden dar problemas al cargarse en el servidor
+
+<b>URL de la página</b>
+
+https://beer-company2019.herokuapp.com/
+
 <b>INFORMACIÓN IMPORTANTE SOBRE EL USO Y FUNCIONAMIENTO DEL REPOSITORIO</b>
 
 Repositorio con la estructura de proyecto en servidor:
