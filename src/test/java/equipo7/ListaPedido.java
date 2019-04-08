@@ -83,13 +83,12 @@ public class ListaPedido {//objeto
  */
    public boolean checkLast() {//compueba get tal correcta
 	   lista.anyadePedido(meter); 
-	   l.add(meter);
-	   int[] a =lista.getListaIDs();
-	   return (a[a.length-1]==meter);
+	   l.add(meter); 
+	   return (l.get(l.size()-1)==meter);
    }
    
    public boolean checkList() { //comprueba que la funcion anyadirsea correca
-	   return (lista.GetArrayList().equals(l));
+	   return (lista.getListaIDs().equals(l));
    }
  
 }
