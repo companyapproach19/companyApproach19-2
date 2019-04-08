@@ -1,5 +1,6 @@
-package software.engineering.upm.es;
 
+package software.engineering.upm.es;
+//Importamos las cosas necesarias
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             procesarError(t.getMessage());
         }
     }
-
+    //Para procesar la información del JSON vamos a tener que acceder al campo del JSON que nos interesa
     private void procesarConsulta (JSONArray jsonArray) throws JSONException {
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -132,7 +133,8 @@ public class MainActivity extends AppCompatActivity {
         //fijamos la animación por defecto
         miRecView.setItemAnimator(new DefaultItemAnimator());
     }
-
+    
+    
     public void lanzadorPedidos (int posicion) {
         Intent i = new Intent(this, Ficha.class);
 
