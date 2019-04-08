@@ -80,8 +80,8 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.productos=productos;
 			this.mensaje=mensaje;
 			this.estado=0;
-			this.firmaRecogida =null;
-			this.firmaEntrega =null;
+			this.firmaRecogida = new byte[1];
+			this.firmaEntrega = new byte[1];
 			this.necesitaTransportista=false;
 			this.idPadre = -1;
 			this.idHijo = -1;
