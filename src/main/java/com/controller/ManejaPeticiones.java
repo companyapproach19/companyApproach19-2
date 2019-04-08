@@ -212,17 +212,18 @@ public class ManejaPeticiones {
 		//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
 		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
 		
-        
+        boolean seNecesita;
 		//Para cambiar el estado del pedido
         if(pedido.getOrigenOrdenes()!=null) {
-        	pedido.getOrigenOrdenes().listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
+        	seNecesita=pedido.getOrigenOrdenes().listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
         }
         else {
         	Orden origenOrden = new Orden();
         	pedido.setOrigenOrdenes(origenOrden);
-        	origenOrden.listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
+        	seNecesita=origenOrden.listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
         }
 		pedido.setEstado(2);
+		pedido.setNecesitaTransportista(seNecesita);
         bloque.guardarOrden(pedido);
         
         return CodificadorJSON.crearJSON(pedido);
