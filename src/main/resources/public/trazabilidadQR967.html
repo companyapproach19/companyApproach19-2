@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<center>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>Trazabilidad cerveza</title>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300|Open+Sans+Condensed:300|Open+Sans:300"
+          rel="stylesheet">
+    <script src="jQuery-3.2.1.min.js"></script>
+    <script src="JSON-to-Table.min.1.0.0.js"></script>
+    <style>
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        h1 {
+            font-size: 50px;
+            color: #08090d;
+            text-align: center;
+        }
+
+        h1 span {
+            font-size: 50px;
+            color: #477dd7;
+        }
+
+        h2 {
+            font-family: "Open Sans Condensed", sans-serif;
+            font-size: 18px;
+        }
+
+        .margin-bottom {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<font size=10>Trazabilidad cerveza</font>
+  <div class="card"style="width:500px">
+<img src="https://images.vexels.com/media/users/3/144118/isolated/lists/31093a4558d1aa47a6fcec2a174f2754-signo-de-cerveza-de-neon.png" alt="Card image" style="width:80%">
+</div>
+<div class="card"style="width:900px">
+<br>
+<br>
+<br>
+<br>
+<div class="table margin-bottom"></div>
+<div id="table-2" class="table table-hover"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getJSON("pedido.json", function (data) {
+            $('.table').createTable(data, {
+                // General Style for Table
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: '#DDDDDD',
+                fontFamily: 'Verdana, Helvetica, Arial, FreeSans, sans-serif',
+
+                // Table Header Style
+                thBg: '#F3F3F3',
+                thColor: '#0E0E0E',
+                thHeight: '30px',
+                thFontFamily: '"Open Sans Condensed", sans-serif',
+                thFontSize: '14px',
+                thTextTransform: 'capitalize',
+
+                // Table Body/Row Style
+                trBg: '#FFFFFF',
+                trColor: '#0E0E0E',
+                trHeight: '25px',
+                trFontFamily: '"Open Sans", sans-serif',
+                trFontSize: '13px',
+
+                // Table Body's Column Style
+                tdPaddingLeft: '10px',
+                tdPaddingRight: '10px'
+            });
+        });
+        var data = [{
+            tipo_cerveza: "Lager",
+            fabricado_por:"Cervezas Madrid",
+            fecha_envasado:"2018-09-20",
+            temperatura_maxima:"10ºC",
+            temperatura_minima:"4ºC",
+            origen_productos:"Madrid,Toledo",
+        }];
+        $('#table-2 ').createTable(data, {});
+    });
+</script>
+</body>
+</html>
+<center>

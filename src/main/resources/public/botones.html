@@ -1,0 +1,105 @@
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link href="style2.css" rel="stylesheet" id="bootstrap-css">
+<div class = "container register">
+<!--
+    BOTONES
+    1. Icono cooperativa/fabrica/tienda...(archivo png)
+    2. Título
+    3. Imagen
+    4. Cuadro de texto
+    5. Cuadro de texto cantidades
+    6. Cerrar sesión/Volver
+    7. Dropdown
+    8. Texto
+    9. Botón simple
+    10. Lista con selección
+    11. Barra de progreso
+-->
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <!--1. Icono usuario-->
+                        <img src="http://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png" alt=""/>
+
+                        <!--2. Título-->
+                        <h1>Cooperativa</h1>
+                    </div>
+
+                    <div class="logo">
+                        <!--3. Imagen-->
+                        <img src="https://images.vexels.com/media/users/3/144118/isolated/lists/31093a4558d1aa47a6fcec2a174f2754-signo-de-cerveza-de-neon.png">
+
+                    <!--4. Cuadro de texto-->
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Destino *" value="" />
+                    </div>
+
+                    <!--5. Cuadro de texto para cantidades mayores de 0-->
+                    <div class="form-group">
+                        <input type="number" class="form-control" placeholder="Malta de base palida" value="" min=0 />
+                    </div>    
+
+                    <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-9 register-right">
+
+                        <!--6. Botón cerrar sesión(arriba drch) y volver(abajo drch)-->
+                        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true">Log out/Volver</a>
+                            </li>
+                        </ul>
+
+                        <!--7. Dropdown-->
+                        <div class="form-group">
+                            <select class="form-control" id="country" required="true" name="country">
+                                <option value="AF">Afghanistan</option>
+                                <option value="AX">Åland Islands</option>
+                            </select>
+                        </div> 
+                            <div class="row register-form">
+
+                            <!--8. Texto simple-->
+                            <h3 class="register-heading">Seleccionar :</h3>
+                            <div class="row register-form">
+                                <div class="col">
+                                    <div class="container">
+                                        <div class="row">
+
+                                            <!--9. Otro botón simple para elegir entre varias opciones-->
+                                            <a class="btn" href="#">Solicitar pedidos</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="maxl">
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>
+                    </div>
+
+                        <!--10. Lista con selección-->
+                        <div class="form-group">
+                            <input type="checkbox" name="producto1" id="producto1" value="Pedido id1">
+                                <label for="producto1">Pedido 98573</label>
+                                <a href="enlacepagina.html">Ver mas informacion del pedido</a>
+                            </input>
+                        </div>
+
+                        <!--11. Barra de progreso-->
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%"> 50% (Cocción)
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+</div> 
