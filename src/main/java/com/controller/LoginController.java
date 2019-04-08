@@ -55,10 +55,10 @@ public class LoginController {
 		System.out.println(actor.getTipoActor());
 		switch (actor.getTipoActor()) {
 		case 0:
-			tipo = "Agricultores";
+			tipo = "agricultoresInicio";
 			break;
 		case 1:
-			tipo = "Cooperativa";
+			tipo = "cooperativaInicio";
 			break;
 		case 2:
 			tipo = "Transportista";
@@ -68,6 +68,9 @@ public class LoginController {
 			break;
 		case 4:
 			tipo = "Retailer";
+			break;
+		case 5:
+			tipo = "tiendaInicio";
 			break;
 		default:
 			tipo="LoginError";
