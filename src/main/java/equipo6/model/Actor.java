@@ -12,8 +12,15 @@ public class Actor implements Serializable{
     private String nombre;
     private String direccion;
     private String cifcooperativa;
+<<<<<<< HEAD
     
    
+=======
+    private static int prueva;
+    
+    
+
+>>>>>>> master
 
     public Actor(String id, String nombreUsuario, String passwordPlana, String email, int tipoActor,
 			String localizacion, String nombre, String direccion, String cifcooperativa) {
@@ -111,6 +118,7 @@ public class Actor implements Serializable{
 	public String getLocalizacion() {
 		return localizacion;
 	}
+<<<<<<< HEAD
 
 	public void setLocalizacion(String localizacion) {
 		this.localizacion = localizacion;
@@ -140,6 +148,37 @@ public class Actor implements Serializable{
 		this.cifcooperativa = cifcooperativa;
 	}
 
+=======
+
+	public void setLocalizacion(String localizacion) {
+		this.localizacion = localizacion;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getCifcooperativa() {
+		return cifcooperativa;
+	}
+
+	public void setCifcooperativa(String cifcooperativa) {
+		this.cifcooperativa = cifcooperativa;
+	}
+
+>>>>>>> master
 
 	public String getId() {
 		return id;

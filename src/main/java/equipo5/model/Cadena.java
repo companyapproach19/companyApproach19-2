@@ -55,6 +55,7 @@ public class Cadena{
 			List<Bloque> lista = new LinkedList<Bloque>();
 			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
 			for (int j = 0; j < numBloques; j++) {
+				System.out.println(j);
 				lista.add(anadir);
 				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
 			}
@@ -121,11 +122,9 @@ public class Cadena{
         nuevoBloque.setTimeStamp();
         String hashNuevo = nuevoBloque.getHashCode();
 		try {
-			boolean insercionCorrecta = true;//metodosCompany.insertarBloque(nuevoBloque);
-			if (insercionCorrecta) {
+				metodosCompany.insertarBloque(nuevoBloque);
 				this.hashUltimoBloque = hashNuevo;
 				metodosCompany.insertarCadena(this);
-			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
