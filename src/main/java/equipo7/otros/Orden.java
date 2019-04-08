@@ -1,8 +1,10 @@
 package equipo7.otros;
 
+import java.io.Serializable;
+
 import equipo6.model.Actor;
 
-public class Orden {
+public class Orden implements Serializable{
 	
 	//private OrdenTrazabilidad pedido;
 	

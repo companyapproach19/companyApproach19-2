@@ -4,8 +4,6 @@ import equipo6.model.DatosContainer;
 import equipo7.otros.Orden;
 import equipo8.model.Registro;
 
-import java.util.ArrayList;
-
 import equipo6.model.Actor;
 
 public class OrdenTrazabilidad extends DatosContainer
@@ -87,6 +85,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.necesitaTransportista=false;
 			this.idPadre = -1;
 			this.idHijo = -1;
+			this.origenOrdenes=new Orden();
 		}
 		
 		
