@@ -44,13 +44,18 @@ public class StockController {
 	/*
 	 * dado un actor y un lote devuelve el stock de un tipo de lote
 	 */
-	public static int getStockLote(Actor actor, Lote lote) {
+		public static int getStockLote(Actor actor, Lote lote) {
 		
 		//nos devuleve una lista con todos los lotes de un actor, luego tenemos que buscar
 		//los lotes del tipo lote que nos pasan
-		
+		int resultado=0;		
 		try {
-			return metodosCompany.extraerStockLote(actor);
+			for(Lote l : metodosCompany.extraerStockLote(actor)) {
+				if (l.getTipo().equals(lote.getTipo())) {
+					resultado ++;
+				}
+			}			
+			return resultado;
 		} catch (ClassNotFoundException | SQLException | NotInDatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
