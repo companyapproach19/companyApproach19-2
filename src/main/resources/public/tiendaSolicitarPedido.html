@@ -20,7 +20,7 @@
                     <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='tienda1.html';">Volver</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='tiendaInicio.html';">Volver</a>
                             </li>
                             <li class="nav-item">
 								<a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>                           
@@ -35,10 +35,10 @@
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Identificador *" value="" />
+                                            <input type="text" class="form-control" placeholder="Identificador *" id="identificador" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Transportista *" value="" />
+                                            <input type="text" class="form-control" placeholder="Transportista *" id="transportista" value="" />
                                         </div>
                                        
                                         <div class="form-group">
@@ -49,12 +49,12 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Cajas Stoul" value="" min=0 />
+                                            <input type="number" class="form-control" placeholder="Cajas Stoul" id="cajas_stoul" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Cajas Bisner" value="" min=0 />
+                                            <input type="number" class="form-control"  placeholder="Cajas Bisner" value="" id="cajas_bisner" min=0 />
                                         </div>
-                                        <input type="submit" class="btnRegister" value="Enviar pedido"/>
+                                        <input type="submit" class="btnRegister" onClick="hacerPeticion();" value="Enviar pedido"/>
                                     </div>
                                 </div>
                             </div>
@@ -123,9 +123,19 @@ function hacerPeticion(){
   cant_cebada: 0, 
   cant_cebada_tostada: 0,
   cant_lupulo_centenial:0,
-  cant_cajas_stout:document.getElementById("cajas_stout").value,
+  cant_cajas_stout:document.getElementById("cajas_stoul").value,
   cant_cajas_bisner:document.getElementById("cajas_bisner").value,
     },
+	mensaje: "PeticiĂ³n de prueba.",
+    estado: 0,
+    idPadre: 5196,
+    idHijo: 1952,
+    transportista: {
+      id: 92,
+      nombreUsuario: document.getElementById("transportista").value,
+      email: "dortoc@refranes.com",
+      tipoActor: 2
+    }
   
         };
     
