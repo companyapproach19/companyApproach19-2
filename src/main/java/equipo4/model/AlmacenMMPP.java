@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import equipo5.model.NotInDatabaseException;
+import equipo5.dao.NotInDatabaseException;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -91,7 +91,7 @@ public class AlmacenMMPP {
 		return m7;
 	}
 	
-	public static double getLupuloCentennial() {
+	public static double getLupuloCentennial() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m11());
 	}
 
@@ -104,7 +104,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getLevaduraAle()  {
+	public static double getLevaduraAle() throws ClassNotFoundException, SQLException, NotInDatabaseException  {
 		return StockController.getCantidadStock(actor,m12());
 	}
 
@@ -117,7 +117,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getLevaduraLager() {
+	public static double getLevaduraLager() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m13());
 	}
 
@@ -131,7 +131,7 @@ public class AlmacenMMPP {
 	}
 	
 	
-	public static double getCebadaTostada() {
+	public static double getCebadaTostada() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m8());
 	}
 
@@ -144,7 +144,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getMaltaChocolate() {
+	public static double getMaltaChocolate() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m7());
 	}
 
@@ -153,7 +153,7 @@ public class AlmacenMMPP {
 	}
 	
 	
-	public static double getMaltaCrystal() {
+	public static double getMaltaCrystal() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m6());
 	}
 
@@ -166,7 +166,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getMaltaNegra() {
+	public static double getMaltaNegra() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m5());
 	}
 
@@ -179,7 +179,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getMaltaMunich() {
+	public static double getMaltaMunich() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m4());
 	}
 
@@ -193,7 +193,7 @@ public class AlmacenMMPP {
 	}
 	
 	
-	public static double getMaltaBasePalida() {
+	public static double getMaltaBasePalida() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m3());
 	}
 
@@ -207,7 +207,7 @@ public class AlmacenMMPP {
 	}
 	
 	
-	public static double getMaltaPilsner() {
+	public static double getMaltaPilsner() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m1());
 	}
 
@@ -220,7 +220,7 @@ public class AlmacenMMPP {
 		}
 	}
 
-	public static double getMaltaCaramelo() {
+	public static double getMaltaCaramelo() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m2());
 	}
 
@@ -233,7 +233,7 @@ public class AlmacenMMPP {
 		}
 	}
 
-	public static double getLupuloPerle() {
+	public static double getLupuloPerle() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m9());
 	}
 
@@ -246,7 +246,7 @@ public class AlmacenMMPP {
 		}
 	}
 
-	public static double getLupuloTettnanger() {
+	public static double getLupuloTettnanger() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m10());
 	}
 
@@ -259,7 +259,7 @@ public class AlmacenMMPP {
 		}
 	}
 
-	public static double getLevaduraLager1() {
+	public static double getLevaduraLager1() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m13());
 	}
 
