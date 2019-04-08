@@ -79,11 +79,13 @@ public class ManejaPeticiones {
 	@ResponseBody
 	// Recibe el ID de un pedido y devuelve su JSON asociado
 	public String obtenerOrden(
-			@RequestParam(name="id", required=true) int id) {
+			@RequestParam(name="id", required=true) String id) {
+
+		int idInt = Integer.parseInt(id);
 
 		// Obtenemos el pedido de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad pedido = bloque.getTraspaso(id);
+		OrdenTrazabilidad pedido = bloque.getTraspaso(idInt);
 		if (pedido != null)
 			return CodificadorJSON.crearJSON(pedido);
 		else
@@ -173,11 +175,13 @@ public class ManejaPeticiones {
 	@RequestMapping("/aceptarPedido")
 	@ResponseBody
 	public String aceptarPedido(
-			@RequestParam(name="id", required=true) int id) {
-		
+			@RequestParam(name="id", required=true) String id) {
+
+		int idInt = Integer.parseInt(id);
+
 		//NECESARIO PARA TRAZABILIDAD:
         BlockchainServices bloque = new BlockchainServices();
-        OrdenTrazabilidad pedido = bloque.getTraspaso(id);
+        OrdenTrazabilidad pedido = bloque.getTraspaso(idInt);
 		
 		//Main_pedidos pedido = new Main_pedidos(json);
         int estado;
@@ -201,11 +205,13 @@ public class ManejaPeticiones {
 	@RequestMapping("/listoPedido")
 	@ResponseBody
 	public String listoPedido(
-			@RequestParam(name="id", required=true) int id) {
-		
+			@RequestParam(name="id", required=true) String id) {
+
+		int idInt = Integer.parseInt(id);
+
 		//NECESARIO PARA TRAZABILIDAD:
         BlockchainServices bloque = new BlockchainServices();
-        OrdenTrazabilidad pedido = bloque.getTraspaso(id);
+        OrdenTrazabilidad pedido = bloque.getTraspaso(idInt);
 		//Main_pedidos pedido = new Main_pedidos(json);
 		//Hay que comparar los identificadores de los ordentrazabilidad
 		//Dichos ordenTrazabilidad son: el del json y el de los arrays
