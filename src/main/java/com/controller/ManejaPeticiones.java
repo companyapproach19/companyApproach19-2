@@ -1,12 +1,15 @@
 package com.controller;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
+import equipo7.ListaPedido;
 import equipo7.model.ListaPedidos;
 import equipo7.model.OrdenTrazabilidad;
 
+import equipo7.otros.DescodificadorJson;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -177,27 +180,34 @@ public class ManejaPeticiones {
 	public String aceptarPedido(
 			@RequestParam(name="id", required=true) String id) {
 
-		int idInt = Integer.parseInt(id);
+		DescodificadorJson decoder = new DescodificadorJson();
+		ArrayList<Integer> lista = decoder.DescodificadorJSONListaPedidos(id).getListaIDs();
 
-		//NECESARIO PARA TRAZABILIDAD:
-        BlockchainServices bloque = new BlockchainServices();
-        OrdenTrazabilidad pedido = bloque.getTraspaso(idInt);
-		
-		//Main_pedidos pedido = new Main_pedidos(json);
-        int estado;
-		//Para cambiar el estado del pedido
-        if(pedido.getOrigenOrdenes()!=null) {
-        	estado = pedido.getOrigenOrdenes().aceptarPedido(pedido.getEstado());
-        }
-        else {
-        	Orden origenOrden = new Orden();
-        	pedido.setOrigenOrdenes(origenOrden);
-        	estado = origenOrden.aceptarPedido(pedido.getEstado());
-        }
-        pedido.setEstado(estado);
-        bloque.guardarOrden(pedido);
+		for (int i = 0; i < lista.size(); i++) {
+
+			int idInt = lista.get(i);
+
+			//NECESARIO PARA TRAZABILIDAD:
+			BlockchainServices bloque = new BlockchainServices();
+			OrdenTrazabilidad pedido = bloque.getTraspaso(idInt);
+
+			//Main_pedidos pedido = new Main_pedidos(json);
+			int estado;
+			//Para cambiar el estado del pedido
+			if (pedido.getOrigenOrdenes() != null) {
+				estado = pedido.getOrigenOrdenes().aceptarPedido(pedido.getEstado());
+			} else {
+				Orden origenOrden = new Orden();
+				pedido.setOrigenOrdenes(origenOrden);
+				estado = origenOrden.aceptarPedido(pedido.getEstado());
+			}
+			pedido.setEstado(estado);
+			try {
+				bloque.guardarOrden(pedido);
+			} catch (Throwable e) { e.printStackTrace(); }
+		}
         
-        return CodificadorJSON.crearJSON(pedido);
+        return "Success";
 	}
 	
 	//PARA EQUIPO 2: VISTAS
@@ -207,31 +217,38 @@ public class ManejaPeticiones {
 	public String listoPedido(
 			@RequestParam(name="id", required=true) String id) {
 
-		int idInt = Integer.parseInt(id);
+		DescodificadorJson decoder = new DescodificadorJson();
+		ArrayList<Integer> lista = decoder.DescodificadorJSONListaPedidos(id).getListaIDs();
 
-		//NECESARIO PARA TRAZABILIDAD:
-        BlockchainServices bloque = new BlockchainServices();
-        OrdenTrazabilidad pedido = bloque.getTraspaso(idInt);
-		//Main_pedidos pedido = new Main_pedidos(json);
-		//Hay que comparar los identificadores de los ordentrazabilidad
-		//Dichos ordenTrazabilidad son: el del json y el de los arrays
-		//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
-		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
-		
+		for (int i = 0; i < lista.size(); i++) {
+
+			int idInt = lista.get(i);
+
+			//NECESARIO PARA TRAZABILIDAD:
+			BlockchainServices bloque = new BlockchainServices();
+			OrdenTrazabilidad pedido = bloque.getTraspaso(idInt);
+			//Main_pedidos pedido = new Main_pedidos(json);
+			//Hay que comparar los identificadores de los ordentrazabilidad
+			//Dichos ordenTrazabilidad son: el del json y el de los arrays
+			//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
+			//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
+
+
+			//Para cambiar el estado del pedido
+			if (pedido.getOrigenOrdenes() != null) {
+				pedido.getOrigenOrdenes().listoParaEntregar(pedido.getEstado(), pedido.getActorOrigen(), pedido.getActorDestino());
+			} else {
+				Orden origenOrden = new Orden();
+				pedido.setOrigenOrdenes(origenOrden);
+				origenOrden.listoParaEntregar(pedido.getEstado(), pedido.getActorOrigen(), pedido.getActorDestino());
+			}
+			pedido.setEstado(2);
+			try {
+				bloque.guardarOrden(pedido);
+			} catch (Throwable e) { e.printStackTrace(); }
+		}
         
-		//Para cambiar el estado del pedido
-        if(pedido.getOrigenOrdenes()!=null) {
-        	pedido.getOrigenOrdenes().listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
-        }
-        else {
-        	Orden origenOrden = new Orden();
-        	pedido.setOrigenOrdenes(origenOrden);
-        	origenOrden.listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
-        }
-		pedido.setEstado(2);
-        bloque.guardarOrden(pedido);
-        
-        return CodificadorJSON.crearJSON(pedido);
+        return "Success";
 	}
 	
 	
