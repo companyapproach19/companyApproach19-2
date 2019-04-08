@@ -22,7 +22,7 @@ import com.google.gson.JsonParser;
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
 import equipo5.dao.metodosCompany;
-import equipo5.model.NotInDatabaseException;
+import equipo5.dao.NotInDatabaseException;
 import equipo6.model.Actor;
 import equipo6.model.CadenaActores;
 import equipo6.otros.BlockchainServices;
@@ -77,7 +77,7 @@ public class StockController {
 	/*
 	 * metodo para cambiar la cantidad de stock de un lote, se insertar de uno en uno.
 	 */	
-	public static void setCantidadLote(Actor actor, Lote lote) throws ClassNotFoundException, SQLException {
+	public static void setCantidadLote(Actor actor, Lote lote) throws Throwable {
 		metodosCompany.insertarStockLote(actor, lote);
 	}
 	
