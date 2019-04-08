@@ -87,6 +87,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.necesitaTransportista=false;
 			this.idPadre = -1;
 			this.idHijo = -1;
+			this.origenOrdenes=new Orden();
 		}
 		
 		
