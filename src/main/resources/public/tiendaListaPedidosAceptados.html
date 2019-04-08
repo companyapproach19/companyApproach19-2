@@ -13,25 +13,28 @@
                 <div class="row">
              
                     <div class="col-md-3 register-left">
-                        <img src="icono-agricultor.png" alt=""/>
-                        <h1>Agricultores</h1>
+                        <img src="icono-tienda.png" alt=""/>
+                        <h1>Tienda</h1>
                         <!--<p>Pedidos recibidos</p>-->
                     </div>
                     <div class="col-md-9 register-right">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='tienda1.html';">Volver</a>
+                            </li>
+                            <li class="nav-item">
+								<a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>
                             </li>
                             </ul>
                             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading">PEDIDOS RECIBIDOS</h3>
+                                <h3  class="register-heading">PEDIDOS ACEPTADOS</h3>
 								<br>
                                 <div class="row register-form">
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <input type="checkbox" name="producto1" id="producto1" value="Pedido id1">
                                             <label for="producto1">Pedido 98573</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+                                            <a href="generica.html" >Ver mas informacion del pedido</a>
 
                                         </div>
                                         <div class="form-group">
@@ -77,3 +80,41 @@
 
             </div>
 </div>
+<script>
+ function hacerPeticion(){
+   var valor = 1;
+      var request = $.ajax({
+      // la URL para la petición
+      url : '/pedidoNoAceptados',
+ 
+      // la información a enviar
+      // (también es posible utilizar una cadena de datos) //ID del actor
+      data : valor ,
+ 
+      // especifica si será una petición POST o GET
+      type : 'GET',
+ 
+      // el tipo de información que se espera de respuesta
+      dataType : 'json',
+ 
+      });
+ 
+     request.done(function(data){
+      
+     imprimirjson(data);
+    
+     });
+ 
+     request.fail(function(data) {
+     
+     alert("Error en el servidor");
+     
+     });
+ 
+ function imprimirjson(var data){
+ var local_data = JSON.parse(data);
+//TODO local_data es ya un json, json de ids
+ }
+  
+  
+</script>
