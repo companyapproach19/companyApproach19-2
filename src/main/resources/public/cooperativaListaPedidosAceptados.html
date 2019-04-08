@@ -1,4 +1,7 @@
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CooperativaPedidosAceptados</title><link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -8,8 +11,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <link href="style2.css" rel="stylesheet" id="bootstrap-css">
-
-<div class="container register">
+</head>
+<body>
+<div class="container register agricultores">
                 <div class="row">
              
                     <div class="col-md-3 register-left">
@@ -17,7 +21,7 @@
                         <h1>Cooperativa</h1>
                         <!--<p>Pedidos recibidos</p>-->
                     </div>
-                    <div class="col-md-9 register-right">
+                    <div class="col-md-9 register-right pedidosaceptados">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
@@ -27,7 +31,7 @@
                             </li>
                             </ul>
                             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading">PEDIDOS ACEPTADOS</h3>
+                                <h3  class="register-heading titlecenter">PEDIDOS ACEPTADOS</h3>
 								<br>
                                 <div class="row register-form">
                                     <div class="col-md-8">
@@ -71,15 +75,14 @@
                                         </div>
                                         <input type="submit" class="btnRegister"  value="Completar pedidos"/>
                                 </div>
-                                <label for="producto">*Los pedidos que no sean seleccionados se rechazaran automaticamente*</label>
-
+                                
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-</div>
+</body>
 <script>
  function hacerPeticion(){
   //Aqui se puede dar un valor por defecto, solo por si acaso
@@ -127,3 +130,4 @@
  }
   
 </script>
+</html>

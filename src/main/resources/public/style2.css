@@ -58,8 +58,21 @@
 .register .register-form .btncenter{
   padding-right: 0;
 }
+.register .register-form .btncooperativa{
+  padding-right: 0;
+  margin-top: 0;
+}
+#box{
+  margin-top: 0;
+  padding-top: 6%;
+}
+
 .titlecenter{
   padding-right: 6%;
+}
+.titlecooperativa{
+  padding-right: 6%;
+  padding-bottom: 5%;
 }
 .register .register-form{
     padding: 8%;
