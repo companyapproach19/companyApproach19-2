@@ -19,7 +19,7 @@ public class PruebasSensorYRegistro {
 		Sensor sensor = new Sensor(idSensor);
 		
 		// El Lote lo tiene Dani?
-		Lote lote=new Lote(idSensor, idSensor, null, null, null, null);
+		Lote lote=new Lote();
 		// El Actor lo tiene Dani?
 		Actor actor=new Actor();
 	
