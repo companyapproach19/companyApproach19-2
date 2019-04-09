@@ -596,6 +596,10 @@ public class metodosCompany {
 				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerLote(rs.getInt(6)), idCadena);
 				devolver = buscado2;
 				break;
+			default:
+				Bloque buscado3 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer(), idCadena);
+				devolver = buscado3;
+				break;
 			}
 			pst.close();
 			rs.close();
