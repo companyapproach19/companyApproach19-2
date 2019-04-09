@@ -113,7 +113,7 @@ public class Test extends metodosCompany {
 				System.out.println(list.get(i).getNombreUsuario());
 			}
 
-//			// Prueba lotes
+			// Prueba lotes
 			Date dateini1 = new Date(2, 12, 2015);
 			Date datefin1 = new Date(1, 12, 2019);
 
@@ -214,8 +214,8 @@ public class Test extends metodosCompany {
 			insertarBloque(bloque1);
 			insertarBloque(bloque2);
 
-//			extraerBloque(bloque1.getHashCode());
-//			extraerBloque(bloque2.getHashCode());
+			System.out.println(extraerBloque(bloque1.getHashCode()).getHashPrevio());
+			System.out.println(extraerBloque(bloque2.getHashCode()).getHashPrevio());
 
 			// Prueba extraerPedidosActorDestino (Relacionado con OrdenTrazabilidad
 			ArrayList<OrdenTrazabilidad> ord1 = extraerPedidosActorDestino("1");
@@ -242,6 +242,7 @@ public class Test extends metodosCompany {
 			insertarStockMP(fabrica, lupuloTettnanger,7);
 			insertarStockMP(retailer, cebadaTostada, 19);
 			insertarStockMP(receptor2, maltaNegra, 11);
+			insertarStockMP(productor, cebadaTostada, 8);
 
 			insertarStockLote(emisor1, lote1);
 			insertarStockLote(emisor2, lote2);
@@ -259,7 +260,7 @@ public class Test extends metodosCompany {
 			System.out.println(extraerStockLote(fabrica).getFirst().getIdBd());
 
 
-			System.out.println(extraerStockMP(emisor1, maltaPilsner));
+			extraerStockMP(emisor1, maltaPilsner);
 			extraerStockMP(emisor2, cebadaTostada);
 			extraerStockMP(productor, cebadaTostada);
 			extraerStockMP(retailer, cebadaTostada);

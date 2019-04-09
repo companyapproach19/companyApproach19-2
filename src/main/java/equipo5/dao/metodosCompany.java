@@ -10,6 +10,7 @@ import equipo5.model.NotInDatabaseException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.sql.Timestamp;
 
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
@@ -536,7 +537,7 @@ public class metodosCompany {
 	public static Actor extraerActor(String cif) throws SQLException, ClassNotFoundException {
 		if(cif!= null) {
 			conectar();
-			String query = "SELECT * FROM company.actor WHERE actor.cif = '" + cif + "'";
+			String query = "SELECT * FROM company.actor WHERE actor.cif = '" + cif + "';";
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
 			while(rs.next()) {
@@ -573,7 +574,7 @@ public class metodosCompany {
 	public static Bloque extraerBloque(String hashBloquePedido) throws SQLException, ClassNotFoundException, RuntimeException {
 		conectar();
 		Bloque devolver =null;
-		String query = "SELECT * FROM company.bloque WHERE bloque.hashBloque = " + hashBloquePedido +";" ;
+		String query = "SELECT * FROM company.bloque WHERE bloque.hashBloque = '" + hashBloquePedido+"';" ;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
@@ -614,7 +615,6 @@ public class metodosCompany {
 			if(extraerOrdenTrazabilidad(data)==null) {
 				insertarOrdenTrazabilidad(aInsertar);
 			}
-			insertarOrdenTrazabilidad(aInsertar);
 			break;
 		case 1: //Registro
 			Registro aInsertar2 = (Registro) bloqAinsertar.getDatos();
@@ -673,13 +673,29 @@ public class metodosCompany {
 	public static LinkedList<Lote> extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException, NotInDatabaseException {
 		conectar();
 		LinkedList<Lote> buscado = new LinkedList<Lote>();
+		LinkedList<Pair<Lote, Timestamp>> temp = new LinkedList<Pair<Lote, Timestamp>>();
+		Timestamp ultimaHora = new Timestamp(2000, 4, 4, 4, 4, 4, 4);
 		switch(actor.getTipoActor()) {
 		case 4:
-			String query = "SELECT * FROM company.stockRetailer WHERE idRetailer = " + actor.getId();
+			String query = "SELECT * FROM company.stockRetailer WHERE idRetailer = '" + actor.getId()+"';";
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
 			while(rs.next()){
-				buscado.add(extraerLote(rs.getInt(4)));
+				Lote loteBD = extraerLote(rs.getInt(4));
+				Timestamp timeBD = rs.getTimestamp(3);
+				boolean esta = false;
+				for(int i=0; i<temp.size() && !esta; i++) {
+					if(temp.get(i).getElement0().getIdBd()== loteBD.getIdBd()) {
+						esta = true;
+						if(temp.get(i).getElement1().before(timeBD)) {
+							temp.set(i, new Pair <Lote, Timestamp>(loteBD, timeBD));
+						}
+					}
+				}
+				if(!esta) temp.add(new Pair<Lote, Timestamp>(loteBD, timeBD));
+			}
+			for(int i=0; i<temp.size(); i++) {
+				buscado.add(temp.get(i).getElement0());
 			}
 			pst.close();
 			rs.close();
@@ -690,7 +706,21 @@ public class metodosCompany {
 			Statement pst2 = conn.createStatement();
 			ResultSet rs2 = pst2.executeQuery(query2);
 			while(rs2.next()){
-				buscado.add(extraerLote(rs2.getInt(4)));
+				Lote loteBD = extraerLote(rs2.getInt(3));
+				Timestamp timeBD = rs2.getTimestamp(2);
+				boolean esta = false;
+				for(int i=0; i<temp.size() && !esta; i++) {
+					if(temp.get(i).getElement0().getIdBd()== loteBD.getIdBd()) {
+						esta = true;
+						if(temp.get(i).getElement1().before(timeBD)) {
+							temp.set(i, new Pair <Lote, Timestamp>(loteBD, timeBD));
+						}
+					}
+				}
+				if(!esta) temp.add(new Pair<Lote, Timestamp>(loteBD, timeBD));
+			}
+			for(int i=0; i<temp.size(); i++) {
+				buscado.add(temp.get(i).getElement0());
 			}
 			pst2.close();
 			rs2.close();
@@ -704,17 +734,24 @@ public class metodosCompany {
 	
     
 	public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLException, ClassNotFoundException, NotInDatabaseException {
-		int buscado;
+		int buscado = -1;
+		Timestamp ultimaHora = new Timestamp(2000, 4, 4, 4, 4, 4, 4);
 		switch(actor.getTipoActor()){
 		case 0:
 			conectar();
-			String query2 = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = '"+actor.getId()+"' AND idMateriaPrima = '"+mp.getId()+"'";
+			String query2 = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = '"+actor.getId()+"' AND idMateriaPrima = "+mp.getId();
 			Statement pst2 = conn.createStatement();
 			ResultSet rs2 = pst2.executeQuery(query2);
-			if(!rs2.next()){
-				throw new NotInDatabaseException("El stock del agricultor buscado no se encuentra en la base de datos.");
+			while(rs2.next()) {
+				if (buscado == -1) {
+					buscado = rs2.getInt(5);
+					ultimaHora = rs2.getTimestamp(3);
+				}
+				else if (ultimaHora.before(rs2.getTimestamp(3))) {
+					ultimaHora = rs2.getTimestamp(3);
+					buscado = rs2.getInt(5);
+				}
 			}
-			buscado = rs2.getInt(5);
 			pst2.close();
 			rs2.close();
 			conn.close();
@@ -722,27 +759,38 @@ public class metodosCompany {
 		case 1:
 			conectar();
 
-			String query = "SELECT * FROM company.stockCooperativa WHERE idCooperativa =  '"+actor.getId()+"' AND idMateriaPrima = '"+mp.getId()+"' ";
+			String query = "SELECT * FROM company.stockCooperativa WHERE idCooperativa =  '"+actor.getId()+"' AND idMateriaPrima = "+mp.getId();
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
-			if(!rs.next()){
-				throw new NotInDatabaseException("El stock de la cooperativa buscado no se encuentra en la base de datos.");
+			while(rs.next()) {
+				if (buscado == -1) {
+					buscado = rs.getInt(5);
+					ultimaHora = rs.getTimestamp(3);
+				}
+				else if (ultimaHora.before(rs.getTimestamp(3))) {
+					ultimaHora = rs.getTimestamp(3);
+					buscado = rs.getInt(5);
+				}
 			}
-			buscado = rs.getInt(5);
 			pst.close();
 			rs.close();
 			conn.close();
 			break;
 		case 3:
 			conectar();
-
-			String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idMateriaPrima =" + mp.getId();
+			String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idMateriaPrima = " + mp.getId();
 			Statement pst3 = conn.createStatement();
 			ResultSet rs3 = pst3.executeQuery(query3);
-			if(!rs3.next()){
-				throw new NotInDatabaseException("El stock de fabrica buscado no se encuentra en la base de datos.");
+			while(rs3.next()) {
+				if (buscado == -1) {
+					buscado = rs3.getInt(4);
+					ultimaHora = rs3.getTimestamp(2);
+				}
+				else if (ultimaHora.before(rs3.getTimestamp(2))) {
+					ultimaHora = rs3.getTimestamp(2);
+					buscado = rs3.getInt(4);
+				}
 			}
-			buscado = rs3.getInt(4);
 			pst3.close();
 			rs3.close();
 			conn.close();
@@ -865,7 +913,7 @@ public class metodosCompany {
     
     public static int idRegistro() throws SQLException, ClassNotFoundException{
         conectar();
-        String query = "SELECT MAX (idLote) FROM company.registro";
+        String query = "SELECT MAX (id) FROM company.registro";
         Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
         int siguienteId = 1;
@@ -880,7 +928,7 @@ public class metodosCompany {
     
     public static int idMateriaPrima() throws SQLException, ClassNotFoundException{
         conectar();
-        String query = "SELECT MAX (idstockFabricaMateriasPrimas) FROM company.stockFabricaMateriasPrimas";
+        String query = "SELECT MAX (idstockMMPP) FROM company.stockFabricaMMPP";
         Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
         int siguienteId = 1;
