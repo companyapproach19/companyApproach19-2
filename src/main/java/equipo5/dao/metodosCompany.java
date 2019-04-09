@@ -34,6 +34,7 @@ public class metodosCompany {
 
 	public static void conectar(){
 		try {
+			if(conn == null || conn.isClosed())
 			 conn= DriverManager.getConnection(JDBC_DATABASE_URL);
 			//System.out.println("Conectado");
 		} catch (SQLException e) {
@@ -321,10 +322,10 @@ public class metodosCompany {
 					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11),actor2, registro);
 			pst.close();
 			rs.close();
-			conn.close();
+			
 			return buscado;
 		}
-		conn.close();
+		
 		return null;	
 	}
 
@@ -350,7 +351,7 @@ public class metodosCompany {
 		pst.setInt(13, orden.getRegistro().getId());
 		pst.executeUpdate();
 		pst.close();
-		conn.close();
+		
 	}
 
 	public static Productos extraerProductos(int id) throws SQLException {
@@ -363,7 +364,7 @@ public class metodosCompany {
 					rs.getInt(6),rs.getInt(7),rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11),rs.getInt(12));
 			pst.close();
 			rs.close();
-			conn.close();
+			
 			return buscado;
 		}
 		return null;	
@@ -389,7 +390,7 @@ public class metodosCompany {
 		pst.setInt(12, producto.getCant_cajas_bisner());
 		pst.executeUpdate();
 		pst.close();
-		conn.close();
+		
 	}
 
 	public static Cadena extraerCadena(int codLote) throws SQLException {
@@ -403,7 +404,7 @@ public class metodosCompany {
 		}
 		pst.close();
 		rs.close();
-		conn.close();
+		
 		return buscado;
 	}
 
@@ -418,7 +419,7 @@ public class metodosCompany {
 			pst.setInt(3, codLote);
 			pst.executeUpdate();
 			pst.close();
-			conn.close();
+			
 		}else {
 			conectar();
 			String query = "INSERT INTO company.cadena (codLote, hashInicio, numBloques) VALUES (?, ?, ?);";
@@ -428,7 +429,7 @@ public class metodosCompany {
 			pst.setInt(3, cadena.getNumBloques());
 			pst.executeUpdate();
 			pst.close();
-			conn.close();
+			
 		}
 	}
 
@@ -449,7 +450,7 @@ public class metodosCompany {
 			pst.setString(11, lote.getTipo());
 			pst.executeUpdate();
 			pst.close();
-		conn.close();
+		
 	}
 
 	public static byte [] getQR(int idLote) throws SQLException {
@@ -461,7 +462,7 @@ public class metodosCompany {
 			byte [] binario = rs2.getBytes(9);
 			pst2.close();
 			rs2.close();
-			conn.close();
+			
 			return binario;
 
 		}
@@ -477,10 +478,10 @@ public class metodosCompany {
 			Lote buscado = new Lote(rs.getInt(1),  rs.getDate(2), rs.getString(11), rs.getDate(3), rs.getBoolean(4), rs.getBoolean(5), rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBytes(9), rs.getInt(10));
 			pst.close();
 			rs.close();
-			conn.close();
+			
 			return buscado;
 		}
-		conn.close();
+		
 		return null;
 	}
 
@@ -497,7 +498,7 @@ public class metodosCompany {
 		pst.setInt(7, registro.getTempMin());
 		pst.executeUpdate();
 		pst.close();
-		conn.close();
+		
 	}
 
 	public static Registro extraerRegistro (int id) throws SQLException, ClassNotFoundException {
@@ -511,10 +512,10 @@ public class metodosCompany {
 			Registro buscado = new Registro(rs.getInt(1), lote , actor, rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
 			pst.close();
 			rs.close();
-			conn.close();
+			
 			return buscado;
 		}
-		conn.close();
+		
 		return null;
 	}
 
@@ -529,7 +530,7 @@ public class metodosCompany {
 					rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
 			cadena.addActor(buscado);
 		}
-		conn.close();
+		
 		return cadena;
 
 	}
@@ -547,7 +548,7 @@ public class metodosCompany {
 				rs.close();
 				return buscado; 
 			}
-			conn.close();
+			
 			return null;
 		}
 		else return null;
@@ -568,7 +569,7 @@ public class metodosCompany {
 		pst.setString(9, actor.getCifcooperativa());
 		pst.executeUpdate();
 		pst.close();
-		conn.close();
+		
 	}
 
 	public static Bloque extraerBloque(String hashBloquePedido) throws SQLException, ClassNotFoundException, RuntimeException {
@@ -603,10 +604,10 @@ public class metodosCompany {
 			}
 			pst.close();
 			rs.close();
-			conn.close();
+			
 			return devolver;
 		}
-		conn.close();
+		
 		return null;
 	}
 
@@ -648,7 +649,7 @@ public class metodosCompany {
 		pst.setInt(8, bloqAinsertar.getIdCadena());
 		pst.executeUpdate();
 		pst.close();
-		conn.close();
+		
 	}
 	
 	public static ArrayList<OrdenTrazabilidad> extraerPedidosActorDestino(String idActor) throws SQLException, ClassNotFoundException{
@@ -671,7 +672,7 @@ public class metodosCompany {
 		}		
 		pst.close();
 		rs.close();
-		conn.close();
+		
 		return lista;	
 	}
 	public static LinkedList<Lote> extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException, NotInDatabaseException {
@@ -703,7 +704,7 @@ public class metodosCompany {
 			}
 			pst.close();
 			rs.close();
-			conn.close();
+			
 			break;
 		case 3:
 			String query2 = "SELECT * FROM company.stockFabricaLotes"; 
@@ -728,7 +729,7 @@ public class metodosCompany {
 			}
 			pst2.close();
 			rs2.close();
-			conn.close();
+			
 			break;
 		default:  
 			System.out.println("el actor suministrado no almacena lotes");
@@ -758,7 +759,7 @@ public class metodosCompany {
 			}
 			pst2.close();
 			rs2.close();
-			conn.close();
+			
 			break;
 		case 1:
 			conectar();
@@ -778,7 +779,7 @@ public class metodosCompany {
 			}
 			pst.close();
 			rs.close();
-			conn.close();
+			
 			break;
 		case 3:
 			conectar();
@@ -797,7 +798,7 @@ public class metodosCompany {
 			}
 			pst3.close();
 			rs3.close();
-			conn.close();
+			
 			break;		
 		default: 
 			System.out.println("el actor suministrado no almacena materias primas.");
@@ -818,7 +819,7 @@ public class metodosCompany {
 			    pst.setInt(3, lote.getCantidad());
 			    pst.executeUpdate();
 			    pst.close();
-			    conn.close();
+			    
 			    break;
 	   		case 3:
 	   			conectar();
@@ -828,7 +829,7 @@ public class metodosCompany {
 			    pst2.setInt(2, lote.getCantidad());
 			    pst2.executeUpdate();
 			    pst2.close();
-			    conn.close();
+			    
 			    break;
 	    } 	
     }
@@ -843,7 +844,7 @@ public class metodosCompany {
 			    pst.setInt(3, cantidad);
 			    pst.executeUpdate();
 			    pst.close();
-			    conn.close();
+			    
 			    break;
 	   		case 1:
 	   			conectar();
@@ -854,7 +855,7 @@ public class metodosCompany {
 			    pst2.setInt(3, cantidad);
 			    pst2.executeUpdate();
 			    pst2.close();
-			    conn.close();
+			    
 			    break;
 	   		case 3:
 	   			conectar();
@@ -864,7 +865,7 @@ public class metodosCompany {
 			    pst3.setInt(2, cantidad);
 			    pst3.executeUpdate();
 			    pst3.close();
-			    conn.close();
+			    
 			    break;
 	    } 	
     }    
@@ -881,7 +882,7 @@ public class metodosCompany {
         }
         pst.close();
        rs.close();
-       conn.close();
+       
         return siguienteId;
     }
     
@@ -896,7 +897,7 @@ public class metodosCompany {
         }
         pst.close();
        rs.close();
-       conn.close();
+       
         return siguienteId;
     }
     
@@ -911,7 +912,7 @@ public class metodosCompany {
         }
         pst.close();
        rs.close();
-       conn.close();
+       
         return siguienteId;
     }
     
@@ -926,7 +927,7 @@ public class metodosCompany {
         }
         pst.close();
        rs.close();
-       conn.close();
+       
         return siguienteId;
     }
     
@@ -941,7 +942,7 @@ public class metodosCompany {
         }
         pst.close();
        rs.close();
-       conn.close();
+       
         return siguienteId;
     }
     public static MateriaPrima extraerMateriaPrima(String nombre) throws SQLException {
@@ -953,7 +954,7 @@ public class metodosCompany {
 			MateriaPrima buscado = new MateriaPrima(nombre, rs.getInt(1));
 			pst.close();
 			rs.close();
-			conn.close();
+			
 			return buscado;
 		}
 		return null;
