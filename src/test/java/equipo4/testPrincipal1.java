@@ -12,7 +12,7 @@ import equipo5.dao.NotInDatabaseException;
 public class testPrincipal1 {
 
 	@Test
-	public void testAlmacenLotes() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException {
+	public void testAlmacenLotes() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		int idBd = -1;
 		Date fechaActual = new Date();
 		LinkedList<Lote> lista = new LinkedList<Lote>();
@@ -83,7 +83,7 @@ public class testPrincipal1 {
 	}
 
 	@Test
-	public void testCantidadesStout() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException {
+	public void testCantidadesStout() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		Stout cerveza = new Stout();
 
 		assertNotNull(cerveza);
@@ -122,7 +122,7 @@ public class testPrincipal1 {
 	}
 
 	@Test
-	public void testCantidadesPilsner() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException {
+	public void testCantidadesPilsner() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		Pilsner cerveza2 = new Pilsner();
 		assertNotNull(cerveza2);
 		assertTrue(cerveza2.getLupuloTettnanger() - 17391304.3478 == 0);
@@ -150,7 +150,7 @@ public class testPrincipal1 {
 	}
 	
 	@Test
-	public void testFabricacion() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException {
+	public void testFabricacion() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		Date date = new Date();
 		Lote lote1 = new Lote(new Pilsner(), date);
 		Principal.moler(lote1);
@@ -165,7 +165,7 @@ public class testPrincipal1 {
 	}
 	
 	@Test
-	public void testMain() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException {
+	public void testMain() throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		Principal.main(null);
 	}
 	
