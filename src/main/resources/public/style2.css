@@ -40,6 +40,12 @@
     padding-top: 0;
     margin-top: -180px;
 }
+.largotienda{
+      min-height: 100%;
+}
+.centrado{
+      padding-top: 60px;
+}
 .register-left img{
     margin-top: 15%;
     margin-bottom: 5%;
