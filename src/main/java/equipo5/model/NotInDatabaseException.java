@@ -1,4 +1,4 @@
-package equipo5.dao;
+package equipo5.model;
 
 public class NotInDatabaseException extends Exception {
 

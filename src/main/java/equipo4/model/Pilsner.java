@@ -1,6 +1,9 @@
 package equipo4.model;
 
 import java.io.Serializable;
+import java.sql.SQLException;
+
+import equipo5.model.NotInDatabaseException;
 
 public class Pilsner implements Serializable {
 
@@ -17,7 +20,7 @@ public class Pilsner implements Serializable {
 	private static boolean fermentacion2;
 	private static boolean embotellado;
 
-	public Pilsner() {
+	public Pilsner() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		agua = 11956521.7391;
 		maltaPilsner = 1739130434.78;
 		AlmacenMMPP.setMaltaPilsner(AlmacenMMPP.getMaltaPilsner() - 1739130434.78);

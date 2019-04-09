@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -27,7 +28,7 @@ public class Sensor {
 	
 
 	
-	public  Registro crearRegistro(Lote lote, Actor actor,String fichero) throws IOException {
+	public  Registro crearRegistro(Lote lote, Actor actor,String fichero) throws IOException, ClassNotFoundException, SQLException {
 
 	
 	        URL fileUrl = getClass().getResource(fichero);

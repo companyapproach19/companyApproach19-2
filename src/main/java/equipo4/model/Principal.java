@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import equipo5.dao.metodosCompany;
+import equipo5.model.NotInDatabaseException;
 import equipo6.model.DatosContainer;
 
 public class Principal extends DatosContainer{
@@ -93,7 +94,7 @@ public class Principal extends DatosContainer{
 		}
 	}
 
-	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, SQLException {
+	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException {
 		System.out.println("¿Desea generar un lote? (s/n)");
 		Scanner sc = new Scanner(System.in);
 		String answ = sc.nextLine();

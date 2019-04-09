@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -37,20 +39,30 @@ public class StockController {
 	/*
 	 * dado un actor y una materia prima devuelve la cantidad de esa materia prima
 	 */
-	public static double getCantidadStock (Actor actor, MateriaPrima mp) throws ClassNotFoundException, SQLException, NotInDatabaseException{
-		return metodosCompany.extraerStockMP(actor,mp);		
+	public static double getCantidadStock (Actor actor, MateriaPrima mp) throws ClassNotFoundException, SQLException{
+		try {
+		return metodosCompany.extraerStockMP(actor,mp);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 	
 	/*
 	 * dado un actor y un lote devuelve el stock de un tipo de lote
 	 */
-	public static int getStockLote(Actor actor, Lote lote) {
+		public static int getStockLote(Actor actor, Lote lote) {
 		
 		//nos devuleve una lista con todos los lotes de un actor, luego tenemos que buscar
 		//los lotes del tipo lote que nos pasan
-		
+		int resultado=0;		
 		try {
-			return metodosCompany.extraerStockLote(actor);
+			for(Lote l : metodosCompany.extraerStockLote(actor)) {
+				if (l.getTipo().equals(lote.getTipo())) {
+					resultado ++;
+				}
+			}			
+			return resultado;
 		} catch (ClassNotFoundException | SQLException | NotInDatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,7 +84,7 @@ public class StockController {
 	/*
 	 * metodo para cambiar la cantidad de stock de un lote, se insertar de uno en uno.
 	 */	
-	public static void setCantidadLote(Actor actor, Lote lote) throws ClassNotFoundException, SQLException {
+	public static void setCantidadLote(Actor actor, Lote lote) throws Throwable {
 		metodosCompany.insertarStockLote(actor, lote);
 	}
 	
@@ -81,6 +93,7 @@ public class StockController {
 		String idActor;
 		
 		idActor = null;
+		if(lista_cookies != null) {
 		for(Cookie c : lista_cookies) {
 			System.out.println(c.getName()+"    "+c.getValue());
 			if(c.getName().equals("id")) 
@@ -88,6 +101,7 @@ public class StockController {
 				idActor = c.getValue();
 				break;
 			}
+		}
 		}
 		
 		return idActor;
@@ -99,7 +113,7 @@ public class StockController {
 	@ResponseBody
 	public String getStockActor(
 			HttpServletRequest request,
-			@RequestParam(name="usuario", required=true) String id,
+			@RequestParam(name="id") String id,
 			Model model) throws Exception {
 				
 		
@@ -110,7 +124,7 @@ public class StockController {
 		JsonObject stock;
 		String[][] lista_nombre_mp = {
 				{"malta_palida","maltaBasePalida"},{"malta_tostada","maltaTostada"},
-				{"malta_negra","maltaNegra"},{"malta_crystal","maltaCrystal"},
+				{"malta_negra","maltaNegra"},{"malta_crystal","maltacrystal"},
 				{"malta_chocolate","maltaChocolate"},{"malta_caramelo","maltaCaramelo"},
 				{"malta_pilsner","maltaPilsner"},{"malta_munich","maltaMunich"},
 				{"lupulo_perle","lupuloPerle"},{"lupulo_tettnanger","lupuloTettnanger"},
@@ -118,25 +132,36 @@ public class StockController {
 				{"levadura_lagger","levaduraLagger"}
 			};
 		
-		
+		MateriaPrima mp;
 		idActor = get_id_actor_cookie(request.getCookies());
 		stock = new JsonObject();
 		json_resp = new JsonObject();
-		actor=new Actor(idActor, "Agricultor", "asdasd", "rmj@g.cm", 0, "41.5N 2.0W","Agricultor A", "c/mevoyamorir", "1234567C");
+		idActor = (idActor == null)?(id):(idActor);
+		try {
+			actor = metodosCompany.extraerCadenaActores().get_actor_by_id(idActor);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			actor=new Actor(idActor, "Agricultor", "asdasd", "rmj@g.cm", 0, "41.5N 2.0W","Agricultor A", "c/mevoyamorir", "1234567C");
+		}
+	
 		
-		idActor = (idActor == null)?(id):(idActor);	
 		json_resp.addProperty("nomUsuario", actor.getNombreUsuario());
 		json_resp.addProperty("email", actor.getEmail());
 		json_resp.addProperty("tipoActor", actor.getTipoActor());	
 		for(int i = 0; i < lista_nombre_mp.length; i++) 
 		{
 			try {
+				
+				mp = metodosCompany.extraerMateriaPrima(lista_nombre_mp[i][1]);
+				if(mp == null) throw new Exception();
 				stock.addProperty(lista_nombre_mp[i][0], metodosCompany.extraerStockMP(
-						actor, 
-						metodosCompany.extraerMateriaPrima(lista_nombre_mp[i][1])));
-			} catch (NotInDatabaseException e) {
+						actor,
+						mp
+						));
+			} catch (Exception e) {
 				stock.addProperty(lista_nombre_mp[i][0], 0);
-				e.printStackTrace();
+				//e.printStackTrace();
 				
 			}
 		}
