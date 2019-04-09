@@ -55,8 +55,8 @@ function pedirStock(actor) {
   url : '/dameStockActor',
   
   // la información a enviar (parámetros que se le pasan a la url)
-  // (también es posible utilizar una cadena de datos)
-  data : "id=" + actor,
+// (también es posible utilizar una cadena de datos)
+	data : "id=" + actor,
   
   // especifica si será una petición POST o GET
   type : 'POST',
