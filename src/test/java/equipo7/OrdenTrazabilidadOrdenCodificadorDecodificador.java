@@ -120,8 +120,7 @@ public class OrdenTrazabilidadOrdenCodificadorDecodificador {
 		  }
 
 	 @Test
-	 public void Test4Codificador_ok() {
-		 System.out.println(json);
+	 public void Test4Codificador_ok() { 
 		    String cod1= CodificadorJSON.crearJSON(pedido);  
 		    OrdenTrazabilidad resultado = desc.DescodificadorJson(json);  
 		    assertEquals(cod1,  CodificadorJSON.crearJSON(resultado));
@@ -196,12 +195,29 @@ public class OrdenTrazabilidadOrdenCodificadorDecodificador {
  * Controller;
  */
 	@Test
-	public void crearorden() {
-
+	public void crearorden() throws Throwable  {//cambia el id
 		final ManejaPeticiones configurationController = new ManejaPeticiones();
-		final String pingResponse = configurationController.aceptarPedido("0");
-		System.out.println("gooog");
-		System.out.println("AQUI ---->"+pingResponse);
+		String pingResponse;
+		try {
+			pingResponse = configurationController.creaOrden(json); 
+			System.out.println("Respuesta : -->"+pingResponse );
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(true);
+		
 	}
+	@Test
+	public void obtenerOrden() { 
+	}
+	@Test
+	public void  pedidosNoAceptados() { 
+	}
+	@Test
+	public void pedidosEnProceso() {}
+	public void listoPedido() {}
+	public void aceptarPedido () {}
+	public void recogidoPedido() {}
+	public void entregadoPedido() {}
 }
