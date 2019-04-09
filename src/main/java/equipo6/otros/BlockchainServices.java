@@ -129,7 +129,7 @@ public class BlockchainServices{
     	return respuesta.toString();
     }
     
-    ArrayList<OrdenTrazabilidad> extraerPedido(String idActor) throws ClassNotFoundException, SQLException
+    public ArrayList<OrdenTrazabilidad> extraerPedido(String idActor) throws ClassNotFoundException, SQLException
     {
     	return metodosCompany.extraerPedidosActorDestino(idActor);
     }
