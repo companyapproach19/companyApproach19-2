@@ -43,11 +43,11 @@ class TestTrazabilidad {
 		
 	}
 
-	@Test
-	void test() throws Throwable  {
+	
+	void test1() throws Throwable  {
 		try {
 		
-		init_data_base();
+		//init_data_base();
 		BlockchainServices bcs = new BlockchainServices();
 		Actor actor_o;
 		Actor actor_d;
@@ -128,4 +128,68 @@ class TestTrazabilidad {
 		
 	}
 
+	@Test
+	void test2() throws Throwable  {
+		try {
+		//insertar_lote();
+		BlockchainServices bcs = new BlockchainServices();
+		Actor actor_o;
+		Actor actor_d;
+		Actor actor_t;
+		Productos p;
+		OrdenTrazabilidad orden;
+		ArrayList<Integer> lista_ids_stock;
+		Lote lote;
+	
+		actor_t = new Actor("7","Transportista","password","transp@gmail.es", 2,"Calle Ribadeo", "Luis","Calle Valladolid","fg3");
+		lote = new Lote(1000, new java.util.Date(), "uno", new java.util.Date(), true, false, false, false, false, null, 0);
+		Registro[] reg = {
+							new Registro(100,lote, actor_t, "", "", 10, 5),
+							new Registro(101,lote, actor_t, "", "", 11, 6),
+							new Registro(102,lote, actor_t, "", "", 12, 7),
+							new Registro(103,lote, actor_t, "", "", 13, 8),
+						 };
+		Productos[] prod = {
+				new Productos(100, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10),
+				new Productos(101, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10),
+				new Productos(102, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10),
+				new Productos(103, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10),
+			 };
+					
+		lista_ids_stock = new ArrayList<Integer>();
+		actor_o = new Actor("5","Productor","password","prod@gmail.es", 0,"Calle Ribadeo", "Marta","Calle Valladolid","fg4");
+		actor_d = new Actor("6","Cooperativa","password","coop@gmail.es", 1,"Calle Ribadeo", "Maria","Calle Valladolid","fg5");
+		
+
+		
+		
+		bcs.guardarOrden(new OrdenTrazabilidad(0, actor_o, actor_d, true, prod[0], "primero", 0, null, null, 0, 0, actor_d, reg[0]));
+		bcs.guardarOrden(new OrdenTrazabilidad(1, actor_o, actor_d, false, prod[1], "segundo", 0, null, null, 0, 0, actor_d, reg[1]));
+		bcs.guardarOrden(new OrdenTrazabilidad(2, actor_o, actor_d, true, prod[2], "tercero", 0, null, null, 0, 0, actor_d, reg[2]));
+		bcs.guardarOrden(new OrdenTrazabilidad(3, actor_o, actor_d, true, prod[3], "cuarto", 0, null, null, 0, 0, actor_d, reg[3]));			
+		
+		
+		lista_ids_stock.add(1);
+		lista_ids_stock.add(3);
+		
+		bcs.guardarRespuestaPedido(0, lista_ids_stock);
+		
+		lista_ids_stock = new ArrayList<Integer>();
+
+		lista_ids_stock.add(0);
+		
+		bcs.guardarRespuestaPedido(2, lista_ids_stock);
+		
+		
+		
+		System.out.println(bcs.get_trazabilidad(2));
+		
+		}
+		catch (Exception e) {
+				e.printStackTrace();
+		}
+		
+		
+		
+	}
 }

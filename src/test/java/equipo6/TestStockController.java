@@ -24,7 +24,6 @@ class TestStockController {
 	// test hecho anadiendo a mano maltaCrystal en la bbdd con el id pertinente y
 	// comentando en el constructor de materia prima esta linea:
 	// this.id=metodosCompany.idMateriaPrima();
-	/* esto esta comentado para no llenar a l bbdd
 	@Test
 	// test de getCantidadStock cuando el actor no tiene MP
 	void test() throws ClassNotFoundException, SQLException, NotInDatabaseException {
@@ -39,8 +38,8 @@ class TestStockController {
 	void test1() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		Actor p = metodosCompany.extraerActor("Productor");
 		MateriaPrima mp = new MateriaPrima("maltaCrystal");
-		// double result = StockController.getCantidadStock(p, mp);
-		// System.out.println(result);
+		double result = StockController.getCantidadStock(p, mp);
+		System.out.println(result);
 	}
 	
 	@Test
@@ -55,22 +54,20 @@ class TestStockController {
 
 		
 	}
-
-	@Test
+		@Test
 	//test de setCantidadMateriaPrima cuando el actor tiene MP, esta comentado el codigo para no petar la bbdd
 	void test3() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 
 		Actor p=metodosCompany.extraerActor("Productor");
 		MateriaPrima mp= new MateriaPrima("maltaCrystal");
 		
-	//	StockController.setCantidadMateriaPrima(p,mp, 300);
+		StockController.setCantidadMateriaPrima(p,mp, 300);
 		System.out.println(StockController.getCantidadStock(p, mp));
 
 		
 	}
-	*/
-	
-	
+
+
 	//=======================================
 	
 	
@@ -110,7 +107,6 @@ class TestStockController {
 		Lote lote = new Lote(p, new java.util.Date());
 		try {
 			int cantidad = StockController.getStockLote(actor, lote);
-			System.out.println(cantidad);
 			System.out.println("cuando el actor no tiene lotes cantidad actual "+cantidad);
 			StockController.setCantidadLote(actor, lote);
 			System.out.println("cuando el actor no tiene lotes cantidad despues de anadir "+cantidad);
@@ -131,9 +127,9 @@ class TestStockController {
 		Lote lote = new Lote(p, new java.util.Date());
 		try {
 			int cantidad = StockController.getStockLote(actor, lote);
-			System.out.println(cantidad);
 			System.out.println("cuando el actor tiene lotes cantidad actual "+cantidad);
 			StockController.setCantidadLote(actor, lote);
+			cantidad = StockController.getStockLote(actor, lote);
 			System.out.println("cuando el actor tiene lotes cantidad despues de anadir "+cantidad);
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
@@ -141,5 +137,16 @@ class TestStockController {
 		}
 		
 	}	
+	
+	@Test
+	//este test da error pero en la base de datos se modifica bien
+	//test de setCantidadMateriaPrima cuando el actor tiene MP, esta comentado el codigo para no petar la bbdd
+	void test8() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+
+		Actor p=metodosCompany.extraerActor("Fabrica");
+		MateriaPrima mp= new MateriaPrima("maltaCrystal");
+		StockController.setCantidadMateriaPrima(p,mp, 1739130434);
+		System.out.println(StockController.getCantidadStock(p, mp));
+	}
 
 }
