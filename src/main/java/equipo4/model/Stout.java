@@ -1,27 +1,29 @@
 package equipo4.model;
 
-public class Stout {
-	public static double maltaCaramelo;
-	public static double maltaBasePalida;
-	public static double maltaMunich;
-	public static double maltaNegra;
-	public static double maltaCrystal;
-	public static double agua;
-	public static double maltaChocolate;
-	public static double cebadaTostada;
-	public static double lupuloCentennial;
-	// Las levaduras no tienen cantidad, es un error???????????????????????????
-	public static boolean levaduraAle;
-	public static int id;
-	public static boolean molido;
-	public static boolean cocinado;
-	public static boolean fermentacion1;
-	public static boolean fermentacion2;
-	public static boolean embotellado;
+import java.io.Serializable;
+import java.sql.SQLException;
 
-	public Stout() {
-		//id = AlmacenMMPP.getId();
-		//AlmacenMMPP.setId(AlmacenMMPP.getId() + 1);
+import equipo5.dao.NotInDatabaseException;
+
+public class Stout implements Serializable {
+	private static double maltaCaramelo;
+	private static double maltaBasePalida;
+	private static double maltaMunich;
+	private static double maltaNegra;
+	private static double maltaCrystal;
+	private static double agua;
+	private static double maltaChocolate;
+	private static double cebadaTostada;
+	private static double lupuloCentennial;
+	private static double levaduraAle;
+	private static int id;
+	private static boolean molido;
+	private static boolean cocinado;
+	private static boolean fermentacion1;
+	private static boolean fermentacion2;
+	private static boolean embotellado;
+
+	public Stout() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		agua = 11428571.4286;
 		maltaBasePalida = 2619047619.05;
 		AlmacenMMPP.setMaltaBasePalida(AlmacenMMPP.getMaltaBasePalida() - 2619047619.05);
@@ -39,8 +41,10 @@ public class Stout {
 		AlmacenMMPP.setMaltaCaramelo(AlmacenMMPP.getMaltaCaramelo() - 42857142.8571);
 		lupuloCentennial = 33333333.3333;
 		AlmacenMMPP.setLupuloCentennial(AlmacenMMPP.getLupuloCentennial() - 33333333.3333);
-		// Falta la levadura
+		levaduraAle=287.5;
+		AlmacenMMPP.setLevaduraAle(AlmacenMMPP.getLevaduraAle()-287.5);
 	}
+
 
 	public static double getMaltaCaramelo() {
 		return maltaCaramelo;
@@ -114,20 +118,16 @@ public class Stout {
 		Stout.lupuloCentennial = lupuloCentennial;
 	}
 
-	public static boolean isLevaduraAle() {
+	public static double getLevaduraAle() {
 		return levaduraAle;
 	}
 
-	public static void setLevaduraAle(boolean levaduraAle) {
+	public static void setLevaduraAle(double levaduraAle) {
 		Stout.levaduraAle = levaduraAle;
 	}
 
 	public static int getId() {
 		return id;
-	}
-
-	public static void setId(int id) {
-		Stout.id = id;
 	}
 
 }

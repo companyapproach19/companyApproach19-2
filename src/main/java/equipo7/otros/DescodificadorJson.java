@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import equipo7.model.ListaPedidos;
 import equipo7.model.OrdenTrazabilidad;
 
 
@@ -13,6 +14,12 @@ public class DescodificadorJson {
 		 Gson gson=new Gson();
 		 Type tipoObjeto = new TypeToken<OrdenTrazabilidad>(){}.getType();
 		 return gson.fromJson(pedido, tipoObjeto);  
+	}
+
+	public ListaPedidos DescodificadorJSONListaPedidos(String lista) {
+		Gson gson=new Gson();
+		Type tipoObjeto = new TypeToken<ListaPedidos>(){}.getType();
+		return gson.fromJson(lista, tipoObjeto);
 	}
 
 	

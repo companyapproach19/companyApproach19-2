@@ -3,10 +3,12 @@ package equipo8.model;
 import equipo4.model.Lote;
 import equipo6.model.Actor;
 import equipo6.model.DatosContainer;
+import java.sql.SQLException;
+import equipo5.dao.metodosCompany;
 
 public class Registro extends DatosContainer{
 	
-	public int id;
+	private int id;
 	private Lote lote;
 	private Actor actor;
 	private String fechaInicio;
@@ -25,7 +27,7 @@ public class Registro extends DatosContainer{
 	}
 	
 	public Registro(Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
-		//this.id = metodosCompany.idRegistro(); //Metodo a la espera de que se suba a master
+		this.id = metodosCompany.idRegistro(); 
 		this.lote=lote;
 		this.actor = actor;
 		this.fechaInicio = fechaInicio;
@@ -35,10 +37,14 @@ public class Registro extends DatosContainer{
 	}
 
 	public String toString(){
-		return "idLote:" +"\n"+"idActor:"+ actor.getNombreUsuario() +"\n"+"Temperatura máxima:"+tempMax+"ºC"+"\n"+"Temperatura mínima:"+tempMin +"ºC"+"\n"+"Fecha inicio:"+fechaInicio +"\n"+"Fecha fin:"+fechaFin+"\n";   
+		return "Lote:" +lote.getTipo()+"\n"+"Actor:"+ actor.getNombreUsuario() +"\n"+"Temperatura máxima:"+tempMax+"ºC"+"\n"+"Temperatura mínima:"+tempMin +"ºC"+"\n"+"Fecha inicio:"+fechaInicio +"\n"+"Fecha fin:"+fechaFin+"\n";   
 	}
 	
-	public void setIdLote (Lote lote) {
+	public void setId (int id) {
+		this.id = id;		
+	}
+	
+	public void setLote (Lote lote) {
 		this.lote = lote;		
 	}
 	
@@ -62,13 +68,18 @@ public class Registro extends DatosContainer{
 		this.tempMin = tempMin;
 	}
 	
-	public Lote getIdLote() {
+	public int getId() {
+		return this.id;
+	}
+	
+	public Lote getLote() {
 		return this.lote;
 	}
 
 	public Actor getActor() {
 		return this.actor;
 	}
+
 	
 	public String getFechaInicio () {
 		return this.fechaInicio;
@@ -86,5 +97,7 @@ public class Registro extends DatosContainer{
 		return this.tempMin;
 	}
 }
+
+
 
 
