@@ -292,7 +292,7 @@ public class Test extends metodosCompany {
 					"agri@gmail.es", 1, "Calle Ribera", "juan", "Calle Goicoechea", "fg3");
 			insertarActor(pruebamal);
 			insertarActor(contlargamal);
-			extraerActor("UsuarioNoExiste");
+			extraerActor("10");
 			insertarActor(null);
 
 			// Prueba lotes
