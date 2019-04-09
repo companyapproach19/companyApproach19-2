@@ -1,10 +1,11 @@
 <html lang="es">
   <head>
-    <title>Pillsner</title>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <meta charset="utf-8">
+    <title>Pilsner</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     
   </head>
   <body style="display: block; height: 100vh; !important">
@@ -22,16 +23,16 @@
         <div class="col-md-9 register-right">
           <div class="row">
              <div class="col-md-5 offset-md-2">
-              <h3 class="register-heading">Cerveza Pillsner</h3>
+              <h3 class="register-heading">Cerveza Pilsner</h3>
             </div>
 
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link" id="home" data-toggle="submit" href="login.html" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+                <a class="nav-link" id="home" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">Log out</a>
               </li>
             </ul>
           </div>
-          <br/><br/><br/><br/><br/><br/><br/>
+          <br/><br/><br/><br/><br/>
 
           <div class="row">
             <div class="col-md-10 offset-md-2">
@@ -65,18 +66,18 @@
                
                   <strong>Malta Pilsner:</strong> 4kg<br/>
                                   
-                                  <strong>Malta Caramelo 30:</strong> 500gr
+                  <strong>Malta Caramelo 30:</strong> 500gr
                                   <br/>
                                   
                                   
-                                  <strong>Lúpulo Perle:</strong> 20gr
+                  <strong>Lúpulo Perle:</strong> 20gr
                                   <br/>
                                   
 
-                                  <strong>Lúpulo Tettnanger:</strong> 40gr
+                  <strong>Lúpulo Tettnanger:</strong> 40gr
                                   <br/>
 
-                                  <strong>Levadura Lager</strong>
+                  <strong>Levadura:</strong>Lager
                                   <br/>
                         
               </div>
@@ -97,12 +98,20 @@
               </div>
             </div>
            </div>
+           <br/><br/>
+           <div class="col-md-5">
+                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item" >
+                               <a class="nav-link" id="home" onclick="moler();" aria-controls="home" aria-selected="true">Crear lote</a>
+                            </li>
+                            </ul>
+                        </div>
            <br/><br/><br/><br/>
            <div class="row">
                         <div class="col-md-11">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item" >
-                                <a class="nav-link" id="home" data-toggle="submit" href="Lote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
                             </li>
                             </ul>
                         </div>
@@ -114,8 +123,110 @@
 
 
 
+<script>
+          function moler(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : /*"numLoteIntroducido=" + $("#CuadroNumLote").val()*/"",
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+  if(confirm("Lote 1 molido. ¿Desea que pase a fase de cocinado?")){
+  cocinar();
+  }
+    else{
+    alert("Proceso finalizado en fase de molienda.");
+    href="NumLote.html";
+    }
+     });
+     request.fail(function(data) {
+     //alert("Error en el servidor");
+     alert("Lote 1 molido. ¿Desea que pase a fase de cocinado?");
+     cocinar();
+     });
+ 
+ }
+        </script>
+    
+    <script>
+          function cocinar(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+  if(confirm("Lote 1 cocinado. ¿Desea que pase a fase de fermentacion?")){
+  fermentar();
+  }
+    else{
+    alert("Proceso finalizado en fase de cocinado.");
+    href="NumLote.html";
 
+    }
+     });
+     request.fail(function(data) {
+     //alert("Error en el servidor");
+     alert("Lote 1 cocinado. ¿Desea que pase a fase de fermentacion?");
+     fermentar();
+     });
+ 
+ }
+        </script>
+    
+    <script>
+          function fermentar(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+  if(confirm("Lote 1 fermentado. ¿Desea que pase a fase de embotellado?")){
+  embotellado();
+  }
+    else{
+    alert("Proceso finalizado en fase de fermentado.");
+    href="NumLote.html";
+}
+     });
+     request.fail(function(data) {
+     //alert("Error en el servidor");
+     alert("Lote 1 fermentado. ¿Desea que pase a fase de embotellado?");
+     embotellado();
+     });
+ 
+ }
+        </script>
+    
+    
+    <script>
+          function embotellado(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+  alert("Lote 1 embotellado. Proceso finalizado.");
+  href="NumLote.html";
 
+     });
+     request.fail(function(data) {
+     //alert("Error en el servidor");
+     alert("Lote 1 embotellado. Proceso finalizado.");
+     });
+ 
+ }
+        </script>
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
