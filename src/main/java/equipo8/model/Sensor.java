@@ -1,4 +1,3 @@
-
 package equipo8.model;
 
 import java.io.BufferedReader;
@@ -7,6 +6,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import equipo4.model.Lote;
 import equipo6.model.Actor;
@@ -30,7 +32,7 @@ public class Sensor {
 	public  Registro crearRegistro(Lote lote, Actor actor,String fichero) throws IOException {
 
 	
-	        URL fileUrl = getClass().getResource(fichero);
+	    URL fileUrl = getClass().getResource(fichero);
 		HashMap<Fecha,Integer> listaRegistros= new HashMap<Fecha,Integer>();
 		log = new BufferedReader(new FileReader(fileUrl.toString().substring(5))); 
 		Fecha fecha = null,fechaInicio = null;
@@ -81,6 +83,19 @@ public class Sensor {
 		
 		return registro;
 	}
+	public String jsonRegistro (Actor actor) throws Exception{
+		   //TODO: Averiguar como se rellena el lote 
+		   Lote lote=new Lote();
+		   // De momento para el miercoles vamos a dejar un .txt llamado "datosSensorMiercoles.txt" en la carpeta donde
+		   // los transportistas vayan a ejecutar el jsonRegistro y en la de Sensor.java
+		   String ruta="datosSensorMiercoles.txt";
+		   Registro registro = this.crearRegistro(lote, actor, ruta);
+		   GsonBuilder builder = new GsonBuilder();
+		   Gson gson = builder.setPrettyPrinting().create();
+			      
+	       return gson.toJson(registro);
+			   
+		}
 
 	public static void setID (int id){
 		Sensor.idSensor = id;
