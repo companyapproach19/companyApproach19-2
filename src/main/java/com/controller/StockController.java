@@ -63,7 +63,7 @@ public class StockController {
 				}
 			}			
 			return resultado;
-		} catch (ClassNotFoundException | SQLException | NotInDatabaseException e) {
+		} catch (ClassNotFoundException | SQLException | equipo5.dao.NotInDatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
