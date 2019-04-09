@@ -452,7 +452,6 @@ public class metodosCompany {
 		conn.close();
 	}
 
-
 	public static Lote extraerLote(int idLote) throws SQLException {
 		conectar();
 		String query = "SELECT * FROM company.lote WHERE idLote = " + idLote;
@@ -657,6 +656,7 @@ public class metodosCompany {
 		pst.close();
 		rs.close();
 		conn.close();
+
 		return lista;	
 	}
 	public static LinkedList<Lote> extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException, NotInDatabaseException {

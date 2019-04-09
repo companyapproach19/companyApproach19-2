@@ -1,21 +1,23 @@
 package equipo7.otros;
-import equipo7.model.OrdenTrazabilidad;
+import equipo6.model.Actor;
 
 public class AgricultoresOrdenes extends Orden{
 	
-	public AgricultoresOrdenes(OrdenTrazabilidad peticion) {
-		super(peticion);
+	public AgricultoresOrdenes() {
+		//super(peticion);
 	}
 	
-    public void notificacion(int cod){//se notifica un mensaje
+    public String notificacion(int cod,Actor origen){//se notifica un mensaje
         //en funcion del codigo lanzaremos un mensaje u otro
     	String mensaje="";
     	switch (cod) {
 		case 1:
-			mensaje+="El usuario "+this.getPedido().getActorOrigen()+" desea encargarle el siguiente pedido :"+this.getPedido().getProductos();
+			mensaje+="El usuario "+origen.getNombreUsuario()+" desea encargarle un pedido ";
 			break;  
+		default:
+			return "Error en el codigo de notificacion";	
 		}
-    	this.getPedido().setMensaje(mensaje);
+    	return mensaje;
     } 
 
 }

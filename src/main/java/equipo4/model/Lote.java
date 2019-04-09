@@ -1,74 +1,68 @@
 package equipo4.model;
+
+
+import java.sql.SQLException;
 import java.util.*;
-public class Lote {
-	public  int idBd;
-	public  int code;
-	public  String tipo;
-	public  LinkedList<String> pedidos;
+
+import equipo5.dao.metodosCompany;
+import equipo6.model.DatosContainer;
+public class Lote extends DatosContainer{
+	private  int idBd;
 	private  Date fecha_inicio;
 	private  Date fecha_final;
+	private byte[] qr;
+	private boolean molido;
+	private boolean cocido;
+	private boolean fermentado;
+	private boolean fermentado2;
+	private boolean embotellado;
+	private String tipo;
+	private int cantidad;
 
-	public Lote(int idBd, int code, String tipo, LinkedList<String> lista, Date ini, Date end) {
-		this.idBd=idBd;
-		this.code=code;
+	public Lote(int idBd, Date fecha_inicio, String tipo, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr, int cantidad) {
+		this.idBd= idBd;
+		this.fecha_inicio=fecha_inicio;
+		this.fecha_final=fecha_final;
+		this.molido=molido;
+		this.cocido=cocido;
+		this.fermentado=fermentado;
+		this.fermentado2 = fermentado2;
+		this.embotellado=embotellado;
 		this.tipo=tipo;
-		this.pedidos=lista;
-		this.fecha_inicio=ini;
-		this.fecha_final=end;
-	}
-	/*@SuppressWarnings({ "deprecation", "static-access" })
-	public Lote(Stout name, Date fecha_inicio) {
-		Lote.code=name.getId();
-		Lote.tipo="Stout";
-		Lote.fecha_inicio = fecha_inicio;
-		Date aux = (Date) fecha_inicio.clone();
-		aux.setDate(fecha_inicio.getDate()+12);
-		Lote.fecha_final = aux;
-		pedidos = new LinkedList<String>();
+		this.cantidad=cantidad;
+		
 	}
 	
-	@SuppressWarnings({ "deprecation", "static-access" })
-	public Lote (Pilsner name, Date fecha_inicio) {
-		Lote.code=name.getId();
-		Lote.tipo="Pilsner";
-		Lote.fecha_inicio = fecha_inicio;
+	public Lote(Pilsner p, Date ini) throws ClassNotFoundException, SQLException {
+		this.idBd=metodosCompany.idLote();
+		this.fecha_inicio=ini;
 		Date aux = (Date) fecha_inicio.clone();
 		aux.setDate(fecha_inicio.getDate()+12);
-		Lote.fecha_final = aux;
-		pedidos = new LinkedList<String>();
-	}*/
-
-	public Lote(Pilsner a, Date fechaActual) {
-    // TODO Auto-generated constructor stub
-  }
-
-  public Lote(Stout b, Date fechaActual) {
-    // TODO Auto-generated constructor stub
-  }
-
-  public  LinkedList<String> getPedidos() {
-		return pedidos;
+		this.fecha_final = aux;	
+		molido=cocido=fermentado=fermentado2=embotellado=false;
+		this.tipo="pilsner";
+		this.cantidad=1;
+	}
+	
+	public Lote(Stout s, Date ini) throws ClassNotFoundException, SQLException {
+		this.idBd=metodosCompany.idLote();
+		this.fecha_inicio=ini;
+		Date aux = (Date) fecha_inicio.clone();
+		aux.setDate(fecha_inicio.getDate()+12);
+		this.fecha_final = aux;	
+		molido=cocido=fermentado=fermentado2=embotellado=false;
+		this.tipo="stout";
+		this.cantidad=1;
 	}
 
-	public  void setPedidos(LinkedList<String> pedidos) {
-		this.pedidos = pedidos;
+	public byte[] getQr() {
+		return qr;
 	}
 
-	public  int getCode() {
-		return code;
+	public void setQr(byte[] qr) {
+		this.qr = qr;
 	}
 
-	public  void setCode(int code) {
-		this.code = code;
-	}
-
-	public  String getTipo() {
-		return tipo;
-	}
-
-	public  void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 
 	public  Date getFecha_inicio() {
 		return fecha_inicio;
@@ -76,11 +70,16 @@ public class Lote {
 
 	public  void setFecha_inicio(Date fecha_inicio) {
 		this.fecha_inicio = fecha_inicio;
-		/*
-		 * Aqu� deber�amos inicializar la fecha final
-		 */
 	}
 	
+	public int getIdBd() {
+		return idBd;
+	}
+
+	public void setIdBd(int idBd) {
+		this.idBd = idBd;
+	}
+
 	public  void setFecha_final(Date fecha_final) {
 		this.fecha_final = fecha_final;
 	}
@@ -88,6 +87,64 @@ public class Lote {
 	public  Date getFecha_final() {
 		return this.fecha_final;
 	}
+
+	public boolean isMolido() {
+		return molido;
+	}
+
+	public void setMolido(boolean molido) {
+		this.molido = molido;
+	}
+
+	public boolean isCocido() {
+		return cocido;
+	}
+
+	public boolean setCocido(boolean cocido) {
+		this.cocido = cocido;
+		return cocido;
+	}
+
+	public boolean isFermentado() {
+		return fermentado;
+	}
+
+	public boolean setFermentado(boolean fermentado) {
+		this.fermentado = fermentado;
+		return fermentado;
+	}
+
+	public boolean isEmbotellado() {
+		return embotellado;
+	}
+
+	public boolean setEmbotellado(boolean embotellado) {
+		this.embotellado = embotellado;
+		return embotellado;
+	}
+
+	public boolean isFermentado2() {
+		return fermentado2;
+	}
+
+	public boolean setFermentado2(boolean fermentado2) {
+		this.fermentado2 = fermentado2;
+		return fermentado2;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
 }
-
-

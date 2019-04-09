@@ -73,7 +73,6 @@ public class Test extends metodosCompany {
 					firmaentG3_2, 11, 12, tranpG3_1, registroG3_1);
 			insertarOrdenTrazabilidad(ordenG3_1);
 			
-
 			// MateriaPrima pedida Grupo 4
 			MateriaPrima maltaPilsner = new MateriaPrima("maltaPilsner", 1);
 			insertarMateriaPrima(maltaPilsner);
@@ -124,6 +123,7 @@ public class Test extends metodosCompany {
 			// Pruebas Actor
 			Actor prueba = new Actor("10", "Agricultor", "password", "agri@gmail.es", 1, "Calle Ribera", "juan",
 					"Calle Goicoechea", "fg3");
+
 			Actor emisor1 = new Actor("1", "alberto", "password", "alberto@gmail.es", 1, "Calle Ribera", "alberto",
 					"Avenida Jarales", "fg3");
 			Actor receptor1 = new Actor("2", "maria", "password", "maria@gmail.es", 3, "Calle Gonzalez", "maria",
@@ -152,6 +152,7 @@ public class Test extends metodosCompany {
 			}
 
 			// Prueba lotes
+
 			Date dateini1 = new Date(2, 12, 2015);
 			Date datefin1 = new Date(1, 12, 2019);
 
@@ -212,6 +213,7 @@ public class Test extends metodosCompany {
 			extraerRegistro(3);
 
 			// Pruebas OrdenTrazabilidad
+
 			Productos productosord1 = new Productos(4, 2, 9, 2, 4, 7, 8, 6, 11, 4, 7, 9);
 			Productos productosord2 = new Productos(5, 1, 5, 0, 4, 7, 81, 10, 11, 9, 1, 4);
 
@@ -229,6 +231,7 @@ public class Test extends metodosCompany {
 			extraerOrdenTrazabilidad(2);
 
 			// Pruebas cadena
+
 			Cadena cadenaPrueba1 = new Cadena(1, "INICIO", 1);
 			insertarCadena(cadenaPrueba1);
 
@@ -272,6 +275,7 @@ public class Test extends metodosCompany {
 				System.out.println(ord2.get(i).getId());
 			}
 
+
 			// Prueba insertarStockMp, insertarStockLote
 			insertarStockMP(emisor1, maltaPilsner, 4);
 			insertarStockMP(emisor2, cebadaTostada, 5);
@@ -285,6 +289,7 @@ public class Test extends metodosCompany {
 			insertarStockMP(productor, cebadaTostada, 10);
 			insertarStockMP(cooperativa, maltaPilsner, 8);
 			insertarStockMP(fabrica, lupuloTettnanger, 7);
+
 			insertarStockMP(retailer, cebadaTostada, 19);
 			insertarStockMP(receptor2, maltaNegra, 11);
 
@@ -296,6 +301,7 @@ public class Test extends metodosCompany {
 			insertarStockLote(receptor1, lote3);
 			insertarStockLote(productor, lote1);
 			insertarStockLote(fabrica, lote2);
+
 			insertarStockLote(cooperativa, lote3);
 
 			// Prueba extraerStockLote, extraerStockMP

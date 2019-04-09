@@ -1,5 +1,8 @@
 package com.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import equipo6.model.Actor;
 import equipo6.otros.UsuariosService;
 
@@ -15,30 +21,15 @@ import equipo6.otros.UsuariosService;
 @Controller
 @SpringBootApplication
 public class LoginController {
-	
 
 	@Scope("request")
 	@RequestMapping("/loginUser")
 	@ResponseBody
-	public String loginUser(
+	public String loginUser(HttpServletResponse response,
 			@RequestParam(name="usuario", required=true) String usuario,
 			@RequestParam(name="pwd", required=true) String pwd,
-			Model model) {
+			Model model) throws Exception {
 		
-		//Lineas de codigo temporales hasta que tengamos lo de BBDD. Comentar cuando enlacemos.
-//		BBDDTemporal bd = new BBDDTemporal();
-//		CadenaActores cad = new CadenaActores();
-//		Actor ac=new Actor("jorge","jorge","jorge@gmail.com",new Actor(),0,0);
-//		cad.addActor(ac);
-//		Actor ac2=new Actor("jorge2","jorge2","jorge@gmail.com",ac,1,0);
-//		cad.addActor(ac2);
-//		Actor ac3=new Actor("jorge3","jorge3","jorge@gmail.com",ac,2,0);
-//		cad.addActor(ac3);
-//		bd.guardarCadenaActores(cad);
-		
-//		UsuariosService usrv = new UsuariosService();
-//		usrv.init(bd);
-		//Hasta aqui las lineas temporales
 		
 		
 		//Obtiene los datos del usuario que se quiere logear
@@ -46,7 +37,11 @@ public class LoginController {
 		
 		//Mandamos a nuestras clases que haga la logica de negocio
 		UsuariosService usrv = new UsuariosService(); //Descomentar cuando enlacemos con BBDD
-		Actor actorRespuesta = usrv.logUsuario(usuarioLogin);		
+		Actor actorRespuesta = usrv.logUsuario(usuarioLogin);
+		
+		
+		response.addCookie(new Cookie("id", actorRespuesta.getId()));
+		
 		
 		//Devuelve el actor logeado como JSON
 		return getJSONFromActor(actorRespuesta);
@@ -57,6 +52,7 @@ public class LoginController {
 		String salida="";
 		//si el actor no esta en la cadena nos llega un actor con todos sus campos a null
 		String tipo = "";
+		System.out.println(actor.getTipoActor());
 		switch (actor.getTipoActor()) {
 		case 0:
 			tipo = "Agricultores";
