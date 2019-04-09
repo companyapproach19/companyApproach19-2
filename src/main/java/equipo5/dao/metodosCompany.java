@@ -437,8 +437,8 @@ public class metodosCompany {
 			String query = "INSERT INTO company.lote (idLote, fecha_inicio, fecha_final, molido, cocido, fermentado, fermentado2, embotellado, qr, cantidad, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			pst.setInt(1, lote.getIdBd());
-			pst.setDate(2, (Date) lote.getFecha_inicio());
-			pst.setDate(3, (Date)lote.getFecha_final());
+			pst.setDate(2, new Date(lote.getFecha_inicio().getTime()));
+			pst.setDate(3, new Date(lote.getFecha_final().getTime()));
 			pst.setBoolean(4, lote.isMolido());
 			pst.setBoolean(5, lote.isCocido());
 			pst.setBoolean(6, lote.isFermentado());
@@ -452,21 +452,6 @@ public class metodosCompany {
 		conn.close();
 	}
 
-	public static byte [] getQR(int idLote) throws SQLException {
-		conectar();
-		String query = "SELECT * FROM company.lote WHERE idLote =" + idLote;
-		Statement pst2 = conn.createStatement();
-		ResultSet rs2 = pst2.executeQuery(query);
-		while(rs2.next()) {
-			byte [] binario = rs2.getBytes(9);
-			pst2.close();
-			rs2.close();
-			conn.close();
-			return binario;
-
-		}
-		return null;
-	}
 
 	public static Lote extraerLote(int idLote) throws SQLException {
 		conectar();
