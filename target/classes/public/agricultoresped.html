@@ -59,7 +59,35 @@
                
 			   <script>
 			   
-			   function mostrar(){   
+			   function mostrar(){
+			   
+			   
+			   
+			   /*
+
+$.ajax({
+    // la URL para la petición
+    url : '',
+ 
+    // la información a enviar
+    // (también es posible utilizar una cadena de datos)
+    data : myJson,
+ 
+    // especifica si será una petición POST o GET
+    type : 'POST',
+ 
+    // el tipo de información que se espera de respuesta
+    dataType : 'json',
+ 
+    // código a ejecutar si la petición es satisfactoria;
+    // la respuesta es pasada como argumento a la función
+
+    })
+
+
+*/
+			   
+			   
 			   
     var local_data = data;
 	
@@ -164,45 +192,6 @@
 			   }
 	
 	
-function hacerPeticion(){
-	int valor = 1 ;
-      var request = $.ajax({
-      // la URL para la petición
-      url : '/pedidosNoaceptados',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos) //ID del actor
-      data : valor,
- 
-      // especifica si será una petición POST o GET
-      type : 'GET',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-      });
- 
-     request.done(function(data){
-      
-     imprimirjson(data);
-    
-     });
- 
-     request.fail(function(data) {
-	 
-     alert("Error en el servidor");
-	 
-     });
- 
- function imprimirjson(var data){
- var local_data = JSON.parse(data);
-//TODO local_data es ya un json, json de ids
-
-
- }				   
-				   
-				   
-				   
 	
   </script>
                

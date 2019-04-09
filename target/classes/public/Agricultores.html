@@ -1,79 +1,156 @@
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<!DOCTYPE html>
+<html lang="en">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head>
 
-<link href="style2.css" rel="stylesheet" id="bootstrap-css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-<div class="container register">
-                <div class="row">
-             
-                    <div class="col-md-3 register-left">
-                        <img src="icono-agricultor.png" alt=""/>
-                        <h1>Agricultores</h1>
-                        <!--<p>Pedidos recibidos</p>-->
-                    </div>
-                    <div class="col-md-9 register-right">
-                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>
-                            </li>
-                            </ul>
-                            <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading">PEDIDOS RECIBIDOS</h3>
-								<br>
-                                <div class="row register-form">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto1" id="producto1" value="Pedido id1">
-                                            <label for="producto1">Pedido 98573</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+  <title>Agricultores</title>
 
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto2" id="producto1" value="Pedido id2">
-                                            <label for="producto2">Pedido 45483</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+  <!-- Bootstrap core CSS -->
+  <link href="Agricultores.css" rel="stylesheet">
 
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto3" id="producto3" value="Pedido id3">
-                                            <label for="producto3">Pedido 29384</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto4" id="producto4" value="Pedido id4">
-                                            <label for="producto4">Pedido 89907</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto5" id="producto5" value="Pedido id5">
-                                            <label for="producto5">Pedido 97898</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto6" id="producto6" value="Pedido id6">
-                                            <label for="producto6">Pedido 76697</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto7" id="producto7" value="Pedido id7">
-                                            <label for="producto7">Pedido 89706</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
-                                        </div>
-                                        <input type="submit" class="btnRegister"  value="Aceptar pedidos"/>
-                                </div>
-                                <label for="producto">*Los pedidos que no sean seleccionados se rechazaran automaticamente*</label>
+  <!-- Custom styles for this template -->
+  <link href="Agricultores.css" rel="stylesheet">
 
-                            </div>
-                        </div>
-                    </div>
+</head>
+
+<body>
+
+  <div class="overlay"></div>
+  <div class="masthead">
+    <div class="container h-100">
+      <div class="row h-100">
+        <div class="col-12 my-auto">
+          <div class="masthead-content text-white py-5 py-md-0">
+            <h1 class="mb-3">Agricultores</h1>
+              <h2 class="mb-5"> Opciones
                 </div>
+            <div class="input-group input-group-newsletter">
+              <!--input type="text" class="form-control" placeholder="200 kg de cebada." aria-label="Pedido a realizar..." aria-describedby="basic-addon"><br>
+              <div class="input-group-append"-->
+			  <!--img src="Captura.jpg"-->
+          <p class="mb-5"> Mirar pedidos de la cooperativa
+            </p>
+            
+              <div class="input-group-append">
 
+        <!--textarea name="comentarios" rows="10" cols="40"></textarea-->
+                <button class="btn btn-secondary" onclick="agricultoresped()" type="button">Aceptar</button>
+         <p class="mb-5"> Mirar histórico de pedidos 
+            </p>
+        <!--textarea name="comentarios" rows="10" cols="40"></textarea-->
+                <button class="btn btn-secondary" type="button">Aceptar</button>
+              
+                 <p class="mb-5"> Ver pedidos aceptados</p>
+                <button class="btn btn-secondary" onclick="agricultoresacep()" type="button">Aceptar</button>
+
+
+		
+<p class="btn btn-secondary"></p>
+                 <button type="button" class="btn boton1">Agricultor</p>
+
+                  <select>
+                    <option>..........</option>
+                    <option>..........</option>
+                    
+                  </select>
+
+                </button>
+                <button type="button" class="btn boton2">Transportista</p> 
+                  <select>
+                    <option>......... </option>
+                    <option>.........</option>
+                    
+                  </select>
+                  
+                </button>
+                <button type="button" class="btn boton3">Cooperativa</p>
+                  <select>
+                    <option>.........</option>
+                    <option>.........</option>
+                    
+                  </select>
+                  
+                </button>
+                <button type="button" class="btn boton4">Fabrica</p>
+                  <select>
+                    <option>............</option>
+                    <option>............</option>
+                    
+                  </select>
+                  
+                </button>
+                <button type="button" class="btn boton5">Transportista</p>
+                  <select>
+                    <option>........</option>
+                    <option>........</option>
+                    
+                  </select>
+                  
+                </button>
+                <button type="button" class="btn boton6">Retailer</p>
+                  <select>
+                    <option>........</option>
+                    <option>.........</option>
+                  </select>
+                </button>
+              </div>
             </div>
-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="social-icons">
+    <button class="btn volver" onclick="cerrarSesion()" type="button">Cerrar sesion</button>
+    <ul class="list-unstyled text-center mb-0">
+      <li class="list-unstyled-item">
+        <a href="#">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      <li class="list-unstyled-item">
+        <a href="#">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+      <li class="list-unstyled-item">
+        <a href="#">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+
+    function cerrarSesion() {
+	window.location.replace("Login.html");
+    }
+
+    function agricultoresped() {
+	window.location.replace("agricultoresped.html");
+    }
+
+    function agricultoresacep() {
+	window.location.replace("agricultoresacep.html");
+    }
+
+    function actualizarStock() {
+	// Pedir stock actual
+    }
+    
+  </script>
+
+</body>
+
+</html>
