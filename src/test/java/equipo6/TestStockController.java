@@ -27,8 +27,9 @@ class TestStockController {
 	@Test
 	// test de getCantidadStock cuando el actor no tiene MP
 	void test() throws ClassNotFoundException, SQLException, NotInDatabaseException {
-		Actor p = metodosCompany.extraerActor("Retailer");
+		Actor p = metodosCompany.extraerActor("9");
 		MateriaPrima mp = new MateriaPrima("maltaCrystal");
+		System.out.println(p);
 		double result = StockController.getCantidadStock(p, mp);
 		System.out.println(result);
 	}
@@ -36,7 +37,7 @@ class TestStockController {
 	@Test
 	// test de getCantidadStock cuando el actor tiene MP, esta comentado el codigo para no petar la bbdd
 	void test1() throws ClassNotFoundException, SQLException, NotInDatabaseException {
-		Actor p = metodosCompany.extraerActor("Productor");
+		Actor p = metodosCompany.extraerActor("5");
 		MateriaPrima mp = new MateriaPrima("maltaCrystal");
 		double result = StockController.getCantidadStock(p, mp);
 		System.out.println(result);
@@ -46,9 +47,9 @@ class TestStockController {
 	//test de setCantidadMateriaPrima cuando el actor no tiene MP
 	void test2() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 
-		Actor p=metodosCompany.extraerActor("Retailer");
+		Actor p=metodosCompany.extraerActor("9");
 		MateriaPrima mp= new MateriaPrima("maltaCrystal");
-		
+		System.out.println(p.getId());
 		StockController.setCantidadMateriaPrima(p,mp, 300);
 		System.out.println(StockController.getCantidadStock(p, mp));
 
@@ -58,7 +59,7 @@ class TestStockController {
 	//test de setCantidadMateriaPrima cuando el actor tiene MP, esta comentado el codigo para no petar la bbdd
 	void test3() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 
-		Actor p=metodosCompany.extraerActor("Productor");
+		Actor p=metodosCompany.extraerActor("5");
 		MateriaPrima mp= new MateriaPrima("maltaCrystal");
 		
 		StockController.setCantidadMateriaPrima(p,mp, 300);
@@ -78,7 +79,7 @@ class TestStockController {
 	@Test
 	// test de getStockLote para cuando el actor no tiene Lotes
 	void test4() throws ClassNotFoundException, SQLException, NotInDatabaseException {
-		Actor actor = metodosCompany.extraerActor("Productor");
+		Actor actor = metodosCompany.extraerActor("5");
 		Pilsner p = new Pilsner();
 		Lote lote = new Lote(p, new java.util.Date());
 		int cantidad = StockController.getStockLote(actor, lote);
@@ -91,7 +92,7 @@ class TestStockController {
 	@Test
 	// test de getStockLote para cuando el actor si tiene Lotes
 	void test5() throws ClassNotFoundException, SQLException, NotInDatabaseException {
-		Actor actor = metodosCompany.extraerActor("Retailer");
+		Actor actor = metodosCompany.extraerActor("9");
 		Pilsner p = new Pilsner();
 		Lote lote = new Lote(p, new java.util.Date());
 		int cantidad = StockController.getStockLote(actor, lote);
@@ -102,7 +103,7 @@ class TestStockController {
 	@Test
 	// test de setCantidadLote para cuando el actor no tiene Lotes
 	void test6() throws ClassNotFoundException, SQLException, NotInDatabaseException {
-		Actor actor = metodosCompany.extraerActor("Productor");
+		Actor actor = metodosCompany.extraerActor("5");
 		Pilsner p = new Pilsner();
 		Lote lote = new Lote(p, new java.util.Date());
 		try {
@@ -122,7 +123,7 @@ class TestStockController {
 	//el metodo insertarLote de metodosCompany por las fechas, hay que crear una nueva instancia
 	//no vale con un casting
 	void test7() throws ClassNotFoundException, SQLException, NotInDatabaseException {
-		Actor actor = metodosCompany.extraerActor("Retailer");
+		Actor actor = metodosCompany.extraerActor("9");
 		Pilsner p = new Pilsner();
 		Lote lote = new Lote(p, new java.util.Date());
 		try {
@@ -143,7 +144,7 @@ class TestStockController {
 	//test de setCantidadMateriaPrima cuando el actor tiene MP, esta comentado el codigo para no petar la bbdd
 	void test8() throws ClassNotFoundException, SQLException, NotInDatabaseException {
 
-		Actor p=metodosCompany.extraerActor("Fabrica");
+		Actor p=metodosCompany.extraerActor("8");
 		MateriaPrima mp= new MateriaPrima("maltaCrystal");
 		StockController.setCantidadMateriaPrima(p,mp, 1739130434);
 		System.out.println(StockController.getCantidadStock(p, mp));
