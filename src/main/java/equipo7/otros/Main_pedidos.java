@@ -37,7 +37,7 @@ public class Main_pedidos {
 			return devolver;
 
 	}	    
-	
+	//TODO: el tipo 2 es transportista
 	//El sistema verifica que el pedido sea valido
 	//De tal manera que un pedido de Fábrica a Agricultor no se puede dar
 	public boolean verificar_pedido() {
