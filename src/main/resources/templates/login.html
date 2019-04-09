@@ -96,7 +96,7 @@ function hacerPeticion(){
      request.done(function(data){
       
       //Este metodo redirige a la URL
-      windows.append(data.redirect)
+      windows.location.replace(data.redirect);
     
      });
  
