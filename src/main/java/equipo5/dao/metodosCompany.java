@@ -533,10 +533,10 @@ public class metodosCompany {
 
 	}
 
-	public static Actor extraerActor(String nombreUsuario) throws SQLException, ClassNotFoundException {
-		if(nombreUsuario!= null) {
+	public static Actor extraerActor(String cif) throws SQLException, ClassNotFoundException {
+		if(cif!= null) {
 			conectar();
-			String query = "SELECT * FROM company.actor WHERE actor.nombreUsuario = '" + nombreUsuario + "'";
+			String query = "SELECT * FROM company.actor WHERE actor.cif = '" + cif + "'";
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
 			while(rs.next()) {
@@ -571,7 +571,6 @@ public class metodosCompany {
 	}
 
 	public static Bloque extraerBloque(String hashBloquePedido) throws SQLException, ClassNotFoundException, RuntimeException {
-		hashBloquePedido="Hash";
 		conectar();
 		Bloque devolver =null;
 		String query = "SELECT * FROM company.bloque WHERE bloque.hashBloque = " + hashBloquePedido +";" ;
@@ -651,7 +650,7 @@ public class metodosCompany {
 	public static ArrayList<OrdenTrazabilidad> extraerPedidosActorDestino(String idActor) throws SQLException, ClassNotFoundException{
 		conectar();
 		ArrayList<OrdenTrazabilidad> lista = new ArrayList<OrdenTrazabilidad>();
-		String query = "SELECT * FROM company.ordenTrazabilidad:";
+		String query = "SELECT * FROM company.ordenTrazabilidad";
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
@@ -662,7 +661,9 @@ public class metodosCompany {
 			Registro registro = extraerRegistro(rs.getInt(13));
 			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actor, actor1, rs.getBoolean(4), productos,
 					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11), actor2, registro);
-			if(actor1.getId().compareTo(idActor)==0)lista.add(buscado);
+			if(actor1 != null && actor1.getId()!= null && idActor!=null && actor1.getId().compareTo(idActor)==0) {
+				lista.add(buscado);
+			}
 		}		
 		pst.close();
 		rs.close();
@@ -735,7 +736,7 @@ public class metodosCompany {
 		case 3:
 			conectar();
 
-			String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idMateriaPrima" + mp.getId();
+			String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idMateriaPrima =" + mp.getId();
 			Statement pst3 = conn.createStatement();
 			ResultSet rs3 = pst3.executeQuery(query3);
 			if(!rs3.next()){
