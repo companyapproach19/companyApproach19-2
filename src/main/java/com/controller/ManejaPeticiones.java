@@ -115,7 +115,7 @@ public class ManejaPeticiones {
 	@ResponseBody
 	// Recibe el ID de un actor y devuelve un JSON con los pedidos no aceptados de ese actor
 	public String pedidosNoAceptados(
-			@RequestParam(name="idActor", required=true) String idActor) {
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
 		//Obtenemos los pedidos de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
@@ -146,7 +146,7 @@ public class ManejaPeticiones {
 	}
 	
 	//Devuelve lista de pedidos recibidos y estan en proceso
-	private ListaPedidos pedidosPendientes(String idActor){
+	private ListaPedidos pedidosPendientes(String idActor) throws ClassNotFoundException, SQLException{
 		//Obtenemos los pedidos de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
 		ArrayList<OrdenTrazabilidad> pedidos = bloque.extraerPedido(idActor);
@@ -177,7 +177,7 @@ public class ManejaPeticiones {
 	@ResponseBody
 	// Recibe el ID de un actor y devuelve un JSON con los pedidos en proceso de ese actor
 	public String pedidosEnProceso(
-			@RequestParam(name="idActor", required=true) String idActor) {
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
 		ListaPedidos pedidosEnProceso=this.pedidosPendientes(idActor);
 		if(pedidosEnProceso!=null){
