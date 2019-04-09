@@ -30,7 +30,7 @@ class TestTrazabilidad {
 	{
 		Lote lote;
 		
-		lote = new Lote(0, new java.util.Date(), "uno", new java.util.Date(), true, false, false, false, false, null, 0);
+		lote = new Lote(1000, new java.util.Date(), "uno", new java.util.Date(), true, false, false, false, false, null, 0);
 		metodosCompany.insertarLote(lote);
 	}
 	
@@ -131,7 +131,12 @@ class TestTrazabilidad {
 	@Test
 	void test2() throws Throwable  {
 		try {
-		//insertar_lote();
+			try {
+			insertar_lote();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		BlockchainServices bcs = new BlockchainServices();
 		Actor actor_o;
 		Actor actor_d;

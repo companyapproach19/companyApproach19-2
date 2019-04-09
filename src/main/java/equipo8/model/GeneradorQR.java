@@ -1,4 +1,4 @@
-package equipo8.model;
+package generarQR;
 
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
@@ -28,9 +28,9 @@ public class GeneradorQR {
     private static String path;
  
     //Prueba con un array de lotes (hay que cambiarlo por los lotes buenos)
-    private static String[] lotes={"accounts", "device", "search?q=cars"};
+    private static String[] lotes={"", "", ""};
     
-    //Metemos en Ã©l el path para que guarde los fotos en una carpeta
+    //Metemos en él el path para que guarde los fotos en una carpeta
     private static FileOutputStream qrCode;
     
     //Para el blob
@@ -39,8 +39,8 @@ public class GeneradorQR {
     
 	public static void main(String[] args) throws Exception {
  
-        // URL que vamos a transformar al que le aÃ±adimos /IDlote
-        String URL = "http://www.google.com";
+        // URL que vamos a transformar al que le añadimos /IDlote
+        String URL = "https://beer-company2019.herokuapp.com/trazabilidadQR967.html";
         
  
         // Pasar de URL a formato QR
@@ -49,7 +49,7 @@ public class GeneradorQR {
         try {
         	//Va haciendo una matriz para cada lote y lo almacena en un array de matrices
         	for(int i = 0; i < lotes.length; i++){
-        		matrix[i] = writer.encode((URL + "/" + lotes[i]), BarcodeFormat.QR_CODE, qrAncho, qrAltura);
+        		matrix[i] = writer.encode((URL +'#'+ lotes[i]), BarcodeFormat.QR_CODE, qrAncho, qrAltura);
         	}
  
         } catch (WriterException e) {

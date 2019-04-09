@@ -42,7 +42,7 @@ public class StockController {
 	public static double getCantidadStock (Actor actor, MateriaPrima mp) throws ClassNotFoundException, SQLException{
 		try {
 		return metodosCompany.extraerStockMP(actor,mp);
-		}catch (Exception e) {
+		}catch (Exception | equipo5.model.NotInDatabaseException e) {
 			e.printStackTrace();
 			return 0;
 		}
@@ -63,7 +63,7 @@ public class StockController {
 				}
 			}			
 			return resultado;
-		} catch (ClassNotFoundException | SQLException | NotInDatabaseException e) {
+		} catch (ClassNotFoundException | SQLException | equipo5.model.NotInDatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
@@ -159,7 +159,7 @@ public class StockController {
 						actor,
 						mp
 						));
-			} catch (Exception e) {
+			} catch (Exception | equipo5.model.NotInDatabaseException e) {
 				stock.addProperty(lista_nombre_mp[i][0], 0);
 				//e.printStackTrace();
 				
