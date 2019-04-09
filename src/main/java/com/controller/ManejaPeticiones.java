@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,7 +24,7 @@ import equipo7.otros.Orden;
 @Controller
 @SpringBootApplication
 public class ManejaPeticiones {
-
+/*
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
 	@RequestMapping("/creaPedido")
@@ -41,7 +42,16 @@ public class ManejaPeticiones {
 		//if(pedido.verificar_pedido()) {
 			int id = 0;
 			boolean yaExiste = true;
-			id = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
+			try {
+        id = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
+      } catch (ClassNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      */
 			/*//TODO: sobra la condicion de id==0 no??
 			while (id == 0 && yaExiste) {
 				// Obtiene un numero aleatorio entre 1 y 999999,
@@ -49,6 +59,7 @@ public class ManejaPeticiones {
 				id = ThreadLocalRandom.current().nextInt(1, 1000000);
 				yaExiste = equipo5.dao.metodosCompany.existeIdOrdenTrazabilidad(id);
 			}*/
+  /*
 			pedido.OrdenTrazabilidad.setId(id);
 			
 			//Rellenar listas de pedidos padre y pedidos hijo
@@ -288,5 +299,5 @@ public class ManejaPeticiones {
         
         return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
 	} 
-		
+		*/
 }

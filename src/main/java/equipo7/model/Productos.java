@@ -1,6 +1,7 @@
 package equipo7.model;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 
 import equipo5.dao.metodosCompany;
 
@@ -43,7 +44,15 @@ public class Productos implements Serializable {
 	            int cant_malta_chocolate, int cant_malta_caramelo,
 	            int cant_cebada, int cant_cebada_tostada, int cant_lupulo_centenial,
 	            int cant_cajas_stout, int cant_cajas_bisner) {
-	this.id=metodosCompany.idProductos();
+	try {
+    this.id=metodosCompany.idProductos();
+  } catch (ClassNotFoundException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  } catch (SQLException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  }
 	this.cant_malta_palida = cant_malta_palida;
 	this.cant_malta_munich = cant_malta_munich;
 	this.cant_malta_negra = cant_malta_negra;

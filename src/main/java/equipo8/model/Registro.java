@@ -44,7 +44,15 @@ public class Registro extends DatosContainer{
 		this.tempMax=-1000;
 		this.tempMin=-1000;
 		actor=new Actor();
-		lote=new Lote();
+		try {
+      lote=new Lote();
+    } catch (ClassNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 	}
 	
 

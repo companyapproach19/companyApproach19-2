@@ -26,7 +26,7 @@ import equipo6.model.CadenaActores;
 import equipo7.model.OrdenTrazabilidad;
 
 class TestStockController {
-
+/*
 	// test hecho anadiendo a mano maltaCrystal en la bbdd con el id pertinente y
 	// comentando en el constructor de materia prima esta linea:
 	// this.id=metodosCompany.idMateriaPrima();
@@ -190,5 +190,5 @@ class TestStockController {
 
 
 	}
-
+*/
 }

@@ -1,5 +1,7 @@
 package equipo8;
 
+import java.sql.SQLException;
+
 import equipo4.model.Lote;
 import equipo6.model.Actor;
 import equipo8.model.Registro;
@@ -9,7 +11,7 @@ public class TestSensorRegistro {
 
 	
 	//Ejemplo registro temperatura Arduino numero de serie 354325
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
 		// Objeto Sensor correspondiente
 		int idSensor=354325;

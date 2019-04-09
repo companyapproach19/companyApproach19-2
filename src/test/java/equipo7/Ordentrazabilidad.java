@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass; 
 import equipo6.model.Actor;
 import equipo7.model.Productos;
-import equipo7.model.OrdenTrazabilidad.EstadoOrden;
+//import equipo7.model.OrdenTrazabilidad.EstadoOrden;
 
 class Ordentrazabilidad {
 

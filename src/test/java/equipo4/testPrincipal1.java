@@ -9,6 +9,7 @@ import org.junit.Test;
 import equipo4.model.*;
 
 public class testPrincipal1 {
+  /*
 
 	@Test
 	public void testAlmacenLotes() throws InterruptedException, ClassNotFoundException, SQLException {
@@ -168,6 +169,6 @@ public class testPrincipal1 {
 		Principal.main(null);
 	}
 	
-
+*/
 
 }
