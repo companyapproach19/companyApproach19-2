@@ -36,7 +36,9 @@ public class Test extends metodosCompany {
 		try {
 			conectar();
 			crearBD();
-			
+
+			// PETICIONES GRUPOS QUE DEBEN ESTAR EN LA BBDD.
+
 			// MateriaPrima pedida Grupo 4
 			MateriaPrima maltaPilsner = new MateriaPrima("maltaPilsner", 1);
 			insertarMateriaPrima(maltaPilsner);
@@ -82,10 +84,11 @@ public class Test extends metodosCompany {
 			insertarActor(fabrica);
 			insertarActor(retailer);
 
+			// PRUEBAS BASICAS, NINGUNA DEBE LANZAR ERROR.
+
 			// Pruebas Actor
 			Actor prueba = new Actor("10", "Agricultor", "password", "agri@gmail.es", 1, "Calle Ribera", "juan",
 					"Calle Goicoechea", "fg3");
-
 			Actor emisor1 = new Actor("1", "alberto", "password", "alberto@gmail.es", 1, "Calle Ribera", "alberto",
 					"Avenida Jarales", "fg3");
 			Actor receptor1 = new Actor("2", "maria", "password", "maria@gmail.es", 3, "Calle Gonzalez", "maria",
@@ -100,11 +103,11 @@ public class Test extends metodosCompany {
 			insertarActor(emisor2);
 			insertarActor(receptor1);
 			insertarActor(receptor2);
-			extraerActor("10");
-			extraerActor("1");
-			extraerActor("2");
-			extraerActor("3");
-			extraerActor("4");
+			extraerActor("Agricultor");
+			extraerActor("alberto");
+			extraerActor("maria");
+			extraerActor("felipe");
+			extraerActor("rick");
 
 			CadenaActores cadena = extraerCadenaActores();
 			List<Actor> list = cadena.getlista_actores();
@@ -153,7 +156,7 @@ public class Test extends metodosCompany {
 			extraerProductos(1);
 			extraerProductos(2);
 			extraerProductos(3);
-//
+
 			// Prueba registros
 			Registro registro1 = new Registro(lote1, emisor1, dateini1.toLocaleString(), datefin1.toLocaleString(), 40,
 					10);
@@ -174,7 +177,6 @@ public class Test extends metodosCompany {
 			extraerRegistro(3);
 
 			// Pruebas OrdenTrazabilidad
-
 			Productos productosord1 = new Productos(4, 2, 9, 2, 4, 7, 8, 6, 11, 4, 7, 9);
 			Productos productosord2 = new Productos(5, 1, 5, 0, 4, 7, 81, 10, 11, 9, 1, 4);
 
@@ -192,7 +194,6 @@ public class Test extends metodosCompany {
 			extraerOrdenTrazabilidad(2);
 
 			// Pruebas cadena
-
 			Cadena cadenaPrueba1 = new Cadena(1, "INICIO", 1);
 			insertarCadena(cadenaPrueba1);
 
@@ -204,30 +205,35 @@ public class Test extends metodosCompany {
 			System.out.println("Pruebas Cadena OK");
 
 			// Prueba bloques
-
 			DatosContainer datos1 = registro1;
 			DatosContainer datos2 = lote1;
-			
+
 			Bloque bloque1 = new Bloque("hashPrevio1", 1, 1, lote1.getIdBd(), datos1, 1);
 			Bloque bloque2 = new Bloque("hashPrevio2", 2, 2, lote2.getIdBd(), datos2, 2);
 
 			insertarBloque(bloque1);
 			insertarBloque(bloque2);
 
-//			extraerBloque(bloque1.getHashCode());
-//			extraerBloque(bloque2.getHashCode());
+			System.out.println(bloque1.getHashCode().length());
+
+			extraerBloque(bloque1.getHashCode());
+
+			extraerBloque(bloque2.getHashCode());
+
+			extraerBloque(bloque1.getHashCode());
+			extraerBloque(bloque2.getHashCode());
 
 			// Prueba extraerPedidosActorDestino (Relacionado con OrdenTrazabilidad
 			ArrayList<OrdenTrazabilidad> ord1 = extraerPedidosActorDestino("1");
 			ArrayList<OrdenTrazabilidad> ord2 = extraerPedidosActorDestino("2");
-			
-			System.out.println("Prueba ord1 de extraerPedidosActorDestino");
-			for(int i=0; i<ord1.size(); i++) {
+
+			System.out.print("Prueba ord1 de extraerPedidosActorDestino");
+			for (int i = 0; i < ord1.size(); i++) {
 				System.out.println(ord1.get(i).getId());
 			}
-			
-			System.out.println("Prueba ord2 de extraerPedidosActorDestino");
-			for(int i=0; i<ord2.size(); i++) {
+
+			System.out.print("Prueba ord2 de extraerPedidosActorDestino");
+			for (int i = 0; i < ord2.size(); i++) {
 				System.out.println(ord2.get(i).getId());
 			}
 
@@ -236,10 +242,14 @@ public class Test extends metodosCompany {
 			insertarStockMP(emisor2, cebadaTostada, 5);
 			insertarStockMP(productor, maltaPilsner, 12);
 			insertarStockMP(cooperativa, maltaChocolate, 12);
-			insertarStockMP(fabrica, maltaPilsner,12);
+			insertarStockMP(fabrica, maltaPilsner, 12);
 			insertarStockMP(productor, cebadaTostada, 10);
 			insertarStockMP(cooperativa, maltaPilsner, 8);
-			insertarStockMP(fabrica, lupuloTettnanger,7);
+			insertarStockMP(fabrica, lupuloTettnanger, 7);
+			insertarStockMP(fabrica, maltaPilsner, 12);
+			insertarStockMP(productor, cebadaTostada, 10);
+			insertarStockMP(cooperativa, maltaPilsner, 8);
+			insertarStockMP(fabrica, lupuloTettnanger, 7);
 			insertarStockMP(retailer, cebadaTostada, 19);
 			insertarStockMP(receptor2, maltaNegra, 11);
 
@@ -248,24 +258,119 @@ public class Test extends metodosCompany {
 			insertarStockLote(receptor1, lote3);
 			insertarStockLote(productor, lote1);
 			insertarStockLote(fabrica, lote2);
+			insertarStockLote(receptor1, lote3);
+			insertarStockLote(productor, lote1);
+			insertarStockLote(fabrica, lote2);
 			insertarStockLote(cooperativa, lote3);
 
 			// Prueba extraerStockLote, extraerStockMP
 			extraerStockLote(emisor1);
 			extraerStockLote(emisor2);
-			extraerStockLote(receptor1);
 			extraerStockLote(productor);
 			extraerStockLote(cooperativa);
-			System.out.println(extraerStockLote(fabrica).getFirst().getIdBd());
+			extraerStockLote(receptor1);
 
-
-			System.out.println(extraerStockMP(emisor1, maltaPilsner));
+			extraerStockMP(emisor1, maltaPilsner);
 			extraerStockMP(emisor2, cebadaTostada);
-			extraerStockMP(productor, cebadaTostada);
+			extraerStockMP(productor, lupuloPerle);
 			extraerStockMP(retailer, cebadaTostada);
 			extraerStockMP(receptor2, maltaNegra);
 
+			// PRUEBAS QUE DAN DAR ERRROR, MAL USO DEL CÓDIGO.
+
+			// Pruebas Actor
+			// Usuario con nombre a null
+			Actor pruebamal = new Actor("10", null, "password", "agri@gmail.es", 1, "Calle Ribera", "juan",
+					"Calle Goicoechea", "fg3");
+
+			// Contraseña que excede VARCHAR(45)
+			Actor contlargamal = new Actor("10", null, "passwordddddddddddddddddddddddddddddddddddddddddddd"
+					+ "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" + "",
+					"agri@gmail.es", 1, "Calle Ribera", "juan", "Calle Goicoechea", "fg3");
+			insertarActor(pruebamal);
+			insertarActor(contlargamal);
+			extraerActor("UsuarioNoExiste");
+			insertarActor(null);
+
+			// Prueba lotes
+			// Sin fecha de inicio
+			Lote lote1mal = new Lote(9, null, "pilsner", datefin1, false, true, false, true, false, null, 1);
+			lote1.setQr(GeneradorQR2.generadorQR(lote1.getIdBd()));
+			insertarLote(lote1);
+
+			// Pruebas Productos
+			Productos productos1mal = new Productos(1, 12, 5, 0, 4, 7, 8, 10, 11, 0, 1, 4);
+			insertarProductos(productos1mal);
+			insertarProductos(null);
+			// Productos no existentes
+			extraerProductos(6);
+
+			// Prueba registros
+			// Lote erróneo, no deberia existir en la bbdd
+			Registro registro1mal = new Registro(lote1mal, emisor1, dateini1.toLocaleString(),
+					datefin1.toLocaleString(), 40, 10);
+			registro1.setId(1);
+			insertarRegistro(registro1mal);
+
+			// Pruebas OrdenTrazabilidad
+			// Inserción de orden sin productos
+			OrdenTrazabilidad orden1mal = new OrdenTrazabilidad(1, emisor1, emisor2, true, null, "", 1, firmarec,
+					firmaent, 1, 2, emisor2, registro1);
+			insertarOrdenTrazabilidad(orden1mal);
+
+			// Pruebas cadena
+			// Cadena con un solo atributo
+			Cadena cadenaPrueba1mal = new Cadena(7);
+			insertarCadena(cadenaPrueba1mal);
+			// No debería existir
+			extraerCadena(7);
+
+			// Prueba bloques
+			// Prueba con DatosContainer (registro1mal y lote1mal) erróneos
+			DatosContainer datos1mal = registro1mal;
+			DatosContainer datos2mal = lote1mal;
+
+			Bloque bloque1mal = new Bloque("hashPrevio1", 1, 1, lote1.getIdBd(), datos1, 1);
+			Bloque bloque2mal = new Bloque("hashPrevio2", 2, 2, lote2.getIdBd(), datos2, 2);
+
+			insertarBloque(bloque1mal);
+			insertarBloque(bloque2mal);
+
+			// Prueba extraerPedidosActorDestino (Relacionado con OrdenTrazabilidad
+			// Ordenes no existentes
+			ArrayList<OrdenTrazabilidad> ord1mal = extraerPedidosActorDestino("200");
+			ArrayList<OrdenTrazabilidad> ord2mal = extraerPedidosActorDestino("80");
+
+			MateriaPrima arroz = new MateriaPrima("arroz", 80);
+
+			// Prueba insertarStockMP, insertarStockLote
+			// Inserción de una MP inexistente en la BBDD
+			insertarStockMP(emisor1, arroz, 4);
+
+			// Inserción sin actor (actor=null)
+			insertarStockMP(null, cebadaTostada, 10);
+
+			// Lote mal no está en la BBBDD
+			insertarStockLote(emisor1, lote1mal);
+			// Actor mal, no está en la BBBDD
+			insertarStockLote(pruebamal, lote3);
+			// Lote es null
+			insertarStockLote(pruebamal, null);
+
+			// Prueba extraerStockLote, extraerStockMP
+			extraerStockMP(emisor2, arroz);
+			// Intentamos extraer de un lote inexistente en la BBDD
+			extraerStockLote(pruebamal);
+
 			// SQL INJECTION
+			// Intenta devolver todos los actores
+			extraerActor("1 OR 1=1");
+			// Intenta tirar abajo la tabla actor
+			extraerActor("evrf; DROP TABLE actor");
+			// Intenta extraer todos los bloques existentes en la BBDD
+			extraerBloque("rbg OR 1=1");
+			// Intenta tirar abajo la tabla bloque y la tabla productos
+			extraerBloque("lkmn; DROP TABLE bloque; DROP TABLE productos");
 
 			System.out.print("Pasados todos los test correctamente");
 
