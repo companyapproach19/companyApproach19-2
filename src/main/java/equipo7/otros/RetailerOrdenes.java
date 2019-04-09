@@ -1,4 +1,3 @@
-
 package equipo7.otros;
 import equipo6.model.Actor;
 import equipo7.model.OrdenTrazabilidad;

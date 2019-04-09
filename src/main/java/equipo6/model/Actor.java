@@ -7,7 +7,7 @@ public class Actor implements Serializable{
     private String nombreUsuario;
     private String passwordPlana;
     private String email = null;
-    private int tipoActor = 0; //0->5 para Productor, Cooperativa, Transportista, Fabrica, Retailer, Tienda
+    private int tipoActor = 0; //0->4 para Productor, Cooperativa, Transportista, Fabrica y Retailer
     private String localizacion;
     private String nombre;
     private String direccion;
@@ -29,15 +29,9 @@ public class Actor implements Serializable{
 		this.direccion = direccion;
 		this.cifcooperativa = cifcooperativa;
 	}
-	
-	//constructor que necesitan los de pedidos
-	public Actor(String id, String nombreUsuario, int tipoActor){
-		this.id=id;
-		this.nombreUsuario = nombreUsuario;
-		this.tipoActor = tipoActor;	
-	}
 
-	public boolean actor_compare(Actor usuarioIntentaAcceder){
+	public boolean actor_compare(Actor usuarioIntentaAcceder)
+    {
         return (
                     this.nombreUsuario.equals(usuarioIntentaAcceder.nombreUsuario) &&
                     this.passwordPlana.equals(usuarioIntentaAcceder.passwordPlana)

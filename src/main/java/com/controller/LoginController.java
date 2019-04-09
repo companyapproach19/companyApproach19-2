@@ -43,8 +43,6 @@ public class LoginController {
 		response.addCookie(new Cookie("id", actorRespuesta.getId()));
 		
 		
-		
-		
 		//Devuelve el actor logeado como JSON
 		return getJSONFromActor(actorRespuesta);
 	}

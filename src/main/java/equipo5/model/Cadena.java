@@ -129,6 +129,7 @@ public class Cadena{
              ex.printStackTrace();
          }
 
+
     }
 
     public Cadena(int codLote, String hashUltimoBloque, int numBloques){

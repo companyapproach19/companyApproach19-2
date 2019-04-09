@@ -345,9 +345,26 @@ public class metodosCompany {
 		pst.setBytes(9,orden.getFirmaEntrega());
 		pst.setInt(10, orden.getIdPadre());
 		pst.setInt(11, orden.getIdHijo());
-		pst.setString(12, orden.getTransportista().getId());
-		if(extraerRegistro(orden.getRegistro().getId())==null) insertarRegistro(orden.getRegistro());
-		pst.setInt(13, orden.getRegistro().getId());
+		if(orden.getTransportista()!=null) {
+			if(extraerActor(orden.getTransportista().getId())!=null) {
+				pst.setString(12, orden.getTransportista().getId());
+			}else pst.setString(12, "0");
+		}else pst.setString(12, "0");
+		if(orden.getRegistro() != null) {
+			if(extraerRegistro(orden.getRegistro().getId())==null) insertarRegistro(orden.getRegistro());
+			pst.setInt(13, orden.getRegistro().getId());
+		}else {
+			if(extraerRegistro(-1)!=null) {
+				pst.setInt(13, -1);
+			}
+			else {
+				Registro aInsertar = new Registro("error");
+				aInsertar.setActor(extraerActor("0"));
+				aInsertar.setLote(extraerLote(0));
+				insertarRegistro(aInsertar);
+				pst.setInt(13, -1);
+			}
+		} 
 		pst.executeUpdate();
 		pst.close();
 		conn.close();
@@ -451,7 +468,6 @@ public class metodosCompany {
 			pst.close();
 		conn.close();
 	}
-
 
 	public static Lote extraerLote(int idLote) throws SQLException {
 		conectar();
@@ -657,6 +673,7 @@ public class metodosCompany {
 		pst.close();
 		rs.close();
 		conn.close();
+
 		return lista;	
 	}
 	public static LinkedList<Lote> extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException, NotInDatabaseException {

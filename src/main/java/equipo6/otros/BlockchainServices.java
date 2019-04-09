@@ -1,4 +1,3 @@
-
 package equipo6.otros;
 
 import java.sql.SQLException;
@@ -130,7 +129,7 @@ public class BlockchainServices{
     	return respuesta.toString();
     }
     
-    public ArrayList<OrdenTrazabilidad> extraerPedido(String idActor) throws ClassNotFoundException, SQLException
+    ArrayList<OrdenTrazabilidad> extraerPedido(String idActor) throws ClassNotFoundException, SQLException
     {
     	return metodosCompany.extraerPedidosActorDestino(idActor);
     }
@@ -152,7 +151,7 @@ public class BlockchainServices{
     private int get_id_datos(DatosContainer datos_container) 
     {
     	if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getId();
-    	if(datos_container instanceof Registro) return ((Registro)datos_container).getLote().getIdBd();
+    	if(datos_container instanceof Registro) return ((Registro) datos_container).getId();
     	if(datos_container instanceof Lote) return ((Lote)datos_container).getIdBd();
     	return -1;
     }

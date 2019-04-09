@@ -1,11 +1,10 @@
 package equipo8.model;
 
-import java.sql.SQLException;
-
 import equipo4.model.Lote;
-import equipo5.dao.metodosCompany;
 import equipo6.model.Actor;
 import equipo6.model.DatosContainer;
+import java.sql.SQLException;
+import equipo5.dao.metodosCompany;
 
 public class Registro extends DatosContainer{
 	
@@ -17,54 +16,54 @@ public class Registro extends DatosContainer{
 	private int tempMax;
 	private int tempMin;
 	
-	public Registro(Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) throws ClassNotFoundException, SQLException {
-		this.id=metodosCompany.idRegistro();
-		this.lote=lote;
-		this.actor = actor;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-		this.tempMax = tempMax;
-		this.tempMin = tempMin;
-	}
-	public Registro(int id, Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) throws ClassNotFoundException, SQLException {
-		this.id=id;
-		this.lote=lote;
-		this.actor = actor;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-		this.tempMax = tempMax;
-		this.tempMin = tempMin;
-	}
-
-//	public String toString(){
-//		return "idLote:"+idLote +"\n"+"idActor:"+idActor+"\n"+"Temperatura máxima:"+tempMax+"ºC"+"\n"+"Temperatura mínima:"+tempMin +"ºC"+"\n"+"Fecha inicio:"+fechaInicio +"\n"+"Fecha fin:"+fechaFin+"\n";   
-//	}
-	
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
+	public Registro(int id,Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
 		this.id = id;
+		this.lote=lote;
+		this.actor = actor;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.tempMax = tempMax;
+		this.tempMin = tempMin;
 	}
-
-	public Lote getLote() {
-		return lote;
+	
+	public Registro(Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
+		//this.id = metodosCompany.idRegistro(); 
+		this.lote=lote;
+		this.actor = actor;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.tempMax = tempMax;
+		this.tempMin = tempMin;
 	}
-
-	public void setLote(Lote lote) {
-		this.lote = lote;
+	
+	
+	public Registro(String error) throws ClassNotFoundException, SQLException {
+		this.id=-1;
+		this.fechaInicio = "error";
+		this.fechaFin = "error";
+		this.tempMax=-1000;
+		this.tempMin=-1000;
+		actor=new Actor();
+		lote=new Lote();
 	}
+	
 
-	public Actor getActor() {
-		return actor;
+	public String toString(){
+		return "\n"+"Temperatura máxima:"+tempMax+"ºC"+"\n"+"Temperatura mínima:"+tempMin +"ºC"+"\n"+"Fecha inicio:"+fechaInicio +"\n"+"Fecha fin:"+fechaFin+"\n";   
 	}
-
-	public void setActor(Actor actor) {
+	
+	public void setId (int id) {
+		this.id = id;		
+	}
+	
+	public void setLote (Lote lote) {
+		this.lote = lote;		
+	}
+	
+	public void setActor (Actor actor) {
 		this.actor = actor;
 	}
-
+	
 	public void setFechaInicio (String fechaInicio) {
 		this.fechaInicio = fechaInicio;		
 	}
@@ -81,6 +80,18 @@ public class Registro extends DatosContainer{
 		this.tempMin = tempMin;
 	}
 	
+	public int getId() {
+		return this.id;
+	}
+	
+	public Lote getLote() {
+		return this.lote;
+	}
+
+	public Actor getActor() {
+		return this.actor;
+	}
+
 	
 	public String getFechaInicio () {
 		return this.fechaInicio;
@@ -98,3 +109,7 @@ public class Registro extends DatosContainer{
 		return this.tempMin;
 	}
 }
+
+
+
+

@@ -1,6 +1,5 @@
 package com.controller;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
@@ -31,7 +30,7 @@ public class ManejaPeticiones {
 	@ResponseBody
 	//Devuelve y recibe un json
 	public String creaOrden(
-			@RequestParam(name="json", required=true) String json) throws Throwable {
+			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
         BlockchainServices bloque = new BlockchainServices();
@@ -97,7 +96,7 @@ public class ManejaPeticiones {
 		@ResponseBody
 		// Recibe el ID de un actor y devuelve un JSON con los pedidos no aceptados de ese actor
 		public String pedidosNoAceptados(
-				@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+				@RequestParam(name="idActor", required=true) String idActor) {
 			
 			//Obtenemos los pedidos de trazabilidad
 			BlockchainServices bloque = new BlockchainServices();
@@ -126,7 +125,7 @@ public class ManejaPeticiones {
 			
 		}
 	
-	private ListaPedidos pedidosPendientes(String idActor) throws ClassNotFoundException, SQLException{
+	private ListaPedidos pedidosPendientes(String idActor){
 			//Obtenemos los pedidos de trazabilidad
 			BlockchainServices bloque = new BlockchainServices();
 			ArrayList<OrdenTrazabilidad> pedidos = bloque.extraerPedido(idActor);
@@ -156,7 +155,7 @@ public class ManejaPeticiones {
 		@ResponseBody
 		// Recibe el ID de un actor y devuelve un JSON con los pedidos en proceso de ese actor
 		public String pedidosEnProceso(
-				@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+				@RequestParam(name="idActor", required=true) String idActor) {
 			
 			ListaPedidos pedidosEnProceso=this.pedidosPendientes(idActor);
 			if(pedidosEnProceso!=null){
@@ -174,7 +173,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/aceptarPedido")
 	@ResponseBody
 	public String aceptarPedido(
-			@RequestParam(name="id", required=true) int id) throws Throwable {
+			@RequestParam(name="id", required=true) int id) {
 		
 		//NECESARIO PARA TRAZABILIDAD:
         BlockchainServices bloque = new BlockchainServices();
@@ -202,7 +201,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/listoPedido")
 	@ResponseBody
 	public String listoPedido(
-			@RequestParam(name="id", required=true) int id) throws Throwable {
+			@RequestParam(name="id", required=true) int id) {
 		
 		//NECESARIO PARA TRAZABILIDAD:
         BlockchainServices bloque = new BlockchainServices();
@@ -235,7 +234,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/recogidoPedido")
 	@ResponseBody
 	public String recogidoPedido(
-			@RequestParam(name="json", required=true) String json) throws Throwable {
+			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
 		//Hay que compara los identificadores de los ordentrazabilidad
@@ -265,7 +264,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/entregadoPedido")
 	@ResponseBody
 	public String entregadoPedido(
-			@RequestParam(name="json", required=true) String json) throws Throwable {
+			@RequestParam(name="json", required=true) String json) {
 		
 		Main_pedidos pedido = new Main_pedidos(json);
 		//Hay que compara los identificadores de los ordentrazabilidad

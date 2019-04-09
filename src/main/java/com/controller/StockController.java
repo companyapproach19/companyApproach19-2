@@ -72,7 +72,7 @@ public class StockController {
 	/*
 	 * metodo para cambiar la cantidad de stock de un lote, se insertar de uno en uno.
 	 */	
-	public static void setCantidadLote(Actor actor, Lote lote) throws Throwable {
+	public static void setCantidadLote(Actor actor, Lote lote) throws ClassNotFoundException, SQLException {
 		metodosCompany.insertarStockLote(actor, lote);
 	}
 	
