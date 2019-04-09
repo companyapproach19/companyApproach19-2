@@ -15,8 +15,10 @@ import equipo6.model.Actor;
 
 // Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
 public class Sensor {
-
+	
+	//El idSensor será el mismo que el numero de serie del Arduino al que corresponda
 	private static int idSensor;
+	
 	//Aquí se encuentra el .txt con el registro
 	private static BufferedReader log; 
 
@@ -28,11 +30,11 @@ public class Sensor {
 	}
 	
 
-	
+	//Método que permite parsear "fichero" para crear Objeto Registro del mismo
 	public  Registro crearRegistro(Lote lote, Actor actor,String fichero) throws IOException {
 
-	
-	    URL fileUrl = getClass().getResource(fichero);
+	        //Da la ruta donde está "fichero"
+	        URL fileUrl = getClass().getResource(fichero);
 		HashMap<Fecha,Integer> listaRegistros= new HashMap<Fecha,Integer>();
 		log = new BufferedReader(new FileReader(fileUrl.toString().substring(5))); 
 		Fecha fecha = null,fechaInicio = null;
@@ -65,11 +67,10 @@ public class Sensor {
 				}
 				listaRegistros.put(fecha, temp);
 				contador++;
-
 			}
 
-			Iterator<Fecha> it=	listaRegistros.keySet().iterator();
-
+			Iterator<Fecha> it=listaRegistros.keySet().iterator();
+                        //Se guarda la temperatura mínima y máxima
 			while(it.hasNext()) {
 				Fecha f = it.next();
 				int t= listaRegistros.get(f);
@@ -78,11 +79,12 @@ public class Sensor {
 			}
 
 		}
-		
+		// fecha contiene la fecha de fin de registro
 		Registro registro= new Registro(lote, actor,  fechaInicio.toString(), fecha.toString(), Tmax, Tmin);
-		
 		return registro;
 	}
+	
+	// Método que EQUIPO TRANSPORTISTAS meta jsonRegistro en Pedido 
 	public String jsonRegistro (Actor actor) throws Exception{
 		   //TODO: Averiguar como se rellena el lote 
 		   Lote lote=new Lote();
@@ -91,16 +93,14 @@ public class Sensor {
 		   String ruta="datosSensorMiercoles.txt";
 		   Registro registro = this.crearRegistro(lote, actor, ruta);
 		   GsonBuilder builder = new GsonBuilder();
-		   Gson gson = builder.setPrettyPrinting().create();
-			      
-	       return gson.toJson(registro);
-			   
-		}
+		   Gson gson = builder.setPrettyPrinting().create();    
+	           return gson.toJson(registro);   
+	}
 
-	public static void setID (int id){
+	public static void setId (int id){
 		Sensor.idSensor = id;
 	}
-	public static int getID (){
+	public static int getId (){
 		return idSensor;
 	}
 
