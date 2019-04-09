@@ -38,6 +38,41 @@ public class Test extends metodosCompany {
 			crearBD();
 
 			// PETICIONES GRUPOS QUE DEBEN ESTAR EN LA BBDD.
+			
+			//Transportistas y pedidos (Orden trazabilidad) pedidos por el Grupo 3
+			Actor tranpG3_1 = new Actor("11", "TranspG3_1", "password", "tranpG3_1@gmail.es", 2, "Calle Diaz", "Maria",
+					"Calle Renacimiento", "fg4");
+			Actor tranpG3_2 = new Actor("12", "TranspG3_2", "password", "tranpG3_2@gmail.es", 2, "Calle Santa Elena", "Jose",
+					"Calle Ilustración", "fg5");
+			
+			insertarActor(tranpG3_1);
+			insertarActor(tranpG3_2);
+			
+			Productos productosG3_1 = new Productos(11, 2, 9, 2, 1, 7, 8, 0, 11, 4, 7, 6);
+			Productos productosG3_2 = new Productos(12, 1, 2, 0, 1, 7, 8, 10, 11, 8, 2, 4);
+			
+			insertarProductos(productosG3_1);
+			insertarProductos(productosG3_2);
+			
+			Date dateiniG3_1 = new Date(11, 11, 2018);
+			Date datefinG3_1  = new Date(3, 12, 2019);
+			
+			Lote loteG3_1 = new Lote(11, dateiniG3_1, "pilsner", datefinG3_1, false, true, false, true, false, null, 5);
+			loteG3_1.setQr(GeneradorQR2.generadorQR(loteG3_1.getIdBd()));
+			insertarLote(loteG3_1);
+			
+			Registro registroG3_1 = new Registro(11,loteG3_1, tranpG3_1, dateiniG3_1.toLocaleString(),
+					datefinG3_1.toLocaleString(), 30, 5);
+			
+			insertarRegistro(registroG3_1);
+			
+			byte[] firmarecG3_1 = null;
+			byte[] firmaentG3_2 = null;
+
+			OrdenTrazabilidad ordenG3_1 = new OrdenTrazabilidad(11, tranpG3_1, tranpG3_2, true, productosG3_1, "", 1, firmarecG3_1,
+					firmaentG3_2, 11, 12, tranpG3_1, registroG3_1);
+			insertarOrdenTrazabilidad(ordenG3_1);
+			
 
 			// MateriaPrima pedida Grupo 4
 			MateriaPrima maltaPilsner = new MateriaPrima("maltaPilsner", 1);
@@ -214,8 +249,7 @@ public class Test extends metodosCompany {
 			insertarBloque(bloque1);
 			insertarBloque(bloque2);
 
-			System.out.println(extraerBloque(bloque1.getHashCode()).getHashPrevio());
-			System.out.println(extraerBloque(bloque2.getHashCode()).getHashPrevio());
+			System.out.println(bloque1.getHashCode().length());
 
 			extraerBloque(bloque1.getHashCode());
 
@@ -253,7 +287,6 @@ public class Test extends metodosCompany {
 			insertarStockMP(fabrica, lupuloTettnanger, 7);
 			insertarStockMP(retailer, cebadaTostada, 19);
 			insertarStockMP(receptor2, maltaNegra, 11);
-			insertarStockMP(productor, cebadaTostada, 8);
 
 			insertarStockLote(emisor1, lote1);
 			insertarStockLote(emisor2, lote2);
@@ -272,7 +305,6 @@ public class Test extends metodosCompany {
 			extraerStockLote(cooperativa);
 			extraerStockLote(receptor1);
 
-
 			extraerStockMP(emisor1, maltaPilsner);
 			extraerStockMP(emisor2, cebadaTostada);
 			extraerStockMP(productor, lupuloPerle);
@@ -282,8 +314,8 @@ public class Test extends metodosCompany {
 			// PRUEBAS QUE DAN DAR ERRROR, MAL USO DEL CÓDIGO.
 
 			// Pruebas Actor
-			// Usuario con nombre a null
-			Actor pruebamal = new Actor("10", null, "password", "agri@gmail.es", 1, "Calle Ribera", "juan",
+			// Usuario con cif a null
+			Actor pruebamal = new Actor("", "luis", "password", "agri@gmail.es", 1, "Calle Ribera", "juan",
 					"Calle Goicoechea", "fg3");
 
 			// Contraseña que excede VARCHAR(45)
