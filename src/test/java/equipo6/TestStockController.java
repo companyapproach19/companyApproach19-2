@@ -110,9 +110,9 @@ class TestStockController {
 		Lote lote = new Lote(p, new java.util.Date());
 		try {
 			int cantidad = StockController.getStockLote(actor, lote);
-			System.out.println(cantidad);
 			System.out.println("cuando el actor no tiene lotes cantidad actual "+cantidad);
 			StockController.setCantidadLote(actor, lote);
+			cantidad = StockController.getStockLote(actor, lote);
 			System.out.println("cuando el actor no tiene lotes cantidad despues de anadir "+cantidad);
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
