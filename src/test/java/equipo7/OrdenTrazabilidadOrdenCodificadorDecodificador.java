@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.controller.ManejaPeticiones;
+
 import equipo6.model.Actor;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
@@ -119,6 +121,7 @@ public class OrdenTrazabilidadOrdenCodificadorDecodificador {
 
 	 @Test
 	 public void Test4Codificador_ok() {
+		 System.out.println(json);
 		    String cod1= CodificadorJSON.crearJSON(pedido);  
 		    OrdenTrazabilidad resultado = desc.DescodificadorJson(json);  
 		    assertEquals(cod1,  CodificadorJSON.crearJSON(resultado));
@@ -185,5 +188,20 @@ public class OrdenTrazabilidadOrdenCodificadorDecodificador {
 	   if( a.crear_pedido() instanceof CooperativaOrdenes ) {pasa=true;} 
 	   assertTrue(pasa);  
    }
-   
+/*
+ * 
+ * 
+ * 
+ * 
+ * Controller;
+ */
+	@Test
+	public void crearorden() {
+
+		final ManejaPeticiones configurationController = new ManejaPeticiones();
+		final String pingResponse = configurationController.aceptarPedido("0");
+		System.out.println("gooog");
+		System.out.println("AQUI ---->"+pingResponse);
+		assertTrue(true);
+	}
 }
