@@ -1,5 +1,10 @@
 package equipo7.model;
-public class Productos {
+
+import java.io.Serializable;
+
+import equipo5.dao.metodosCompany;
+
+public class Productos implements Serializable {
 	private int id;
     private int cant_malta_palida;
     private int cant_malta_munich;
@@ -12,13 +17,14 @@ public class Productos {
     private int cant_lupulo_centenial;
     private int cant_cajas_stout;
     private int cant_cajas_bisner;
+    private static final long serialVersionUID = 1L;
 
     public Productos(int id, int cant_malta_palida, int cant_malta_munich,
                      int cant_malta_negra, int cant_malta_crystal,
                      int cant_malta_chocolate, int cant_malta_caramelo,
                      int cant_cebada, int cant_cebada_tostada, int cant_lupulo_centenial,
                      int cant_cajas_stout, int cant_cajas_bisner) {
-    	this.setId(id);
+    	this.id=id;
         this.cant_malta_palida = cant_malta_palida;
         this.cant_malta_munich = cant_malta_munich;
         this.cant_malta_negra = cant_malta_negra;
@@ -31,6 +37,25 @@ public class Productos {
         this.cant_cajas_stout = cant_cajas_stout;
         this.cant_cajas_bisner = cant_cajas_bisner;
     }
+    
+	    public Productos(int cant_malta_palida, int cant_malta_munich,
+	            int cant_malta_negra, int cant_malta_crystal,
+	            int cant_malta_chocolate, int cant_malta_caramelo,
+	            int cant_cebada, int cant_cebada_tostada, int cant_lupulo_centenial,
+	            int cant_cajas_stout, int cant_cajas_bisner) {
+	this.id=metodosCompany.idProductos();
+	this.cant_malta_palida = cant_malta_palida;
+	this.cant_malta_munich = cant_malta_munich;
+	this.cant_malta_negra = cant_malta_negra;
+	this.cant_malta_crystal = cant_malta_crystal;
+	this.cant_malta_chocolate = cant_malta_chocolate;
+	this.cant_malta_caramelo = cant_malta_caramelo;
+	this.cant_cebada = cant_cebada;
+	this.cant_cebada_tostada = cant_cebada_tostada;
+	this.cant_lupulo_centenial = cant_lupulo_centenial;
+	this.cant_cajas_stout = cant_cajas_stout;
+	this.cant_cajas_bisner = cant_cajas_bisner;
+	}
 
     public int getCant_malta_palida() {
         return cant_malta_palida;
