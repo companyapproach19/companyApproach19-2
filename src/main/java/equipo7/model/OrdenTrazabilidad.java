@@ -72,7 +72,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			
 		}
 		
-		
+		//Constructor para descodificar json de vistas
 		public OrdenTrazabilidad(int identificador,String mensaje, Actor emisor, Actor receptor, Productos productos) {
 			this.id = identificador;
 			this.actorDestino=receptor;
@@ -80,14 +80,34 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.productos=productos;
 			this.mensaje=mensaje;
 			this.estado=0;
-			this.firmaRecogida =null;
-			this.firmaEntrega =null;
+			this.firmaRecogida = new byte[1];
+			this.firmaEntrega = new byte[1];
 			this.necesitaTransportista=false;
 			this.idPadre = -1;
 			this.idHijo = -1;
 			this.origenOrdenes=new Orden();
 		}
 		
+		//Constructor para descodificar json de transportistas
+		//firmaRecogida
+		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
+				Productos productos, String mensaje, int estado,byte[] firmaRecogida,
+				int idPadre, int idHijo, Actor transportista) {
+			this.id=id;
+			this.actorOrigen=actorOrigen;
+			this.actorDestino=actorDestino;
+			this.necesitaTransportista=necesitaTransportista;
+			this.productos=productos;
+			this.mensaje="";
+			this.estado=0;
+			this.firmaRecogida=firmaRecogida;
+			this.firmaEntrega= new byte[1];
+			this.idPadre=idPadre;
+			this.idHijo=idHijo;
+			this.transportista=transportista;
+			//TODO: registro instancia a null?
+			this.origenOrdenes=new Orden();
+		}
 		
 		
 		public void setActorOrigen(Actor actorOrigen) {
