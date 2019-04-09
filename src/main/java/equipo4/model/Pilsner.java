@@ -20,7 +20,7 @@ public class Pilsner implements Serializable {
 	private static boolean fermentacion2;
 	private static boolean embotellado;
 
-	public Pilsner() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public Pilsner() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		agua = 11956521.7391;
 		maltaPilsner = 1739130434.78;
 		AlmacenMMPP.setMaltaPilsner(AlmacenMMPP.getMaltaPilsner() - 1739130434.78);

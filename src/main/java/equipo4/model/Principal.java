@@ -94,7 +94,7 @@ public class Principal extends DatosContainer{
 		}
 	}
 
-	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		System.out.println("¿Desea generar un lote? (s/n)");
 		Scanner sc = new Scanner(System.in);
 		String answ = sc.nextLine();

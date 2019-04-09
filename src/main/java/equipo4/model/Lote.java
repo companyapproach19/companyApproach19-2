@@ -33,7 +33,7 @@ public class Lote extends DatosContainer{
 		
 	}
 	
-	public Lote() {
+	public Lote() throws ClassNotFoundException, SQLException {
 		this.idBd=metodosCompany.idLote();
 		this.fecha_inicio=new Date();
 		Date aux = (Date) fecha_inicio.clone();
