@@ -214,22 +214,22 @@ public class Test extends metodosCompany {
 			insertarBloque(bloque1);
 			insertarBloque(bloque2);
 
-//			extraerBloque(bloque1.getHashCode());
-//			extraerBloque(bloque2.getHashCode());
+			extraerBloque(bloque1.getHashCode());
+			extraerBloque(bloque2.getHashCode());
 
 			// Prueba extraerPedidosActorDestino (Relacionado con OrdenTrazabilidad
-//			ArrayList<OrdenTrazabilidad> ord1 = extraerPedidosActorDestino("1");
-//			ArrayList<OrdenTrazabilidad> ord2 = extraerPedidosActorDestino("2");
-//			
-//			System.out.print("Prueba ord1 de extraerPedidosActorDestino");
-//			for(int i=0; i<ord1.size(); i++) {
-//				System.out.println(ord1.get(i).getId());
-//			}
-//			
-//			System.out.print("Prueba ord2 de extraerPedidosActorDestino");
-//			for(int i=0; i<ord2.size(); i++) {
-//				System.out.println(ord2.get(i).getId());
-//			}
+			ArrayList<OrdenTrazabilidad> ord1 = extraerPedidosActorDestino("1");
+			ArrayList<OrdenTrazabilidad> ord2 = extraerPedidosActorDestino("2");
+			
+			System.out.print("Prueba ord1 de extraerPedidosActorDestino");
+			for(int i=0; i<ord1.size(); i++) {
+				System.out.println(ord1.get(i).getId());
+			}
+			
+			System.out.print("Prueba ord2 de extraerPedidosActorDestino");
+			for(int i=0; i<ord2.size(); i++) {
+				System.out.println(ord2.get(i).getId());
+			}
 
 			// Prueba insertarStockMp, insertarStockLote
 			insertarStockMP(emisor1, maltaPilsner, 4);

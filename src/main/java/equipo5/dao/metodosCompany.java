@@ -585,22 +585,18 @@ public class metodosCompany {
 			int idCadena = rs.getInt(8);
 			switch (tipoBloque) {
 			case 0:
-				DatosContainer datos = new DatosContainer (extraerOrdenTrazabilidad(rs.getInt(6)));
-				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, datos, idCadena);
+				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerOrdenTrazabilidad(rs.getInt(6)), idCadena);
 				devolver = buscado;
 				break;
 			case 1:
-				DatosContainer datos2 = new DatosContainer (extraerRegistro(rs.getInt(6)));
-				Bloque buscado1 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, datos2, idCadena);
+				Bloque buscado1 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerRegistro(rs.getInt(6)), idCadena);
 				devolver = buscado1;
 				break;
 			case 2:
-				DatosContainer datos3 = new DatosContainer (extraerLote(rs.getInt(6)));
-				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, datos3, idCadena);
+				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerLote(rs.getInt(6)), idCadena);
 				devolver = buscado2;
 				break;
 			}
-
 			pst.close();
 			rs.close();
 			conn.close();
@@ -655,22 +651,22 @@ public class metodosCompany {
 	public static ArrayList<OrdenTrazabilidad> extraerPedidosActorDestino(String idActor) throws SQLException, ClassNotFoundException{
 		conectar();
 		ArrayList<OrdenTrazabilidad> lista = new ArrayList<OrdenTrazabilidad>();
-//		String query = "SELECT * FROM company.ordenTrazabilidad WHERE ordenTrazabilidad.idActorDestino = " + idActor;
-//		Statement pst = conn.createStatement();
-//		ResultSet rs = pst.executeQuery(query);
-//		while(rs.next()) {
-//			Actor actor = extraerActor(rs.getString(2));
-//			Actor actor1 = extraerActor(rs.getString(3));
-//			Productos productos = extraerProductos(rs.getInt(5));
-//			Actor actor2 = extraerActor(rs.getString(12));
-//			Registro registro = extraerRegistro(rs.getInt(13));
-//			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actor, actor1, rs.getBoolean(4), productos,
-//					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11), actor2, registro);
-//			lista.add(buscado);
-//		}		
-//		pst.close();
-//		rs.close();
-//		conn.close();
+		String query = "SELECT * FROM company.ordenTrazabilidad:";
+		Statement pst = conn.createStatement();
+		ResultSet rs = pst.executeQuery(query);
+		while(rs.next()) {
+			Actor actor = extraerActor(rs.getString(2));
+			Actor actor1 = extraerActor(rs.getString(3));
+			Productos productos = extraerProductos(rs.getInt(5));
+			Actor actor2 = extraerActor(rs.getString(12));
+			Registro registro = extraerRegistro(rs.getInt(13));
+			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actor, actor1, rs.getBoolean(4), productos,
+					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11), actor2, registro);
+			if(actor1.getId().compareTo(idActor)==0)lista.add(buscado);
+		}		
+		pst.close();
+		rs.close();
+		conn.close();
 		return lista;	
 	}
 	public static LinkedList<Lote> extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException, NotInDatabaseException {

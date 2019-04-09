@@ -103,7 +103,7 @@ public class Cadena{
     // (clase generica que encapsula todo lo que nos quieran pasar los grupos) y el tipo de informacion
     //a�ade el bloque a la cadena, haciendo todas las funciones criptogr�ficas correspondientes.
     //TODO jorge
-    public void incorporarBloque(DatosContainer dc, int tipoBloque){
+    public void incorporarBloque(DatosContainer dc, int tipoBloque) throws Throwable{
         /*
         1. Obtener la info que se tiene que poner de cabecera en el nuevo bloque: 
             -hashPrevio a partir de la variable hashUltimoBloque
