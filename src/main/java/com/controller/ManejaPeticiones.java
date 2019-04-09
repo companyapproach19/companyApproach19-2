@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.lang.reflect.Array;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
@@ -33,7 +34,7 @@ public class ManejaPeticiones {
 	
 	//Recibe el json inicial con id -1 y devuelve un json
 	public String creaOrden(
-			@RequestParam(name="json", required=true) String json) {
+			@RequestParam(name="json", required=true) String json) throws Throwable {
 		
 		//Main_pedido basicamente descodifica el json
 		Main_pedidos pedido = new Main_pedidos(json);
@@ -282,7 +283,7 @@ public class ManejaPeticiones {
 	@ResponseBody
 	//Recibe un json con la firma de recogida y el actor que va a transportar el pedido
 	public String recogidoPedido(
-			@RequestParam(name="json", required=true) String json) {
+			@RequestParam(name="json", required=true) String json) throws Throwable {
 		
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad pedido = decoder.DescodificadorJson(json);
@@ -315,7 +316,7 @@ public class ManejaPeticiones {
 	@ResponseBody
 	//Recibe un json con la firma de entrega y los datos del registro
 	public String entregadoPedido(
-			@RequestParam(name="json", required=true) String json) {
+			@RequestParam(name="json", required=true) String json) throws Throwable {
 		
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad pedido = decoder.DescodificadorJson(json);
