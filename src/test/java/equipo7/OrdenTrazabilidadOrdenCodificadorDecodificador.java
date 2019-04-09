@@ -11,6 +11,7 @@ import org.junit.runners.Parameterized.Parameters;
 import com.controller.ManejaPeticiones;
 
 import equipo6.model.Actor;
+import equipo7.model.ListaPedidos;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo7.otros.CodificadorJSON;
@@ -195,29 +196,39 @@ public class OrdenTrazabilidadOrdenCodificadorDecodificador {
  * Controller;
  */
 	@Test
-	public void crearorden() throws Throwable  {//cambia el id
+	public void Test12manejapeticiones() throws Throwable  {
+		ListaPedidos listapedidos =new ListaPedidos();
 		final ManejaPeticiones configurationController = new ManejaPeticiones();
-		String pingResponse;
-		try {
-			pingResponse = configurationController.creaOrden(json); 
-			System.out.println("Respuesta : -->"+pingResponse );
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertTrue(true);
-		
-	}
-	@Test
-	public void obtenerOrden() { 
-	}
-	@Test
-	public void  pedidosNoAceptados() { 
-	}
-	@Test
-	public void pedidosEnProceso() {}
-	public void listoPedido() {}
-	public void aceptarPedido () {}
-	public void recogidoPedido() {}
-	public void entregadoPedido() {}
+		//crear orden
+		String pingResponse1  = configurationController.creaOrden(json);   
+		OrdenTrazabilidad respuesta =desc.DescodificadorJson(pingResponse1); 
+		assertNotEquals(id,respuesta.getId());
+		listapedidos.anyadePedido(respuesta.getId());
+		//obtener orden
+		String pingResponse2  = configurationController.obtenerOrden( Integer.toString(respuesta.getId()));
+		assertNotEquals(pingResponse1,pingResponse2);  
+		String listapedidosjson=CodificadorJSON.crearJSONlista(listapedidos);
+		//pedidos no aceptados  
+		String pingResponse3  = configurationController.pedidosNoAceptados(emisor.getId());
+		ListaPedidos pedidosnoaceptados=new ListaPedidos();
+		pedidosnoaceptados=desc.DescodificadorJSONListaPedidos(pingResponse3);
+		assertTrue(pedidosnoaceptados.getListaIDs().contains(respuesta.getId())); 
+		//aceptarpedidos 
+		String pingResponse4  = configurationController.aceptarPedido(listapedidosjson);
+		assertEquals("Success",pingResponse4);
+		//pedidos en proceso
+		String pingResponse5  = configurationController.pedidosNoAceptados(emisor.getId());
+		ListaPedidos pedidosenproceso=new ListaPedidos();
+		pedidosnoaceptados=desc.DescodificadorJSONListaPedidos(pingResponse5);
+		assertTrue(pedidosnoaceptados.getListaIDs().contains(respuesta.getId())); 
+		//listoPedido 
+		String pingResponse6  = configurationController.listoPedido(listapedidosjson);
+		assertEquals("Success",pingResponse6);
+		//recogidoPedido
+		String pingResponse7  = configurationController.recogidoPedido(json);
+		assertNotEquals("ERROR: json no valido",pingResponse7);
+		 //entregadoPedido
+		String pingResponse8  = configurationController.entregadoPedido(json);
+		assertNotEquals("ERROR: json no valido",pingResponse8);
+	} 
 }
