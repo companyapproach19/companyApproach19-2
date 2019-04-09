@@ -47,7 +47,7 @@
 
                                         </div>
                                         <div class="form-group">
-                                            <input type="checkbox" name="producto2" id="producto1" value="Pedido id2">
+                                            <input type="checkbox" name="producto2" id="producto2" value="Pedido id2">
                                             <label for="producto2" id="label2">Pedido noPedido</label>
                                             <a href="enlacepagina.html">Ver mas informacion del pedido</a>
 
@@ -80,7 +80,7 @@
                                         </div>
                                         <label for="producto">*Los pedidos que no sean seleccionados se rechazaran automaticamente*</label>
                                         <br>
-                                        <input type="submit" class="btnRegister"  id="botonrecibidos" value="Aceptar Pedidos"/>
+                                        <input type="submit" class="btnRegister"  id="botonrecibidos" onClick="mandarids(); window.location.href='agricultoresInicio.html';" value="Aceptar Pedidos"/>
                                 </div>
                                 
                             </div>
@@ -127,7 +127,7 @@ data = JSON.stringify(data2);
  
      request.fail(function(data) {
      
-     alert("Error en el servidor");
+     alert("Error en el servidor obteniendo ids");
     mostrarFallo();
      });
  
@@ -205,7 +205,7 @@ data = JSON.stringify(data2);
  
      request.fail(function(data) {
      
-     alert("Error en el servidor");
+     alert("Error en el servidor al aceptar");
    
      });
 

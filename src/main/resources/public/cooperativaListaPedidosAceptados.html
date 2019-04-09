@@ -78,7 +78,7 @@
                                             <label for="producto7" id="label7">Pedido noPedido</label>
                                             <a href="generica.html">Ver mas informacion del pedido</a>
                                         </div>
-                                        <input type="submit" class="btnRegister"  value="Completar pedidos"/>
+                                        <input type="submit" class="btnRegister"  onClick="mandarids(); window.location.href='cooperativaInicio.html';" value="Completar pedidos"/>
                                 </div>
                                 
                             </div>
@@ -124,7 +124,7 @@ data = JSON.stringify(data2);
  
    request.fail(function(data) {
      
-     alert("Error en el servidor");
+     alert("Error en el servidor obteniendo ids");
     mostrarFallo();
      });
  
@@ -204,7 +204,7 @@ data = JSON.stringify(data2);
      request.fail(function(data) {
      
 
-     alert("Error en el servidor");
+     alert("Error en el servidor al completar");
    
      });
 
