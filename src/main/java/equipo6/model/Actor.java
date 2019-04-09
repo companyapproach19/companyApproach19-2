@@ -12,7 +12,6 @@ public class Actor implements Serializable{
     private String nombre;
     private String direccion;
     private String cifcooperativa;
-    private static int prueva;
     
     
 
@@ -29,19 +28,6 @@ public class Actor implements Serializable{
 		this.cifcooperativa = cifcooperativa;
 	}
 
-<<<<<<< HEAD
-    public Actor(String id, String nombreUsuario, String passwordPlana, String email, int tipoActor,
-			String localizacion, String nombre, String direccion, String cifcooperativa) {
-		this.id = id;
-		this.nombreUsuario = nombreUsuario;
-		this.passwordPlana = passwordPlana;
-		this.email = email;
-		this.tipoActor = tipoActor;
-		this.localizacion = localizacion;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.cifcooperativa = cifcooperativa;
-	}
 	
 	//constructor que necesitan los de pedidos
 	public Actor(String id, String nombreUsuario, int tipoActor){
