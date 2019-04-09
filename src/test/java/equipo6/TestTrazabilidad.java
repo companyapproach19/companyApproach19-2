@@ -16,8 +16,6 @@ import equipo8.model.Registro;
 import equipo6.model.Actor;
 
 class TestTrazabilidad {
-
-
 	void insertar_usuarios() throws ClassNotFoundException, SQLException, RuntimeException 
 	{
 		metodosCompany.insertarActor(new Actor("5","Productor","password","prod@gmail.es", 0,"Calle Ribadeo", "Marta","Calle Valladolid","fg4"));
@@ -34,12 +32,15 @@ class TestTrazabilidad {
 		metodosCompany.insertarLote(lote);
 	}
 
+	
+		
 	void init_data_base() throws Throwable 
 	{
 		metodosCompany.conectar();
 		metodosCompany.crearBD();
 		insertar_usuarios();
 		insertar_lote();
+
 
 	}
 

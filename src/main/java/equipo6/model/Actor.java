@@ -16,7 +16,20 @@ public class Actor implements Serializable{
     
     
 
+    public Actor(String id, String nombreUsuario, String passwordPlana, String email, int tipoActor,
+			String localizacion, String nombre, String direccion, String cifcooperativa) {
+		this.id = id;
+		this.nombreUsuario = nombreUsuario;
+		this.passwordPlana = passwordPlana;
+		this.email = email;
+		this.tipoActor = tipoActor;
+		this.localizacion = localizacion;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.cifcooperativa = cifcooperativa;
+	}
 
+<<<<<<< HEAD
     public Actor(String id, String nombreUsuario, String passwordPlana, String email, int tipoActor,
 			String localizacion, String nombre, String direccion, String cifcooperativa) {
 		this.id = id;
@@ -168,3 +181,4 @@ public class Actor implements Serializable{
 		
 	}
 }
+

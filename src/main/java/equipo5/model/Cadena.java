@@ -56,7 +56,6 @@ public class Cadena{
 			System.out.println(hashUltimoBloque);
 			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
 			for (int j = 0; j < numBloques; j++) {
-				System.out.println(anadir.getHashCode());
 				lista.add(anadir);
 				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
 			}
@@ -106,12 +105,12 @@ public class Cadena{
     //TODO jorge
     public void incorporarBloque(DatosContainer dc, int tipoBloque) throws Throwable{
         /*
-        1. Obtener la info que se tiene que poner de cabecera en el nuevo bloque: 
+        1. Obtener la info que se tiene que poner de cabecera en el nuevo bloque:
             -hashPrevio a partir de la variable hashUltimoBloque
             -codLote
             -tipoBloque
             -numBloque a partir de numBloques++
-        
+
         2. Instanciar objeto Bloque con estos datos
         3. Obtener hash del bloque nuevo
         4. Llamar a BBDD para almacenar bloque

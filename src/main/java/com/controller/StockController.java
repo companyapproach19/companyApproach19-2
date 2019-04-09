@@ -1,8 +1,11 @@
 package com.controller;
 
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
+=======
+>>>>>>> origin/master
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +27,11 @@ import com.google.gson.JsonParser;
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
 import equipo5.dao.metodosCompany;
+<<<<<<< HEAD
 import equipo5.dao.NotInDatabaseException;
+=======
+import equipo5.model.NotInDatabaseException;
+>>>>>>> origin/master
 import equipo6.model.Actor;
 import equipo6.model.CadenaActores;
 import equipo6.otros.BlockchainServices;
@@ -39,6 +46,7 @@ public class StockController {
 	/*
 	 * dado un actor y una materia prima devuelve la cantidad de esa materia prima
 	 */
+<<<<<<< HEAD
 	public static double getCantidadStock (Actor actor, MateriaPrima mp) throws ClassNotFoundException, SQLException{
 		try {
 		return metodosCompany.extraerStockMP(actor,mp);
@@ -46,11 +54,16 @@ public class StockController {
 			e.printStackTrace();
 			return 0;
 		}
+=======
+	public static double getCantidadStock (Actor actor, MateriaPrima mp) throws ClassNotFoundException, SQLException, NotInDatabaseException{
+		return metodosCompany.extraerStockMP(actor,mp);		
+>>>>>>> origin/master
 	}
 	
 	/*
 	 * dado un actor y un lote devuelve el stock de un tipo de lote
 	 */
+<<<<<<< HEAD
 		public static int getStockLote(Actor actor, Lote lote) {
 		
 		//nos devuleve una lista con todos los lotes de un actor, luego tenemos que buscar
@@ -64,6 +77,16 @@ public class StockController {
 			}			
 			return resultado;
 		} catch (ClassNotFoundException | SQLException | equipo5.model.NotInDatabaseException e) {
+=======
+	public static int getStockLote(Actor actor, Lote lote) {
+		
+		//nos devuleve una lista con todos los lotes de un actor, luego tenemos que buscar
+		//los lotes del tipo lote que nos pasan
+		
+		try {
+			return metodosCompany.extraerStockLote(actor);
+		} catch (ClassNotFoundException | SQLException | NotInDatabaseException e) {
+>>>>>>> origin/master
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
@@ -84,7 +107,11 @@ public class StockController {
 	/*
 	 * metodo para cambiar la cantidad de stock de un lote, se insertar de uno en uno.
 	 */	
+<<<<<<< HEAD
 	public static void setCantidadLote(Actor actor, Lote lote) throws Throwable {
+=======
+	public static void setCantidadLote(Actor actor, Lote lote) throws ClassNotFoundException, SQLException {
+>>>>>>> origin/master
 		metodosCompany.insertarStockLote(actor, lote);
 	}
 	
@@ -93,7 +120,10 @@ public class StockController {
 		String idActor;
 		
 		idActor = null;
+<<<<<<< HEAD
 		if(lista_cookies != null) {
+=======
+>>>>>>> origin/master
 		for(Cookie c : lista_cookies) {
 			System.out.println(c.getName()+"    "+c.getValue());
 			if(c.getName().equals("id")) 
@@ -102,7 +132,10 @@ public class StockController {
 				break;
 			}
 		}
+<<<<<<< HEAD
 		}
+=======
+>>>>>>> origin/master
 		
 		return idActor;
 	}
@@ -113,7 +146,11 @@ public class StockController {
 	@ResponseBody
 	public String getStockActor(
 			HttpServletRequest request,
+<<<<<<< HEAD
 			@RequestParam(name="id") String id,
+=======
+			@RequestParam(name="usuario", required=true) String id,
+>>>>>>> origin/master
 			Model model) throws Exception {
 				
 		
@@ -124,7 +161,11 @@ public class StockController {
 		JsonObject stock;
 		String[][] lista_nombre_mp = {
 				{"malta_palida","maltaBasePalida"},{"malta_tostada","maltaTostada"},
+<<<<<<< HEAD
 				{"malta_negra","maltaNegra"},{"malta_crystal","maltacrystal"},
+=======
+				{"malta_negra","maltaNegra"},{"malta_crystal","maltaCrystal"},
+>>>>>>> origin/master
 				{"malta_chocolate","maltaChocolate"},{"malta_caramelo","maltaCaramelo"},
 				{"malta_pilsner","maltaPilsner"},{"malta_munich","maltaMunich"},
 				{"lupulo_perle","lupuloPerle"},{"lupulo_tettnanger","lupuloTettnanger"},
@@ -132,6 +173,7 @@ public class StockController {
 				{"levadura_lagger","levaduraLagger"}
 			};
 		
+<<<<<<< HEAD
 		MateriaPrima mp;
 		idActor = get_id_actor_cookie(request.getCookies());
 		stock = new JsonObject();
@@ -146,12 +188,22 @@ public class StockController {
 		}
 	
 		
+=======
+		
+		idActor = get_id_actor_cookie(request.getCookies());
+		stock = new JsonObject();
+		json_resp = new JsonObject();
+		actor=new Actor(idActor, "Agricultor", "asdasd", "rmj@g.cm", 0, "41.5N 2.0W","Agricultor A", "c/mevoyamorir", "1234567C");
+		
+		idActor = (idActor == null)?(id):(idActor);	
+>>>>>>> origin/master
 		json_resp.addProperty("nomUsuario", actor.getNombreUsuario());
 		json_resp.addProperty("email", actor.getEmail());
 		json_resp.addProperty("tipoActor", actor.getTipoActor());	
 		for(int i = 0; i < lista_nombre_mp.length; i++) 
 		{
 			try {
+<<<<<<< HEAD
 				
 				mp = metodosCompany.extraerMateriaPrima(lista_nombre_mp[i][1]);
 				if(mp == null) throw new Exception();
@@ -162,6 +214,14 @@ public class StockController {
 			} catch (Exception | equipo5.model.NotInDatabaseException e) {
 				stock.addProperty(lista_nombre_mp[i][0], 0);
 				//e.printStackTrace();
+=======
+				stock.addProperty(lista_nombre_mp[i][0], metodosCompany.extraerStockMP(
+						actor, 
+						metodosCompany.extraerMateriaPrima(lista_nombre_mp[i][1])));
+			} catch (NotInDatabaseException e) {
+				stock.addProperty(lista_nombre_mp[i][0], 0);
+				e.printStackTrace();
+>>>>>>> origin/master
 				
 			}
 		}

@@ -129,6 +129,7 @@ public class BlockchainServices{
     	return respuesta.toString();
     }
     
+
     public ArrayList<OrdenTrazabilidad> extraerPedido(String idActor) throws ClassNotFoundException, SQLException
     {
     	return metodosCompany.extraerPedidosActorDestino(idActor);
@@ -182,18 +183,7 @@ public class BlockchainServices{
     //Obtiene bloque adecuado utilizando los metodos de clase Cadena, y una vez lo tiene 
     //extrae la informacion del traspaso y la devuelve.
     //TODO anton
-    public OrdenTrazabilidad getTraspaso(int codLote){
-//    	Cadena cadena = BBDD.getCadena(codLote);
-//    	List<Bloque> bloques = cadena.getCadena();
-//    	int i =0;
-//    	while(i<bloques.size()){
-//    		if(bloques.get(i).getTipoBloque() == 0){
-//    			return (Traspaso) bloques.get(i).getDatos();
-//    		}
-//    		i++;
-//    	}
-//    	return null;
-    	
+    public OrdenTrazabilidad getTraspaso(int codLote){ 	
     	
     	try {
 			Cadena cadena = equipo5.dao.metodosCompany.extraerCadena(codLote);
