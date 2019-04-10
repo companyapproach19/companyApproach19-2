@@ -1,0 +1,65 @@
+Transportistas en firmadoRecogida deberían dar algo tipo:
+//SOLO MODIFICAR: necesitaTransportista a false
+//OBLIGATORIO: actor transportista y firmaRecogida
+{
+  "id": 1,
+  "actorOrigen": {
+    "id": 8,
+    "nombreUsuario": "Fabrica",
+    "tipoActor": 3
+  },
+  "actorDestino": {
+    "id": 6,
+    "nombreUsuario": "Cooperativa",
+    "tipoActor": 1
+  },
+  "necesitaTransportista": false,
+  "productos": {
+    "id": 4,
+    "cant_malta_palida": 20,
+    "cant_malta_munich": 30,
+    "cant_malta_negra": 0,
+    "cant_malta_crystal": 0,
+    "cant_malta_chocolate": 0,
+    "cant_malta_caramelo": 10,
+    "cant_cebada": 0,
+    "cant_cebada_tostada": 0,
+    "cant_lupulo_centenial": 0,
+    "cant_cajas_stout": 0,
+    "cant_cajas_bisner": 0
+  },
+  "mensaje": "",
+  "estado": 2,
+  "firmaRecogida": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "origenOrdenes": {},
+  "idPadre": 0,
+  "idHijo": 2,
+  "transportista": {
+    "id": "7",
+    "nombreUsuario": "Transportista",
+    "passwordPlana": "password",
+    "email": "trans@gmail.com",
+    "tipoActor": 2
+  }
+}
