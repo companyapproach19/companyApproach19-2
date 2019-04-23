@@ -1,10 +1,15 @@
 <html lang="es">
   <head>
+    <meta charset="utf-8">
     <title>Stout</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>     
+    
   </head>
   <body style="display: block; height: 100vh; !important">
 
@@ -26,55 +31,65 @@
 
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link" id="home" data-toggle="submit" href="login.html" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+                <a class="nav-link" id="home" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">Log out</a>
               </li>
             </ul>
           </div>
-          <br/><br/><br/><br/>
+          <br/><br/><br/><br/><br/><br/><br/>
 
           <div class="row">
-            <div class="col-md-9 offset-md-2">
-              <a class="btn btn-primary font-weight-bold" data-toggle="collapse" href="#collapseStout" role="button" aria-expanded="false" aria-controls="collapseStout">
-                Proceso de Producción
+            <div class="col-md-10 offset-md-2">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapseStout" role="button" aria-expanded="false" aria-controls="collapseStout">
+                Procesos y duración
             </a>
             
             <div class="collapse" id="collapseStout">
-              <strong>Primera Fase - Cocinado </strong>(1 dia) <br/>
-              <p class="offset-md-1"> 
-        <strong>1. </strong>Se somete la ____ a un macerado de 1h a 63º. Se aumenta la temperatura 
-        68º y se deja cocer 10 minutos más<br/>
-        <strong>2. </strong>Se añaden 70 gr. de lúpulo Cennital al producto obtenido del macerado y se cuece e durante 1.30h.<br/></p>
-  <strong>Segunda Fase - Fermentación</strong> (7 días) <br/>
-    <p class="offset-md-1">Tras terminar la fase de Cocción se pasa a una fermentación primaria, durante 7 días<br/>
-  </p>
-   <strong>Fase Ocasional - 2ª Fermentación</strong><br/>
-    <p class="offset-md-1"> Depende de la densidad alcanzada por la cerveza fermentada previtamente. En caso de ser necesaria una segunda fermentación, duraría  15 días a una temperatura menor o igual a 10º.</p>
+              
+              <strong>Macerado: </strong>0-70 mins (63-68 grados)<br/>
 
-              </p> <br/>
+                                    <strong>Cocción Centennial:</strong> 70 gr<br/>
+                                    
+                                    
+                                     <strong>Fermentación primaria</strong> 7 días (22 grados)<br/>
+                                    
+
+                                     <strong>Fermentación secundaria:</strong> 15 días (17-20 grados)<br/>
             </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-10 offset-md-2">
-              <a class="btn btn-primary font-weight-bold" data-toggle="collapse" href="#collapseCreacion" role="button" aria-expanded="false" aria-controls="collapseCreacion">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapseCreacion" role="button" aria-expanded="false" aria-controls="collapseCreacion">
                 Ingredientes
               </a>
 
-              <div class="collapse " id="collapseCreacion">
+              <div class="collapse" id="collapseCreacion">
                
- 
- <h6>Ingredientes para producir un barril de 21L de Stout.</h6>
-                 <p class="offset-md-1"> 
-                  <strong>Agua:</strong> 24L<br/>
-                  <strong>Malta Pilsner:</strong> 4kg<br/>             
-                  <strong>Malta Base Pálida:</strong> 5,5 kg<br/>
-                 <strong> Malta Munich:</strong> 1,3 kg<br/>  
-                  <strong> Cebada Tostada:</strong> 450 gr<br/>  
-                  <strong> Malta Negra:</strong>  225 gr<br/>  
-                 <strong> Malta Crystal:</strong>  140 gr<br/>  
-                  <strong> Malta Chocolate:</strong> 120 gr<br/> 
-                  <strong>Malta Caramelo:</strong> 90 gr<br/> 
-                                </p>
+                  <strong>Malta base pálida:</strong> 5.5kg<br/>
+                                  
+                                  <strong>Malta Caramelo:</strong> 90gr
+                                  <br/>
+                                  
+                                  
+                                  <strong>Malta Múnich:</strong> 1.3kg
+                                  <br/>
+                                  
+
+                                  <strong>Cebada tostada:</strong> 450gr
+                                  <br/>
+
+                                  <strong>Malta negra:</strong> 225gr
+                                  <br/>
+
+                                  <strong>Malta crystal:</strong> 140gr
+                                  <br/>
+                                  <strong>Malta chocolate:</strong> 120gr
+                                  <br/>
+
+                                  <strong>Lúpulo Centennial:</strong> 70gr
+                                  <br/>
+                                  <strong>Levadura:</strong> Ale
+                                  <br/>
                         
               </div>
             </div>
@@ -83,23 +98,31 @@
 
             <div class="row">
               <div class="col-md-10 offset-md-2">
-                <a class="btn btn-primary font-weight-bold data-toggle="collapse" href="#collapseVisualizar" role="button" aria-expanded="false" aria-controls="collapseVisualizar">
-                  Graduación
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseVisualizar" role="button" aria-expanded="false" aria-controls="collapseVisualizar">
+                  Densidades
                 </a>
 
-                  <div class="collapse offset-md-1" id="collapseVisualizar">
-                                
-                                <strong>Final:</strong> 4.8%
+                  <div class="collapse" id="collapseVisualizar">
+                                <strong> Original: </strong> 1045 <br/>
+                                <strong>Final:</strong> 1010
                                 </br>
               </div>
             </div>
            </div>
+           <br/><br/>
+           <div class="col-md-5">
+                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item" >
+                                <a class="nav-link" id="home" onclick="moler();" aria-controls="home" aria-selected="true">Crear lote</a>
+                            </li>
+                            </ul>
+                        </div>
            <br/><br/><br/><br/>
            <div class="row">
                         <div class="col-md-11 ">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item" >
-                                <a class="nav-link" id="home" data-toggle="submit" href="Lote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
                             </li>
                             </ul>
                         </div>
@@ -111,10 +134,114 @@
 
 
 
+<script>
+
+
+	
+          function moler(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : /*"numLoteIntroducido=" + $("#CuadroNumLote").val()*/"",
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+    	 //falat recoger el numero
+  if(confirm("Lote 1 molido. ¿Desea que pase a fase de cocinado?")){
+  cocinar();
+  }
+    else{
+    alert("Proceso finalizado en fase de molienda.");
+    href="NumLote.html";
+    }
+     });
+     request.fail(function(data) {
+     alert("Error en el servidor");
+     cocinar();
+     });
+ 
+ }
+        </script>
+    
+    <script>
+          function cocinar(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+    	 //falta recoger el numero
+  if(confirm("Lote 1 cocinado. ¿Desea que pase a fase de fermentacion?")){
+  fermentar();
+  }
+    else{
+    alert("Proceso finalizado en fase de cocinado.");
+    href="NumLote.html";
+
+    }
+     });
+     request.fail(function(data) {
+     alert("Error en el servidor");
+     fermentar();
+     });
+ 
+ }
+        </script>
+    
+    <script>
+          function fermentar(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+    	 //falta recoger el valor
+  if(confirm("Lote 1 fermentado. ¿Desea que pase a fase de embotellado?")){
+  embotellado();
+  }
+    else{
+    alert("Proceso finalizado en fase de fermentado.");
+    href="NumLote.html";
+}
+     });
+     request.fail(function(data) {
+     alert("Error en el servidor");
+     embotellado();
+     });
+ 
+ }
+        </script>
+    
+    
+    <script>
+          function embotellado(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+    	 //falta poner bien el numero (recogerlo)
+  alert("Lote 1 embotellado. Proceso finalizado.");
+  href="NumLote.html";
+
+     });
+     request.fail(function(data) {
+     alert("Error en el servidor");
+     });
+ 
+ }
+        </script>
 
 
 <!------ Include the above in your HEAD tag ---------->
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
