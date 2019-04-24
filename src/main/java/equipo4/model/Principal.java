@@ -1,21 +1,31 @@
 package equipo4.model;
 
 import java.util.Scanner;
+
+import com.controller.StockController;
+
 import java.util.Date;
 import java.sql.SQLException;
 import java.util.*;
 
 import equipo5.dao.NotInDatabaseException;
 import equipo5.dao.metodosCompany;
+import equipo6.model.Actor;
 import equipo6.model.DatosContainer;
+import equipo8.model.GeneradorQR2;
 
+@SuppressWarnings("unused")
 public class Principal extends DatosContainer{
 
 	private static Date fechaActual = new Date();
 	private static double densidad;
+	private static LinkedList<Lote> lotesAlmacen;
+	private static Actor actor = new Actor(null,null,null,3);
 
 	@SuppressWarnings("deprecation")
-	public static void moler(Lote lote) throws InterruptedException {
+	public static void moler(Lote lote) throws ClassNotFoundException, SQLException, NotInDatabaseException, InterruptedException {
+		lotesAlmacen = StockController.getListaLotes(actor);
+		//lo subo con errores hasta que el eqiopo 6 pushee el código
 		lote.setFecha_inicio(fechaActual);
 		System.out
 				.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
@@ -25,12 +35,12 @@ public class Principal extends DatosContainer{
 		System.out.println("Proceso de molienda finalizado. Dia: " + fechaActual.getDate() + "/"
 				+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 		lote.setMolido(true);
+		//StockController.setListaLotes(actor, lotesAlmacen);
 	}
 
 	@SuppressWarnings("deprecation")
 	public static void cocinar(Lote lote) throws InterruptedException {
-		System.out
-				.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
+		System.out.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
 		if (lote.isMolido()) {
 			System.out.println("Cociendo...");
 			Thread.sleep(3000);
@@ -38,6 +48,7 @@ public class Principal extends DatosContainer{
 			System.out.println("Proceso de coccion finalizado. Dia: " + fechaActual.getDate() + "/"
 					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 			lote.setCocido(true);
+			//StockController.setListaLotes(actor, lotesAlmacen);
 		}
 	}
 
@@ -58,6 +69,7 @@ public class Principal extends DatosContainer{
 				fermentar2(lote);
 			}
 			lote.setFermentado(true);
+			//StockController.setListaLotes(actor, lotesAlmacen);
 		}
 	}
 
@@ -73,13 +85,13 @@ public class Principal extends DatosContainer{
 			System.out.println("Proceso de segunda fermentacion finalizado. Dia: " + fechaActual.getDate() + "/"
 					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 			lote.setFermentado2(true);
+			//StockController.setListaLotes(actor, lotesAlmacen);
 		}
 	}
 
 	@SuppressWarnings("deprecation")
-	public static void embotellar(Lote lote) throws InterruptedException {
-		System.out
-				.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
+	public static void embotellar(Lote lote) throws Exception {
+		System.out.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
 		if (lote.isFermentado()) {
 			System.out.println("Embotellando...");
 			Thread.sleep(3000);
@@ -87,14 +99,17 @@ public class Principal extends DatosContainer{
 			System.out.println("Proceso de embotellado finalizado. Dia: " + fechaActual.getDate() + "/"
 					+ fechaActual.getMonth() + "/" + fechaActual.getYear());
 			lote.setEmbotellado(true);
-			AlmacenLotes.almacenarLote(lote);
+			//AlmacenLotes.almacenarLote(lote); deprecado
 			//guardarOrden(lote);
-			//lote.setQr(GeneradorQR2.generadorQR(lote.getIdBd()));
+			lote.setQr(GeneradorQR2.generadorQR(lote.getIdBd()));
 			lote.setFecha_final(fechaActual);
+			lotesAlmacen.add(lote); //actualizamos la lista de lotes recibida por blockchain
+			//y la volvemos a enviar con un setListaLotes que estoy negociando con Alex del equipo 6
+			//StockController.setListaLotes(actor, lotesAlmacen);
 		}
 	}
 
-	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
+	public static void main(String[] args) throws equipo5.model.NotInDatabaseException, Exception {
 		System.out.println("¿Desea generar un lote? (s/n)");
 		Scanner sc = new Scanner(System.in);
 		String answ = sc.nextLine();
@@ -173,7 +188,7 @@ public class Principal extends DatosContainer{
 		case "n":
 			break;
 		}
-		sc.close();
+		sc.close(); sca.close();
 	}
 		}
 	}}
