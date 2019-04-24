@@ -146,42 +146,48 @@
     /* Imagen obtenida de https://cdn.icon-icons.com/icons2/53/PNG/256/farmer_10763.png */
   background-image:url(camion.jpg);
   background-size: 80px;
+  margin-left: 0px;
 }
 
 #bt2 {
     /* Imagen obtenida de https://images.vexels.com/media/users/3/149778/isolated/preview/1f81375bf0c5b07e551aed611ef4bdc1-ilustraci--n-del-edificio-de-la-f--brica-by-vexels.png */
   background-image:url(molienda.png);
   background-size: 80px;
+  margin-left: 100px;
 }
 
 #bt3 {
     /* Imagen obtenida de https://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png */
   background-image:url(coccion.jpg);
   background-size: 80px;
-  margin-left: 10px;
+  margin-left: 30px;
 }
 
 #bt4 {
     /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
   background-image:url(fermentacion.jpg);
   background-size: 80px;
-  margin-left: 10px;
+  margin-left: 30px;
 }
 #bt5 {
     /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
   background-image:url(fermentacion.jpg);
   background-size: 140px;
-  margin-left: 10px;
+  margin-left: 30px;
 }
 #bt6 {
     /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
-  background-image:url(embotelldo.png);
+  background-image:url(embotellado.png);
   background-size: 140px;
+  margin-left: 30px;
+
 }
 #bt7 {
     /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
-  background-image:url(camion.png);
+  background-image:url(camion.jpg);
   background-size: 140px;
+  margin-left: 30px;
+
 }
 .btn:hover {
 
@@ -231,16 +237,10 @@ body{
   display: inline-flex;
   margin-top:-40px;
 }
-#bt1 {
-  margin-right: 100px;
+.Botones2{
+  display: inline-flex;
+  margin-top:-150px;
 }
-
-#bt3 {
-  margin-left: 200px;
-  margin-right: 100px;
-  z-index: 10;
-}
-
 #mapa {
   margin-top: 7%;
 
