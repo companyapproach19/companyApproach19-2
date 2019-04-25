@@ -38,13 +38,6 @@ public class OrdenTrazabilidad extends DatosContainer
 		private byte[] firmaRecogida;
 		//en la entrega del pedido (llegada al destino)
 		private byte[] firmaEntrega;
-		//Este objeto sera de la clase Ordenes del actor de origen
-		//Contiene al objeto de la clase Ordenes del actor de destino
-		private Orden origenOrdenes;
-		//Lista de padres
-		private int idPadre;
-		//Lista de hijos
-		private int idHijo;
 		//Datos del transportista
 		private Actor transportista;
 		//Registro de sensor del transporte
@@ -54,7 +47,7 @@ public class OrdenTrazabilidad extends DatosContainer
 
 		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
 				Productos productos, String mensaje, int estado,byte[] firmaRecogida, byte[] firmaEntrega,
-				int idPadre, int idHijo, Actor transportista, Registro registro) {
+				Actor transportista, Registro registro) {
 			this.id=id;
 			this.actorOrigen=actorOrigen;
 			this.actorDestino=actorDestino;
@@ -64,11 +57,8 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.estado=estado;
 			this.firmaRecogida=firmaRecogida;
 			this.firmaEntrega=firmaEntrega;
-			this.idPadre=idPadre;
-			this.idHijo=idHijo;
 			this.transportista=transportista;
 			this.registro=registro;
-			this.origenOrdenes=new Orden();
 			
 		}
 		
@@ -83,16 +73,12 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.firmaRecogida = new byte[1];
 			this.firmaEntrega = new byte[1];
 			this.necesitaTransportista=false;
-			this.idPadre = -1;
-			this.idHijo = -1;
-			this.origenOrdenes=new Orden();
 		}
 		
 		//Constructor para descodificar json de transportistas
 		//firmaRecogida
 		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
-				Productos productos, String mensaje, int estado,byte[] firmaRecogida,
-				int idPadre, int idHijo, Actor transportista) {
+				Productos productos, String mensaje, int estado,byte[] firmaRecogida, Actor transportista) {
 			this.id=id;
 			this.actorOrigen=actorOrigen;
 			this.actorDestino=actorDestino;
@@ -102,11 +88,8 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.estado=0;
 			this.firmaRecogida=firmaRecogida;
 			this.firmaEntrega= new byte[1];
-			this.idPadre=idPadre;
-			this.idHijo=idHijo;
 			this.transportista=transportista;
 			//TODO: registro instancia a null?
-			this.origenOrdenes=new Orden();
 		}
 		
 		
