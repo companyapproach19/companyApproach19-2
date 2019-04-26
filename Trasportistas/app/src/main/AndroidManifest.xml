@@ -9,14 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Ficha"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".HistorialPedidos"></activity>
+        <activity android:name=".PedidosRecogidos" />
+        <activity android:name=".VentanaPrincipal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Ficha" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Firma" />
     </application>
 
 </manifest>

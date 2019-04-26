@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private PedidosAPI servicio;
 
-    private static final String URL = "";
+    private static final String URL = "";//"https:://beer-company2019.herokuapp.com/damePedidosTransportista";
 
 
     final int FICHA = 1;
@@ -195,4 +195,5 @@ public class MainActivity extends AppCompatActivity {
             fijaAdaptador();
         }
     }
+
 }
