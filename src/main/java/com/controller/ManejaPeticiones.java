@@ -104,7 +104,7 @@ public class ManejaPeticiones {
 		if (pedido != null)
 			return CodificadorJSON.crearJSON(pedido);
 		else
-			return "ERROR: No se pudo obtener el pedido";
+			return "ERROR: No se pudo obtener la orden;
 	}
 	
 	
