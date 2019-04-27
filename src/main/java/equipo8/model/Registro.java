@@ -1,4 +1,4 @@
-package equipo8.model;
+ppackage equipo8.model;
 
 import equipo4.model.Lote;
 import equipo6.model.Actor;
@@ -9,27 +9,27 @@ import equipo5.dao.metodosCompany;
 public class Registro extends DatosContainer{
 	
 	private int id;
-	private Lote lote;
-	private Actor actor;
+	private int idOrdenTrazabilidad;
+	private int idPedido;
 	private String fechaInicio;
 	private String fechaFin;
 	private int tempMax;
 	private int tempMin;
 	
-	public Registro(int id,Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
+	public Registro(int id,int idOrdenTrazabilidad, int idPedido, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
 		this.id = id;
-		this.lote=lote;
-		this.actor = actor;
+		this.idOrdenTrazabilidad=idOrdenTrazabilidad;
+		this.idPedido = idPedido;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.tempMax = tempMax;
 		this.tempMin = tempMin;
 	}
 	
-	public Registro(Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
+	public Registro(int id,int idOrdenTrazabilidad,String fechaInicio, String fechaFin, int tempMax, int tempMin) {
 		//this.id = metodosCompany.idRegistro(); 
-		this.lote=lote;
-		this.actor = actor;
+		this.idOrdenTrazabilidad=idOrdenTrazabilidad;
+		this.idPedido = idPedido;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.tempMax = tempMax;
@@ -43,8 +43,7 @@ public class Registro extends DatosContainer{
 		this.fechaFin = "error";
 		this.tempMax=-1000;
 		this.tempMin=-1000;
-		actor=new Actor();
-		lote=new Lote();
+    
 	}
 	
 
@@ -56,12 +55,12 @@ public class Registro extends DatosContainer{
 		this.id = id;		
 	}
 	
-	public void setLote (Lote lote) {
-		this.lote = lote;		
+	public void setIdOrdenTrazabilidad (int idOrdenTrazabilidad) {
+		this.idOrdenTrazabilidad = idOrdenTrazabilidad;		
 	}
 	
-	public void setActor (Actor actor) {
-		this.actor = actor;
+	public void setIdPedido (int idPedido) {
+		this.idPedido = idPedido;
 	}
 	
 	public void setFechaInicio (String fechaInicio) {
@@ -84,12 +83,12 @@ public class Registro extends DatosContainer{
 		return this.id;
 	}
 	
-	public Lote getLote() {
-		return this.lote;
+	public int getIdOrdenTrazabilidad() {
+		return this.idOrdenTrazabilidad;
 	}
 
-	public Actor getActor() {
-		return this.actor;
+	public int getIdPedido() {
+		return this.idPedido;
 	}
 
 	
@@ -109,7 +108,5 @@ public class Registro extends DatosContainer{
 		return this.tempMin;
 	}
 }
-
-
 
 
