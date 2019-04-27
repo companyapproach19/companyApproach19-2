@@ -1,5 +1,6 @@
 package equipo7.otros;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,9 +17,9 @@ public class DescodificadorJson {
 		 return gson.fromJson(pedido, tipoObjeto);  
 	}
 
-	public ListaOrdenes DescodificadorJSONlista(String lista) {
+	public ArrayList<Integer> DescodificadorJSONlista(String lista) {
 		Gson gson=new Gson();
-		Type tipoObjeto = new TypeToken<ListaOrdenes>(){}.getType();
+		Type tipoObjeto = new TypeToken<ArrayList<Integer>>(){}.getType();
 		return gson.fromJson(lista, tipoObjeto);
 	}
 
