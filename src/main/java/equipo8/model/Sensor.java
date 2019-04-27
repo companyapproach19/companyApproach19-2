@@ -110,7 +110,7 @@ public class Sensor {
 			minutosTranscurridos.schedule(timerTask, 0, cadaXMinutos*60000); 
 	}
 
-	
+	/* forma de interrumpir el hilo de CrearRegistrosCadaXMinutos
 	public void pararCreacionRegistros(String fichero) throws IOException {
 		// File (or directory) with old name
 		File ficheroAParar = new File(fichero);
@@ -118,7 +118,7 @@ public class Sensor {
 		File ficheroParado = new File(fichero.substring(0,fichero.length()-4)+"FIN.txt");
 		ficheroAParar.renameTo(ficheroParado);
 	}
-	
+	*/
 	
 
 	
