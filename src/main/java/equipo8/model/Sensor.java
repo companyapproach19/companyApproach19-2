@@ -1,17 +1,18 @@
 package equipo8.model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import equipo4.model.Lote;
-import equipo6.model.Actor;
 
 // Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
 public class Sensor {
@@ -30,13 +31,11 @@ public class Sensor {
 	}
 	
 
-	//Método que permite parsear "fichero" para crear Objeto Registro del mismo
-	public  Registro crearRegistro(Lote lote, Actor actor,String fichero) throws IOException {
+	//Método que permite parsear "fichero" para crear un Objeto Registro 
+	public  Registro crearRegistro(int idOrdenTrazabilidad, int idPedido,String fichero) throws IOException{
 
-		  try {
-	        	//Da la ruta donde está "fichero"
-		        URL fileUrl = getClass().getResource(fichero);
-	            if(!actor.equals(null)&&!lote.equals(null)) {
+		        	//Da la ruta donde está "fichero"
+			        URL fileUrl = getClass().getResource(fichero);
 					HashMap<Fecha,Integer> listaRegistros= new HashMap<Fecha,Integer>();
 					log = new BufferedReader(new FileReader(fileUrl.toString().substring(5))); 
 					Fecha fecha = null,fechaInicio = null;
@@ -82,26 +81,52 @@ public class Sensor {
 			
 					}
 					// fecha contiene la fecha de fin de registro
-					Registro registro= new Registro(lote, actor,  fechaInicio.toString(), fecha.toString(), Tmax, Tmin);
+					Registro registro= new Registro(idOrdenTrazabilidad, idPedido,  fechaInicio.toString(), fecha.toString(), Tmax, Tmin);
 					return registro;
-	        }
-	        }
-	        catch(  Exception ex) {
-	        	
-	        }
 	        
-		return new Registro("error");
+		  
+	}
+
+	//Método que permite crear un Objeto Registro cada x minutos 
+	public  void crearRegistroCadaXMinutos(int idOrdenTrazabilidad, int idPedido,String fichero,int cadaXMinutos) throws IOException {
+		
+		Timer minutosTranscurridos=new Timer();
+		TimerTask timerTask = new TimerTask()
+	     {
+	         public void run() 
+	         {
+	 			try {
+	 				/*
+	 				if(llegamosALaHoraDeEntrega) 
+	 					timerTask.cancel();
+	 				*/
+					crearRegistro(idOrdenTrazabilidad,idPedido,fichero);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	         }
+	     }; 
+			minutosTranscurridos.schedule(timerTask, 0, cadaXMinutos*60000); 
+	}
+
+	
+	public void pararCreacionRegistros(String fichero) throws IOException {
+		// File (or directory) with old name
+		File ficheroAParar = new File(fichero);
+		// File (or directory) with new name
+		File ficheroParado = new File(fichero.substring(0,fichero.length()-4)+"FIN.txt");
+		ficheroAParar.renameTo(ficheroParado);
 	}
 	
 	
+
+	
 	// Método que EQUIPO TRANSPORTISTAS meta jsonRegistro en Pedido 
-	public String jsonRegistro (Actor actor) throws Exception{
-		   //TODO: Averiguar como se rellena el lote 
-		   Lote lote=new Lote();
-		   // De momento para el miercoles vamos a dejar un .txt llamado "datosSensorMiercoles.txt" en la carpeta donde
-		   // los transportistas vayan a ejecutar el jsonRegistro y en la de Sensor.java
+	public String jsonRegistro (int idOrdenTrazabilidad, int idPedido) throws Exception{
+		 
 		   String ruta="datosSensorMiercoles.txt";
-		   Registro registro = this.crearRegistro(lote, actor, ruta);
+		   Registro registro = this.crearRegistro(idOrdenTrazabilidad, idPedido, ruta);
 		   GsonBuilder builder = new GsonBuilder();
 		   Gson gson = builder.setPrettyPrinting().create();    
 	           return gson.toJson(registro);   
