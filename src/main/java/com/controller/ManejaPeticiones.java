@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
-import equipo7.model.ListaPedidos;
+import equipo7.model.ListaOrdenes;
 import equipo7.model.OrdenTrazabilidad;
 
 import equipo7.otros.DescodificadorJson;
@@ -58,7 +58,7 @@ public class ManejaPeticiones {
 		pedido.OrdenTrazabilidad.setId(id);
 		
 		//PEDIDOS PADRE E HIJO
-		ListaPedidos pendientes = this.pedidosPendientes(pedido.OrdenTrazabilidad.getActorOrigen().getId());
+		ListaOrdenes pendientes = this.ordenesPendientes(pedido.OrdenTrazabilidad.getActorOrigen().getId());
 		
 		if(pendientes!=null && pendientes.getListaIDs().size()>0){
 			//Si el origen de este pedido tiene algun pedido pendiente,
@@ -89,11 +89,10 @@ public class ManejaPeticiones {
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/obtenerPedido")
+	@RequestMapping("/obtenerOrden")
 	@ResponseBody
-	// Recibe el ID de un pedido y devuelve su JSON asociado
-	public String obtenerOrden(
-			@RequestParam(name="id", required=true) String id) {
+	// Recibe el ID de una orden y devuelve su JSON asociado
+	public String obtenerOrden(@RequestParam(name="id", required=true) String id) {
 
 		int idInt = Integer.parseInt(id);
 
@@ -104,17 +103,17 @@ public class ManejaPeticiones {
 		if (pedido != null)
 			return CodificadorJSON.crearJSON(pedido);
 		else
-			return "ERROR: No se pudo obtener la orden;
+			return "ERROR: No se pudo obtener la orden";
 	}
 	
 	
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/pedidosNoAceptados")
+	@RequestMapping("/ordenesPendientesPorAceptar")
 	@ResponseBody
-	// Recibe el ID de un actor y devuelve un JSON con los pedidos no aceptados de ese actor
-	public String pedidosNoAceptados(
+	// Recibe el ID de un actor y devuelve un JSON con las ordenes pendientes por aceptar de ese actor
+	public String ordenesPendientesPorAceptar(
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
 		//Obtenemos los pedidos de trazabilidad
@@ -124,7 +123,7 @@ public class ManejaPeticiones {
 		
 		if(pedidos!=null && pedidos.size()>0) {
 			
-			ListaPedidos pedidosNoAceptados = new ListaPedidos();
+			ListaOrdenes pedidosNoAceptados = new ListaOrdenes();
 			//Se necesitan aquellos pedidos pendientes por aceptar una persona
 			Iterator<OrdenTrazabilidad> it = pedidos.iterator();
 			while(it.hasNext()) {
@@ -133,7 +132,7 @@ public class ManejaPeticiones {
 				if(actual.getActorDestino().getId().compareTo(idActor)==0) {
 					//El estado del pedido cuando no ha sido aceptado es 0
 					if(actual.getEstado()==0) {
-						pedidosNoAceptados.anyadePedido(actual.getId());
+						pedidosNoAceptados.anyadeOrden(actual.getId());
 					}
 				}
 			}
@@ -145,14 +144,14 @@ public class ManejaPeticiones {
 			
 	}
 	
-	//Devuelve lista de pedidos recibidos y estan en proceso
-	private ListaPedidos pedidosPendientes(String idActor) throws ClassNotFoundException, SQLException{
+	//Devuelve lista de ordenes recibidos y estan en proceso
+	private ListaOrdenes ordenesPendientes(String idActor) throws ClassNotFoundException, SQLException{
 		//Obtenemos los pedidos de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
 		ArrayList<OrdenTrazabilidad> pedidos = bloque.extraerPedido(idActor);
 		
 		if(pedidos!=null && pedidos.size()>0) {
-			ListaPedidos pedidosEnProceso = new ListaPedidos();
+			ListaOrdenes pedidosEnProceso = new ListaOrdenes();
 			
 			//Se necesitan aquellos pedidos pendientes por aceptar una persona
 			Iterator<OrdenTrazabilidad> it = pedidos.iterator();
@@ -162,7 +161,7 @@ public class ManejaPeticiones {
 				if(actual.getActorDestino().getId().compareTo(idActor)==0) {
 					//El estado del pedido debe ser en proceso
 					if(actual.getEstado()==1) {
-						pedidosEnProceso.anyadePedido(actual.getId());
+						pedidosEnProceso.anyadeOrden(actual.getId());
 					}
 				}
 			}
@@ -173,34 +172,33 @@ public class ManejaPeticiones {
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/pedidosEnProceso")
+	@RequestMapping("/ordenesEnProceso")
 	@ResponseBody
-	// Recibe el ID de un actor y devuelve un JSON con los pedidos en proceso de ese actor
-	public String pedidosEnProceso(
+	// Recibe el ID de un actor y devuelve un JSON con las ordenes en proceso de ese actor
+	public String ordenesEnProceso(
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
-		ListaPedidos pedidosEnProceso=this.pedidosPendientes(idActor);
+		ListaOrdenes pedidosEnProceso=this.ordenesPendientes(idActor);
 		if(pedidosEnProceso!=null){
 			//Devolver lista de identificadores
 			return CodificadorJSON.crearJSONlista(pedidosEnProceso);
 		}
-		else return "ERROR: No tiene pedidos en proceso";
+		else return "ERROR: No tiene ordenes en proceso";
 	
 	}
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/aceptarPedido")
+	@RequestMapping("/aceptarOrden")
 	@ResponseBody
-	//Recibe una lista de ids de los pedidos que va a aceptar
-	public String aceptarPedido(
-			@RequestParam(name="id", required=true) String id) {
+	//Recibe una lista de ids de las ordenes que va a aceptar
+	public String aceptarOrden(@RequestParam(name="id", required=true) String id) {
 
 		//NECESARIO PARA TRAZABILIDAD:
 		BlockchainServices bloque = new BlockchainServices();
 		
 		DescodificadorJson decoder = new DescodificadorJson();
-		ListaPedidos ids = decoder.DescodificadorJSONListaPedidos(id);
+		ListaOrdenes ids = decoder.DescodificadorJSONlista(id);
 		if(ids!=null ) {
 			ArrayList<Integer> lista = ids.getListaIDs();
 			
@@ -234,17 +232,16 @@ public class ManejaPeticiones {
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/listoPedido")
+	@RequestMapping("/listaOrden")
 	@ResponseBody
-	//Recibe una lista de ids de los pedidos que va a poner como listos
-	public String listoPedido(
-			@RequestParam(name="id", required=true) String id) {
+	//Recibe una lista de ids de las ordenes que va a poner como listas
+	public String listaOrden(@RequestParam(name="id", required=true) String id) {
 
 		//NECESARIO PARA TRAZABILIDAD:
 		BlockchainServices bloque = new BlockchainServices();
 		
 		DescodificadorJson decoder = new DescodificadorJson();
-		ListaPedidos ids = decoder.DescodificadorJSONListaPedidos(id);
+		ListaOrdenes ids = decoder.DescodificadorJSONlista(id);
 		if(ids!=null) {
 			ArrayList<Integer> lista = ids.getListaIDs();
 
@@ -279,11 +276,10 @@ public class ManejaPeticiones {
 	
 	//PARA EQUIPO 3: TRANSPORTISTAS
 	@Scope("request")
-	@RequestMapping("/recogidoPedido")
+	@RequestMapping("/recogidaOrden")
 	@ResponseBody
-	//Recibe un json con la firma de recogida y el actor que va a transportar el pedido
-	public String recogidoPedido(
-			@RequestParam(name="json", required=true) String json) throws Throwable {
+	//Recibe un json con la firma de recogida y el actor que va a transportar la orden
+	public String recogidaOrden(@RequestParam(name="json", required=true) String json) throws Throwable {
 		
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad pedido = decoder.DescodificadorJson(json);
@@ -312,11 +308,10 @@ public class ManejaPeticiones {
 	
 	//PARA EQUIPO 3: TRANSPORTISTAS
 	@Scope("request")
-	@RequestMapping("/entregadoPedido")
+	@RequestMapping("/entregadaOrden")
 	@ResponseBody
 	//Recibe un json con la firma de entrega y los datos del registro
-	public String entregadoPedido(
-			@RequestParam(name="json", required=true) String json) throws Throwable {
+	public String entregadaOrden(@RequestParam(name="json", required=true) String json) throws Throwable {
 		
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad pedido = decoder.DescodificadorJson(json);
