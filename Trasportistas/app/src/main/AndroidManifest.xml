@@ -9,18 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HistorialPedidos"></activity>
-        <activity android:name=".PedidosRecogidos" />
-        <activity android:name=".VentanaPrincipal">
+        <activity android:name=".activities.Ficha"></activity>
+        <activity android:name=".activities.FichaEntrega" />
+        <activity android:name=".activities.HistorialPedidos" />
+        <activity android:name=".activities.PedidosRecogidos" />
+        <activity android:name=".activities.VentanaPrincipal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Ficha" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Firma" />
+        <activity android:name=".activities.FichaRecogida" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.FirmaRecogida" />
     </application>
 
 </manifest>

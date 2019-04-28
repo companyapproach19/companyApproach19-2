@@ -1,7 +1,6 @@
 package software.engineering.upm.es.retrofit;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -10,22 +9,22 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import software.engineering.upm.es.Pedido;
+import software.engineering.upm.es.objetos.parceables.Pedido;
 
 public interface PedidosAPI {
     @GET("")
-    Call<JSONArray> getPedidos();
+    Call<String> getPedidos();
 
-    @GET("pedidos/{id}")
-    Call<JSONArray> getPedidos(@Path("id") String id);
+    @GET("{id}")
+    Call<String> getPedidos(@Path("id") String id);
 
-    @POST("pedidos")
+    @POST("ejemplo")
     Call<JSONArray> insertPedido(@Body Pedido pedido);
 
-    @PUT("pedidos")
+    @PUT("ejemplo")
     Call<JSONArray> updatePedido(@Body Pedido pedido);
 
-    @DELETE("pedidos/{id}")
+    @DELETE("ejemplo/{id}")
     Call<JSONArray> deletePedido(@Path("id") String id);
 
     //@POST("{user}/connect/{pass}")
