@@ -1,4 +1,4 @@
-ppackage equipo8.model;
+package equipo8.model;
 
 import equipo4.model.Lote;
 import equipo6.model.Actor;
