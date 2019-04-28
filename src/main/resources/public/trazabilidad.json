@@ -1,0 +1,16 @@
+[
+{
+"Tipo":"Lager",
+"Agricultor":"Malta Madrid",
+"Fábrica": "Kolks",
+"Temperatura máxima":"6ºC",
+"Temperatura mínima":"4ºC"
+},
+{
+"Tipo":"",
+"Agricultor":"Cebada Ceuta",
+"Fábrica": "",
+"Temperatura máxima":"",
+"Temperatura mínima":""
+}
+]
