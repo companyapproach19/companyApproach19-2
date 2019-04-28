@@ -45,13 +45,13 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="producto1" id="producto1" value="Pedido id1">
                                             <label for="producto1" id="label1">Pedido noPedido</label>
-                                            <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>
-
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </button>
                                         </div>
+
                                         <div class="form-group">
                                             <input type="checkbox" name="producto2" id="producto2" value="Pedido id2">
                                             <label for="producto2" id="label2">Pedido noPedido</label>
-                                            <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>
+                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
 
                                         </div>
                                         <div class="form-group">
@@ -81,6 +81,34 @@
                                             <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>
                                         </div>
                                 <input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids(); window.location.href='agricultoresInicio.html';" value="Completar pedidos"/>
+
+                                <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalScrollableTitle">Información del pedido</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+
+Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                          </div>
+                                          <div class="modal-footer">
+<!--                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Atrás</button>
+ -->                                            <button class="btnRegister" data-dismiss="modal">Atrás</button>
+                                            <button class="btnRegister" data-dismiss="modal">Aceptar pedido</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>   
+                                
                             </div>
                                 <!-- <label for="producto">*Los pedidos que no sean seleccionados se rechazaran automaticamente*</label> -->
 
