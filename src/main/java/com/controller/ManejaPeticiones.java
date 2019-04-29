@@ -168,41 +168,45 @@ public class ManejaPeticiones {
 	@ResponseBody
 	//Recibe una lista de ids de las ordenes que va a aceptar
 	public String aceptarOrden(@RequestParam(name="id", required=true) String id) {
-
-		//NECESARIO PARA TRAZABILIDAD:
-		BlockchainServices bloque = new BlockchainServices();
 		
-		DescodificadorJson decoder = new DescodificadorJson();
-		ListaOrdenes ids = decoder.DescodificadorJSONlista(id);
-		if(ids!=null ) {
-			ArrayList<Integer> lista = ids.getListaIDs();
-			
-			//Hay que cambiar el estado de todos los pedidos que existan
-			for (int i = 0; i < lista.size(); i++) {
-				int idInt = lista.get(i);
-				if(idInt!=-1) {
-					OrdenTrazabilidad pedido = bloque.getTraspaso(idInt);
+		int idInt = Integer.parseInt(id);
 
-					int estado;
-					//Para cambiar el estado del pedido
-					if (pedido.getOrigenOrdenes() != null) {
-						estado = pedido.getOrigenOrdenes().aceptarPedido(pedido.getEstado());
-					} 
-					else {
-						Orden origenOrden = new Orden();
-						pedido.setOrigenOrdenes(origenOrden);
-						estado = origenOrden.aceptarPedido(pedido.getEstado());
-					}
-					pedido.setEstado(estado);
-					try {
-						bloque.guardarOrden(pedido);
-					} 
-					catch (Throwable e) { e.printStackTrace(); }
-				}
-			}
+		//Recuperamos la orden para cambiar el estado
+		BlockchainServices bloque = new BlockchainServices();
+		OrdenTrazabilidad orden = bloque.getTraspaso(idInt);
+		
+		if(orden!=null) {
+			orden.setEstado(1);
+			bloque.guardarOrden(orden);
+			return CodificadorJSON.crearJSON(orden);
 		}
-        
-        return "Success";
+		else {
+			return "ERROR: no existe la orden asociada a este ID";
+		}
+
+	}
+	
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/rechazarOrden")
+	@ResponseBody
+	//Recibe una lista de ids de las ordenes que va a aceptar
+	public String rechazarOrden(@RequestParam(name="id", required=true) String id) {
+		
+		int idInt = Integer.parseInt(id);
+			//Recuperamos la orden para cambiar el estado
+		BlockchainServices bloque = new BlockchainServices();
+		OrdenTrazabilidad orden = bloque.getTraspaso(idInt);
+		
+		if(orden!=null) {
+			orden.setEstado(-1);
+			bloque.guardarOrden(orden);
+			return CodificadorJSON.crearJSON(orden);
+		}
+		else {
+			return "ERROR: no existe la orden asociada a este ID";
+		}
+
 	}
 	
 	//PARA EQUIPO 2: VISTAS
