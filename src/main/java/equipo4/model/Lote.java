@@ -6,6 +6,7 @@ import java.util.*;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.DatosContainer;
+
 public class Lote extends DatosContainer{
 	private  int idBd;
 	private  Date fecha_inicio;

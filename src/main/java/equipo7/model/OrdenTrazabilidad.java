@@ -1,12 +1,11 @@
 package equipo7.model;
 
 import equipo6.model.DatosContainer;
-import equipo7.otros.Orden;
-import equipo8.model.Registro;
+import equipo6.model.Actor;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
-import equipo6.model.Actor;
 
 public class OrdenTrazabilidad extends DatosContainer
 {
@@ -29,189 +28,192 @@ public class OrdenTrazabilidad extends DatosContainer
 		private Actor actorDestino;
 		//Argumento que debe mirar el equipo de transportistas 
 		private boolean necesitaTransportista;
-		//Productos pedidos
-		private Productos productos;
-		private String mensaje;
+		//Productos pedidos (Origen pide a Destino)
+		private Productos productosPedidos;
+		//id de los Productos(MateriaPrima y Lote) que devuelve el Destino al Origen
+		private ArrayList<Integer> productosAEntregar;
 		//Estado del pedido
-		//Siendo 0=noAceptado;1=enProceso;2=ListoParaEntregar;3=EnProcesoDeEntrega;4=Entregado
+		//Siendo 0=pendienteDeAceptar;1=enProceso;2=ListoParaEntregar;3=EnProcesoDeEntrega;4=Entregado;
+		//-1=Rechazado
 		private int estado;
 		// El transportista firma en dos ocasiones del pedido:
 		// en la recogida del pedido (llegada al origen)
 		private byte[] firmaRecogida;
 		//en la entrega del pedido (llegada al destino)
 		private byte[] firmaEntrega;
-		//Este objeto sera de la clase Ordenes del actor de origen
-		//Contiene al objeto de la clase Ordenes del actor de destino
-		private Orden origenOrdenes;
-		//Lista de padres
-		private int idPadre;
-		//Lista de hijos
-		private int idHijo;
 		//Datos del transportista
 		private Actor transportista;
-		//Registro de sensor del transporte
-		private Registro registro;
+		//idRegistro del transporte -> Lo rellena el transportista en firmaEntrega
+		private int idRegistro;
+		//id de la cadena, del pedido total
+		private int idPedido;
+		//fecha para BBDD
+		private Date fecha;
 		
 		
 
 		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
-				Productos productos, String mensaje, int estado,byte[] firmaRecogida, byte[] firmaEntrega,
-				int idPadre, int idHijo, Actor transportista, Registro registro) {
+				Productos productosPedidos, ArrayList<Integer> productosAEntregar, int estado, byte[] firmaRecogida, 
+				byte[] firmaEntrega, Actor transportista, int idRegistro, int idPedido, Date fecha) {
 			this.id=id;
 			this.actorOrigen=actorOrigen;
 			this.actorDestino=actorDestino;
 			this.necesitaTransportista=necesitaTransportista;
-			this.productos=productos;
-			this.mensaje=mensaje;
+			this.productosPedidos=productosPedidos;
+			this.productosAEntregar=productosAEntregar;
 			this.estado=estado;
 			this.firmaRecogida=firmaRecogida;
 			this.firmaEntrega=firmaEntrega;
-			this.idPadre=idPadre;
-			this.idHijo=idHijo;
 			this.transportista=transportista;
-			this.registro=registro;
-			this.origenOrdenes=new Orden();
+			this.idRegistro=idRegistro;
+			this.idPedido=idPedido;
+			this.fecha=fecha;
 			
 		}
 		
-		
-		public OrdenTrazabilidad(int identificador,String mensaje, Actor emisor, Actor receptor, Productos productos) {
-			this.id = identificador;
-			this.actorDestino=receptor;
-			this.actorOrigen=emisor;
-			this.productos=productos;
-			this.mensaje=mensaje;
+		//Constructor para descodificar json de vistas inicial
+		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, Productos productosPedidos) {
+			this.id = id;
+			this.actorDestino=actorOrigen;
+			this.actorOrigen=actorDestino;
+			this.productosPedidos=productosPedidos;
+			
+			this.productosAEntregar=new ArrayList<Integer>();
 			this.estado=0;
-			this.firmaRecogida =null;
-			this.firmaEntrega =null;
 			this.necesitaTransportista=false;
-			this.idPadre = -1;
-			this.idHijo = -1;
+			this.firmaRecogida = new byte[1];
+			this.firmaEntrega = new byte[1];
+			this.transportista=null;
+			this.idPedido=-1;
+			this.idRegistro=-1;
+			
+			
 		}
 		
-		
-		
-		public void setActorOrigen(Actor actorOrigen) {
-			this.actorOrigen = actorOrigen;
-		}
-
-		public void setActorDestino(Actor actorDestino) {
-			this.actorDestino = actorDestino;
-		}
-
-		public void setProductos(Productos productos) {
-			this.productos = productos;
-		}
-
-		public void setEstado(int estado) {
-			this.estado = estado;
-		}
-
-		public void setId(int id) {
+		//Constructor para descodificar json de transportistas
+		//firmaRecogida
+		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
+				Productos productosPedidos,ArrayList<Integer> productosAEntregar, byte[] firmaRecogida, 
+				Actor transportista) {
 			this.id=id;
-		}
-		
-		public void setNecesitaTransportista(boolean necesitaTransportista) {
-			this.necesitaTransportista=true;
-		}
-		
-		public void setMensaje(String mensaje) {
-			this.mensaje = mensaje;
-		}
-		
-		public void setFirmaRecogida(byte[] firmaRecogida) {
-			this.firmaRecogida = firmaRecogida;
-			if(this.firmaRecogida!=null && this.firmaRecogida.length>0) {
-				this.origenOrdenes.firmadoRecogida(this.estado);
-			}
+			this.actorOrigen=actorOrigen;
+			this.actorDestino=actorDestino;
+			this.necesitaTransportista=necesitaTransportista;
+			this.productosPedidos=productosPedidos;
+			this.productosAEntregar=productosAEntregar;
+			this.firmaRecogida=firmaRecogida;
+			this.firmaEntrega= new byte[1];
+			this.transportista=transportista;
+			this.estado=-1;
+			this.idRegistro=-1;
+			this.idPedido=-1;
+			
 		}
 
-		public void setFirmaEntrega(byte[] firmaEntrega) {
-			this.firmaEntrega = firmaEntrega;
-			if(this.firmaEntrega!=null && this.firmaEntrega.length>0) {
-				this.origenOrdenes.firmadoRecogida(this.estado);
-			}
-		}
-		
-		public void setOrigenOrdenes(Orden origenOrdenes) {
-			this.origenOrdenes=origenOrdenes;
-		}
-
-		public void setPadres(int idPadre) {
-			this.idPadre = idPadre;
-		}
-
-		public void setHijos(int idHijo) {
-			this.idHijo = idHijo;
-		}
-		
-		public void setTransportista(Actor transportista) {
-			this.transportista = transportista;
-		}
-		
-
-		public void setRegistro(Registro registro) {
-			this.registro = registro;
-		}
-
-		public boolean getNecesitaTransportista() {
-			return this.necesitaTransportista;
-		}
-		
 		public int getId() {
 			return id;
 		}
 
-		public String getMensaje() {
-			return mensaje;
+		public void setId(int id) {
+			this.id = id;
 		}
 
 		public Actor getActorOrigen() {
 			return actorOrigen;
 		}
 
-		public Actor getActorDestino() { return actorDestino; }
+		public void setActorOrigen(Actor actorOrigen) {
+			this.actorOrigen = actorOrigen;
+		}
+
+		public Actor getActorDestino() {
+			return actorDestino;
+		}
+
+		public void setActorDestino(Actor actorDestino) {
+			this.actorDestino = actorDestino;
+		}
+
+		public boolean isNecesitaTransportista() {
+			return necesitaTransportista;
+		}
+
+		public void setNecesitaTransportista(boolean necesitaTransportista) {
+			this.necesitaTransportista = necesitaTransportista;
+		}
+
+		public Productos getProductosPedidos() {
+			return productosPedidos;
+		}
+
+		public void setProductosPedidos(Productos productosPedidos) {
+			this.productosPedidos = productosPedidos;
+		}
+
+		public ArrayList<Integer> getProductosAEntregar() {
+			return productosAEntregar;
+		}
+
+		public void setProductosAEntregar(ArrayList<Integer> productosAEntregar) {
+			this.productosAEntregar = productosAEntregar;
+		}
 
 		public int getEstado() {
 			return estado;
+		}
+
+		public void setEstado(int estado) {
+			this.estado = estado;
 		}
 
 		public byte[] getFirmaRecogida() {
 			return firmaRecogida;
 		}
 
+		public void setFirmaRecogida(byte[] firmaRecogida) {
+			this.firmaRecogida = firmaRecogida;
+		}
+
 		public byte[] getFirmaEntrega() {
 			return firmaEntrega;
 		}
-		
-		public Productos getProductos() {
-			return productos;
+
+		public void setFirmaEntrega(byte[] firmaEntrega) {
+			this.firmaEntrega = firmaEntrega;
 		}
-    
-		public Orden getOrigenOrdenes() {
-			return origenOrdenes;
-		}
-		
-		public int getIdPadre() {
-			return idPadre;
-		}
-		
-		public int getIdHijo() {
-			return idHijo;
-		}
-		
+
 		public Actor getTransportista() {
 			return transportista;
 		}
-		
-		public Registro getRegistro() {
-			return registro;
+
+		public void setTransportista(Actor transportista) {
+			this.transportista = transportista;
+		}
+
+		public int getIdRegistro() {
+			return idRegistro;
+		}
+
+		public void setIdRegistro(int idRegistro) {
+			this.idRegistro = idRegistro;
+		}
+
+		public int getIdPedido() {
+			return idPedido;
+		}
+
+		public void setIdPedido(int idPedido) {
+			this.idPedido = idPedido;
+		}
+
+		public Date getFecha() {
+			return fecha;
+		}
+
+		public void setFecha(Date fecha) {
+			this.fecha = fecha;
 		}
 		
-		/*
-		public enum EstadoOrden {
-			EN_PROCESO, LISTO_PARA_ENTREGAR, EN_PROCESO_DE_ENTREGA, ENTREGADO
-		}*/
-
+		
  
 }

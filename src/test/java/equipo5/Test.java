@@ -41,6 +41,8 @@ public class Test extends metodosCompany {
 			conectar();
 			crearBD();
 			
+//			extraerBloque("; DROP TABLE bloque; DROP TABLE productos");
+			
 //			String json = "{\r\n" +
 //					                "\"id\": 49126,\r\n" +
 //					                "\"actorOrigen\": {\r\n" +
@@ -107,39 +109,39 @@ public class Test extends metodosCompany {
 			insertarLote(loteVacio);
 			
 			//Transportistas y pedidos (Orden trazabilidad) pedidos por el Grupo 3
-			Actor tranpG3_1 = new Actor("11", "TranspG3_1", "password", "tranpG3_1@gmail.es", 2, "Calle Diaz", "Maria",
-					"Calle Renacimiento", "fg4");
-			Actor tranpG3_2 = new Actor("12", "TranspG3_2", "password", "tranpG3_2@gmail.es", 2, "Calle Santa Elena", "Jose",
-					"Calle Ilustración", "fg5");
-			
-			insertarActor(tranpG3_1);
-			insertarActor(tranpG3_2);
-			
-			Productos productosG3_1 = new Productos(11, 2, 9, 2, 1, 7, 8, 0, 11, 4, 7, 6);
-			Productos productosG3_2 = new Productos(12, 1, 2, 0, 1, 7, 8, 10, 11, 8, 2, 4);
-			
-			insertarProductos(productosG3_1);
-			insertarProductos(productosG3_2);
-			
-			Date dateiniG3_1 = new Date(11, 11, 2018);
-			Date datefinG3_1  = new Date(3, 12, 2019);
-			
-			Lote loteG3_1 = new Lote(11, dateiniG3_1, "pilsner", datefinG3_1, false, true, false, true, false, null, 5);
-			loteG3_1.setQr(GeneradorQR2.generadorQR(loteG3_1.getIdBd()));
-			insertarLote(loteG3_1);
-			
-			Registro registroG3_1 = new Registro(11,loteG3_1, tranpG3_1, dateiniG3_1.toLocaleString(),
-					datefinG3_1.toLocaleString(), 30, 5);
-			
-			insertarRegistro(registroG3_1);
-			
-			byte[] firmarecG3_1 = null;
-			byte[] firmaentG3_2 = null;
-
-			OrdenTrazabilidad ordenG3_1 = new OrdenTrazabilidad(11, tranpG3_1, tranpG3_2, true, productosG3_1, "", 1, firmarecG3_1,
-					firmaentG3_2, 11, 12, tranpG3_1, registroG3_1);
-			insertarOrdenTrazabilidad(ordenG3_1);
-			
+//			Actor tranpG3_1 = new Actor("11", "TranspG3_1", "password", "tranpG3_1@gmail.es", 2, "Calle Diaz", "Maria",
+//					"Calle Renacimiento", "fg4");
+//			Actor tranpG3_2 = new Actor("12", "TranspG3_2", "password", "tranpG3_2@gmail.es", 2, "Calle Santa Elena", "Jose",
+//					"Calle Ilustración", "fg5");
+//			
+//			insertarActor(tranpG3_1);
+//			insertarActor(tranpG3_2);
+//			
+//			Productos productosG3_1 = new Productos(11, 2, 9, 2, 1, 7, 8, 0, 11, 4, 7, 6);
+//			Productos productosG3_2 = new Productos(12, 1, 2, 0, 1, 7, 8, 10, 11, 8, 2, 4);
+//			
+//			insertarProductos(productosG3_1);
+//			insertarProductos(productosG3_2);
+//			
+//			Date dateiniG3_1 = new Date(11, 11, 2018);
+//			Date datefinG3_1  = new Date(3, 12, 2019);
+//			
+//			Lote loteG3_1 = new Lote(11, dateiniG3_1, "pilsner", datefinG3_1, false, true, false, true, false, null, 5);
+//			loteG3_1.setQr(GeneradorQR2.generadorQR(loteG3_1.getIdBd()));
+//			insertarLote(loteG3_1);
+//			
+//			Registro registroG3_1 = new Registro(11,loteG3_1, tranpG3_1, dateiniG3_1.toLocaleString(),
+//					datefinG3_1.toLocaleString(), 30, 5);
+//			
+//			insertarRegistro(registroG3_1);
+//			
+//			byte[] firmarecG3_1 = null;
+//			byte[] firmaentG3_2 = null;
+//
+//			OrdenTrazabilidad ordenG3_1 = new OrdenTrazabilidad(11, tranpG3_1, tranpG3_2, true, productosG3_1, "", 1, firmarecG3_1,
+//					firmaentG3_2, 11, 12, tranpG3_1, registroG3_1);
+//			insertarOrdenTrazabilidad(ordenG3_1);
+//			
 			// MateriaPrima pedida Grupo 4
 			MateriaPrima maltaPilsner = new MateriaPrima("maltaPilsner", 1);
 			insertarMateriaPrima(maltaPilsner);
@@ -165,6 +167,7 @@ public class Test extends metodosCompany {
 			insertarMateriaPrima(levaduraAle);
 			MateriaPrima levaduraLager = new MateriaPrima("levaduraLager", 12);
 			insertarMateriaPrima(levaduraLager);
+			System.out.println("Materias Primas Introducidas");
 
 			// Actores pedidos equipo 7
 			// 0->4 para Productor, Cooperativa, Transportista, Fabrica y Retailer
@@ -205,18 +208,21 @@ public class Test extends metodosCompany {
 			insertarActor(emisor2);
 			insertarActor(receptor1);
 			insertarActor(receptor2);
+			System.out.println("Actores Introducidos");
 			extraerActor("Agricultor");
 			extraerActor("alberto");
 			extraerActor("maria");
 			extraerActor("felipe");
 			extraerActor("rick");
-
+			
 			CadenaActores cadena = extraerCadenaActores();
 			List<Actor> list = cadena.getlista_actores();
 			System.out.println("Prueba cadena actores: ");
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println(list.get(i).getNombreUsuario());
 			}
+			
+			System.out.println("Actores extraidos");
 
 			// Prueba lotes
 
@@ -229,7 +235,7 @@ public class Test extends metodosCompany {
 			Date dateini3 = new Date(25, 02, 2018);
 			Date datefin3 = new Date(5, 11, 2020);
 
-			Lote lote1 = new Lote(1, dateini1, "pilsner", datefin1, false, true, false, true, false, null, 5);
+			Lote lote1 = new Lote(1, dateini1, "stout", datefin1, false, true, false, true, false, null, 5);
 			Lote lote2 = new Lote(2, dateini2, "stout", datefin2, true, false, true, false, false, null, 4);
 			Lote lote3 = new Lote(3, dateini3, "pilsner", datefin3, false, false, true, false, true, null, 3);
 
@@ -241,10 +247,13 @@ public class Test extends metodosCompany {
 			insertarLote(lote2);
 			insertarLote(lote3);
 
+			System.out.println("Lotes introducidos");
 			extraerLote(1);
 			extraerLote(2);
 			extraerLote(3);
+			System.out.println("Lotes extraidos");
 
+			
 			// Pruebas Productos
 			Productos productos1 = new Productos(1, 12, 5, 0, 4, 7, 8, 10, 11, 0, 1, 4);
 
@@ -255,10 +264,13 @@ public class Test extends metodosCompany {
 			insertarProductos(productos1);
 			insertarProductos(productos2);
 			insertarProductos(productos3);
+			System.out.println("Productos introducidos");
+
 
 			extraerProductos(1);
 			extraerProductos(2);
 			extraerProductos(3);
+			System.out.println("Productos extraidos");
 
 			// Prueba registros
 			Registro registro1 = new Registro(lote1, emisor1, dateini1.toLocaleString(), datefin1.toLocaleString(), 40,
@@ -275,9 +287,12 @@ public class Test extends metodosCompany {
 			insertarRegistro(registro2);
 			insertarRegistro(registro3);
 
+			System.out.println("Registros introducidos");
+
 			extraerRegistro(1);
 			extraerRegistro(2);
 			extraerRegistro(3);
+			System.out.println("Registros extraidos");
 
 			// Pruebas OrdenTrazabilidad
 
@@ -355,130 +370,49 @@ public class Test extends metodosCompany {
 			insertarStockMP(fabrica, maltaPilsner, 12);
 			insertarStockMP(productor, cebadaTostada, 10);
 			insertarStockMP(cooperativa, maltaPilsner, 8);
-			insertarStockMP(fabrica, lupuloTettnanger, 7);
-
+			
+			insertarStockMP(fabrica, lupuloTettnanger, 8);
 			insertarStockMP(retailer, cebadaTostada, 19);
 			insertarStockMP(receptor2, maltaNegra, 11);
 
+			System.out.println("Materias Primas Stock introducidas");
+			
 			insertarStockLote(emisor1, lote1);
 			insertarStockLote(emisor2, lote2);
 			insertarStockLote(receptor1, lote3);
 			insertarStockLote(productor, lote1);
 			insertarStockLote(fabrica, lote2);
-			insertarStockLote(receptor1, lote3);
-			insertarStockLote(productor, lote1);
-			insertarStockLote(fabrica, lote2);
-
+			insertarStockLote(retailer, lote3);
+			insertarStockLote(retailer, lote1);
 			insertarStockLote(cooperativa, lote3);
+			System.out.println("Lotes Stock introducidas");
+
 
 			// Prueba extraerStockLote, extraerStockMP
-			extraerStockLote(emisor1);
-			extraerStockLote(emisor2);
-			extraerStockLote(productor);
+			
 			extraerStockLote(cooperativa);
 			extraerStockLote(receptor1);
+			
+			LinkedList<Lote> recibido = extraerStockLote(retailer);
+			System.out.println("Stock Retailer");
+			for(int i=0; i<recibido.size(); i++ ) {
+				System.out.print("Identificador: ");
+				System.out.println(recibido.get(i).getIdBd());
+				System.out.print("Tipo: ");
+				System.out.println(recibido.get(i).getTipo());
 
+			}
+			System.out.println("Lotes Stock extraidos");
+
+
+			System.out.print("Stock Fabrica lupuloTettnanger: ");
+			System.out.println(extraerStockMP(fabrica, lupuloTettnanger));
 			extraerStockMP(emisor1, maltaPilsner);
 			extraerStockMP(emisor2, cebadaTostada);
 			extraerStockMP(productor, lupuloPerle);
 			extraerStockMP(retailer, cebadaTostada);
 			extraerStockMP(receptor2, maltaNegra);
-//
-//			// PRUEBAS QUE DAN DAR ERRROR, MAL USO DEL CÓDIGO.
-//
-//			// Pruebas Actor
-//			// Usuario con cif a null
-//			Actor pruebamal = new Actor("", "luis", "password", "agri@gmail.es", 1, "Calle Ribera", "juan",
-//					"Calle Goicoechea", "fg3");
-//
-//			// Contraseña que excede VARCHAR(45)
-//			Actor contlargamal = new Actor("10", null, "passwordddddddddddddddddddddddddddddddddddddddddddd"
-//					+ "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" + "",
-//					"agri@gmail.es", 1, "Calle Ribera", "juan", "Calle Goicoechea", "fg3");
-//			insertarActor(pruebamal);
-//			insertarActor(contlargamal);
-//			extraerActor("10");
-//			insertarActor(null);
-//
-//			// Prueba lotes
-//			// Sin fecha de inicio
-//			Lote lote1mal = new Lote(9, null, "pilsner", datefin1, false, true, false, true, false, null, 1);
-//			lote1.setQr(GeneradorQR2.generadorQR(lote1.getIdBd()));
-//			insertarLote(lote1);
-//
-//			// Pruebas Productos
-//			Productos productos1mal = new Productos(1, 12, 5, 0, 4, 7, 8, 10, 11, 0, 1, 4);
-//			insertarProductos(productos1mal);
-//			insertarProductos(null);
-//			// Productos no existentes
-//			extraerProductos(6);
-//
-//			// Prueba registros
-//			// Lote erróneo, no deberia existir en la bbdd
-//			Registro registro1mal = new Registro(lote1mal, emisor1, dateini1.toLocaleString(),
-//					datefin1.toLocaleString(), 40, 10);
-//			registro1.setId(1);
-//			insertarRegistro(registro1mal);
-//
-//			// Pruebas OrdenTrazabilidad
-//			// Inserción de orden sin productos
-//			OrdenTrazabilidad orden1mal = new OrdenTrazabilidad(1, emisor1, emisor2, true, null, "", 1, firmarec,
-//					firmaent, 1, 2, emisor2, registro1);
-//			insertarOrdenTrazabilidad(orden1mal);
-//
-//			// Pruebas cadena
-//			// Cadena con un solo atributo
-//			Cadena cadenaPrueba1mal = new Cadena(7);
-//			insertarCadena(cadenaPrueba1mal);
-//			// No debería existir
-//			extraerCadena(7);
-//
-//			// Prueba bloques
-//			// Prueba con DatosContainer (registro1mal y lote1mal) erróneos
-//			DatosContainer datos1mal = registro1mal;
-//			DatosContainer datos2mal = lote1mal;
-//
-//			Bloque bloque1mal = new Bloque("hashPrevio1", 1, 1, lote1.getIdBd(), datos1, 1);
-//			Bloque bloque2mal = new Bloque("hashPrevio2", 2, 2, lote2.getIdBd(), datos2, 2);
-//
-//			insertarBloque(bloque1mal);
-//			insertarBloque(bloque2mal);
-//
-//			// Prueba extraerPedidosActorDestino (Relacionado con OrdenTrazabilidad
-//			// Ordenes no existentes
-//			ArrayList<OrdenTrazabilidad> ord1mal = extraerPedidosActorDestino("200");
-//			ArrayList<OrdenTrazabilidad> ord2mal = extraerPedidosActorDestino("80");
-//
-//			MateriaPrima arroz = new MateriaPrima("arroz", 80);
-//
-//			// Prueba insertarStockMP, insertarStockLote
-//			// Inserción de una MP inexistente en la BBDD
-//			insertarStockMP(emisor1, arroz, 4);
-//
-//			// Inserción sin actor (actor=null)
-//			insertarStockMP(null, cebadaTostada, 10);
-//
-//			// Lote mal no está en la BBBDD
-//			insertarStockLote(emisor1, lote1mal);
-//			// Actor mal, no está en la BBBDD
-//			insertarStockLote(pruebamal, lote3);
-//			// Lote es null
-//			insertarStockLote(pruebamal, null);
-//
-//			// Prueba extraerStockLote, extraerStockMP
-//			extraerStockMP(emisor2, arroz);
-//			// Intentamos extraer de un lote inexistente en la BBDD
-//			extraerStockLote(pruebamal);
-//
-//			// SQL INJECTION
-//			// Intenta devolver todos los actores
-//			extraerActor("1 OR 1=1");
-//			// Intenta tirar abajo la tabla actor
-//			extraerActor("evrf; DROP TABLE actor");
-//			// Intenta extraer todos los bloques existentes en la BBDD
-//			extraerBloque("rbg OR 1=1");
-//			// Intenta tirar abajo la tabla bloque y la tabla productos
-//			extraerBloque("lkmn; DROP TABLE bloque; DROP TABLE productos");
+			System.out.println("Materias Primas Stock extraidos");
 
 			System.out.print("Pasados todos los test correctamente");
 
