@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import equipo7.model.ListaOrdenes;
 import equipo7.model.OrdenTrazabilidad;
-
+import equipo7.model.Productos;
 import equipo7.otros.DescodificadorJson;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import equipo6.model.Actor;
 //NECESARIOS PARA TRAZABILIDAD:
 import equipo6.otros.BlockchainServices;
 import equipo7.otros.CodificadorJSON;
 import equipo7.otros.Main_pedidos;
 import equipo7.otros.Orden;
+import equipo7.otros.OrdenInicial;
 
 @Controller
 @SpringBootApplication
@@ -29,61 +31,28 @@ public class ManejaPeticiones {
 
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/creaPedido")
+	@RequestMapping("/crearOrden")
 	@ResponseBody
 	
-	//Recibe el json inicial con id -1 y devuelve un json
-	public String creaOrden(
+	//Recibe el json inicial 
+	public String crearOrden(
 			@RequestParam(name="json", required=true) String json) throws Throwable {
 		
-		//Main_pedido basicamente descodifica el json
-		Main_pedidos pedido = new Main_pedidos(json);
+		DescodificadorJson decodificador = new DescodificadorJson();
+		OrdenInicial inicial = decodificador.DescodificadorJSONinicial(json);
+		//Pedimos id de la orden
+		int id = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
+		//Creamos el objeto orden
+		OrdenTrazabilidad orden = new OrdenTrazabilidad(id, inicial.getActorOrigen(),
+				inicial.getActorDestino(), inicial.getProductosPedidos());
+		orden.setIdPedido(inicial.getIdPedido());
+		
+		//Guardamos en la cadena la orden
 		BlockchainServices bloque = new BlockchainServices();
-		
-        Orden origen = pedido.crear_pedido();
-        pedido.OrdenTrazabilidad.setOrigenOrdenes(origen);
-        
-		//TODO: verificar pedido
-		//if(pedido.verificar_pedido()) {
-		int id = 0;
-		boolean yaExiste = true;
-		id = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
-		/*TODO: sobra la condicion de id==0 no??
-		while (id == 0 && yaExiste) {
-			// Obtiene un numero aleatorio entre 1 y 999999,
-			// que sera el ID del pedido a la hora de crearse
-			id = ThreadLocalRandom.current().nextInt(1, 1000000);
-			yaExiste = equipo5.dao.metodosCompany.existeIdOrdenTrazabilidad(id);
-		}*/
-		pedido.OrdenTrazabilidad.setId(id);
-		
-		//PEDIDOS PADRE E HIJO
-		ListaOrdenes pendientes = this.ordenesPendientes(pedido.OrdenTrazabilidad.getActorOrigen().getId());
-		
-		if(pendientes!=null && pendientes.getListaIDs().size()>0){
-			//Si el origen de este pedido tiene algun pedido pendiente,
-			//entendemos que usara este pedido para corresponder al anterior
-			int padre = pendientes.getListaIDs().get(0);
-			pedido.OrdenTrazabilidad.setPadres(padre);
-			
-			//Ahora hay que insertar en la lista de hijos del padre a esta orden
-			//Obtenemos el objeto del padre
-			//TODO: se actualiza el padre?????
-			OrdenTrazabilidad padreOrden = bloque.getTraspaso(padre); 
-			if(padreOrden!=null) {
-				padreOrden.setHijos(id);
-				//ESTO LO GUARDARA
-				bloque.guardarOrden(padreOrden);
-			}
-		}
-		
-		//NECESARIO PARA TRAZABILIDAD:
-		//La orden se guardara en la base de datos
-	    bloque.guardarOrden(pedido.OrdenTrazabilidad);
+	    bloque.guardarOrden(orden);
 	        
-		return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
-		//}
-		//else return "ERROR";
+		return CodificadorJSON.crearJSON(orden);
+		
 	}
 
 	

@@ -21,6 +21,12 @@ public class DescodificadorJson {
 		Type tipoObjeto = new TypeToken<ArrayList<Integer>>(){}.getType();
 		return gson.fromJson(lista, tipoObjeto);
 	}
+	
+	public OrdenInicial DescodificadorJSONinicial(String jsonInicial) {
+		Gson gson=new Gson();
+		Type tipoObjeto = new TypeToken<OrdenInicial>(){}.getType();
+		return gson.fromJson(jsonInicial, tipoObjeto);	
+	}
 
 	
 }
