@@ -87,29 +87,28 @@ public class ManejaPeticiones {
 		
 		//Obtenemos los pedidos de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
-		//TODO: no debería throws...
-		ArrayList<OrdenTrazabilidad> pedidos = bloque.extraerPedido(idActor);
 		
-		if(pedidos!=null && pedidos.size()>0) {
+		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerPedido(idActor);
+		ArrayList<Integer> ordenesPendientes = new ArrayList<Integer>();
+		
+		if(ordenes!=null && ordenes.size()>0) {
 			
-			ListaOrdenes pedidosNoAceptados = new ListaOrdenes();
-			//Se necesitan aquellos pedidos pendientes por aceptar una persona
-			Iterator<OrdenTrazabilidad> it = pedidos.iterator();
+			Iterator<OrdenTrazabilidad> it = ordenes.iterator();
 			while(it.hasNext()) {
 				//Hay que asegurarse que el actor sea destino
 				OrdenTrazabilidad actual = it.next();
 				if(actual.getActorDestino().getId().compareTo(idActor)==0) {
 					//El estado del pedido cuando no ha sido aceptado es 0
 					if(actual.getEstado()==0) {
-						pedidosNoAceptados.anyadeOrden(actual.getId());
+						ordenesPendientes.add(actual.getId());
 					}
 				}
 			}
 				
 			//Devolver lista de identificadores
-			return CodificadorJSON.crearJSONlista(pedidosNoAceptados);		
+			return CodificadorJSON.crearJSONlista(ordenesPendientes);		
 		}
-		else return "ERROR: No tiene pedidos pendientes por aceptar";
+		else return "null";
 			
 	}
 	
