@@ -1,5 +1,8 @@
 package com.controller;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -10,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import equipo5.dao.metodosCompany;
 import equipo6.model.Actor;
+import equipo6.model.CadenaActores;
 import equipo6.otros.UsuariosService;
 
 
@@ -25,12 +30,31 @@ public class MapController {
 		String JSON;
 		
 		
-		JSON=placeholderMap();
+		JSON=getMapData();
 		
 		return ResponseEntity.status(HttpStatus.OK).body(JSON);
 	}
 	
-	private String placeholderMap() {
+	private String getMapData() {
+		try {
+			CadenaActores cadena = metodosCompany.extraerCadenaActores();
+			String salida="[\n";
+			List<Actor> lista = cadena.getlista_actores();
+			
+			for(int i=0;i<lista.size()-1;i++) {
+				salida+=getActorData(lista.get(i));
+				salida+=",";
+			}
+			
+			salida+=getActorData(lista.get(lista.size()-1));
+			
+			salida+="]\n";
+			return salida;
+		} catch (SQLException e) {return "";}		
+	}
+	
+	//NO SE USA. LO DEJO COMO REFERENCIA
+	/*private String placeholderMap() {
 		String salidaTemporal;
 		
 		salidaTemporal ="[\n";
@@ -58,6 +82,48 @@ public class MapController {
 		salidaTemporal+="]\n";
 		
 		return salidaTemporal;
+	}*/
+	
+	private String getActorData(Actor actor) {
+		String s="";
+		s+="{ \n";
+		s+="\"tipo\":\""+intToStringTipoActor(actor.getTipoActor())+"\", \n";
+		s+="\"nombre\":\""+actor.getNombre()+"\", \n";
+		s+="\"email\":\""+actor.getEmail()+"\", \n";
+		s+="\"coord\":\""+actor.getLocalizacion()+"\", \n";
+		s+="\"lat\":\""+getLat(actor.getLocalizacion())+"\", \n";
+		s+="\"lon\":\""+getLon(actor.getLocalizacion())+"\" \n";
+		s+="} \n";
+		return s;
+	}
+	
+	private String intToStringTipoActor(int tipoActor) {
+		switch(tipoActor) {
+		case 0:
+			return "Agricultor";
+		case 1:
+			return "Cooperativa";
+		case 2:
+			return "Fabrica";
+		case 3:
+			return "Transportista";
+		case 4:
+			return "Frabrica";
+		case 5:
+			return "Retailer";
+		default:
+			return "";
+		}
+	}
+	
+	private String getLat(String localizacion) {
+		String[] p = localizacion.split(";");
+		return p[0];
+	}
+	
+	private String getLon(String localizacion) {
+		String[] p = localizacion.split(";");
+		return p[1];
 	}
 
 }
