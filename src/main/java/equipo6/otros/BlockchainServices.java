@@ -14,6 +14,7 @@ import equipo6.model.Bloque;
 import equipo5.dao.metodosCompany;
 import equipo5.model.Cadena;
 import equipo6.model.DatosContainer;
+import equipo6.model.geolocalizacion;
 import equipo7.model.OrdenTrazabilidad;
 import equipo8.model.Registro;
 
@@ -129,6 +130,7 @@ public class BlockchainServices{
     	return respuesta.toString();
     }
     
+
     public ArrayList<OrdenTrazabilidad> extraerPedido(String idActor) throws ClassNotFoundException, SQLException
     {
     	return metodosCompany.extraerPedidosActorDestino(idActor);
@@ -145,6 +147,7 @@ public class BlockchainServices{
     	if(datos instanceof OrdenTrazabilidad) return parse.parse(convert_to_json.toJson((OrdenTrazabilidad)datos)).getAsJsonObject();
     	if(datos instanceof Registro) return parse.parse(convert_to_json.toJson((Registro)datos)).getAsJsonObject();
     	if(datos instanceof Lote) return parse.parse(convert_to_json.toJson((Lote)datos)).getAsJsonObject();
+    	if(datos instanceof geolocalizacion) return parse.parse(convert_to_json.toJson((geolocalizacion)datos)).getAsJsonObject();
     	return null;
     }
     
@@ -153,6 +156,8 @@ public class BlockchainServices{
     	if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getId();
     	if(datos_container instanceof Registro) return ((Registro)datos_container).getId();
     	if(datos_container instanceof Lote) return ((Lote)datos_container).getIdBd();
+    	if(datos_container instanceof geolocalizacion) return ((geolocalizacion)datos_container).getIdOrden();
+
     	return -1;
     }
     
@@ -161,6 +166,8 @@ public class BlockchainServices{
     	if(datos_container instanceof OrdenTrazabilidad) return "Orden_Trazabilidad";
     	if(datos_container instanceof Registro) return "Registro";
     	if(datos_container instanceof Lote) return "Lote";
+    	if(datos_container instanceof geolocalizacion) return "geolocalizacion";
+
     	return "Error";
     }
     
@@ -170,6 +177,8 @@ public class BlockchainServices{
     	if(datos_container instanceof OrdenTrazabilidad) return 0;
     	if(datos_container instanceof Registro) return 1;
     	if(datos_container instanceof Lote) return 2;
+    	if(datos_container instanceof geolocalizacion) return 3;
+
     	return -1;
     }
 
@@ -182,18 +191,7 @@ public class BlockchainServices{
     //Obtiene bloque adecuado utilizando los metodos de clase Cadena, y una vez lo tiene 
     //extrae la informacion del traspaso y la devuelve.
     //TODO anton
-    public OrdenTrazabilidad getTraspaso(int codLote){
-//    	Cadena cadena = BBDD.getCadena(codLote);
-//    	List<Bloque> bloques = cadena.getCadena();
-//    	int i =0;
-//    	while(i<bloques.size()){
-//    		if(bloques.get(i).getTipoBloque() == 0){
-//    			return (Traspaso) bloques.get(i).getDatos();
-//    		}
-//    		i++;
-//    	}
-//    	return null;
-    	
+    public OrdenTrazabilidad getTraspaso(int codLote){ 	
     	
     	try {
 			Cadena cadena = equipo5.dao.metodosCompany.extraerCadena(codLote);
