@@ -1,0 +1,216 @@
+<!------ Include the above in your HEAD tag ---------->
+
+
+<head>
+
+<meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link href="fabrica2.css" rel="stylesheet" id="bootstrap-css">
+
+<!-- Aquí está el JS que controla los botones y las peticiones -->
+<script type="text/javascript" src="fabrica2.js"></script>
+
+</head>
+
+
+    <!-- Contenido popup del agricultor -->
+    <div id="popup1" style="display: none;">
+      <div class="inner">
+	<h1>STOCK DEL AGRICULTOR</h1>
+	<popup1></popup1>
+	<p><a href="" class="ok" id="hide">Aceptar</a></p>    
+      </div>
+    </div>
+
+    <!-- Contenido popup de la cooperativa -->
+    <div id="popup3" style="display: none;">
+      <div class="inner">
+	<h1>STOCK DE LA COOPERATIVA</h1>
+	<popup3></popup3>
+	<p><a href="" class="ok" id="hide3">Aceptar</a></p>    
+      </div>
+    </div>
+
+    <!-- Contenido popup de la fábrica -->
+    <div id="popup2" style="display: none;">
+      <div class="inner">
+	<h1>STOCK DE LA FÁBRICA</h1>
+	<popup2></popup2>
+	<p><a href="" class="ok" id="hide2">Aceptar</a></p>      
+      </div>
+    </div>
+
+    <!-- Contenido popup del retailer -->
+    <div id="popup4" style="display: none;">
+      <div class="inner">
+	<h1>STOCK DEL RETAILER</h1>
+	<popup4></popup4>
+	<p><a href="" class="ok" id="hide4">Aceptar</a></p>      
+      </div>
+    </div>
+
+    <!-- Fondo: imagen, titulo, botones volver y logout -->
+    <div class="container register">
+      <div class="row">    
+	<div class="col-md-3 register-left">
+	  <img src="https://image.flaticon.com/icons/png/512/25/25007.png" alt=""/>
+	  <!-- Imagen obtenida de https://image.flaticon.com/icons/png/512/25/25007.png -->
+	  
+	  <h1>Fábrica</h1>
+
+	</div>
+
+	<!-- Botones Log out y volver -->
+	<div class="col-md-9 register-right">
+	  
+	  <ul id="logout" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" id="logout" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+            </li>
+	  </ul>
+	  
+	  
+
+	  <!-- Botones de los actores -->
+	  <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+           
+	    <!--  <div id="linea1" class="linea1" data-linea2 data-vpforcss="transform, transform-origin" style="transform-origin: 0px 0px;
+			  transform: rotate(0deg)" style=""></div>
+	      
+	      <div id="linea2" class="linea2" data-linea2
+		   data-vpforcss="transform, transform-origin"
+		   style="transform-origin: 0px 0px;
+			  transform: rotate(0deg)"></div>
+
+	      <div id="linea2bis" class="linea2bis" data-linea3
+		   data-vpforcss="transform, transform-origin"
+		   style="transform-origin: 0px 0px;
+			  transform: rotate(0deg)"></div>
+
+	      <div id="linea3" class="linea3" data-linea2
+		   data-vpforcss="transform, transform-origin"
+		   style="transform-origin: 0px 0px;
+			  transform: rotate(0deg)"></div> -->
+	      
+	      
+	      <div class="Botones1">
+		<!-- Botón del agricultor -->
+		<button href="#" id="bt1" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">
+		</button>
+		<!-- Botón de la cooperativa -->
+		<button id="bt3" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">
+		</button> 
+		<!-- Botón de la cooperativa -->
+		<button id="bt5" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5" aria-expanded="false" aria-controls="multiCollapseExample5">
+		</button>  
+		<!-- Botón de la cooperativa -->
+		<button id="bt7" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample7" aria-expanded="false" aria-controls="multiCollapseExample7">
+		</button>  
+		<!-- Botón de la cooperativa -->
+		                
+	      </div>
+	      
+	      <div class="row" >
+                <div class="col">
+                  <div class="collapse multi-collapse" id="multiCollapseExample1">
+		    <div class="card card-body">
+		      Llegada a la fábrica
+		    </div>
+                  </div>
+                </div>
+	      </div>
+
+	      <div class="row">
+                <div class="col">
+                  <div class="collapse multi-collapse" id="multiCollapseExample3">
+		    <div class="card card-body">
+		      Cocción
+		    </div>
+                  </div>
+                </div>
+	      </div>
+	      <div class="row">
+                <div class="col">
+                  <div class="collapse multi-collapse" id="multiCollapseExample5">
+		    <div class="card card-body">
+		      Segunda fermentación
+		    </div>
+                  </div>
+                </div>
+	      </div>
+	      <div class="row">
+                <div class="col">
+                  <div class="collapse multi-collapse" id="multiCollapseExample7">
+		    <div class="card card-body">
+		      Salida de la fábrica
+		    </div>
+                  </div>
+                </div>
+	      </div>
+	      
+	      <hr class="hr"/>   
+
+	      <div class="Botones2">
+		<!-- Botón de la fábrica -->
+		<button id="bt2" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">
+		</button>
+
+		<!-- Botón de la fábrica -->
+		<button id="bt4" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4">
+		</button>
+
+
+		<!-- Botón del retailer -->
+        <button id="bt6" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample6" aria-expanded="false" aria-controls="multiCollapseExample6">
+		</button>
+	      </div>
+	      
+	      <div class="row">
+                <div class="col">
+                  <div class="collapse multi-collapse" id="multiCollapseExample2">
+		    <div class="card card-body">
+		      Molienda
+		    </div>
+                  </div>
+                </div>
+	      </div>
+
+	      <div class="row">
+                <div class="col">
+                  <div class="collapse multi-collapse" id="multiCollapseExample4">
+		    <div class="card card-body">
+		      Primera fermentación
+		    </div>
+                  </div>
+                </div>
+	      </div>
+
+	      <div class="row">
+                <div class="col">
+                  <div class="collapse multi-collapse" id="multiCollapseExample6">
+		    <div class="card card-body">
+		      Embotellado
+		    </div>
+                  </div>
+                </div>
+	      </div>
+
+	      <ul id="mapa" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
+                </li>
+	      </ul>
+
+            </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+</div>
+</div>
