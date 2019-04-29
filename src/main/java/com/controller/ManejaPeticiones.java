@@ -149,6 +149,41 @@ public class ManejaPeticiones {
 			}
 	
 	//PARA EQUIPO 2: VISTAS
+		@Scope("request")
+		@RequestMapping("/ordenesListasParaEntregar")
+		@ResponseBody
+		// Recibe el ID de un actor y devuelve un JSON con las ordenes en proceso de ese actor
+		public String ordenesListasParaEntregar(
+				@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+			
+			//Obtenemos los pedidos de trazabilidad
+					BlockchainServices bloque = new BlockchainServices();
+					
+					ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerPedido(idActor);
+					ArrayList<Integer> ordenesPendientes = new ArrayList<Integer>();
+					
+					if(ordenes!=null && ordenes.size()>0) {
+						
+						Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+						while(it.hasNext()) {
+							//Hay que asegurarse que el actor sea destino
+							OrdenTrazabilidad actual = it.next();
+							if(actual.getActorDestino().getId().compareTo(idActor)==0) {
+								//El estado del pedido cuando no ha sido aceptado es 0
+								if(actual.getEstado()==2) {
+									ordenesPendientes.add(actual.getId());
+								}
+							}
+						}
+							
+						//Devolver lista de identificadores
+						return CodificadorJSON.crearJSONlista(ordenesPendientes);		
+					}
+					else return "null";
+						
+				}
+	
+	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
 	@RequestMapping("/aceptarOrden")
 	@ResponseBody
