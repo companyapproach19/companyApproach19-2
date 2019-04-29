@@ -140,6 +140,30 @@ public class ManejaPeticiones {
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
+	@RequestMapping("/ordenesRechazadas")
+	@ResponseBody
+	// Recibe el ID de un actor y devuelve un JSON con las ordenes en proceso de ese actor
+	public String ordenesRechazadas(
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+				
+		return this.ordenesPendientes(idActor, -1);
+							
+	}
+		
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/ordenesEnProcesoDeEntrega")
+	@ResponseBody
+	// Recibe el ID de un actor y devuelve un JSON con las ordenes en proceso de ese actor
+	public String ordenesEnProcesoDeEntrega(
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+						
+		return this.ordenesPendientes(idActor, 3);
+									
+	}
+	
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
 	@RequestMapping("/aceptarOrden")
 	@ResponseBody
 	//Recibe una lista de ids de las ordenes que va a aceptar
