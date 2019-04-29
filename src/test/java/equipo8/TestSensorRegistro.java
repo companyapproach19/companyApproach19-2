@@ -1,17 +1,25 @@
 package equipo8;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import equipo8.model.Sensor;
 
 public class TestSensorRegistro {
 
-	
-	//Ejemplo registro temperatura Arduino numero de serie 354325
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-		Sensor reg= new Sensor(2);
-		reg.crearRegistroCadaXMinutos(999, 999, "datosSensorMiercoles.txt", 1);
-		//reg.pararCreacionRegistros("datosSensorMiercoles.txt");
+	//private Timer t;
+
+	//Ejemplo registro temperatura del Lote id 54 en dos trayectos:
+	public static void main(String[] args) {
+
+		Sensor sensor = new Sensor(45,98);
+		sensor.selectPort(5);
+		try {
+			Thread.sleep(200000);//200 segs
+			//Registro reg = sensor.crearRegistro(45, 98);
+			sensor.terminar();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

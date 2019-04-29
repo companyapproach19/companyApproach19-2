@@ -1,10 +1,7 @@
 package equipo8.model;
 
-import equipo4.model.Lote;
-import equipo6.model.Actor;
 import equipo6.model.DatosContainer;
-import java.sql.SQLException;
-import equipo5.dao.metodosCompany;
+//import equipo5.dao.metodosCompany;
 
 public class Registro extends DatosContainer{
 	
@@ -29,7 +26,7 @@ public class Registro extends DatosContainer{
 	public Registro(int id,int idOrdenTrazabilidad,String fechaInicio, String fechaFin, int tempMax, int tempMin) {
 		//this.id = metodosCompany.idRegistro(); 
 		this.idOrdenTrazabilidad=idOrdenTrazabilidad;
-		this.idPedido = idPedido;
+		this.idPedido = id;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.tempMax = tempMax;
@@ -48,7 +45,7 @@ public class Registro extends DatosContainer{
 	
 
 	public String toString(){
-		return "\n"+"Temperatura máxima:"+tempMax+"ºC"+"\n"+"Temperatura mínima:"+tempMin +"ºC"+"\n"+"Fecha inicio:"+fechaInicio +"\n"+"Fecha fin:"+fechaFin+"\n";   
+		return "\n"+"idOrdenTrazabilidad: "+ idOrdenTrazabilidad + "\nidPedido: " + idPedido +"\nTemperatura máxima: "+tempMax+"ºC"+"\n"+"Temperatura mínima: "+tempMin +"ºC"+"\n"+"Fecha inicio: "+fechaInicio +"\n"+"Fecha fin: "+fechaFin+"\n";   
 	}
 	
 	public void setId (int id) {
@@ -108,5 +105,4 @@ public class Registro extends DatosContainer{
 		return this.tempMin;
 	}
 }
-
 
