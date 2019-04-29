@@ -47,8 +47,6 @@
                                             <label for="producto1" id="label1">Pedido noPedido</label>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </button>
                                         </div>
-										
-										<a class="btn" onclick="pedirIds(); style.display = 'none' " href="#">MOSTRAR PEDIDOS</a>
 
                                         <div class="form-group">
                                             <input type="checkbox" name="producto2" id="producto2" value="Pedido id2">
@@ -59,7 +57,7 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="producto3" id="producto3" value="Pedido id3">
                                             <label for="producto3" id="label3">Pedido noPedido</label>
-                                           <a href="genericaAgricultoresAceptar.html" >Ver mas informacion del pedido</a>                        
+                                           <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>                        
                                         </div>
                                         <div class="form-group">
                                             <input type="checkbox" name="producto4" id="producto4" value="Pedido id4">
@@ -90,7 +88,7 @@
                                         <div class="modal-content">
                                           <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalScrollableTitle">Información del pedido</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
                                           </div>
@@ -247,187 +245,6 @@ data = JSON.stringify(data2);
 
 
 }
-
-
-function mostrarSiFallo(){
-						var local_data = sifalla;
-						var productos =  '<tr>' +
-									' <td>' + 'Cantidad '  + '</td>' +
-									' <td>' + ' Productos '   +  '</td>' +
-									
-									'</tr>' +
-									
-									'<tr>' +
-									
-									' <td>' + local_data.productos.cant_malta_palida  + '</td>' +
-									' <td>' + ' Malta Palida'   +  '</td>' +
-									
-									'</tr>' + 
-									
-									'<tr>' +
-									
-									' <td>' + local_data.productos.cant_malta_munich  + '</td>' +
-									' <td>' + ' Malta Munich'   +  '</td>' +
-									
-									'</tr>' +
-									'<tr>' +
-									
-									' <td>' + local_data.productos.cant_malta_negra  + '</td>' +
-									' <td>' + ' Malta Negra'   +  '</td>' +
-									
-									'</tr>' +  
-									'<tr>' +
-									
-									' <td>' + local_data.productos.cant_malta_crystal  + '</td>' +
-									' <td>' + ' Malta Crystal'   +  '</td>' +
-									
-									'</tr>' +
-									'<tr>' +
-									
-									' <td>' + local_data.productos.cant_malta_chocolate  + '</td>' +
-									' <td>' + ' Malta Chocolate'   +  '</td>' +
-									
-									'</tr>' +
-									'<tr>' +
-									
-									' <td>' + local_data.productos.cant_malta_caramelo  + '</td>' +
-									' <td>' + ' Malta Caramelo'   +  '</td>' +
-									
-									'</tr>' + 
-									'<tr>' +
-									
-									' <td>' + local_data.productos.cant_cebada  + '</td>' +
-									' <td>' + ' Cebada'   +  '</td>' +
-									
-									'</tr>' + 
-									'<tr>' +
-									
-									' <td>' + local_data.productos.cant_cebada_tostada  + '</td>' +
-									' <td>' + ' Cebada Tostada'   +  '</td>' +
-									
-									'</tr>' +
-									'<tr>' +
-									
-									' <td>' + local_data.productos.cant_lupulo_centenial  + '</td>' +
-									' <td>' + ' Lupulo Centenial'   +  '</td>' +
-									
-									'</tr>';
-     
-					var table_body_element = document.createElement('tbody');
-					table_body_element.innerHTML = productos;
-					document.getElementById('my_table').appendChild(table_body_element);
-	
-	
-			
-				}
-
-function pedirIds(){
-
-  var request = $.ajax({
-  
-	  // la URL para la petición de ids
-	  url : '/obtenerPedido',
-	  
-	  
-	 //data : "ids=" + lista, 	
-	  
-	  // especifica si será una petición POST o GET
-	  type : 'POST',
-	  
-	  // el tipo de información que se espera de respuesta
-	  dataType : 'json',
-  
-    });
- 
-     request.done(function(data){
-	 // SI funka IDS
-	 
-							/*
-							var request2 = $.ajax({
-							  
-									  // la URL para la petición del pedido
-									  url : '/obtenerPedido',
-									  
-									  
-									  data : "ids=" + JSON.parse(data).listaIDs[0];	
-									  
-									  // especifica si será una petición POST o GET
-									  type : 'POST',
-									  
-									  // el tipo de información que se espera de respuesta
-									  dataType : 'json',
-							  
-								});
-							 
-								 request.done(function(data){
-								 
-								 
-								 
-								 });
-							 
-								 request.fail(function(data) {
-								 
-								 alert("Error al obtener pedido");
-								 mostrarFallo();
-								 
-								 });
-								 */
-				
-      
-    // SI funka IDS
-     });
- 
-     request.fail(function(data) {
-     
-     alert("Error al obtener ids");
-     mostrarSiFallo();
-	 
-     });
- 
- }
- 
- //JSON LOCAL
- var sifalla = {
-    "id": 49126,
-    "actorOrigen": {
-      "id": 15,
-      "nombreUsuario": "Juan Jose Romagosa",
-      "email": "hipojuan@empresaperros.com",
-      "tipoActor": 1
-    },
-    "actorDestino": {
-      "id": 54,
-      "nombreUsuario": "Chocu El Magnate del Cereal",
-      "email": "monitochocu@desatranquesjaen.com",
-      "tipoActor": 3
-    },
-    "necesitaTransportista": true,
-    "productos": {
-	"cant_malta_palida": 20,
-	"cant_malta_munich": 40,
-	"cant_malta_negra": 0,
-	"cant_malta_crystal": 0,
-	"cant_malta_chocolate": 0,
-	"cant_malta_caramelo": 0,
-	"cant_cebada": 0,
-	"cant_cebada_tostada": 0,
-	"cant_lupulo_centenial": 0,
-	"cant_cajas_stout":0,
-    "cant_cajas_bisner":0
-    },
-    "mensaje": "PeticiĂ³n de prueba.",
-    "estado": 0,
-    "idPadre": 5196,
-    "idHijo": 1952,
-    "transportista": {
-      "id": 92,
-      "nombreUsuario": "Doctor Jirafa",
-      "email": "dortoc@refranes.com",
-      "tipoActor": 2
-    }
-}
-
- 
 
 
   
