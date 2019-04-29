@@ -1,25 +1,35 @@
 package equipo8;
 
-import equipo8.model.Sensor;
+import equipo8.model.SensorStatic;
 
 public class TestSensorRegistro {
 
-	//private Timer t;
 
 	//Ejemplo registro temperatura del Lote id 54 en dos trayectos:
 	public static void main(String[] args) {
-
-		Sensor sensor = new Sensor(45,98);
-		sensor.selectPort(5);
+		
+		SensorStatic.iniciarTransporte(608, 154);
+		SensorStatic.selectPort(7);
 		try {
-			Thread.sleep(200000);//200 segs
-			//Registro reg = sensor.crearRegistro(45, 98);
-			sensor.terminar();
+			Thread.sleep(100000);//200 segs
+			SensorStatic.terminar();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		
+		
+//		Sensor sensor = new Sensor();
+//		sensor.setIdOrdentrazabilidad(143);
+//		sensor.setIdPedido(703);
+//		sensor.selectPort(7);
+//		try {
+//			Thread.sleep(100000);//200 segs
+//			//Registro reg = sensor.crearRegistro(45, 98);
+//			sensor.terminar();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

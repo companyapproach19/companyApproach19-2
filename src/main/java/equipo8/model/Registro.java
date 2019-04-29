@@ -1,5 +1,7 @@
 package equipo8.model;
 
+import java.sql.SQLException;
+
 import equipo6.model.DatosContainer;
 //import equipo5.dao.metodosCompany;
 
@@ -24,7 +26,15 @@ public class Registro extends DatosContainer{
 	}
 	
 	public Registro(int id,int idOrdenTrazabilidad,String fechaInicio, String fechaFin, int tempMax, int tempMin) {
-		//this.id = metodosCompany.idRegistro(); 
+		try {
+			this.id = equipo5.dao.metodosCompany.idRegistro();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		this.idOrdenTrazabilidad=idOrdenTrazabilidad;
 		this.idPedido = id;
 		this.fechaInicio = fechaInicio;
