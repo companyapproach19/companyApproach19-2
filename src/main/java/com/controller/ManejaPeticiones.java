@@ -112,31 +112,6 @@ public class ManejaPeticiones {
 			
 	}
 	
-	//Devuelve lista de ordenes recibidos y estan en proceso
-	private ListaOrdenes ordenesPendientes(String idActor) throws ClassNotFoundException, SQLException{
-		//Obtenemos los pedidos de trazabilidad
-		BlockchainServices bloque = new BlockchainServices();
-		ArrayList<OrdenTrazabilidad> pedidos = bloque.extraerPedido(idActor);
-		
-		if(pedidos!=null && pedidos.size()>0) {
-			ListaOrdenes pedidosEnProceso = new ListaOrdenes();
-			
-			//Se necesitan aquellos pedidos pendientes por aceptar una persona
-			Iterator<OrdenTrazabilidad> it = pedidos.iterator();
-			while(it.hasNext()) {
-				//Hay que mirar que el actor sea destino
-				OrdenTrazabilidad actual = it.next();
-				if(actual.getActorDestino().getId().compareTo(idActor)==0) {
-					//El estado del pedido debe ser en proceso
-					if(actual.getEstado()==1) {
-						pedidosEnProceso.anyadeOrden(actual.getId());
-					}
-				}
-			}
-			return pedidosEnProceso;
-		}
-		return null;
-	}
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
@@ -146,14 +121,32 @@ public class ManejaPeticiones {
 	public String ordenesEnProceso(
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
-		ListaOrdenes pedidosEnProceso=this.ordenesPendientes(idActor);
-		if(pedidosEnProceso!=null){
-			//Devolver lista de identificadores
-			return CodificadorJSON.crearJSONlista(pedidosEnProceso);
-		}
-		else return "ERROR: No tiene ordenes en proceso";
-	
-	}
+		//Obtenemos los pedidos de trazabilidad
+				BlockchainServices bloque = new BlockchainServices();
+				
+				ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerPedido(idActor);
+				ArrayList<Integer> ordenesPendientes = new ArrayList<Integer>();
+				
+				if(ordenes!=null && ordenes.size()>0) {
+					
+					Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+					while(it.hasNext()) {
+						//Hay que asegurarse que el actor sea destino
+						OrdenTrazabilidad actual = it.next();
+						if(actual.getActorDestino().getId().compareTo(idActor)==0) {
+							//El estado del pedido cuando no ha sido aceptado es 0
+							if(actual.getEstado()==1) {
+								ordenesPendientes.add(actual.getId());
+							}
+						}
+					}
+						
+					//Devolver lista de identificadores
+					return CodificadorJSON.crearJSONlista(ordenesPendientes);		
+				}
+				else return "null";
+					
+			}
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
