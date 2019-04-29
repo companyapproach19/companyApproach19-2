@@ -41,10 +41,15 @@
                                 <div class="row register-form">
                                     <div class="col-md-8">
                                         <div class="form-group">
+										
+										
+										
                                             <input type="checkbox" name="producto1" id="producto1" value="Pedido id1">
                                             <label for="producto1" id="label1">Pedido noPedido</label>
-                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
+                                            <a href=""  onclick= "mostrarids();" data-toggle="modal"  data-target="#exampleModalScrollable"> Ver más información del pedido </a>
 
+											
+											
                                         </div>
                                         <div class="form-group">
                                             <input type="checkbox" name="producto2" id="producto2" value="Pedido id2">
@@ -91,14 +96,32 @@
                                             </button>
                                           </div>
                                           <div class="modal-body">
-                                           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+										  
+										  HOLAA
+										  
+												
+										  <script>
+function helloThere()
+{
+alert('Yahtzee');
+}
+</script>
+										  
+										  
+										  
+										  
+										  
+										  
+										  
+                                           <!-- Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 
 Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
 
 Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
 
 Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                                          </div>
+                                          --> 
+										  </div>
                                           <div class="modal-footer">
                                             <button class="btnRegister" data-dismiss="modal">Atrás</button>
                                             <button class="btnRegister" data-dismiss="modal">Aceptar pedido</button>
@@ -133,7 +156,8 @@ data = JSON.stringify(data2);
  
       // la información a enviar
       // (también es posible utilizar una cadena de datos) //ID del actor
-      data :"6" ,
+      //data :"6" ,
+	  data : "ids=6",
  
       // especifica si será una petición POST o GET
       type : 'GET',
@@ -242,5 +266,191 @@ data = JSON.stringify(data2);
 }
 
 
+
+function pedirIds(){
+
+  var request = $.ajax({
+  
+	  // la URL para la petición de ids
+	  url : '/obtenerPedido',
+	  
+	  
+	 //data : "ids=" + lista, 	
+	  
+	  // especifica si será una petición POST o GET
+	  type : 'POST',
+	  
+	  // el tipo de información que se espera de respuesta
+	  dataType : 'json',
+  
+    });
+ 
+     request.done(function(data){
+	 // SI funka IDS
+	 
+							/*
+							var request2 = $.ajax({
+							  
+									  // la URL para la petición del pedido
+									  url : '/obtenerPedido',
+									  
+									  
+									  data : "ids=" + JSON.parse(data).listaIDs[0];	
+									  
+									  // especifica si será una petición POST o GET
+									  type : 'POST',
+									  
+									  // el tipo de información que se espera de respuesta
+									  dataType : 'json',
+							  
+								});
+							 
+								 request.done(function(data){
+								 
+								 
+								 
+								 });
+							 
+								 request.fail(function(data) {
+								 
+								 alert("Error al obtener pedido");
+								 mostrarFallo();
+								 
+								 });
+								 */
+				
+      
+    // SI funka IDS
+     });
+ 
+     request.fail(function(data) {
+     
+     alert("Error al obtener ids");
+     mostrarSiFallo();
+	 
+     });
+ 
+ }
+ 
+ 
+ function mostrarSiFallo(){
+						var local_data = sifalla;
+						var productos =  '<tr>' +
+									' <td>' + 'Cantidad '  + '</td>' +
+									' <td>' + ' Productos '   +  '</td>' +
+									
+									'</tr>' +
+									
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_palida  + '</td>' +
+									' <td>' + ' Malta Palida'   +  '</td>' +
+									
+									'</tr>' + 
+									
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_munich  + '</td>' +
+									' <td>' + ' Malta Munich'   +  '</td>' +
+									
+									'</tr>' +
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_negra  + '</td>' +
+									' <td>' + ' Malta Negra'   +  '</td>' +
+									
+									'</tr>' +  
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_crystal  + '</td>' +
+									' <td>' + ' Malta Crystal'   +  '</td>' +
+									
+									'</tr>' +
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_chocolate  + '</td>' +
+									' <td>' + ' Malta Chocolate'   +  '</td>' +
+									
+									'</tr>' +
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_caramelo  + '</td>' +
+									' <td>' + ' Malta Caramelo'   +  '</td>' +
+									
+									'</tr>' + 
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_cebada  + '</td>' +
+									' <td>' + ' Cebada'   +  '</td>' +
+									
+									'</tr>' + 
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_cebada_tostada  + '</td>' +
+									' <td>' + ' Cebada Tostada'   +  '</td>' +
+									
+									'</tr>' +
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_lupulo_centenial  + '</td>' +
+									' <td>' + ' Lupulo Centenial'   +  '</td>' +
+									
+									'</tr>';
+     
+					var table_body_element = document.createElement('tbody');
+					table_body_element.innerHTML = productos;
+					document.getElementById('my_table').appendChild(table_body_element);
+	
+	
+			
+				}
+ 
+ 
+ 
+ //JSON LOCAL
+ var sifalla = {
+    "id": 49126,
+    "actorOrigen": {
+      "id": 15,
+      "nombreUsuario": "Juan Jose Romagosa",
+      "email": "hipojuan@empresaperros.com",
+      "tipoActor": 1
+    },
+    "actorDestino": {
+      "id": 54,
+      "nombreUsuario": "Chocu El Magnate del Cereal",
+      "email": "monitochocu@desatranquesjaen.com",
+      "tipoActor": 3
+    },
+    "necesitaTransportista": true,
+    "productos": {
+	"cant_malta_palida": 20,
+	"cant_malta_munich": 40,
+	"cant_malta_negra": 0,
+	"cant_malta_crystal": 0,
+	"cant_malta_chocolate": 0,
+	"cant_malta_caramelo": 0,
+	"cant_cebada": 0,
+	"cant_cebada_tostada": 0,
+	"cant_lupulo_centenial": 0,
+	"cant_cajas_stout":0,
+    "cant_cajas_bisner":0
+    },
+    "mensaje": "PeticiĂ³n de prueba.",
+    "estado": 0,
+    "idPadre": 5196,
+    "idHijo": 1952,
+    "transportista": {
+      "id": 92,
+      "nombreUsuario": "Doctor Jirafa",
+      "email": "dortoc@refranes.com",
+      "tipoActor": 2
+    }
+}
+
+ 
+
+
+  
   
 </script>
