@@ -21,8 +21,6 @@ import equipo6.model.Actor;
 //NECESARIOS PARA TRAZABILIDAD:
 import equipo6.otros.BlockchainServices;
 import equipo7.otros.CodificadorJSON;
-import equipo7.otros.Main_pedidos;
-import equipo7.otros.Orden;
 import equipo7.otros.OrdenInicial;
 
 @Controller
@@ -61,13 +59,13 @@ public class ManejaPeticiones {
 	@RequestMapping("/obtenerOrden")
 	@ResponseBody
 	// Recibe el ID de una orden y devuelve su JSON asociado
-	public String obtenerOrden(@RequestParam(name="id", required=true) String id) {
+	public String obtenerOrden(@RequestParam(name="id", required=true) String id) throws ClassNotFoundException, SQLException{
 
 		int idInt = Integer.parseInt(id);
 
 		//Obtenemos el pedido de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad pedido = bloque.getTraspaso(idInt);
+		OrdenTrazabilidad pedido = bloque.getOrden(idInt);
 		
 		if (pedido != null)
 			return CodificadorJSON.crearJSON(pedido);
@@ -80,7 +78,7 @@ public class ManejaPeticiones {
 		//Obtenemos los pedidos de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
 			
-		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerPedido(idActor);
+		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesDestino(idActor);
 		ArrayList<Integer> ordenesPendientes = new ArrayList<Integer>();
 				
 		if(ordenes!=null && ordenes.size()>0) {
@@ -167,13 +165,13 @@ public class ManejaPeticiones {
 	@RequestMapping("/aceptarOrden")
 	@ResponseBody
 	//Recibe una lista de ids de las ordenes que va a aceptar
-	public String aceptarOrden(@RequestParam(name="id", required=true) String id) {
+	public String aceptarOrden(@RequestParam(name="id", required=true) String id) throws ClassNotFoundException, SQLException{
 		
 		int idInt = Integer.parseInt(id);
 
 		//Recuperamos la orden para cambiar el estado
 		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad orden = bloque.getTraspaso(idInt);
+		OrdenTrazabilidad orden = bloque.getOrden(idInt);
 		
 		if(orden!=null) {
 			orden.setEstado(1);
@@ -191,12 +189,12 @@ public class ManejaPeticiones {
 	@RequestMapping("/rechazarOrden")
 	@ResponseBody
 	//Recibe una lista de ids de las ordenes que va a aceptar
-	public String rechazarOrden(@RequestParam(name="id", required=true) String id) {
+	public String rechazarOrden(@RequestParam(name="id", required=true) String id) throws ClassNotFoundException, SQLException{
 		
 		int idInt = Integer.parseInt(id);
 			//Recuperamos la orden para cambiar el estado
 		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad orden = bloque.getTraspaso(idInt);
+		OrdenTrazabilidad orden = bloque.getOrden(idInt);
 		
 		if(orden!=null) {
 			orden.setEstado(-1);
