@@ -18,7 +18,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-// Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
+//Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
 public class Sensor{
 
 
@@ -40,26 +40,24 @@ public class Sensor{
 	private TimerTask taskcreate;
 	private Timer timer;
 
-	public Sensor(int idOrden,int idPedido) {
+	public Sensor() {
 		this.serialPort = null;
-		this.idPedido = idPedido;
-		this.idOrdentrazabilidad = idOrden;
 		Calendar date = Calendar.getInstance();
-		this.fechainicio = new Fecha(date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DAY_OF_MONTH),date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE),date.get(Calendar.SECOND));
-		
+		this.fechainicio = new Fecha(date.get(Calendar.YEAR),date.get(Calendar.MONTH)+1,date.get(Calendar.DAY_OF_MONTH),date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE),date.get(Calendar.SECOND));
+
 		//ports
 		this.ports = SerialPort.getCommPorts();
 		if(ports.length>0) {
 			this.serialPort = this.ports[0];
 		}
-		
+
 		System.out.println("Puerto seleccionado de forma predeterminada: " + this.serialPort.getSystemPortName());
 		System.out.println("Puertos disponibles del sistema:");
 		for (int i=0;i<ports.length; i++)
 			System.out.println((i+1) + ") " + ports[i].getSystemPortName() + "\t" + ports[i].isOpen());
-		
+
 		//txt
-		this.txt = new File("datosArduino"+ idOrden + ".txt");
+		this.txt = new File("datosArduino.txt");
 		if(txt.exists()){
 			txt.delete();
 		}
@@ -79,34 +77,38 @@ public class Sensor{
 		this.taskcreate = new TimerTask() {
 			public void run() {
 				try {
-					System.out.println(crearRegistro(idOrden, idPedido).toString());
+					System.out.println(crearRegistro(getIdOrdentrazabilidad(), getIdPedido()).toString());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		};
 		this.timer.schedule(taskreceive, 0, 5000);//cada 5 segs desde el principio
-		this.timer.schedule(taskcreate, 60000,60000);//cada minuto a partir del primer minuto
-		
+		this.timer.schedule(taskcreate, 20000,60000);//cada minuto a partir del primer minuto
+
 
 	}
 
-	
-	
-	
+
 	public void selectPort(int port) {
 		this.serialPort = this.ports[port-1];
 		System.out.println("Puerto seleccionado: " + this.serialPort.getSystemPortName());
 	}
-	
-	public void terminar() {
+
+	public int terminar() {
 		this.timer.cancel();//paramos el recibo de datos
+		System.out.println("Último registro:");
+		try {
+			System.out.println(crearRegistro(idOrdentrazabilidad,idPedido).toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Fin recibo de datos.");
 		txt.delete();//borramos el txt del servidor
+		return 0;
 	}
-	
-	
+
+
 	public void recibirDatosArduino() {
 
 		if(serialPort==null) {
@@ -116,20 +118,23 @@ public class Sensor{
 
 		String data = "";
 		serialPort.openPort();
-		while(serialPort.bytesAvailable()<1) {
+		while(serialPort.bytesAvailable()<2) {
 			try {
-				Thread.sleep(1200);
+				//System.out.println("waiting...");
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		//System.out.println("Received!");
 		byte[] buffer = new byte[serialPort.bytesAvailable()];
 		serialPort.readBytes(buffer, serialPort.bytesAvailable());
 		for(int i=0; i<buffer.length;i++) {
 			data += (char) buffer[i];
 		}
-		
+
 		if(!data.isEmpty()) {
+			//System.out.println("Data: " + data);
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss+");  
 			LocalDateTime now = LocalDateTime.now();  
 			try {
@@ -140,10 +145,10 @@ public class Sensor{
 				e.printStackTrace();
 			}
 		}
-		
+
 		serialPort.closePort();
 	}
-	
+
 	public void cambiarIntervalo(int millisleer,int milliscrear) {
 		this.timer.cancel();
 		this.timer.schedule(taskreceive, 0, millisleer);
@@ -153,7 +158,7 @@ public class Sensor{
 
 
 	public  Registro crearRegistro(int idOrdentrazabilidad,int idPedido) throws IOException {
-		String fileUrl = "datosArduino"+ idOrdentrazabilidad + ".txt";
+		String fileUrl = "datosArduino.txt";
 		HashMap<Fecha,Integer> listaRegistros= new HashMap<Fecha,Integer>();
 		log = new BufferedReader(new FileReader(fileUrl));
 		Fecha fecha = null;
@@ -206,11 +211,11 @@ public class Sensor{
 
 	// Método que EQUIPO TRANSPORTISTAS meta jsonRegistro en Pedido 
 	public String jsonRegistro (int idOrdenTrazabilidad, int idPedido) throws Exception{
-		 
-		   Registro registro = this.crearRegistro(idOrdenTrazabilidad, idPedido);
-		   GsonBuilder builder = new GsonBuilder();
-		   Gson gson = builder.setPrettyPrinting().create();    
-	           return gson.toJson(registro);   
+
+		Registro registro = this.crearRegistro(idOrdenTrazabilidad, idPedido);
+		GsonBuilder builder = new GsonBuilder();
+		Gson gson = builder.setPrettyPrinting().create();    
+		return gson.toJson(registro);   
 	}
 
 	public void cerrarPuerto() {
@@ -228,9 +233,6 @@ public class Sensor{
 		return idPedido;
 	}
 
-
-
-
 	public void setIdPedido(int idPedido) {
 		this.idPedido = idPedido;
 	}
@@ -238,9 +240,6 @@ public class Sensor{
 	public int getIdOrdentrazabilidad() {
 		return idOrdentrazabilidad;
 	}
-
-
-
 
 	public void setIdOrdentrazabilidad(int idOrdentrazabilidad) {
 		this.idOrdentrazabilidad = idOrdentrazabilidad;
