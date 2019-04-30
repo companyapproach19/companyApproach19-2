@@ -2,8 +2,8 @@ package com.controller;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +24,10 @@ import com.google.gson.JsonParser;
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
 import equipo5.dao.metodosCompany;
-import equipo5.model.NotInDatabaseException;
+import equipo5.dao.NotInDatabaseException;
 import equipo6.model.Actor;
 import equipo6.model.CadenaActores;
+import equipo6.model.geolocalizacion;
 import equipo6.otros.BlockchainServices;
 import equipo7.model.OrdenTrazabilidad;
 @Controller
@@ -39,7 +40,7 @@ public class StockController {
 	/*
 	 * dado un actor y una materia prima devuelve la cantidad de esa materia prima
 	 */
-	public static double getCantidadStock (Actor actor, MateriaPrima mp) throws ClassNotFoundException, SQLException{
+	public static double getCantidadStock (Actor actor, MateriaPrima mp) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException{
 		try {
 		return metodosCompany.extraerStockMP(actor,mp);
 		}catch (Exception e) {
@@ -48,10 +49,21 @@ public class StockController {
 		}
 	}
 	
+	
+	/*
+	* Metodo pensado para fabrica, pero puede ser usado por quien lo necesite
+	* dado un actor devuelve la lista de los lotes que hay en la bbdd
+	*/
+	
+	public static LinkedList<Lote> getListaLotes(Actor actor) throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
+		return metodosCompany.extraerStockLote(actor);		
+	}
+		
+	
 	/*
 	 * dado un actor y un lote devuelve el stock de un tipo de lote
 	 */
-		public static int getStockLote(Actor actor, Lote lote) {
+	public static int getStockLote(Actor actor, Lote lote) {
 		
 		//nos devuleve una lista con todos los lotes de un actor, luego tenemos que buscar
 		//los lotes del tipo lote que nos pasan
@@ -63,7 +75,7 @@ public class StockController {
 				}
 			}			
 			return resultado;
-		} catch (ClassNotFoundException | SQLException | NotInDatabaseException e) {
+		} catch (ClassNotFoundException | SQLException | equipo5.model.NotInDatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
@@ -84,7 +96,7 @@ public class StockController {
 	/*
 	 * metodo para cambiar la cantidad de stock de un lote, se insertar de uno en uno.
 	 */	
-	public static void setCantidadLote(Actor actor, Lote lote) throws Throwable {
+	public static void setCantidadLote(Actor actor, Lote lote) throws Throwable,ClassNotFoundException, SQLException {
 		metodosCompany.insertarStockLote(actor, lote);
 	}
 	
@@ -94,6 +106,7 @@ public class StockController {
 		
 		idActor = null;
 		if(lista_cookies != null) {
+
 		for(Cookie c : lista_cookies) {
 			System.out.println(c.getName()+"    "+c.getValue());
 			if(c.getName().equals("id")) 
@@ -103,7 +116,7 @@ public class StockController {
 			}
 		}
 		}
-		
+
 		return idActor;
 	}
 	
@@ -211,7 +224,7 @@ public class StockController {
 			
 			for(Actor actor : cadena.getlista_actores()) 
 			{
-				for(OrdenTrazabilidad or : metodosCompany.extraerPedidosActorDestino(actor.getId()))
+				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
 				{
 						if(or.isNecesitaTransportista()) 
 						{
@@ -229,6 +242,24 @@ public class StockController {
 			return "{\"respuesta\":\"Error\"}";
 		}
 		
+		
+	}
+	
+	@Scope("request")
+	@RequestMapping("/actualizar_geolocalizacion")
+	@ResponseBody
+	public void actualizar_geolocalizacion(
+			@RequestParam(name="id_pedido", required=true) int id_pedido,
+			@RequestParam(name="id_orden", required=true) int id_orden,
+			@RequestParam(name="datos_geolocalizacion", required=true) String datos_geolocalizacion,
+			Model model) throws Throwable 
+	{
+		BlockchainServices bcs;
+		geolocalizacion geo;
+		
+		geo = new geolocalizacion(id_pedido, id_orden, datos_geolocalizacion);
+		bcs = new BlockchainServices();		
+		bcs.guardarOrden(geo);
 		
 	}
 	
