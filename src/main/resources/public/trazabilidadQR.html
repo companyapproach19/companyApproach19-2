@@ -4,13 +4,7 @@
 
 <!--TODO PARA EL LUNES 6: -->
 
-<!-- Hacer que el script que ejecuta hacerPeticion() devuelva lista con json representando la cadena -->
-<!-- del idPedido que se está enviando através de la url de esta misma vista trazabilidadQR.html#idPedido -->
-<!-- Parsear esa lista para generar un .json SOLO CON LOS CAMPOS QUE QUEREMOS, es decir con el formato -->
-<!-- del documento trazabilidad.json, en caso de meter más de un Agricultor se pone en otro conjunto {} -->
-<!-- diferente como se muestra en trazabilidad.json -->
-<!-- Una vez que se tiene ese .json creado en la misma carpeta en la que está esta vista y con nombre-->
-<!-- trazabilidad.json funcionaría bien el script que crea una tabla html desde un .json -->
+<!-- Extraer datos del json,-->
 
 
 
@@ -60,7 +54,7 @@
 	    <!--Este script recupera el numero que se le pasa después del # a la vista de trazabilidadQR.html -->  
          
 		<!--Muestra el idPedido que recibe -->       
-		<p id="idLote"></p>
+		<p id="idLote"></p> <!--coge el #, mirar como quitarlo-->
 		<script>
 			function getID() {
 			  return window.location.hash;
@@ -79,8 +73,8 @@
 		 function hacerPeticion(){
 		      var request = $.ajax({
 		      // la URL para la petición
-		      url : '/get_trazabilidadPrueba',
-		      data :"id_pedido=6" ,
+		      url : '/get_trazabilidadPrueba', //aqui meter la url de la peticion
+		      data :"id_pedido=6" , //esto igual hay qeu cambiar el '6'
 		      // empleamos GET porque estamos obteniendo datos del servidor
 		      type : 'GET',
 		      // el tipo de información que se espera de respuesta
@@ -104,7 +98,7 @@
 		    
 		    	//"trazabilidad.json" es el json a pasar a tabla, con SOLO los campos que queremos mostrar
 	
-		        $.getJSON("trazabilidad.json", function (data) {
+		        $.getJSON("trazabilidad.json", function (data) { //meter aqui el nombre del json
 		            $('.table').createTable(data, {
 		                // General Style for Table
 		                borderWidth: '1px',
