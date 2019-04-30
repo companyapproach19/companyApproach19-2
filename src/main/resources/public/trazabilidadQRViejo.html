@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+
+
+<!--TODO PARA EL LUNES 6: -->
+
+<!-- Hacer que el script que ejecuta hacerPeticion() devuelva lista con json representando la cadena -->
+<!-- del idPedido que se está enviando através de la url de esta misma vista trazabilidadQR.html#idPedido -->
+<!-- Parsear esa lista para generar un .json SOLO CON LOS CAMPOS QUE QUEREMOS, es decir con el formato -->
+<!-- del documento trazabilidad.json, en caso de meter más de un Agricultor se pone en otro conjunto {} -->
+<!-- diferente como se muestra en trazabilidad.json -->
+<!-- Una vez que se tiene ese .json creado en la misma carpeta en la que está esta vista y con nombre-->
+<!-- trazabilidad.json funcionaría bien el script que crea una tabla html desde un .json -->
+
+
+
+
+<!--ZONA HTML --> 
+<html>
+	<center>
+	
+	 	<!--Links que usamos --> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta charset="utf-8">
+		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300|Open+Sans+Condensed:300|Open+Sans:300"rel="stylesheet">
+	    <script src="jQuery-3.2.1.min.js"></script>
+	    <script src="JSON-to-Table.min.1.0.0.js"></script>
+	    <script src="jquery-1.3.2.min.js" type="text/javascript"></script>   
+	
+	           
+	    <!--Título de la pestania en el navegador -->       
+	    <title>Trazabilidad cerveza</title>
+	    
+		<br>
+		<br>
+		<br>
+		<br>
+		
+	
+	 	<!--Título ppal -->    
+		<font size=10>Trazabilidad cerveza</font>
+	
+		
+		<!--Imagen de el neon de cerveza -->  
+		<div class="card"style="width:500px">
+		<img src="https://images.vexels.com/media/users/3/144118/isolated/lists/31093a4558d1aa47a6fcec2a174f2754-signo-de-cerveza-de-neon.png" alt="Card image" style="width:80%">
+		</div>
+		<div class="card"style="width:900px">
+		<br>
+		<br>
+		<br>
+		<br>
+		
+	<center>
+</html>
+
+
+
+<!--ZONA SCRIPTS -->
+ 
+	    <!--Este script recupera el numero que se le pasa después del # a la vista de trazabilidadQR.html -->  
+         
+		<!--Muestra el idPedido que recibe -->       
+		<p id="idLote"></p>
+		<script>
+			function getID() {
+			  return window.location.hash;
+			}
+			<!--Completa campo idLote -->       
+			document.getElementById("idLote").innerHTML = window.getID();
+		</script>
+	
+	
+	
+		
+		<!--Petición para conseguir lista json de get_trazabilidad --> 
+		<!--Ahora mismo va mal, por eso lanza el cuadro de error --> 
+		<script>
+		window.onload = hacerPeticion;
+		 function hacerPeticion(){
+		      var request = $.ajax({
+		      // la URL para la petición
+		      url : '/get_trazabilidadPrueba',
+		      data :"id_pedido=6" ,
+		      // empleamos GET porque estamos obteniendo datos del servidor
+		      type : 'GET',
+		      // el tipo de información que se espera de respuesta
+		      dataType : 'json',
+		      });
+		     request.done(function(data){
+		           alert("Trazalidad de la cerveza realizada con éxito");
+		     });
+		     request.fail(function(data) {
+		     alert("Error al recuperar campos trazabilidad");
+		     });
+		 }  
+		</script>
+
+	
+		<!--Script que convierte un .json en html Table, pasa campo por campo con los nombres que tuvieran los campos --> 
+		<div class="table margin-bottom"></div>
+		<div id="table-trazabilidad" class="margin-bottom"></div>
+		<script type="text/javascript">https://github.com/shahnewazshamim/json-to-table.git
+		    $(document).ready(function () {
+		    
+		    	//"trazabilidad.json" es el json a pasar a tabla, con SOLO los campos que queremos mostrar
+	
+		        $.getJSON("trazabilidad.json", function (data) {
+		            $('.table').createTable(data, {
+		                // General Style for Table
+		                borderWidth: '1px',
+		                borderStyle: 'solid',
+		                borderColor: '#DDDDDD',
+		                fontFamily: 'Verdana, Helvetica, Arial, FreeSans, sans-serif',
+		
+		                // Table Header Style
+		                thBg: '#F3F3F3',
+		                thColor: '#0E0E0E',
+		                thHeight: '30px',
+		                thFontFamily: '"Open Sans Condensed", sans-serif',
+		                thFontSize: '14px',
+		                thTextTransform: 'capitalize',
+		
+		                // Table Body/Row Style
+		                trBg: '#FFFFFF',
+		                trColor: '#0E0E0E',
+		                trHeight: '25px',
+		                trFontFamily: '"Open Sans", sans-serif',
+		                trFontSize: '13px',
+		
+		                // Table Body's Column Style
+		                tdPaddingLeft: '10px',
+		                tdPaddingRight: '10px'
+		            });
+		        });
+		       
+		    });
+		</script>
+
+	
+	
+
+	
+		 <!-- Tenemos esto en vez de hoja de estilo porque es muy sencilla la vista trazabilidad-->       
+		 <style>
+		        body {
+		            font-family: 'Josefin Sans', sans-serif;
+		        }
+		
+		        h1 {
+		            font-size: 50px;
+		            color: #08090d;
+		            text-align: center;
+		        }
+		
+		        h1 span {
+		            font-size: 50px;
+		            color: #477dd7;
+		        }
+		
+		        h2 {
+		            font-family: "Open Sans Condensed", sans-serif;
+		            font-size: 18px;
+		        }
+		</style>
