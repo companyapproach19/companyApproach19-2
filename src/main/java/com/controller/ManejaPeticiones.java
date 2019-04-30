@@ -264,10 +264,15 @@ public class ManejaPeticiones {
 		BlockchainServices bloque = new BlockchainServices();
 		OrdenTrazabilidad orden = bloque.getOrden(idOrden);
 		
+		
 		if(orden!=null && miniOrden.getProductosAEntregar()!=null) {
 			//En orden hay que rellenar el campo de los productosAEntregar y cambiar el estado
 			orden.setProductosAEntregar(miniOrden.getProductosAEntregar());
 			orden.setEstado(2);
+			//Hay que activar necesitaTransportista
+			if(orden.getActorOrigen().getTipoActor()!=1) {
+				orden.setNecesitaTransportista(true);
+			}
 		
 			//Guardamos la orden actualizada en BBDD
 			bloque.guardarOrden(orden);
