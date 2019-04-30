@@ -27,8 +27,8 @@ public class metodosCompany {
 
 	private static Connection conn;
 
-	private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
-
+	//private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
+	private static String JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/company?user=gonzalo&password=root";
 	static boolean primerusuario= true;
 
 
@@ -154,11 +154,8 @@ public class metodosCompany {
 						"estado INT NOT NULL, " +
 						"firmaRecogida BYTEA, " +
 						"firmaEntrega BYTEA, " +
-						"idPadre INT NOT NULL, " +
-						"idHijo INT NOT NULL, " +
 						"idTransportista VARCHAR(45), " +
-						"idRegistro INT, " +
-						"PRIMARY KEY (id)," +
+						"PRIMARY KEY (id,estado)," +
 						"CONSTRAINT fk_orden_1 " +
 						"  FOREIGN KEY (idActorOrigen) " +
 						"  REFERENCES company.actor(cif) " +
@@ -178,12 +175,7 @@ public class metodosCompany {
 						"  FOREIGN KEY (idTransportista) " +
 						"  REFERENCES company.actor(cif) " +
 						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION, " +
-						"CONSTRAINT fk_orden_5 " +
-						"  FOREIGN KEY (idRegistro) " +
-						"  REFERENCES company.registro(id) " +
-						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION); " 
+						"  ON UPDATE NO ACTION ); " 
 						
 				);
 		pst13.executeUpdate();
@@ -316,10 +308,9 @@ public class metodosCompany {
 			Actor actor = extraerActor(rs.getString(2));
 			Actor actor1 = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
-			Actor actor2 = extraerActor(rs.getString(12));
-			Registro registro = extraerRegistro(rs.getInt(13));
+			Actor actor2 = extraerActor(rs.getString(10));
 			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actor, actor1, rs.getBoolean(4), productos,
-					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11),actor2, registro);
+					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9),actor2);
 			pst.close();
 			rs.close();
 			
@@ -331,8 +322,11 @@ public class metodosCompany {
 
 	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException {
 		conectar();
-		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, mensaje, estado, firmaRecogida, firmaEntrega, idPadre, idHijo, idTransportista, idRegistro)"
-				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		/*OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
+				Productos productos, String mensaje, int estado,byte[] firmaRecogida, byte[] firmaEntrega,
+				Actor transportista) */
+		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, mensaje, estado, firmaRecogida, firmaEntrega, idTransportista)"
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, orden.getId());
 		pst.setString(2, orden.getActorOrigen().getId());
@@ -344,11 +338,11 @@ public class metodosCompany {
 		pst.setInt(7, orden.getEstado());
 		pst.setBytes(8,orden.getFirmaRecogida());
 		pst.setBytes(9,orden.getFirmaEntrega());
-		pst.setInt(10, orden.getIdPadre());
-		pst.setInt(11, orden.getIdHijo());
-		pst.setString(12, orden.getTransportista().getId());
-		if(extraerRegistro(orden.getRegistro().getId())==null) insertarRegistro(orden.getRegistro());
-		pst.setInt(13, orden.getRegistro().getId());
+		if(orden.getTransportista()!=null) {
+			if(extraerActor(orden.getTransportista().getId())!=null) {
+				pst.setString(10, orden.getTransportista().getId());
+			}else pst.setString(10, "0");
+		}else pst.setString(10, "0");
 		pst.executeUpdate();
 		pst.close();
 		
@@ -451,22 +445,6 @@ public class metodosCompany {
 			pst.executeUpdate();
 			pst.close();
 		
-	}
-
-	public static byte [] getQR(int idLote) throws SQLException {
-		conectar();
-		String query = "SELECT * FROM company.lote WHERE idLote =" + idLote;
-		Statement pst2 = conn.createStatement();
-		ResultSet rs2 = pst2.executeQuery(query);
-		while(rs2.next()) {
-			byte [] binario = rs2.getBytes(9);
-			pst2.close();
-			rs2.close();
-			
-			return binario;
-
-		}
-		return null;
 	}
 
 	public static Lote extraerLote(int idLote) throws SQLException {
@@ -665,7 +643,7 @@ public class metodosCompany {
 			Actor actor2 = extraerActor(rs.getString(12));
 			Registro registro = extraerRegistro(rs.getInt(13));
 			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actor, actor1, rs.getBoolean(4), productos,
-					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9), rs.getInt(10), rs.getInt(11), actor2, registro);
+					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9),actor2);
 			if(actor1 != null && actor1.getId()!= null && idActor!=null && actor1.getId().compareTo(idActor)==0) {
 				lista.add(buscado);
 			}
@@ -673,6 +651,7 @@ public class metodosCompany {
 		pst.close();
 		rs.close();
 		
+
 		return lista;	
 	}
 	public static LinkedList<Lote> extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException, NotInDatabaseException {
