@@ -304,7 +304,7 @@ public class AlmacenMMPP {
 		maxlevaduraAle= 16541665;
 		maxlevaduraLager=687464;
 		
-		m2().setCapacidad(maxmaltaCaramelo);
+		/*m2().setCapacidad(maxmaltaCaramelo);
 		m3().setCapacidad(maxmaltaBasePalida);
 		m4().setCapacidad(maxmaltaMunich);
 		m5().setCapacidad(maxmaltaNegra);
@@ -316,7 +316,7 @@ public class AlmacenMMPP {
 		m11().setCapacidad(maxlupuloCentennial);
 		m10().setCapacidad(maxlupuloTettnanger);
 		m12().setCapacidad(maxlevaduraAle);
-		m13().setCapacidad(maxlevaduraLager);
+		m13().setCapacidad(maxlevaduraLager);*/
 
 
 
