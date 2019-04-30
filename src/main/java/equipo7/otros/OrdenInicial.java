@@ -26,32 +26,16 @@ public class OrdenInicial {
 		return idPedido;
 	}
 
-	public void setIdPedido(int idPedido) {
-		this.idPedido = idPedido;
-	}
-
 	public Actor getActorOrigen() {
 		return actorOrigen;
-	}
-
-	public void setActorOrigen(Actor actorOrigen) {
-		this.actorOrigen = actorOrigen;
 	}
 
 	public Actor getActorDestino() {
 		return actorDestino;
 	}
 
-	public void setActorDestino(Actor actorDestino) {
-		this.actorDestino = actorDestino;
-	}
-
 	public Productos getProductosPedidos() {
 		return productosPedidos;
 	}
-
-	public void setProductosPedidos(Productos productosPedidos) {
-		this.productosPedidos = productosPedidos;
-	}
-
+	
 }
