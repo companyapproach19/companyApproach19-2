@@ -69,8 +69,8 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/obtenerOrden")
 	@ResponseBody
-	// Recibe el ID de una orden y devuelve su JSON asociado
-	public String obtenerOrden(@RequestParam(name="id", required=true) String id) throws ClassNotFoundException, SQLException{
+	public String obtenerOrden(HttpServletResponse response,
+			@RequestParam(name="id", required=true) String id) throws ClassNotFoundException, SQLException{
 
 		int idInt = Integer.parseInt(id);
 
@@ -115,8 +115,7 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/ordenesPendientesPorAceptar")
 	@ResponseBody
-	// Recibe el ID de un actor y devuelve un JSON con las ordenes pendientes por aceptar de ese actor
-	public String ordenesPendientesPorAceptar(
+	public String ordenesPendientesPorAceptar(HttpServletResponse response,
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
 		return this.ordenesPendientes(idActor, 0);
@@ -127,8 +126,7 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/ordenesQueHeEnviado")
 	@ResponseBody
-	// Recibe el ID de un actor y devuelve un JSON con las ordenes que ha creado ese actor
-	public String ordenesQueHeEnviado(
+	public String ordenesQueHeEnviado(HttpServletResponse response,
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 
 		BlockchainServices bloque = new BlockchainServices();
@@ -157,8 +155,7 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/ordenesEnProceso")
 	@ResponseBody
-	// Recibe el ID de un actor y devuelve un JSON con las ordenes en proceso de ese actor
-	public String ordenesEnProceso(
+	public String ordenesEnProceso(HttpServletResponse response,
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
 		return this.ordenesPendientes(idActor, 1);					
@@ -168,8 +165,7 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/ordenesListasParaEntregar")
 	@ResponseBody
-	// Recibe el ID de un actor y devuelve un JSON con las ordenes en proceso de ese actor
-	public String ordenesListasParaEntregar(
+	public String ordenesListasParaEntregar(HttpServletResponse response,
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 			
 		return this.ordenesPendientes(idActor, 2);
@@ -180,8 +176,7 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/ordenesRechazadas")
 	@ResponseBody
-	// Recibe el ID de un actor y devuelve un JSON con las ordenes en proceso de ese actor
-	public String ordenesRechazadas(
+	public String ordenesRechazadas(HttpServletResponse response,
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 				
 		return this.ordenesPendientes(idActor, -1);
@@ -192,8 +187,7 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/ordenesEnProcesoDeEntrega")
 	@ResponseBody
-	// Recibe el ID de un actor y devuelve un JSON con las ordenes en proceso de ese actor
-	public String ordenesEnProcesoDeEntrega(
+	public String ordenesEnProcesoDeEntrega(HttpServletResponse response,
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 						
 		return this.ordenesPendientes(idActor, 3);
@@ -204,8 +198,8 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/aceptarOrden")
 	@ResponseBody
-	//Recibe una lista de ids de las ordenes que va a aceptar
-	public String aceptarOrden(@RequestParam(name="id", required=true) String id) throws Throwable{
+	public String aceptarOrden(HttpServletResponse response,
+			@RequestParam(name="id", required=true) String id) throws Throwable{
 		
 		int idInt = Integer.parseInt(id);
 
@@ -228,8 +222,8 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/rechazarOrden")
 	@ResponseBody
-	//Recibe una lista de ids de las ordenes que va a aceptar
-	public String rechazarOrden(@RequestParam(name="id", required=true) String id) throws Throwable{
+	public String rechazarOrden(HttpServletResponse response,
+			@RequestParam(name="id", required=true) String id) throws Throwable{
 		
 		int idInt = Integer.parseInt(id);
 			//Recuperamos la orden para cambiar el estado
@@ -251,8 +245,8 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/listaOrden")
 	@ResponseBody
-	//Recibe el ID de una orden y una lista con los IDs de los productos (lotes o materias primas)
-	public String listaOrden(@RequestParam(name="id", required=true) String id) throws Throwable{
+	public String listaOrden(HttpServletResponse response,
+			@RequestParam(name="id", required=true) String id) throws Throwable{
 
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(id);
@@ -288,8 +282,8 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/recogidaOrden")
 	@ResponseBody
-	//Recibe un JSON con el ID de una orden, la firma de recogida y los datos del transportista
-	public String recogidaOrden(@RequestParam(name="json", required=true) String json) throws Throwable{
+	public String recogidaOrden(HttpServletResponse response,
+			@RequestParam(name="json", required=true) String json) throws Throwable{
 
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(json);
@@ -307,8 +301,6 @@ public class ManejaPeticiones {
 			//Hay que rellenar los campos que tiene miniOrden en orden y cambiar el estado
 			orden.setFirmaRecogida(miniOrden.getFirmaRecogida());
 			orden.setTransportista(miniOrden.getTransportista());
-			//Ya no se necesita otro transportista
-			orden.setNecesitaTransportista(false);
 			//Cambiamos el estado a en proceso de entrega(3)
 			orden.setEstado(3);
 			
@@ -327,8 +319,8 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/entregadaOrden")
 	@ResponseBody
-	//Recibe un json con la firma de entrega y los datos del registro
-	public String entregadaOrden(@RequestParam(name="json", required=true) String json) throws Throwable{
+	public String entregadaOrden(HttpServletResponse response,
+			@RequestParam(name="json", required=true) String json) throws Throwable{
 		
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(json);
