@@ -56,7 +56,7 @@ public class ManejaPeticiones {
 			BlockchainServices bloque = new BlockchainServices();
 		    bloque.guardarOrden(orden);
 		        
-			return "OK";
+			return orden;
 		}
 		else {
 			return "ERROR: no se pudo crear la orden";
