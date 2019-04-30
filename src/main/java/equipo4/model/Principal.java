@@ -51,7 +51,7 @@ public class Principal extends Thread {
 				lote.setFecha_fermentado2(fechaActual);
 			}
 			lote.setFermentado(true);
-			lote.setFecha_fermentado1(fechaActual);
+			lote.setFecha_fermentado(fechaActual);
 		}
 	}
 	

@@ -19,7 +19,7 @@ public class Lote extends DatosContainer{
 	private String tipo;
 	private Date fecha_molido;
 	private Date fecha_cocido;
-	private Date fecha_fermentado1;
+	private Date fecha_fermentado;
 	private Date fecha_fermentado2;
 	private Date fecha_embotellado;
 	
@@ -46,7 +46,7 @@ public class Lote extends DatosContainer{
 		this.tipo = tipo;
 		this.fecha_molido = fecha_molido;
 		this.fecha_cocido = fecha_cocido;
-		this.fecha_fermentado1 = fecha_fermentado1;
+		this.fecha_fermentado = fecha_fermentado1;
 		this.fecha_fermentado2 = fecha_fermentado2;
 		this.fecha_embotellado = fecha_embotellado;
 	}
@@ -153,12 +153,12 @@ public class Lote extends DatosContainer{
 		this.fecha_cocido = fecha_cocido;
 	}
 
-	public Date getFecha_fermentado1() {
-		return fecha_fermentado1;
+	public Date getFecha_fermentado() {
+		return fecha_fermentado;
 	}
 
-	public void setFecha_fermentado1(Date fecha_fermentado1) {
-		this.fecha_fermentado1 = fecha_fermentado1;
+	public void setFecha_fermentado(Date fecha_fermentado1) {
+		this.fecha_fermentado = fecha_fermentado1;
 	}
 
 	public Date getFecha_fermentado2() {
