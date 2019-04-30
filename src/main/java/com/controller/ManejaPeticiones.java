@@ -124,6 +124,35 @@ public class ManejaPeticiones {
 			
 	}
 	
+	//PARA EQUIPO2: VISTAS
+	@Scope("request")
+	@RequestMapping("/ordenesQueHeEnviado")
+	@ResponseBody
+	// Recibe el ID de un actor y devuelve un JSON con las ordenes que ha creado ese actor
+	public String ordenesQueHeEnviado(
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+
+		BlockchainServices bloque = new BlockchainServices();
+		//Obtenemos las ordenes
+		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
+		ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+		
+		if(ordenes!=null && ordenes.size()>0) {
+						
+			Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+			while(it.hasNext()) {
+				//Hay que asegurarse que el actor sea origen
+				OrdenTrazabilidad actual = it.next();
+				if(actual.getActorOrigen().getId().compareTo(idActor)==0) {
+						ordenesIds.add(actual.getId());
+				}
+			}
+			
+			return CodificadorJSON.crearJSONlista(ordenesIds);
+		}	
+		return "null";
+	}
+	
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
