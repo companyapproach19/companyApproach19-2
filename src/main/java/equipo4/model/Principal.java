@@ -1,14 +1,10 @@
 package equipo4.model;
 
-import java.util.Scanner;
-import java.util.Date;
-import java.sql.SQLException;
 import java.util.*;
-
-import equipo5.dao.NotInDatabaseException;
-import equipo5.dao.metodosCompany;
-import equipo6.model.DatosContainer;
 import equipo8.model.GeneradorQR2;
+//import equipo5.dao.NotInDatabaseException;
+//import equipo5.dao.metodosCompany;
+//import equipo6.model.DatosContainer;
 
 public class Principal extends Thread {
 
@@ -23,16 +19,13 @@ public class Principal extends Thread {
 		return l;
 	}
 	
-	
-	
-	
-	/*
 	@SuppressWarnings("deprecation")
 	public static void moler(Lote lote) throws InterruptedException {
 		lote.setFecha_inicio(fechaActual);
 		Thread.sleep(3000);
 		fechaActual.setDate(fechaActual.getDate() + 1);
 		lote.setMolido(true);
+		lote.setFecha_molido(fechaActual);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -41,6 +34,7 @@ public class Principal extends Thread {
 			Thread.sleep(3000);
 			fechaActual.setDate(fechaActual.getDate() + 1);
 			lote.setCocido(true);
+			lote.setFecha_cocido(fechaActual);
 		}
 	}
 
@@ -49,21 +43,36 @@ public class Principal extends Thread {
 		if (lote.isCocido()) {
 			Thread.sleep(3000);
 			fechaActual.setDate(fechaActual.getDate() + 7);
-			densidad = 1.045 - (Math.random() * 0.5);
+			densidad = 1.045 - (Math.random() * 0.3);
 			if (densidad > 1.010) {
 				fermentar2(lote);
+			} else {
+				lote.setFermentado2(false);
+				lote.setFecha_fermentado2(fechaActual);
 			}
 			lote.setFermentado(true);
+			lote.setFecha_fermentado1(fechaActual);
 		}
 	}
-
+	
+	/**
+	 * El método de segunda fermentación solo se ejecuta si lo llama el primer fermentado.
+	 * En caso de que no se necesite realizar la segunda fermentación, el método fermentado 1
+	 * almacena la fecha de fin del primer fermentado en la fecha de fin del segundo fermentado
+	 * (porque es necesaria en la FabricaController) pero pone isFermentado2 a false.
+	 */
+	
 	@SuppressWarnings("deprecation")
 	public static void fermentar2(Lote lote) throws InterruptedException {
 		if (lote.isFermentado()) {
-			Thread.sleep(3000);
-			fechaActual.setDate(fechaActual.getDate() + 15);
-			densidad -= (Math.random() * 0.1);
-			lote.setFermentado2(true);
+			for (int i=0; i<15 && !lote.isFermentado2(); i++) {
+				densidad -= (Math.random() * 0.05);
+				if (densidad <= 1.01 || i==14) {
+					lote.setFermentado2(true);
+					fechaActual.setDate(fechaActual.getDate() + i);
+				}
+			}
+			lote.setFecha_fermentado2(fechaActual);
 		}
 	}
 
@@ -73,14 +82,11 @@ public class Principal extends Thread {
 			Thread.sleep(3000);
 			fechaActual.setDate(fechaActual.getDate() + 2);
 			lote.setEmbotellado(true);
-			AlmacenLotes.almacenarLote(lote);
+//			AlmacenLotes.almacenarLote(lote);
 			lote.setFecha_final(fechaActual);
 		}
 	}
 	
-	
-	
-	*/
 	
 	
 	
