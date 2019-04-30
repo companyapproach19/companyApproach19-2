@@ -321,18 +321,6 @@ public class metodosCompany {
 		System.out.println("�Base de datos Creada!");
 
 	}
-	//Ver como se saca geolocalizacion
-	public static ArrayList<geolocalizacion> extraerGeolocalizacion (int idOrden) throws SQLException{
-		conectar();
-		ArrayList<Integer> buscado = new ArrayList<Integer>();
-		String query = "SELECT * FROM company.productosOrden WHERE idOrden = " + idOrden;
-		Statement pst = conn.createStatement();
-		ResultSet rs = pst.executeQuery(query);
-		while(rs.next()) {
-			buscado.add(rs.getInt(2));
-		}
-		return buscado;
-	}
 	
 	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException {
 		conectar();
