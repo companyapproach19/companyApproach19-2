@@ -56,7 +56,7 @@ public class metodosCompany {
 		PreparedStatement pst16 = conn.prepareStatement(
 	            "CREATE TABLE company.materiaPrima (" + 			//tabla materia prima
 	            		"idMateriaPrima INT NOT NULL ," +
-	                    "nombre VARCHAR(45) NOT NULL ," +
+	                    "TIPO VARCHAR(45) NOT NULL ," +
 	            		"cantidad FLOAT NOT NULL ," +
 	                    "PRIMARY KEY (idMateriaPrima));"
 	    );
@@ -73,7 +73,11 @@ public class metodosCompany {
 						"fermentado2 BOOLEAN NOT NULL, " +
 						"embotellado BOOLEAN NOT NULL, " +
 						"qr BYTEA, " +
-						"cantidad INT NOT NULL ," +
+						"fecha_molido BOOLEAN NOT NULL, " +
+						"fecha_cocido BOOLEAN NOT NULL, " +
+						"fecha_fermentado BOOLEAN NOT NULL, " +
+						"fecha_fermentado2 BOOLEAN NOT NULL, " +
+						"fecha_embotellado BOOLEAN NOT NULL, " +
 						"tipo VARCHAR(45) NOT NULL ," +
 						"PRIMARY KEY (idLote));"
 				);
