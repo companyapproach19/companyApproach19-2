@@ -285,7 +285,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/recogidaOrden")
 	@ResponseBody
 	//Recibe un JSON con el ID de una orden, la firma de recogida y los datos del transportista
-	public String recogidaOrden(@RequestParam(name="json", required=true) String json) throws ClassNotFoundException, SQLException{
+	public String recogidaOrden(@RequestParam(name="json", required=true) String json) throws Throwable{
 
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(json);
@@ -324,7 +324,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/entregadaOrden")
 	@ResponseBody
 	//Recibe un json con la firma de entrega y los datos del registro
-	public String entregadaOrden(@RequestParam(name="json", required=true) String json) throws ClassNotFoundException, SQLException{
+	public String entregadaOrden(@RequestParam(name="json", required=true) String json) throws Throwable{
 		
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(json);

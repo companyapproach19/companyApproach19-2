@@ -213,7 +213,7 @@ public class StockController {
 			{
 				for(OrdenTrazabilidad or : metodosCompany.extraerPedidosActorDestino(actor.getId()))
 				{
-						if(or.getNecesitaTransportista()) 
+						if(or.isNecesitaTransportista()) 
 						{
 							json_resp.add(or.getId()+"", parse.parse(gson.toJson(or)).getAsJsonObject());
 							index++;
