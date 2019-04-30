@@ -530,7 +530,7 @@ public class metodosCompany {
 
 	public static void insertarLote(Lote lote) throws Throwable {
 		conectar();
-			String query = "INSERT INTO company.lote (idLote, fecha_inicio, fecha_final, molido, cocido, fermentado, fermentado2, embotellado, qr, cantidad, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?);";
+			String query = "INSERT INTO company.lote (idLote, fecha_inicio, fecha_final, molido, cocido, fermentado, fermentado2, embotellado, qr, fecha_molido, fecha_cocido, fecha_fermentado, fecha_fermentado2, fecha_embotellado, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			pst.setInt(1, lote.getIdBd());
 			pst.setDate(2, new Date(lote.getFecha_inicio().getTime()));
@@ -541,8 +541,12 @@ public class metodosCompany {
 			pst.setBoolean(7, lote.isFermentado2());
 			pst.setBoolean(8, lote.isEmbotellado());
 			pst.setBytes(9, lote.getQr());
-			pst.setInt(10, lote.getCantidad());
-			pst.setString(11, lote.getTipo());
+			pst.setDate(10, new Date(lote.getFecha_molido().getTime()));
+			pst.setDate(11, new Date(lote.getFecha_cocido().getTime()));
+			pst.setDate(12, new Date(lote.getFecha_fermentado().getTime()));
+			pst.setDate(13, new Date(lote.getFecha_fermentado2().getTime()));
+			pst.setDate(14, new Date(lote.getFecha_embotellado().getTime()));
+			pst.setString(15, lote.getTipo());
 			pst.executeUpdate();
 			pst.close();
 		//conn.close();
@@ -554,13 +558,12 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			Lote buscado = new Lote(rs.getInt(1),  rs.getDate(2), rs.getString(11), rs.getDate(3), rs.getBoolean(4), rs.getBoolean(5), rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBytes(9), rs.getInt(10));
+			Lote buscado = new Lote(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getBytes(9), rs.getBoolean(4), rs.getBoolean(5), rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getString(15),  rs.getDate(10), rs.getDate(11),  rs.getDate(12), rs.getDate(13), rs.getDate(14));
 			pst.close();
 			rs.close();
 			//conn.close();
 			return buscado;
 		}
-		//conn.close();
 		return null;
 	}
 
