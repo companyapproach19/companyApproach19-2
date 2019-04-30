@@ -206,7 +206,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/aceptarOrden")
 	@ResponseBody
 	//Recibe una lista de ids de las ordenes que va a aceptar
-	public String aceptarOrden(@RequestParam(name="id", required=true) String id) throws ClassNotFoundException, SQLException{
+	public String aceptarOrden(@RequestParam(name="id", required=true) String id) throws Throwable{
 		
 		int idInt = Integer.parseInt(id);
 
@@ -230,7 +230,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/rechazarOrden")
 	@ResponseBody
 	//Recibe una lista de ids de las ordenes que va a aceptar
-	public String rechazarOrden(@RequestParam(name="id", required=true) String id) throws ClassNotFoundException, SQLException{
+	public String rechazarOrden(@RequestParam(name="id", required=true) String id) throws Throwable{
 		
 		int idInt = Integer.parseInt(id);
 			//Recuperamos la orden para cambiar el estado
@@ -253,7 +253,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/listaOrden")
 	@ResponseBody
 	//Recibe el ID de una orden y una lista con los IDs de los productos (lotes o materias primas)
-	public String listaOrden(@RequestParam(name="id", required=true) String id) throws ClassNotFoundException, SQLException{
+	public String listaOrden(@RequestParam(name="id", required=true) String id) throws Throwable{
 
 		DescodificadorJson decoder = new DescodificadorJson();
 		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(id);
