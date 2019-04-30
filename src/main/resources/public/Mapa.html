@@ -30,7 +30,7 @@ jQuery(function($) {
 function hacerPeticion(){
        	var request = $.ajax({
 	   		url : '/cargarMapaActores',
-	   		data : "",
+	   		data : "idOrden=2",
 	   		type : 'GET',
 	   		dataType : 'json',
 	   	});
@@ -101,7 +101,10 @@ function initialize(data) {
         marker = new google.maps.Marker({
             position: position,
             map: map,
-            title: markers[i][1]
+            title: markers[i][1],
+            icon: {
+                url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+          	}
         });
         
         // Allow each marker to have an info window    

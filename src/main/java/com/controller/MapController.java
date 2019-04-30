@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import equipo5.dao.metodosCompany;
 import equipo6.model.Actor;
 import equipo6.model.CadenaActores;
+import equipo6.model.geolocalizacion;
 import equipo6.otros.UsuariosService;
 
 
@@ -26,16 +27,16 @@ public class MapController {
 	@Scope("request")
 	@RequestMapping("/cargarMapaActores")
 	@ResponseBody
-	public ResponseEntity cargarMapaActores(Model model) {
+	public ResponseEntity cargarMapaActores(Model model,
+			@RequestParam(name="idOrden", required=false) int idOrden) {
 		String JSON;
+		JSON=getMapData(idOrden);
 		
-		
-		JSON=getMapData();
 		
 		return ResponseEntity.status(HttpStatus.OK).body(JSON);
 	}
 	
-	private String getMapData() {
+	private String getMapData(Integer idOrden) {
 		try {
 			CadenaActores cadena = metodosCompany.extraerCadenaActores();
 			String salida="[\n";
@@ -47,6 +48,19 @@ public class MapController {
 			}
 			
 			salida+=getActorData(lista.get(lista.size()-1));
+			
+			if(idOrden!=null) {
+//				List<geolocalizacion> geo = metodosCompany.extraerGeolocalizaciones(idOrden.intValue());
+//				
+//				for(geolocalizacion g : geo) {
+//					salida+=",";
+//					salida+=getGeoData(g);
+//				}
+				
+				//Temporal hasta que cojamos de BBDD
+				salida+=",";
+				salida+=getGeoData(null);
+			}
 			
 			salida+="]\n";
 			return salida;
@@ -96,6 +110,36 @@ public class MapController {
 		s+="} \n";
 		return s;
 	}
+	
+	private String getGeoData(geolocalizacion g) {
+		String s="";
+		s+="{ \n";
+		s+="\"tipo\":\"Geolocalizacion\", \n";
+		s+="\"nombre\":\"Pedido 1\", \n";
+		s+="\"email\":\"Orden 2\", \n";
+		s+="\"coord\":\"2019-04-30 12:45:00\", \n";
+		s+="\"lat\":\"40.4130076\", \n";
+		s+="\"lon\":\"-3.8243319\" \n";
+		s+="} \n";
+		//g.
+		return s;
+	}
+	
+	/*
+	 private String getGeoData(geolocalizacion g) {
+		String s="";
+		s+="{ \n";
+		s+="\"tipo\":\"Geolocalizacion\", \n";
+		s+="\"nombre\":\"Pedido "+g.getIdPedido()+"\", \n";
+		s+="\"email\":\"Orden "+g.getIdOrden()+"\", \n";
+		s+="\"coord\":\""+g.getTime().toString()+"\", \n";
+		s+="\"lat\":\""+getLat(g.getCoordenadas())+"\", \n";
+		s+="\"lon\":\""+getLon(g.getCoordenadas())+"\" \n";
+		s+="} \n";
+		//g.
+		return s;
+	}
+	 */
 	
 	private String intToStringTipoActor(int tipoActor) {
 		switch(tipoActor) {
