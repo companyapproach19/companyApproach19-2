@@ -2,7 +2,7 @@ package equipo4.model;
 
 
 import java.sql.SQLException;
-import java.sql.Date;
+import java.util.Date;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.DatosContainer;
@@ -77,7 +77,7 @@ public class Lote extends DatosContainer{
 		this.idBd = idBd;
 	}
 
-	public  void setFecha_final(java.util.Date fechaActual) {
+	public  void setFecha_final(Date fechaActual) {
 		this.fecha_final = (Date) fechaActual;
 	}
 	
