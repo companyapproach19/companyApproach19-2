@@ -22,7 +22,7 @@ import equipo6.otros.BlockchainServices;
 //Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
 public class SensorStatic{
 
-
+	/*
 	//private static int idSensor;
 	private static int idPedido;
 	private static int idOrdentrazabilidad;
@@ -280,6 +280,6 @@ public class SensorStatic{
 		}
 
 
-	}
+	}*/
 
 }
