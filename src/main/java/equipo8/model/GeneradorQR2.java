@@ -1,5 +1,4 @@
 package equipo8.model;
-
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 
@@ -33,7 +32,7 @@ public class GeneradorQR2 {
     public static byte[] generadorQR(int id) throws Exception{
     	
         // URL a la que luego le añadiremos el /id
-        String data = "http://www.google.com";
+        String data = "https://beer-company2019.herokuapp.com/trazabilidadQR967.html"+'#'+id;
         
         //a dónde escupe el qr
         path = "C:\\Users\\Laura Colomer\\Documents\\qrcode" + id + ".png";
@@ -42,8 +41,8 @@ public class GeneradorQR2 {
         BitMatrix matrix;
         Writer writer = new QRCodeWriter();
         try {
- 
-            matrix = writer.encode((data + "/" + id), BarcodeFormat.QR_CODE, ancho, alto);
+        	//hay que poner data + "#" + id
+            matrix = writer.encode((data), BarcodeFormat.QR_CODE, ancho, alto);
  
         } catch (WriterException e) {
             e.printStackTrace(System.err);
@@ -64,7 +63,8 @@ public class GeneradorQR2 {
         //ESTO escribe los QRs en blob
 		ImageIO.write(image, "png",  bos);
 	    byte [] binarioURL = bos.toByteArray();
-		return binarioURL;
+		//System.out.println(binarioURL);
+	    return binarioURL;
  
     }
     
