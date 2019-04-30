@@ -1,7 +1,7 @@
 	package com.controller;
 
 	import java.util.Date;
-import java.util.LinkedList;
+	import java.util.LinkedList;
 
 	import javax.servlet.http.Cookie;
 	import javax.servlet.http.HttpServletResponse;
@@ -18,8 +18,8 @@ import java.util.LinkedList;
 	import com.google.gson.JsonObject;
 	import com.google.gson.JsonParser;
 
-import equipo4.model.Lote;
-import equipo5.model.StockLote;
+	import equipo4.model.Lote;
+	//import equipo5.model.StockLote;
 
 
 	@Controller
