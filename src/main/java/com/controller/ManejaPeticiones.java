@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.servlet.http.HttpServletResponse;
 
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
@@ -31,9 +32,7 @@ public class ManejaPeticiones {
 	@Scope("request")
 	@RequestMapping("/crearOrden")
 	@ResponseBody
-	
-	//Recibe el json inicial 
-	public String crearOrden(
+	public String crearOrden(HttpServletResponse response,
 			@RequestParam(name="json", required=true) String json) throws Throwable {
 		
 		DescodificadorJson decodificador = new DescodificadorJson();
