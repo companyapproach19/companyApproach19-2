@@ -26,13 +26,13 @@ import equipo5.model.StockLote;
 	@SpringBootApplication
 	public class FabricaController {
 		//va a dar error hasta que equipo5 suba el código de este sprint a máster
-		LinkedList<StockLote> lista = StockController.getStockListas();
+//		LinkedList<StockLote> lista = StockController.getStockListas();
 		
 		/*
 		 * Comprueba si en la lista se encuentra el lote con el número de lote introducido
 		 * para devolver información acerca de él
 		 */
-		@Scope("request")
+		/*@Scope("request")
 		@RequestMapping("/numLote")
 		@ResponseBody
 		public JsonObject obtenerNumLote(HttpServletResponse response,
@@ -53,10 +53,10 @@ import equipo5.model.StockLote;
 				}
 			}
 			return obj;
-		}
+		}*/
 		
 		@Scope("request")
-		@RequestMapping("/numLote")
+		@RequestMapping("/llegadaALaFabrica")
 		@ResponseBody
 		public JsonObject llegadaALaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
@@ -64,9 +64,9 @@ import equipo5.model.StockLote;
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
-			obj.addProperty("fechaInicio", "");
+			//obj.addProperty("fechaInicio", "");
 			//ya hemos comprobado que la lista contiene al lote deseado
-			for (int i=0; i<lista.size(); i++) {
+			/*for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
@@ -74,12 +74,13 @@ import equipo5.model.StockLote;
 					String fecha = fechaLlegada.getDate() + "/" + fechaLlegada.getMonth() + "/" + fechaLlegada.getYear();
 					obj.addProperty("fechaInicio", fecha);
 				}
-			}
+			}*/
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
 			return obj;
 		}
 		
-		@Scope("request")
-		@RequestMapping("/numLote")
+		/*@Scope("request")
+		@RequestMapping("/molienda")
 		@ResponseBody
 		public JsonObject molienda(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
@@ -93,6 +94,9 @@ import equipo5.model.StockLote;
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
 					obj.addProperty("molido", lote2.isMolido());
+					Date fecha = lote2.getFecha_molido();
+					String fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
+					obj.addProperty("fechaFin", fechaFin);
 				}
 			}
 			return obj;
@@ -113,13 +117,16 @@ import equipo5.model.StockLote;
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
 					obj.addProperty("cocido", lote2.isCocido());
+					Date fecha = lote2.getFecha_cocido();
+					String fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
+					obj.addProperty("fechaFin", fechaFin);
 				}
 			}
 			return obj;
 		}
 		
 		@Scope("request")
-		@RequestMapping("/numLote")
+		@RequestMapping("/fermentacion")
 		@ResponseBody
 		public JsonObject fermentacion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
@@ -133,13 +140,16 @@ import equipo5.model.StockLote;
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
 					obj.addProperty("fermentado", lote2.isFermentado());
+					Date fecha = lote2.getFecha_fermentado2();
+					String fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
+					obj.addProperty("fechaFin", fechaFin);
 				}
 			}
 			return obj;
 		}
 		
 		@Scope("request")
-		@RequestMapping("/numLote")
+		@RequestMapping("/embotellado")
 		@ResponseBody
 		public JsonObject embotellado(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
@@ -153,13 +163,16 @@ import equipo5.model.StockLote;
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
 					obj.addProperty("embotellado", lote2.isEmbotellado());
+					Date fecha = lote2.getFecha_embotellado();
+					String fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
+					obj.addProperty("fechaFin", fechaFin);
 				}
 			}
 			return obj;
 		}
 		
 		@Scope("request")
-		@RequestMapping("/numLote")
+		@RequestMapping("/salidaDeLaFabrica")
 		@ResponseBody
 		public JsonObject salidaDeLaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
@@ -190,5 +203,5 @@ import equipo5.model.StockLote;
 			Thread.sleep(1000);
 
 			;
-		}
+		}*/
 }
