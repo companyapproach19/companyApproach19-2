@@ -17,6 +17,11 @@ public class Lote extends DatosContainer{
 	private boolean fermentado2;
 	private boolean embotellado;
 	private String tipo;
+	private Date fecha_molido;
+	private Date fecha_cocido;
+	private Date fecha_fermentado1;
+	private Date fecha_fermentado2;
+	private Date fecha_embotellado;
 	
 	
 	public Lote() throws ClassNotFoundException, SQLException {
@@ -24,8 +29,11 @@ public class Lote extends DatosContainer{
 		molido=cocido=fermentado=fermentado2=embotellado=false;
 	}
 	
+	
 	public Lote(int idBd, Date fecha_inicio, Date fecha_final, byte[] qr, boolean molido, boolean cocido,
-			boolean fermentado, boolean fermentado2, boolean embotellado, String tipo) {
+			boolean fermentado, boolean fermentado2, boolean embotellado, String tipo, Date fecha_molido,
+			Date fecha_cocido, Date fecha_fermentado1, Date fecha_fermentado2, Date fecha_embotellado) {
+		super();
 		this.idBd = idBd;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_final = fecha_final;
@@ -36,7 +44,14 @@ public class Lote extends DatosContainer{
 		this.fermentado2 = fermentado2;
 		this.embotellado = embotellado;
 		this.tipo = tipo;
+		this.fecha_molido = fecha_molido;
+		this.fecha_cocido = fecha_cocido;
+		this.fecha_fermentado1 = fecha_fermentado1;
+		this.fecha_fermentado2 = fecha_fermentado2;
+		this.fecha_embotellado = fecha_embotellado;
 	}
+
+
 	public byte[] getQr() {
 		return qr;
 	}
@@ -120,6 +135,46 @@ public class Lote extends DatosContainer{
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public Date getFecha_molido() {
+		return fecha_molido;
+	}
+
+	public void setFecha_molido(java.util.Date fechaActual) {
+		this.fecha_molido = fechaActual;
+	}
+
+	public Date getFecha_cocido() {
+		return fecha_cocido;
+	}
+
+	public void setFecha_cocido(Date fecha_cocido) {
+		this.fecha_cocido = fecha_cocido;
+	}
+
+	public Date getFecha_fermentado1() {
+		return fecha_fermentado1;
+	}
+
+	public void setFecha_fermentado1(Date fecha_fermentado1) {
+		this.fecha_fermentado1 = fecha_fermentado1;
+	}
+
+	public Date getFecha_fermentado2() {
+		return fecha_fermentado2;
+	}
+
+	public void setFecha_fermentado2(Date fecha_fermentado2) {
+		this.fecha_fermentado2 = fecha_fermentado2;
+	}
+
+	public Date getFecha_embotellado() {
+		return fecha_embotellado;
+	}
+
+	public void setFecha_embotellado(Date fecha_embotellado) {
+		this.fecha_embotellado = fecha_embotellado;
 	}
 
 }
