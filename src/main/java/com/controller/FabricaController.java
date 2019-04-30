@@ -24,7 +24,7 @@
 	@SpringBootApplication
 	public class FabricaController {
 		//va a dar error hasta que equipo5 suba el código de este sprint a máster
-		LinkedList<StockLote> lista = StockController.getListaLotes();
+		LinkedList<StockLote> lista = StockController.getStockLotes();
 		
 		/*
 		 * Comprueba si en la lista se encuentra el lote con el número de lote introducido
@@ -50,11 +50,11 @@
 			obj.addProperty("existe", false);
 			for (int i=0; i<lista.size(); i++) {
 				StockLote lote = lista.get(i);
-				if (lote.getIdOrden()==numLoteIntroducido) {
+				if (lote.getIdPedido()==numLoteIntroducido) {
 					i=lista.size();
 					obj.addProperty("existe",true);
 					obj.addProperty("num",1);
-//					obj.addProperty("nombreLote", lote.getLote());
+					obj.addProperty("nombreLote", lote.getLote());
 				}
 			}
 			return obj;
