@@ -1,5 +1,5 @@
 package equipo8.model;
-
+/*
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import equipo6.otros.BlockchainServices;
-
+*/
 //Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
 public class SensorStatic{
 
