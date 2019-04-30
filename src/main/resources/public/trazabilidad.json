@@ -2,15 +2,15 @@
 {
 "Tipo":"Lager",
 "Agricultor":"Malta Madrid",
-"Fábrica": "Kolks",
-"Temperatura máxima":"6ºC",
-"Temperatura mínima":"4ºC"
+"Fabrica": "Kolks",
+"TemperaturaMax":"6",
+"TemperaturaMin":"4"
 },
 {
 "Tipo":"",
-"Agricultor":"Cebada Ceuta",
-"Fábrica": "",
-"Temperatura máxima":"",
-"Temperatura mínima":""
+"Tgricultor":"Ceuta cebada",
+"Fabrica": "",
+"TemperaturaMax":"9",
+"TemperaturaMin":"3"
 }
 ]
