@@ -2,6 +2,7 @@ package equipo7.model;
 
 import equipo6.model.DatosContainer;
 import equipo6.model.Actor;
+import java.util.Base64;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -38,9 +39,9 @@ public class OrdenTrazabilidad extends DatosContainer
 		private int estado;
 		// El transportista firma en dos ocasiones del pedido:
 		// en la recogida del pedido (llegada al origen)
-		private byte[] firmaRecogida;
+		private String firmaRecogida;
 		//en la entrega del pedido (llegada al destino)
-		private byte[] firmaEntrega;
+		private String firmaEntrega;
 		//Datos del transportista
 		private Actor transportista;
 		//idRegistro del transporte -> Lo rellena el transportista en firmaEntrega
@@ -53,8 +54,8 @@ public class OrdenTrazabilidad extends DatosContainer
 		
 
 		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
-				Productos productosPedidos, ArrayList<Integer> productosAEntregar, int estado, byte[] firmaRecogida, 
-				byte[] firmaEntrega, Actor transportista, int idRegistro, int idPedido, Date fecha) {
+				Productos productosPedidos, ArrayList<Integer> productosAEntregar, int estado, String firmaRecogida,
+				String firmaEntrega, Actor transportista, int idRegistro, int idPedido, Date fecha) {
 			this.id=id;
 			this.actorOrigen=actorOrigen;
 			this.actorDestino=actorDestino;
@@ -81,8 +82,8 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.productosAEntregar=new ArrayList<Integer>();
 			this.estado=0;
 			this.necesitaTransportista=false;
-			this.firmaRecogida = new byte[1];
-			this.firmaEntrega = new byte[1];
+			this.firmaRecogida = "";
+			this.firmaEntrega = "";
 			this.transportista=null;
 			this.idPedido=-1;
 			this.idRegistro=-1;
@@ -93,7 +94,7 @@ public class OrdenTrazabilidad extends DatosContainer
 		//Constructor para descodificar json de transportistas
 		//firmaRecogida
 		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
-				Productos productosPedidos,ArrayList<Integer> productosAEntregar, byte[] firmaRecogida, 
+				Productos productosPedidos,ArrayList<Integer> productosAEntregar, String firmaRecogida,
 				Actor transportista) {
 			this.id=id;
 			this.actorOrigen=actorOrigen;
@@ -102,7 +103,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.productosPedidos=productosPedidos;
 			this.productosAEntregar=productosAEntregar;
 			this.firmaRecogida=firmaRecogida;
-			this.firmaEntrega= new byte[1];
+			this.firmaEntrega= "";
 			this.transportista=transportista;
 			this.estado=-1;
 			this.idRegistro=-1;
@@ -166,20 +167,40 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.estado = estado;
 		}
 
-		public byte[] getFirmaRecogida() {
+		public String getFirmaRecogida() {
 			return firmaRecogida;
 		}
 
-		public void setFirmaRecogida(byte[] firmaRecogida) {
+		public void setFirmaRecogida(String firmaRecogida) {
 			this.firmaRecogida = firmaRecogida;
 		}
 
-		public byte[] getFirmaEntrega() {
+		public String getFirmaEntrega() {
 			return firmaEntrega;
 		}
 
-		public void setFirmaEntrega(byte[] firmaEntrega) {
+		public void setFirmaEntrega(String firmaEntrega) {
 			this.firmaEntrega = firmaEntrega;
+		}
+
+		public byte[] getFirmaRecogidaBBDD() {
+			byte[] decodedBytes = Base64.getDecoder().decode(this.firmaRecogida.getBytes());
+			return decodedBytes;
+		}
+
+		public void setFirmaRecogidaBBDD(byte[] firmaRecogida) {
+			byte[] encodedBytes = Base64.getEncoder().encode(firmaRecogida);
+			this.firmaRecogida = new String(encodedBytes);
+		}
+
+		public byte[] getFirmaEntregaBBDD() {
+			byte[] decodedBytes = Base64.getDecoder().decode(this.firmaRecogida.getBytes());
+			return decodedBytes;
+		}
+
+		public void setFirmaEntregaBBDD(byte[] firmaEntrega) {
+			byte[] encodedBytes = Base64.getEncoder().encode(firmaEntrega);
+			this.firmaRecogida = new String(encodedBytes);
 		}
 
 		public Actor getTransportista() {
