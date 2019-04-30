@@ -1064,6 +1064,21 @@ public class metodosCompany {
         return siguienteId;
     }
     
+    public static int idGeolocalizacion() throws SQLException, ClassNotFoundException{
+        conectar();
+        String query = "SELECT MAX (id) FROM company.geolocalizacion";
+        Statement pst = conn.createStatement();
+        ResultSet rs = pst.executeQuery(query);
+        int siguienteId = 1;
+        if(rs.next()){
+            siguienteId = rs.getInt(1) + 1;
+        }
+        pst.close();
+       rs.close();
+       //conn.close();
+        return siguienteId;
+    }
+    
     public static int idRegistro() throws SQLException, ClassNotFoundException{
         conectar();
         String query = "SELECT MAX (id) FROM company.registro";
