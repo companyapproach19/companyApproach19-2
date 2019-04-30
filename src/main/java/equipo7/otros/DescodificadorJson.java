@@ -1,10 +1,10 @@
 package equipo7.otros;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import equipo7.model.ListaPedidos;
 import equipo7.model.OrdenTrazabilidad;
 
 
@@ -16,35 +16,17 @@ public class DescodificadorJson {
 		 return gson.fromJson(pedido, tipoObjeto);  
 	}
 
-	public ListaPedidos DescodificadorJSONListaPedidos(String lista) {
+	public ArrayList<Integer> DescodificadorJSONlista(String lista) {
 		Gson gson=new Gson();
-		Type tipoObjeto = new TypeToken<ListaPedidos>(){}.getType();
+		Type tipoObjeto = new TypeToken<ArrayList<Integer>>(){}.getType();
 		return gson.fromJson(lista, tipoObjeto);
 	}
+	
+	public OrdenInicial DescodificadorJSONinicial(String jsonInicial) {
+		Gson gson=new Gson();
+		Type tipoObjeto = new TypeToken<OrdenInicial>(){}.getType();
+		return gson.fromJson(jsonInicial, tipoObjeto);	
+	}
 
-	
-	/*La clase OrdenTrazabilidad necesita de esta clase:
-	 * 
-	 * Toda la informacion inicial del pedido :)
-	 * Modificaciones del estado del proceso
-	 * Fecha de entrega (cuando el transportista firme la entrega)
-	 * 
-	 */
-	
-	/*Las clases individuales de los actores necesitaran de esta clase:
-	 * 
-	 * Agricultor:
-	 * Boolean de si se ha aceptado el pedido o no
-	 * Boolean de si le da al boton de: listo
-	 * ...
-	 * 
-	 * Resto de actores:
-	 * Boolean de si le da al boton de: listo para entregar
-	 * Los actores que puedan hacer peticiones necesitaran saber el mensaje
-	 * ...
-	 * 
-	 */
-	
-	
 	
 }
