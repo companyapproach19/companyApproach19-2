@@ -116,7 +116,7 @@ public class metodosCompany {
 						"fechaFin VARCHAR(45), " +
 						"tempMax VARCHAR(45), " +
 						"tempMin VARCHAR(45), " +
-						"PRIMARY KEY (id)," +
+						"PRIMARY KEY (id)" +
 						");"
 				);
 		pst14.executeUpdate();
@@ -154,37 +154,38 @@ public class metodosCompany {
 						"idRegistro INT, " +
 						"idPedido INT NOT NULL, " +
 						"fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
-						"PRIMARY KEY (id, fecha)," +
-						"CONSTRAINT fk_orden_1 " +
-						"  FOREIGN KEY (idActorOrigen) " +
-						"  REFERENCES company.actor(cif) " +
-						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION, " +
-						"CONSTRAINT fk_orden_2 " +
-						"  FOREIGN KEY (idActorDestino) " +
-						"  REFERENCES company.actor(cif) " +
-						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION, " +
-						"CONSTRAINT fk_orden_3 " +
-						"  FOREIGN KEY (idProductos) " +
-						"  REFERENCES company.productos(id) " +
-						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION, " +
-						"CONSTRAINT fk_orden_4 " +
-						"  FOREIGN KEY (idTransportista) " +
-						"  REFERENCES company.actor(cif) " +
-						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION, " +
-						"CONSTRAINT fk_orden_5 " +
-						"  FOREIGN KEY (idRegistro) " +
-						"  REFERENCES company.registro(id) " +
-						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION), " +
-						"CONSTRAINT fk_orden_6 " +
-						"  FOREIGN KEY (idPedido) " +
-						"  REFERENCES company.cadena(idPedido) " +
-						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION; "
+						"PRIMARY KEY (id, fecha)" +
+//						"CONSTRAINT fk_orden_1 " +
+//						"  FOREIGN KEY (idActorOrigen) " +
+//						"  REFERENCES company.actor(cif) " +
+//						"  ON DELETE NO ACTION " +
+//						"  ON UPDATE NO ACTION, " +
+//						"CONSTRAINT fk_orden_2 " +
+//						"  FOREIGN KEY (idActorDestino) " +
+//						"  REFERENCES company.actor(cif) " +
+//						"  ON DELETE NO ACTION " +
+//						"  ON UPDATE NO ACTION, " +
+//						"CONSTRAINT fk_orden_3 " +
+//						"  FOREIGN KEY (idProductos) " +
+//						"  REFERENCES company.productos(id) " +
+//						"  ON DELETE NO ACTION " +
+//						"  ON UPDATE NO ACTION, " +
+//						"CONSTRAINT fk_orden_4 " +
+//						"  FOREIGN KEY (idTransportista) " +
+//						"  REFERENCES company.actor(cif) " +
+//						"  ON DELETE NO ACTION " +
+//						"  ON UPDATE NO ACTION, " +
+//						"CONSTRAINT fk_orden_5 " +
+//						"  FOREIGN KEY (idRegistro) " +
+//						"  REFERENCES company.registro(id) " +
+//						"  ON DELETE NO ACTION " +
+//						"  ON UPDATE NO ACTION), " +
+//						"CONSTRAINT fk_orden_6 " +
+//						"  FOREIGN KEY (idPedido) " +
+//						"  REFERENCES company.cadena(idPedido) " +
+//						"  ON DELETE NO ACTION " +
+//						"  ON UPDATE NO ACTION "+
+						"); "
 						
 				);
 		pst13.executeUpdate();
