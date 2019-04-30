@@ -309,11 +309,12 @@ public class metodosCompany {
 	    
 	    PreparedStatement pst22 = conn.prepareStatement(
 	            "CREATE TABLE company.geolocalizacion (" +
+	            		"id INT NOT NULL," +
 	            		"idOrden INT NOT NULL," +
 	            		"idPedido INT NOT NULL," +
 	            		"coordenadas VARCHAR(45)," +
 	                    "fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP ," +
-	                    "PRIMARY KEY (idOrden)" + 
+	                    "PRIMARY KEY (id)" + 
 	                    ");"
 	    );
 	    pst22.executeUpdate();
@@ -322,25 +323,44 @@ public class metodosCompany {
 
 	}
 	//Ver como se saca geolocalizacion
-	public static ArrayList<geolocalizacion> extraerGeolocalizacion (int idOrden) throws SQLException{
+	public static geolocalizacion extraerGeolocalizacion (int id) throws SQLException{
 		conectar();
-		ArrayList<Integer> buscado = new ArrayList<Integer>();
-		String query = "SELECT * FROM company.productosOrden WHERE idOrden = " + idOrden;
+		String query = "SELECT * FROM company.geolocalizacion WHERE id = " + id;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			buscado.add(rs.getInt(2));
+			geolocalizacion buscado = new geolocalizacion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getDate(5));
+			pst.close();
+			rs.close();
+			//conn.close();
+			return buscado;
 		}
+		//conn.close();
+		return null;
+	}
+	public static ArrayList<geolocalizacion> extraerGeolocalizaciones (int idOrden) throws SQLException{
+		conectar();
+		String query = "SELECT * FROM company.geolocalizacion WHERE idOrden = " + idOrden;
+		Statement pst = conn.createStatement();
+		ResultSet rs = pst.executeQuery(query);
+		ArrayList<geolocalizacion> buscado = null;
+		while(rs.next()) {
+			buscado.add(new geolocalizacion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getDate(5)));
+		}
+		pst.close();
+		rs.close();
+		//conn.close();
 		return buscado;
 	}
 	
 	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException {
 		conectar();
-		String query = "INSERT INTO company.geolocalizacion (idOrden, idPedido, coordenadas) VALUES (?, ?, ?);";
+		String query = "INSERT INTO company.geolocalizacion (id, idOrden, idPedido, coordenadas) VALUES (?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-		pst.setInt(1, geo.getIdOrden());
-		pst.setInt(2,geo.getIdPedido());
-		pst.setString(3,geo.getCoordenadas());
+		pst.setInt(1, geo.getId());
+		pst.setInt(2, geo.getIdOrden());
+		pst.setInt(3,geo.getIdPedido());
+		pst.setString(4,geo.getCoordenadas());
 		pst.executeUpdate();
 		pst.close();
 	}
@@ -464,14 +484,14 @@ public class metodosCompany {
 		//conn.close();
 	}
 
-	public static Cadena extraerCadena(int codLote) throws SQLException {
+	public static Cadena extraerCadena(int idPedido) throws SQLException {
 		conectar();
-		String query = "SELECT * FROM company.cadena WHERE cadena.codLote = "+codLote;
+		String query = "SELECT * FROM company.cadena WHERE cadena.idPedido = "+idPedido;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		Cadena buscado = null;
 		while(rs.next()) {
-			buscado = new Cadena(codLote, rs.getString(2), rs.getInt(3));
+			buscado = new Cadena(idPedido, rs.getString(2), rs.getInt(3));
 		}
 		pst.close();
 		rs.close();
@@ -480,22 +500,22 @@ public class metodosCompany {
 	}
 
 	public static void insertarCadena(Cadena cadena) throws SQLException {
-		int codLote = cadena.getCodLote();
-		if(extraerCadena(codLote)!= null) {
+		int idPedido = cadena.getCodLote();
+		if(extraerCadena(idPedido)!= null) {
 			conectar();
-			String query = "UPDATE company.cadena SET hashInicio = ? , numBloques = ?  WHERE codLote= ?";
+			String query = "UPDATE company.cadena SET hashInicio = ? , numBloques = ?  WHERE idPedido= ?";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			pst.setString(1, cadena.getHashUltimoBloque());
 			pst.setInt(2, cadena.getNumBloques());
-			pst.setInt(3, codLote);
+			pst.setInt(3, idPedido);
 			pst.executeUpdate();
 			pst.close();
 			//conn.close();
 		}else {
 			conectar();
-			String query = "INSERT INTO company.cadena (codLote, hashInicio, numBloques) VALUES (?, ?, ?);";
+			String query = "INSERT INTO company.cadena (idPedido, hashInicio, numBloques) VALUES (?, ?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-			pst.setInt(1, codLote);
+			pst.setInt(1, idPedido);
 			pst.setString(2, cadena.getHashUltimoBloque());
 			pst.setInt(3, cadena.getNumBloques());
 			pst.executeUpdate();
@@ -650,6 +670,10 @@ public class metodosCompany {
 				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerLote(rs.getInt(6)), idCadena);
 				devolver = buscado2;
 				break;
+			case 3:
+				Bloque buscado4 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerGeolocalizacion(rs.getInt(6)), idCadena);
+				devolver = buscado4;
+				break;
 			default:
 				Bloque buscado3 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer(), idCadena);
 				devolver = buscado3;
@@ -686,6 +710,13 @@ public class metodosCompany {
 			data = aInsertar3.getIdBd();
 			if(extraerLote(data)==null) {
 				insertarLote(aInsertar3);
+			}			
+			break;
+		case 3: //Geolocalizacion
+			geolocalizacion aInsertar4 = (geolocalizacion) bloqAinsertar.getDatos();
+			data = aInsertar4.getIdOrden();
+			if(extraerGeolocalizacion(data)==null) {
+				insertarGeolocalizacion(aInsertar4);
 			}			
 			break;
 		}
