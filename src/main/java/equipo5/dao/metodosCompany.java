@@ -56,7 +56,7 @@ public class metodosCompany {
 		PreparedStatement pst16 = conn.prepareStatement(
 	            "CREATE TABLE company.materiaPrima (" + 			//tabla materia prima
 	            		"idMateriaPrima INT NOT NULL ," +
-	                    "TIPO VARCHAR(45) NOT NULL ," +
+	                    "tipo VARCHAR(45) NOT NULL ," +
 	            		"cantidad FLOAT NOT NULL ," +
 	                    "PRIMARY KEY (idMateriaPrima));"
 	    );
@@ -1112,26 +1112,26 @@ public class metodosCompany {
        //conn.close();
         return siguienteId;
     }
-    public static MateriaPrima extraerMateriaPrima(String nombre) throws SQLException {
+    public static MateriaPrima extraerMateriaPrima(int id) throws SQLException {
     	conectar();
-		String query = "SELECT * FROM company.materiaPrima WHERE nombre = " + nombre;
+		String query = "SELECT * FROM company.materiaPrima WHERE idMateriaPrima = " + id;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			MateriaPrima buscado = new MateriaPrima(nombre, rs.getInt(1));
+			MateriaPrima buscado = new MateriaPrima(rs.getString(2), id, rs.getFloat(3));
 			pst.close();
 			rs.close();
-			//conn.close();
 			return buscado;
 		}
 		return null;
     }
     public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException{
 		conectar();
-		String query = "INSERT INTO company.materiaPrima (idMateriaPrima, nombre) VALUES (?, ?);";
+		String query = "INSERT INTO company.materiaPrima (idMateriaPrima, tipo, cantidad) VALUES (?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, mp.getId());
-		pst.setString(2, mp.getNombre());
+		pst.setString(2, mp.getTipo());
+		pst.setFloat(3, (float) mp.getCantidad());
 		pst.executeUpdate();
 		pst.close();
 	}
