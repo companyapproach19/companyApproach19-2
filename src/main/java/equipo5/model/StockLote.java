@@ -10,9 +10,9 @@ public class StockLote {
 	private Date fecha_salida;
 	private int idOrden;
 	private int idPedido;
-	private int idActor;
+	private String idActor;
 	
-	public StockLote(Lote lote, Date fecha_entrada, Date fecha_salida, int idOrden, int idPedido, int idActor) {
+	public StockLote(Lote lote, Date fecha_entrada, Date fecha_salida, int idOrden, int idPedido, String idActor) {
 		this.lote = lote;
 		this.fecha_entrada = fecha_entrada;
 		this.fecha_salida = fecha_salida;
@@ -50,10 +50,10 @@ public class StockLote {
 	public void setIdPedido(int idPedido) {
 		this.idPedido = idPedido;
 	}
-	public int getIdActor() {
+	public String getIdActor() {
 		return idActor;
 	}
-	public void setIdActor(int idActor) {
+	public void setIdActor(String idActor) {
 		this.idActor = idActor;
 	}
 	
