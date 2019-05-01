@@ -1,4 +1,4 @@
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  
 <!DOCTYPE html>
 <html>
@@ -46,7 +46,7 @@
             
 
              <div>                               
-               <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" onClick="hacerPeticion()" value="Sign In"></span>
+               <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" onClick="getDataLogin()" value="Sign In"></span>
              </div>
 
           </fieldset>
@@ -71,70 +71,70 @@
 <script>
 
 
-function login() {
-
-      hacerPeticion();
+function getDataLogin(){
+	var email = $("#username").val();
+	var password = $("#password").val();
+	var log = {"email":email,"password":password};
+	console.log(log);
+	logIn(email, password);
+}
+function logIn(email,password){
+  $.getJSON("loginUser?username="+email+"&password="+password, function(data) {
+    alert("BIEN. FUNCIONO GET JSON");
+    if(data==null){
+		console.log("soy null");
+		alert("Identification error. Please check that the email and password are correct.")
+    }else{
+		localStorage.setItem("currentUser", JSON.stringify(data));
+        console.log("correct!");
+        location.href = "allIdeas.html";
+    } 
+						 
  
-  }
+								 
+														   
+																				
+ 
+													 
+					
+ 
+														   
+						
+ 
+		 
+ 
+								 
   
-  var usuarios = new Array ( '{ "nombre":"Agricultor","mail":"agricultor@email.com", "tipoActor":"Agricultor" }',
-				'{ "nombre":"Cooperativa","mail":"cooperativa@email.com", "tipoActor":"Cooperativa" }',
-				'{ "nombre":"Transportista","mail":"transportista@email.com", "tipoActor":"Transportista" }',
-				'{ "nombre":"Fábrica","mail":"fabrica@email.com", "tipoActor":"Fábrica" }',
-				'{ "nombre":"Retailer","mail":"retailer@email.com", "tipoActor":"Retailer" }' )
-  
-  
-
-function hacerPeticion(){
-
-      var request = $.ajax({
-      // la URL para la petición
-      url : '/loginUser',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos)
-      data : "usuario=" + $("#username").val() + "&pwd=" + $("#password").val(),
- 
-      // especifica si será una petición POST o GET
-      type : 'POST',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-      });
- 
-     request.done(function(data){
-	 
-      
-      //Este metodo redirige a la URL
-      window.location.replace(data.redirect);
-    
-     });
- 
-     request.fail(function(data) {
-	 
-	 for (var i = 0; i < usuarios.length; i++) {
-	  var actor = JSON.parse( usuarios[i] );
-	  console.log("Actor: " + actor);
-	  if (document.getElementById("username").value == actor.nombre && document.getElementById("password").value == "password" ) { 
+	  
+									 
+											 
+	
+});
+	alert("MAL. NO FUNCIONO GET JSON");
+	
+	//TRAMPA
+	for (var i = 0; i < usuarios.length; i++) {
+		var actor = JSON.parse( usuarios[i] );
+								  
+		if (email == actor.nombre && password == "password" ) { 
 		  vistaPrincipal(actor.tipoActor)
 		  break;
-	  }
-	  else {
-	      window.location.replace("LoginError.html");
-	  }
-      }
+		}
+		else {
+	      //window.location.replace("LoginError.html");
+		}
+    }
 	  
-	  
-	  
-	  
-	 
-     });
- 
- }
- 
- 
- function vistaPrincipal(tipoActor) {
+}
+//-----------------------------TRAMPA-----------------------------
+var usuarios = new Array ( '{ "nombre":"Agricultor","mail":"agricultor@email.com", "tipoActor":"Agricultor" }',
+	'{ "nombre":"Cooperativa","mail":"cooperativa@email.com", "tipoActor":"Cooperativa" }',
+	'{ "nombre":"Transportista","mail":"transportista@email.com", "tipoActor":"Transportista" }',
+	'{ "nombre":"Fábrica","mail":"fabrica@email.com", "tipoActor":"Fábrica" }',
+	'{ "nombre":"Retailer","mail":"retailer@email.com", "tipoActor":"Retailer" }' )
+  
+  
+function vistaPrincipal(tipoActor) {
       
       switch (tipoActor) {
       case "Agricultor" :
@@ -143,11 +143,11 @@ function hacerPeticion(){
       case "Cooperativa":
 	  window.location.replace("cooperativaInicio.html");
 	  break;
-    /*  case "Transportista":
+      case "Transportista":
 	  window.location.replace("Transportista.html");
-	  break;*/
+	  break;
       case "Fábrica":
-	  window.location.replace("numLote.html");
+	  window.location.replace("Fabrica.html");
 	  break;
       case "Retailer":
 	  window.location.replace("tiendaInicio.html");
