@@ -190,8 +190,10 @@ public class ManejaPeticiones {
 			while(it.hasNext()) {
 				//Hay que asegurarse que el actor sea origen
 				OrdenTrazabilidad actual = it.next();
-				if(actual.getActorOrigen().getId().compareTo(idActor)==-1) {
-						ordenesIds.add(actual.getId());
+				if(actual.getActorOrigen().getId().compareTo(idActor)==0) {
+					if(actual.getEstado()==-1) {
+						ordenesIds.add(actual.getId());			
+					}
 				}
 			}
 			
