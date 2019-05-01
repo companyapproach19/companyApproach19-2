@@ -11,6 +11,7 @@ public class StockMP {
 	private int idOrden;
 	private int idPedido;
 	private int idActor;
+	
 	public MateriaPrima getMp() {
 		return mp;
 	}

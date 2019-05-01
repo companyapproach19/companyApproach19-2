@@ -8,11 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import equipo5.model.NotInDatabaseException;
 import equipo5.model.StockLote;
+import equipo5.model.StockMP;
 
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.sql.Timestamp;
 
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
@@ -761,61 +761,33 @@ public class metodosCompany {
 	        return lista;
 	    }
 	
-	public static LinkedList<StockLote> extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException, NotInDatabaseException {
+	public static LinkedList<StockLote> extraerStockLote(Actor actor, int idOrden) throws SQLException, ClassNotFoundException, NotInDatabaseException {
 		conectar();
 		LinkedList<StockLote> buscado = new LinkedList<StockLote>();
-		LinkedList<Pair<StockLote, Timestamp>> temp = new LinkedList<Pair<StockLote, Timestamp>>();
-		Timestamp ultimaHora = new Timestamp(2000, 4, 4, 4, 4, 4, 4);
 		switch(actor.getTipoActor()) {
 		case 4:
-			String query = "SELECT * FROM company.stockRetailer WHERE idRetailer = '" + actor.getId()+"';";
+			String query = "SELECT * FROM company.stockRetailer WHERE idRetailer = " + actor.getId()+" AND idOrden = "+idOrden+";";
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
 			while(rs.next()){
 				Lote loteBD = extraerLote(rs.getInt(4));
-				Timestamp timeBD = rs.getTimestamp(3);
-				boolean esta = false;
-				for(int i=0; i<temp.size() && !esta; i++) {
-					if(temp.get(i).getElement0().getIdBd()== loteBD.getIdBd()) {
-						esta = true;
-						if(temp.get(i).getElement1().before(timeBD)) {
-							temp.set(i, new Pair <Lote, Timestamp>(loteBD, timeBD));
-						}
-					}
-				}
-				if(!esta) temp.add(new Pair<Lote, Timestamp>(loteBD, timeBD));
-			}
-			for(int i=0; i<temp.size(); i++) {
-				buscado.add(temp.get(i).getElement0());
+				StockLote nuevo = new StockLote(loteBD, rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getInt(6), rs.getInt(7));
+				buscado=estaLote(buscado, nuevo);
 			}
 			pst.close();
 			rs.close();
-			//conn.close();
 			break;
 		case 3:
-			String query2 = "SELECT * FROM company.stockFabricaLotes"; 
+			String query2 = "SELECT * FROM company.stockFabricaLotes WHERE idOrden = "+idOrden+";";
 			Statement pst2 = conn.createStatement();
 			ResultSet rs2 = pst2.executeQuery(query2);
 			while(rs2.next()){
 				Lote loteBD = extraerLote(rs2.getInt(3));
-				Timestamp timeBD = rs2.getTimestamp(2);
-				boolean esta = false;
-				for(int i=0; i<temp.size() && !esta; i++) {
-					if(temp.get(i).getElement0().getIdBd()== loteBD.getIdBd()) {
-						esta = true;
-						if(temp.get(i).getElement1().before(timeBD)) {
-							temp.set(i, new Pair <Lote, Timestamp>(loteBD, timeBD));
-						}
-					}
-				}
-				if(!esta) temp.add(new Pair<Lote, Timestamp>(loteBD, timeBD));
-			}
-			for(int i=0; i<temp.size(); i++) {
-				buscado.add(temp.get(i).getElement0());
+				StockLote nuevo = new StockLote(loteBD, rs2.getDate(3), rs2.getDate(4), rs2.getInt(5), rs2.getInt(6), -1);
+				buscado=estaLote(buscado, nuevo);
 			}
 			pst2.close();
 			rs2.close();
-			//conn.close();
 			break;
 		default:  
 			System.out.println("el actor suministrado no almacena lotes");
@@ -823,137 +795,238 @@ public class metodosCompany {
 		return buscado;
 	}
 	
+	public static LinkedList<StockMP> estaMP(LinkedList<StockMP> lista, StockMP nuevo) {
+		for(int i =0; i<lista.size(); i++) {
+			if(lista.get(i).getMp().getId()==nuevo.getMp().getId()) {
+				if(lista.get(i).getFecha_salida()==null && nuevo.getFecha_salida()!=null) {
+					lista.remove(i);
+					lista.add(nuevo);
+					return lista;
+				}
+				else return lista;
+			}			
+		}
+		lista.add(nuevo);
+		return lista;
+	}
+	
+	public static LinkedList<StockLote> estaLote(LinkedList<StockLote> lista, StockLote nuevo) {
+		for(int i =0; i<lista.size(); i++) {
+			if(lista.get(i).getLote().getIdBd()==nuevo.getLote().getIdBd()) {
+				if(lista.get(i).getFecha_salida()==null && nuevo.getFecha_salida()!=null) {
+					lista.remove(i);
+					lista.add(nuevo);
+					return lista;
+				}
+				else return lista;
+			}			
+		}
+		lista.add(nuevo);
+		return lista;
+	}
     
-	public static int extraerStockMP(Actor actor, MateriaPrima mp) throws SQLException, ClassNotFoundException, NotInDatabaseException {
-		int buscado = -1;
-		Timestamp ultimaHora = new Timestamp(2000, 4, 4, 4, 4, 4, 4);
+	public static LinkedList<StockMP> extraerStockMP(Actor actor, int idOrden) throws SQLException, ClassNotFoundException, NotInDatabaseException {
+		LinkedList<StockMP> aDevolver = new LinkedList<StockMP>();
 		switch(actor.getTipoActor()){
 		case 0:
 			conectar();
-			String query2 = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = '"+actor.getId()+"' AND idMateriaPrima = "+mp.getId();
-			Statement pst2 = conn.createStatement();
-			ResultSet rs2 = pst2.executeQuery(query2);
-			while(rs2.next()) {
-				if (buscado == -1) {
-					buscado = rs2.getInt(5);
-					ultimaHora = rs2.getTimestamp(3);
-				}
-				else if (ultimaHora.before(rs2.getTimestamp(3))) {
-					ultimaHora = rs2.getTimestamp(3);
-					buscado = rs2.getInt(5);
-				}
-			}
-			pst2.close();
-			rs2.close();
-			//conn.close();
-			break;
-		case 1:
-			conectar();
-
-			String query = "SELECT * FROM company.stockCooperativa WHERE idCooperativa =  '"+actor.getId()+"' AND idMateriaPrima = "+mp.getId();
+			String query = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = '"+actor.getId()+"' AND idOrden = "+idOrden;
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
 			while(rs.next()) {
-				if (buscado == -1) {
-					buscado = rs.getInt(5);
-					ultimaHora = rs.getTimestamp(3);
-				}
-				else if (ultimaHora.before(rs.getTimestamp(3))) {
-					ultimaHora = rs.getTimestamp(3);
-					buscado = rs.getInt(5);
-				}
+					MateriaPrima mp = extraerMateriaPrima(rs.getInt(2));
+					StockMP nuevo = new StockMP(mp, rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getInt(6), rs.getInt(7));
+					aDevolver=estaMP(aDevolver, nuevo);
 			}
 			pst.close();
 			rs.close();
-			//conn.close();
+			break;
+		case 1:
+			conectar();
+			String query2 = "SELECT * FROM company.stockCooperativa WHERE idCooperativa = '"+actor.getId()+"' AND idOrden = "+idOrden;
+			Statement pst2 = conn.createStatement();
+			ResultSet rs2 = pst2.executeQuery(query2);
+			while(rs2.next()) {
+				MateriaPrima mp = extraerMateriaPrima(rs2.getInt(2));
+				StockMP nuevo = new StockMP(mp, rs2.getDate(3), rs2.getDate(4), rs2.getInt(5), rs2.getInt(6), rs2.getInt(7));
+				aDevolver=estaMP(aDevolver, nuevo);
+			}
+			pst2.close();
+			rs2.close();
 			break;
 		case 3:
 			conectar();
-			String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idMateriaPrima = " + mp.getId();
+			String query3 = "SELECT * FROM company.stockCooperativa WHERE idOrden = "+idOrden;
 			Statement pst3 = conn.createStatement();
 			ResultSet rs3 = pst3.executeQuery(query3);
 			while(rs3.next()) {
-				if (buscado == -1) {
-					buscado = rs3.getInt(4);
-					ultimaHora = rs3.getTimestamp(2);
-				}
-				else if (ultimaHora.before(rs3.getTimestamp(2))) {
-					ultimaHora = rs3.getTimestamp(2);
-					buscado = rs3.getInt(4);
-				}
+				MateriaPrima mp = extraerMateriaPrima(rs3.getInt(2));
+				StockMP nuevo = new StockMP(mp, rs3.getDate(3), rs3.getDate(4), rs3.getInt(5), rs3.getInt(6), -1);
+				aDevolver=estaMP(aDevolver, nuevo);
 			}
 			pst3.close();
 			rs3.close();
-			//conn.close();
-			break;		
+			break;
 		default: 
 			System.out.println("el actor suministrado no almacena materias primas.");
-			buscado=0;
 		}
-		return buscado;
+		return aDevolver;
 	}
     
 	public static void insertarStockLote(StockLote stockLote) throws Throwable{
-	   	if(extraerStockLote(lote.getIdBd())==null) insertarLote(lote);
-	   	switch(actor.getTipoActor()){
+	   	if(stockLote.getFecha_salida()==null) {
+	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
+	   		switch(actor.getTipoActor()){
 	   		case 4:
 	   			conectar();
-			    String query = "INSERT INTO company.stockRetailer (idRetailer, idLote, cantidad) VALUES ( ?, ?, ?);"; 
+			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-			    pst.setString(1, actor.getId());
-			    pst.setInt(2, lote.getIdBd());
-			    pst.setInt(3, lote.getCantidad());
+			    Date date = new Date(System.currentTimeMillis());
+		        pst.setInt(1, stockLote.getLote().getIdBd());
+			    pst.setDate(2, date);
+			    pst.setInt(3, stockLote.getIdOrden());
+			    pst.setInt(4, stockLote.getIdPedido());
+			    pst.setInt(5, stockLote.getIdActor());
 			    pst.executeUpdate();
 			    pst.close();
-			    //conn.close();
+			    break;
+	   		case 3:
+	   			conectar();
+			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, fecha_entrada, idOrden, idPedido) VALUES (?, ?, ?, ?);"; 
+			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
+			    Date date2 = new Date(System.currentTimeMillis());
+		        pst2.setInt(1, stockLote.getLote().getIdBd());
+			    pst2.setDate(2, date2);
+			    pst2.setInt(3, stockLote.getIdOrden());
+			    pst2.setInt(4, stockLote.getIdPedido());
+			    pst2.executeUpdate();
+			    pst2.close();
+			    break;
+	   		} 
+	   	}
+	   	else if(stockLote.getFecha_entrada()!=null) {
+	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
+	   		switch(actor.getTipoActor()){
+	   		case 4:
+	   			conectar();
+			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?. ?);"; 
+			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+			    Date date = new Date(System.currentTimeMillis());
+		        pst.setInt(1, stockLote.getLote().getIdBd());
+			    pst.setDate(2, stockLote.getFecha_entrada());
+			    pst.setDate(3, date);
+			    pst.setInt(4, stockLote.getIdOrden());
+			    pst.setInt(5, stockLote.getIdPedido());
+			    pst.setInt(6, stockLote.getIdActor());
+			    pst.executeUpdate();
+			    pst.close();
 			    break;
 	   		case 3:
 	   			conectar();
 			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, fecha_entrada, fecha_salida, idOrden, idPedido) VALUES (?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
-			    pst2.setInt(1, lote.getIdBd());
-			    pst2.setInt(2, lote.getCantidad());
+			    Date date2 = new Date(System.currentTimeMillis());
+		        pst2.setInt(1, stockLote.getLote().getIdBd());
+			    pst2.setDate(2, stockLote.getFecha_entrada());
+			    pst2.setDate(3, date2);
+			    pst2.setInt(4, stockLote.getIdOrden());
+			    pst2.setInt(5, stockLote.getIdPedido());
 			    pst2.executeUpdate();
 			    pst2.close();
-			    //conn.close();
 			    break;
+	   		} 
 	    } 	
     }
-    public static void insertarStockMP(Actor actor, MateriaPrima mp, int cantidad) throws SQLException, ClassNotFoundException{
-	   	switch(actor.getTipoActor()){
+    public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException{
+    	if(stockMateria.getFecha_salida()==null) {
+	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
+	   		switch(actor.getTipoActor()){
 	   		case 0:
 	   			conectar();
-			    String query = "INSERT INTO company.stockAgricultor (idAgricultor, idMateriaPrima, cantidad) VALUES ( ?, ?, ?);"; 
+			    String query = "INSERT INTO company.stockAgricultor (idLote, fecha_entrada, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-			    pst.setString(1, actor.getId());
-			    pst.setInt(2, mp.getId());
-			    pst.setInt(3, cantidad);
+			    Date date = new Date(System.currentTimeMillis());
+		        pst.setInt(1, stockMateria.getMp().getId());
+			    pst.setDate(2, date);
+			    pst.setInt(3, stockMateria.getIdOrden());
+			    pst.setInt(4, stockMateria.getIdPedido());
+			    pst.setInt(5, stockMateria.getIdActor());
 			    pst.executeUpdate();
 			    pst.close();
-			    //conn.close();
 			    break;
 	   		case 1:
 	   			conectar();
-			    String query2 = "INSERT INTO company.stockCooperativa (idCooperativa, idMateriaPrima, cantidad) VALUES (?, ?, ?);"; 
-			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
-			    pst2.setString(1, actor.getId());
-			    pst2.setInt(2, mp.getId());
-			    pst2.setInt(3, cantidad);
-			    pst2.executeUpdate();
-			    pst2.close();
-			    //conn.close();
+			    String query3 = "INSERT INTO company.stockCooperativa (idLote, fecha_entrada, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?);"; 
+			    PreparedStatement pst3 = (PreparedStatement) conn.prepareStatement(query3);
+			    Date date3 = new Date(System.currentTimeMillis());
+		        pst3.setInt(1, stockMateria.getMp().getId());
+			    pst3.setDate(2, date3);
+			    pst3.setInt(3, stockMateria.getIdOrden());
+			    pst3.setInt(4, stockMateria.getIdPedido());
+			    pst3.setInt(5, stockMateria.getIdActor());
+			    pst3.executeUpdate();
+			    pst3.close();
 			    break;
 	   		case 3:
 	   			conectar();
-			    String query3 = "INSERT INTO company.stockFabricaMMPP (idMateriaPrima, cantidad) VALUES (?, ?);"; 
+			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, fecha_entrada, idOrden, idPedido) VALUES (?, ?, ?, ?);"; 
+			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
+			    Date date2 = new Date(System.currentTimeMillis());
+		        pst2.setInt(1, stockMateria.getMp().getId());
+			    pst2.setDate(2, date2);
+			    pst2.setInt(3, stockMateria.getIdOrden());
+			    pst2.setInt(4, stockMateria.getIdPedido());
+			    pst2.executeUpdate();
+			    pst2.close();
+			    break;
+	   		} 
+	   	}
+	   	else if(stockMateria.getFecha_entrada()!=null) {
+	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
+	   		switch(actor.getTipoActor()){
+	   		case 0:
+	   			conectar();
+			    String query = "INSERT INTO company.stockAgricultor (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES (?, ?, ?, ?, ?, ?);"; 
+			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+			    Date date = new Date(System.currentTimeMillis());
+		        pst.setInt(1, stockMateria.getMp().getId());
+			    pst.setDate(2, stockMateria.getFecha_entrada());
+			    pst.setDate(3, date);
+			    pst.setInt(4, stockMateria.getIdOrden());
+			    pst.setInt(5, stockMateria.getIdPedido());
+			    pst.setInt(6, stockMateria.getIdActor());
+			    pst.executeUpdate();
+			    pst.close();
+			    break;
+	   		case 1:
+	   			conectar();
+			    String query3 = "INSERT INTO company.stockCooperativa (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES (?, ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst3 = (PreparedStatement) conn.prepareStatement(query3);
-			    pst3.setInt(1, mp.getId());
-			    pst3.setInt(2, cantidad);
+			    Date date3 = new Date(System.currentTimeMillis());
+		        pst3.setInt(1, stockMateria.getMp().getId());
+			    pst3.setDate(2, stockMateria.getFecha_entrada());
+			    pst3.setDate(3, date3);
+			    pst3.setInt(4, stockMateria.getIdOrden());
+			    pst3.setInt(5, stockMateria.getIdPedido());
+			    pst3.setInt(6, stockMateria.getIdActor());
 			    pst3.executeUpdate();
 			    pst3.close();
-			    //conn.close();
 			    break;
-	    } 	
+	   		case 3:
+	   			conectar();
+			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, fecha_entrada, fecha_salida, idOrden, idPedido) VALUES (?, ?, ?, ?, ?);"; 
+			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
+			    Date date2 = new Date(System.currentTimeMillis());
+		        pst2.setInt(1, stockMateria.getMp().getId());
+			    pst2.setDate(2, stockMateria.getFecha_entrada());
+			    pst2.setDate(3, date2);
+			    pst2.setInt(4, stockMateria.getIdOrden());
+			    pst2.setInt(5, stockMateria.getIdPedido());
+			    pst2.executeUpdate();
+			    pst2.close();
+			    break;
+	   		} 	
+	   	}
     }    
 
     
