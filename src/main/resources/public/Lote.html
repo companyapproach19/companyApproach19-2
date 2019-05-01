@@ -106,155 +106,25 @@
         </div>
         <br/><br/><br/><br/><br/><br/>
     </div> 
-</div>
-<script type="text/javascript">
-
- function molienda(){
-
-      var request = $.ajax({
-      url : '/molienda',
-      data : "fechaFin=" + $("#Molienda").val(),
-      type : 'POST',
-      dataType : 'json',
+</div><script type="text/javascript">
+function llegadaALaFabrica(){
+    var request = $.ajax({
+    url : '/llegadaALaFabrica',
+    type : 'POST',
+    dataType : 'json',
+    });
+	  request.done(function(response)){
+  var fecha = response.fechaInicio;
+  $('#Llegada').text(fecha);
+  alert("la fecha que he recogido del servicio es:" + fecha);
+  
+   });
+   request.fail(function(response)) {
  
-      });
- 	  request.done(function(data){
-      
-      //Este metodo redirige a la URL
-     if(data.existe){
-   alert(data.num);
-   }
-   else{
-   alert("No existe el lote en esta fase");
-   }
-    
-     });
+   alert("Error en el servidor");
  
-     request.fail(function(data) {
-   
-     alert("Error en el servidor");
-   
-     });
- 
- }
- 
-  function coccion(){
-
-      var request = $.ajax({
-      url : '/coccion',
-      data : "fechaFin=" + $("#Coccion").val(),
-      type : 'POST',
-      dataType : 'json',
- 
-      });
- 	  request.done(function(data){
-      
-      //Este metodo redirige a la URL
-     if(data.existe){
-   alert(data.num);
-   }
-   else{
-   alert("No existe el lote en esta fase");
-   }
-    
-     });
- 
-     request.fail(function(data) {
-   
-     alert("Error en el servidor");
-   
-     });
- 
- }
- 
-  function fermentacion(){
-
-      var request = $.ajax({
-      url : '/fermentacion',
-      data : "fechaFin=" + $("#Fermentacion").val(),
-      type : 'POST',
-      dataType : 'json',
- 
-      });
- 	  request.done(function(data){
-      
-      //Este metodo redirige a la URL
-     if(data.existe){
-   alert(data.num);
-   }
-   else{
-   alert("No existe el lote en esta fase");
-   }
-    
-     });
- 
-     request.fail(function(data) {
-   
-     alert("Error en el servidor");
-   
-     });
- 
- }
-
- function embotellado(){
-
-      var request = $.ajax({
-      url : '/embotellado',
-      data : "fechaFin=" + $("#Embotellado").val(),
-      type : 'POST',
-      dataType : 'json',
- 
-      });
- 	  request.done(function(data){
-      
-      //Este metodo redirige a la URL
-     if(data.existe){
-   alert(data.num);
-   }
-   else{
-   alert("No existe el lote en esta fase");
-   }
-    
-     });
- 
-     request.fail(function(data) {
-   
-     alert("Error en el servidor");
-   
-     });
- 
- }
-
- function salidaDeLaFabrica(){
-
-      var request = $.ajax({
-      url : '/salidaDeLaFabrica',
-      data : "fechaFin=" + $("#Salida").val(),
-      type : 'POST',
-      dataType : 'json',
- 
-      });
- 	  request.done(function(data){
-      
-      //Este metodo redirige a la URL
-     if(data.existe){
-   alert(data.num);
-   }
-   else{
-   alert("No existe el lote en esta fase");
-   }
-    
-     });
- 
-     request.fail(function(data) {
-   
-     alert("Error en el servidor");
-   
-     });
- 
- }
-
-
+   });
+}
 </script>
 </body>
                            
