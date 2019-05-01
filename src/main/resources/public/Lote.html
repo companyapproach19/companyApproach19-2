@@ -106,22 +106,26 @@
         </div>
         <br/><br/><br/><br/><br/><br/>
     </div> 
-</div><script type="text/javascript">
+</div>
+
+<script type="text/javascript">
 function llegadaALaFabrica(){
     var request = $.ajax({
     url : '/llegadaALaFabrica',
     type : 'POST',
     dataType : 'json',
     });
-	  request.done(function(response)){
-  var fecha = response.fechaInicio;
-  $('#Llegada').text(fecha);
-  alert("la fecha que he recogido del servicio es:" + fecha);
+	request.done(function(response)){
+		//var fecha = response.fechaInicio;
+		alert("llama funcion ajax correcta");
+		var fecha = response["fechaInicio"]
+		//$('#Llegada').text(fecha);
+		alert("la fecha que he recogido del servicio es:" + fecha);
   
    });
    request.fail(function(response)) {
  
-   alert("Error en el servidor");
+		alert("Error en el servidor");
  
    });
 }
