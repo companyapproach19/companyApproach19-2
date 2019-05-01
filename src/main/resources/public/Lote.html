@@ -112,7 +112,7 @@
 function LlegadaALaFabrica(){
 	alert("llamadaALaFabrica");
     var request = $.ajax({
-    url : '/llegadaALaFabrica',
+    url : '/llegadaALaFabrica?numLoteIntroducido='+numLote,
     type : 'POST',
     dataType : 'json',
     });
