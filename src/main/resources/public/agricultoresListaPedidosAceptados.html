@@ -25,14 +25,14 @@
                     <div class="col-md-9 register-right pedidosaceptados">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='C:/Users/crist/OneDrive/Documents/companyApproach19-2/src/main/resources/templates/login.html';">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
                             </li>
                             </ul>
                             <p></p>
                             <div class="col-3 borde">
                                 <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link" id="home2" data-toggle="submit" href="agricultoresInicio.html" role="submit" aria-controls="home2" aria-selected="true">Volver</a>
+                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='agricultoresInicio.html';">Volver</a>
                                 </li>
                                 </ul>
                             </div>
@@ -45,7 +45,8 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="producto1" id="producto1" value="Pedido id1">
                                             <label for="producto1" id="label1">Pedido noPedido</label>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </button>
+                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
+
                                         </div>
 
                                         <div class="form-group">
@@ -80,6 +81,8 @@
                                             <label for="producto7" id="label7">Pedido noPedido</label>
                                             <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>
                                         </div>
+																																		   
+											
                                 <input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids(); window.location.href='agricultoresInicio.html';" value="Completar pedidos"/>
 
                                 <!-- MODAL -->
@@ -110,6 +113,8 @@ Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac fa
                                       </div>
                                     </div>   
                                     <!-- MODAL -->
+									  
+								
                             </div>
                                 <!-- <label for="producto">*Los pedidos que no sean seleccionados se rechazaran automaticamente*</label> -->
 
@@ -120,6 +125,7 @@ Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac fa
 
             </div>
 </div>
+	   
 <script>
  
 window.onload = hacerPeticion;
@@ -248,6 +254,7 @@ data = JSON.stringify(data2);
 
 
   
+		 
 
   
 </script>

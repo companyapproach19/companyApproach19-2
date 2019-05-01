@@ -25,7 +25,7 @@
                     <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='C:/Users/crist/OneDrive/Documents/companyApproach19-2/src/main/resources/templates/login.html';">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
                             </li>
                         </ul>
                         <p></p>
@@ -39,10 +39,11 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <h3 class="register-heading">SOLICITAR PEDIDO</h3>
-                                <br>								
+                                <br>					
+                                <br>			
                                 <div class="row register-form">
                                     <div class="col-md-6">
-                                        <p></p>
+											   
                                         <div class="form-group">
                                             <h6>* Destino:</h6>
                                             <input type="text" class="form-control" placeholder="* Destino" id="destino" value="" />
@@ -50,8 +51,14 @@
                                         <div class="form-group">
                                           <h6>* Identificador:</h6>
                                             <input type="text" class="form-control" placeholder="* Número de Identificador" id="identificador" value="" />
-                                            <br>
+                                           
+                                          </div>
+                                            <div class="form-group">
+                                            <h6>* Identificador de pedido:</h6>
+                                            <input type="text" class="form-control" placeholder="* Número de Identificador de pedido" id="destino" value="" />
+                                           <br>
                                             <label for="producto">Las casillas con * son campos obligatorios</label>
+                                            <label for="producto">La cantidad en kg no puede contener números con decimales </label>
                                         </div>
                                        
                                         <div class="form-group">
@@ -61,44 +68,44 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <p></p>
+											   
                                         <div class="form-group">
                                           <h6>Malta de base palida:</h6>
-                                            <input type="number" class="form-control" placeholder="Cantidad" id="malta_palida" value="" min=0 />
+                                            <input type="number" class="form-control" placeholder="Cantidad en kg" id="malta_palida" value="" min=0 />
                                         </div>
                                         <div class="form-group">
                                           <h6>Malta Munich:</h6>
-                                            <input type="number" class="form-control"  placeholder="Cantidad" id="malta_munich" value="" min=0 />
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="malta_munich" value="" min=0 />
                                         </div>
                                         <div class="form-group">
                                           <h6>Malta negra:</h6>
-                                            <input type="number" class="form-control" placeholder="Cantidad" id="malta_negra" value="" min=0 />
+                                            <input type="number" class="form-control" placeholder="Cantidad en kg" id="malta_negra" value="" min=0 />
                                         </div>
                                         <div class="form-group">
                                           <h6>Malta crystal:</h6>
-                                            <input type="number" class="form-control"  placeholder="Cantidad" id="malta_crystal" value="" min=0 />
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="malta_crystal" value="" min=0 />
                                         </div>
                                         <div class="form-group">
                                           <h6>Malta chocolate:</h6>
-                                            <input type="number" class="form-control" placeholder="Cantidad" id="malta_chocolate" value="" min=0 />
+                                            <input type="number" class="form-control" placeholder="Cantidad en kg" id="malta_chocolate" value="" min=0 />
                                         </div>
                                         <div class="form-group">
                                           <h6>Malta caramelo:</h6>
-                                            <input type="number" class="form-control"  placeholder="Cantidad" id="malta_caramelo" value="" min=0 />
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="malta_caramelo" value="" min=0 />
                                         </div>
                                         <div class="form-group">
                                           <h6>Cebada:</h6>
-                                            <input type="number" class="form-control" placeholder="Cantidad" id="cebada" value="" />
+                                            <input type="number" class="form-control" placeholder="Cantidad en kg" id="cebada" value="" />
                                         </div>
                                         <div class="form-group">
                                           <h6>Cebada tostada:</h6>
-                                            <input type="number" class="form-control"  placeholder="Cantidad" id="cebada_tostada" value="" />
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="cebada_tostada" value="" />
                                         </div>
                                         <div class="form-group">
                                           <h6>Lupulo centinal:</h6>
-                                            <input type="number" class="form-control"  placeholder="Cantidad" id="lupulo_centinental" value="" />
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="lupulo_centinental" value="" />
                                         </div>
-                                       <input type="submit" class="btnRegister"  onClick="hacerPeticion(); window.location.href='cooperativaInicio.html';" value="Enviar pedido"/>
+                                       <input type="submit" class="btnRegister"  onClick="hacerPeticion();" value="Enviar pedido"/>
                                     </div>
                                 </div>
                             </div>
