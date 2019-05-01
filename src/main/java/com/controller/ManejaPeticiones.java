@@ -138,9 +138,9 @@ public class ManejaPeticiones {
 						
 			Iterator<OrdenTrazabilidad> it = ordenes.iterator();
 			while(it.hasNext()) {
-				//Hay que asegurarse que el actor sea origen
+				//Hay que asegurarse que el actor sea origen y no sean ordenes rechazadas
 				OrdenTrazabilidad actual = it.next();
-				if(actual.getActorOrigen().getId().compareTo(idActor)==0) {
+				if(actual.getActorOrigen().getId().compareTo(idActor)==0 && actual.getEstado()!=-1) {
 						ordenesIds.add(actual.getId());
 				}
 			}
@@ -179,8 +179,25 @@ public class ManejaPeticiones {
 	public String ordenesRechazadas(HttpServletResponse response,
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 				
-		return this.ordenesPendientes(idActor, -1);
-							
+		BlockchainServices bloque = new BlockchainServices();
+		//Obtenemos las ordenes
+		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
+		ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+		
+		if(ordenes!=null && ordenes.size()>0) {
+						
+			Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+			while(it.hasNext()) {
+				//Hay que asegurarse que el actor sea origen
+				OrdenTrazabilidad actual = it.next();
+				if(actual.getActorOrigen().getId().compareTo(idActor)==-1) {
+						ordenesIds.add(actual.getId());
+				}
+			}
+			
+			return CodificadorJSON.crearJSONlista(ordenesIds);
+		}	
+		return "null";
 	}
 		
 	//PARA EQUIPO 2: VISTAS
