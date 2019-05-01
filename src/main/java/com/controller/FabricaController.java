@@ -59,7 +59,7 @@ package com.controller;
 		@RequestMapping("/llegadaALaFabrica")
 		@ResponseBody
 		public JsonObject llegadaALaFabrica(HttpServletResponse response,
-										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
+										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception {
