@@ -203,5 +203,74 @@
 			Thread.sleep(1000);
 
 			;
-		}*/
+		}
+		//comienzaProcesoFabricacion
+			
+			@Scope("request")
+			@RequestMapping("/comienzaProcesoFabricacion")
+			@ResponseBody
+			public JsonObject comienzaProcesoFabricacion(HttpServletResponse response,
+					@RequestParam(name="pedido", required=true) String pedido,  
+					@RequestParam(name="orden", required=true) String orden,
+					Model model) throws Exception {
+				
+				int idPedido = Integer.parseInt(pedido);
+				int idOrden = Integer.parseInt(orden);
+				
+				HashMap<String, Integer> lista = new HashMap<>();
+				Actor actor = new Actor(null,null,null,3);
+				String tipo;
+				int kilosPedidos;
+				JsonObject objOK = new JsonObject();
+				JsonObject objNOOK = new JsonObject();
+				
+				lista = getStockPedidoFabrica(idPedido);
+				tipo = buscarTipoCerveza(idPedido);
+				kilosPedidos = buscarCantidadCerveza(idPedido);
+				
+				//LAS CANTIDADES ESTAN EN GRAMOS
+				if(tipo=="stout") {
+					if(lista.get(maltaBasePalida) >= 261*kilosPedidos && lista.get(maltaMunich) >= 61*kilosPedidos && lista.get(cebadaTostada) >= 21*kilosPedidos && 
+							lista.get(maltaNegra) >= 10*kilosPedidos && lista.get(maltaCrystal) >=6*kilosPedidos && lista.get(maltaChocolate) >= 5*kilosPedidos &&
+							lista.get(maltaCaramelo) >= 4*kilosPedidos && lista.get(lupuloCentennial) >= 3*kilosPedidos && lista.get(levaduraAle) >= 1*kilosPedidos ) {
+						objOK.addProperty("mensajeOK", "Hay stock suficiente");
+						Lote lote = new Lote();
+						Date fechaInicio = new Date(System.currentTimeMillis());
+						lote.setTipo(tipo);
+						lote.setFecha_inicio(fechaInicio);
+						setCantidadLote(3,lote);
+						
+						return objOK;
+					}
+					else {
+						objNOOK.addProperty("mensajeNOOK", "No hay stock suficiente");
+						return objNOOK;
+					}
+					
+				}
+				else if(tipo=="pilsner") {
+					if(lista.get(maltaPilsner) >= 173*kilosPedidos && lista.get(maltaCaramelo) >= 21*kilosPedidos && lista.get(lupuloPerle) >= 1*kilosPedidos && 
+							lista.get(lupuloTettnanger) >= 2*kilosPedidos && lista.get(levaduraLager) >= 1*kilosPedidos) {
+						objOK.addProperty("mensajeOK", "Hay stock suficiente");
+						Lote lote = new Lote();
+						Date fechaInicio = new Date(System.currentTimeMillis());
+						lote.setTipo(tipo);
+						lote.setFecha_inicio(fechaInicio);
+						setCantidadLote(3,lote);
+						return objOK;
+					}
+					else {
+						objNOOK.addProperty("mensajeNOOK", "No hay stock suficiente");
+						return objNOOK;
+					}
+					
+				}
+				else {
+					objNOOK.addProperty("mensajeNOOK", "Ese tipo no es válido");
+					return objNOOK;
+				}
+				
+				
+			}
+		*/
 }
