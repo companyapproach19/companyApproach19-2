@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	  <!--js y css que necesitamos -->       
+
+
+
+	  <!--ZONA SCRIPTS EXTERNOS NECESARIOS -->
+	         
 	  <head>
 		  <meta charset="utf-8">
 		  <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +20,12 @@
 	  
 	  <body>
 	   <center>
+	
 	   
-	    <div class="titulos e imagen">
+	   
+	 <!--ZONA TITULOS E IMAGEN -->
+	 
+	 <div class="container">
 	     <!--Título de la pestania en el navegador -->       
 		    <title>Trazabilidad cerveza</title>
 		    
@@ -30,7 +38,12 @@
 			</div>
 			<div class="card"style="width:900px">
 		</div>
+	    
 	
+	
+	
+	 <!--ZONA DIBUJAR TABLA -->
+	 
 	    <div class="container">
 		    <table class="table table-bordered table-striped table-hover">
 		    	<thead>
@@ -47,6 +60,51 @@
 		</div>
 	    
 	    
+	    
+	    
+	    
+	    
+	        <!--ZONA SCRIPTS -->
+	    
+	    
+                <!--SCRIPT GET IDPEDIDO -->
+	        <!--Este script recupera el numero que se le pasa después del # a la vista de trazabilidadQR.html -->  
+		<p id="idLote"></p> <!--coge el #, mirar como quitarlo-->
+		<script>
+			function getID() {
+			  return window.location.hash;
+			}
+			<!--Esta linea imprime por pantalla idLote, hay que quitarla y pasar el idLote a  SCRIPT PETICION A BLOCKCHAIN-->       
+			document.getElementById("idLote").innerHTML = window.getID();
+		</script>
+		
+		
+	        <!--SCRIPT PETICION A BLOCKCHAIN -->
+		<!--Petición para conseguir json trazabilidad --> 
+		<!--Ahora mismo va mal, por eso lanza el cuadro de error --> 
+		<script>
+		window.onload = hacerPeticion;
+		 function hacerPeticion(){
+		      var request = $.ajax({
+		      // la URL para la petición
+		      url : '/get_trazabilidad_vista', //aqui meter la url de la peticion
+		      data :"id_pedido=6" , //hay que cambiar el 6 por el idPedido real que capturamos con el otro script
+		      // empleamos GET porque estamos obteniendo datos del servidor
+		      type : 'GET',
+		      // el tipo de información que se espera de respuesta
+		      dataType : 'json',
+		      });
+		     request.done(function(data){
+		           alert("Quitar esta linea y llamar a SCRIPT TO TABLE");
+		     });
+		     request.fail(function(data) {
+		     alert("Error al recuperar campos trazabilidad");
+		     });
+		 }  
+		</script>
+		
+		
+	    <!--SCRIPT TO TABLE -->
 	    <!--Este script rellena la tabla con los campos de trazabilidad.json -->  
 	    <script>
 	    $.getJSON("trazabilidad.json",function(data){
@@ -63,17 +121,10 @@
 				  $("<tbody/>",{html:items.join("")}).appendTo("table");
 	    });
 	    </script>
-    
-    
-	    <!--Este script recupera el numero que se le pasa después del # a la vista de trazabilidadQR.html -->  
-		<p id="idLote"></p> <!--coge el #, mirar como quitarlo-->
-		<script>
-			function getID() {
-			  return window.location.hash;
-			}
-			<!--Completa campo idLote -->       
-			document.getElementById("idLote").innerHTML = window.getID();
-		</script>
+	    
+	    
+		<!--FIN ZONA SCRIPTS -->
+		
 		
 		
     </center>
