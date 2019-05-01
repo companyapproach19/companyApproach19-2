@@ -110,11 +110,13 @@
 
 <script type="text/javascript">
 function llegadaALaFabrica(){
+	alert("llamadaALaFabrica");
     var request = $.ajax({
     url : '/llegadaALaFabrica',
     type : 'POST',
     dataType : 'json',
     });
+	alert("Antes del done");
 	request.done(function(response)){
 		//var fecha = response.fechaInicio;
 		alert("llama funcion ajax correcta");
