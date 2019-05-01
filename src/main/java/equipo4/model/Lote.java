@@ -2,7 +2,7 @@ package equipo4.model;
 
 
 import java.sql.SQLException;
-import java.util.*;
+import java.sql.Date;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.DatosContainer;
@@ -17,55 +17,26 @@ public class Lote extends DatosContainer{
 	private boolean fermentado2;
 	private boolean embotellado;
 	private String tipo;
-	private int cantidad;
-
-	public Lote(int idBd, Date fecha_inicio, String tipo, Date fecha_final,boolean molido, boolean cocido, boolean fermentado, boolean fermentado2, boolean embotellado, byte[] qr, int cantidad) {
-		this.idBd= idBd;
-		this.fecha_inicio=fecha_inicio;
-		this.fecha_final=fecha_final;
-		this.molido=molido;
-		this.cocido=cocido;
-		this.fermentado=fermentado;
-		this.fermentado2 = fermentado2;
-		this.embotellado=embotellado;
-		this.tipo=tipo;
-		this.cantidad=cantidad;
-		
-	}
+	
 	
 	public Lote() throws ClassNotFoundException, SQLException {
 		this.idBd=metodosCompany.idLote();
-		this.fecha_inicio=new Date();
-		Date aux = (Date) fecha_inicio.clone();
-		aux.setDate(fecha_inicio.getDate()+12);
-		this.fecha_final = aux;	
 		molido=cocido=fermentado=fermentado2=embotellado=false;
-		this.tipo="pilsner";
-		this.cantidad=1;
 	}
 	
-	public Lote(Pilsner p, Date ini) throws ClassNotFoundException, SQLException {
-		this.idBd=metodosCompany.idLote();
-		this.fecha_inicio=ini;
-		Date aux = (Date) fecha_inicio.clone();
-		aux.setDate(fecha_inicio.getDate()+12);
-		this.fecha_final = aux;	
-		molido=cocido=fermentado=fermentado2=embotellado=false;
-		this.tipo="pilsner";
-		this.cantidad=1;
+	public Lote(int idBd, Date fecha_inicio, Date fecha_final, byte[] qr, boolean molido, boolean cocido,
+			boolean fermentado, boolean fermentado2, boolean embotellado, String tipo) {
+		this.idBd = idBd;
+		this.fecha_inicio = fecha_inicio;
+		this.fecha_final = fecha_final;
+		this.qr = qr;
+		this.molido = molido;
+		this.cocido = cocido;
+		this.fermentado = fermentado;
+		this.fermentado2 = fermentado2;
+		this.embotellado = embotellado;
+		this.tipo = tipo;
 	}
-	
-	public Lote(Stout s, Date ini) throws ClassNotFoundException, SQLException {
-		this.idBd=metodosCompany.idLote();
-		this.fecha_inicio=ini;
-		Date aux = (Date) fecha_inicio.clone();
-		aux.setDate(fecha_inicio.getDate()+12);
-		this.fecha_final = aux;	
-		molido=cocido=fermentado=fermentado2=embotellado=false;
-		this.tipo="stout";
-		this.cantidad=1;
-	}
-
 	public byte[] getQr() {
 		return qr;
 	}
@@ -79,8 +50,8 @@ public class Lote extends DatosContainer{
 		return fecha_inicio;
 	}
 
-	public  void setFecha_inicio(Date fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
+	public  void setFecha_inicio(java.util.Date fechaActual) {
+		this.fecha_inicio = (Date) fechaActual;
 	}
 	
 	public int getIdBd() {
@@ -91,8 +62,8 @@ public class Lote extends DatosContainer{
 		this.idBd = idBd;
 	}
 
-	public  void setFecha_final(Date fecha_final) {
-		this.fecha_final = fecha_final;
+	public  void setFecha_final(java.util.Date fechaActual) {
+		this.fecha_final = (Date) fechaActual;
 	}
 	
 	public  Date getFecha_final() {
@@ -151,11 +122,4 @@ public class Lote extends DatosContainer{
 		this.tipo = tipo;
 	}
 
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
 }

@@ -23,6 +23,7 @@ public class AlmacenMMPP {
 	private static int id;
 	private static int capacidad;	
 	private static Actor actor = new Actor(null,null,null,3);
+	private static int pedido;
 
 	public static void crearMateriasPrimas() throws SQLException{
 	}
@@ -304,19 +305,19 @@ public class AlmacenMMPP {
 		maxlevaduraAle= 16541665;
 		maxlevaduraLager=687464;
 		
-		m2().setCapacidad(maxmaltaCaramelo);
-		m3().setCapacidad(maxmaltaBasePalida);
-		m4().setCapacidad(maxmaltaMunich);
-		m5().setCapacidad(maxmaltaNegra);
-		m6().setCapacidad(maxmaltaCrystal);
-		m7().setCapacidad(maxmaltaChocolate);
-		m8().setCapacidad(maxcebadaTostada);
-		m9().setCapacidad(maxlupuloPerle);
-		m1().setCapacidad(maxmaltaPilsner);
-		m11().setCapacidad(maxlupuloCentennial);
-		m10().setCapacidad(maxlupuloTettnanger);
-		m12().setCapacidad(maxlevaduraAle);
-		m13().setCapacidad(maxlevaduraLager);
+		m2().setCantidad(maxmaltaCaramelo);
+		m3().setCantidad(maxmaltaBasePalida);
+		m4().setCantidad(maxmaltaMunich);
+		m5().setCantidad(maxmaltaNegra);
+		m6().setCantidad(maxmaltaCrystal);
+		m7().setCantidad(maxmaltaChocolate);
+		m8().setCantidad(maxcebadaTostada);
+		m9().setCantidad(maxlupuloPerle);
+		m1().setCantidad(maxmaltaPilsner);
+		m11().setCantidad(maxlupuloCentennial);
+		m10().setCantidad(maxlupuloTettnanger);
+		m12().setCantidad(maxlevaduraAle);
+		m13().setCantidad(maxlevaduraLager);
 
 
 

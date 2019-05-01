@@ -135,6 +135,9 @@
 
 
 <script>
+
+
+	
           function moler(){
       var request = $.ajax({
       url : '/funWait',
@@ -144,6 +147,7 @@
       });
  
      request.done(function(data){
+    	 //falat recoger el numero
   if(confirm("Lote 1 molido. ¿Desea que pase a fase de cocinado?")){
   cocinar();
   }
@@ -153,8 +157,7 @@
     }
      });
      request.fail(function(data) {
-     //alert("Error en el servidor");
-     alert("Lote 1 molido. ¿Desea que pase a fase de cocinado?");
+     alert("Error en el servidor");
      cocinar();
      });
  
@@ -171,6 +174,7 @@
       });
  
      request.done(function(data){
+    	 //falta recoger el numero
   if(confirm("Lote 1 cocinado. ¿Desea que pase a fase de fermentacion?")){
   fermentar();
   }
@@ -181,8 +185,7 @@
     }
      });
      request.fail(function(data) {
-     //alert("Error en el servidor");
-     alert("Lote 1 cocinado. ¿Desea que pase a fase de fermentacion?");
+     alert("Error en el servidor");
      fermentar();
      });
  
@@ -199,6 +202,7 @@
       });
  
      request.done(function(data){
+    	 //falta recoger el valor
   if(confirm("Lote 1 fermentado. ¿Desea que pase a fase de embotellado?")){
   embotellado();
   }
@@ -208,8 +212,7 @@
 }
      });
      request.fail(function(data) {
-     //alert("Error en el servidor");
-     alert("Lote 1 fermentado. ¿Desea que pase a fase de embotellado?");
+     alert("Error en el servidor");
      embotellado();
      });
  
@@ -227,13 +230,13 @@
       });
  
      request.done(function(data){
+    	 //falta poner bien el numero (recogerlo)
   alert("Lote 1 embotellado. Proceso finalizado.");
   href="NumLote.html";
 
      });
      request.fail(function(data) {
-     //alert("Error en el servidor");
-     alert("Lote 1 embotellado. Proceso finalizado.");
+     alert("Error en el servidor");
      });
  
  }

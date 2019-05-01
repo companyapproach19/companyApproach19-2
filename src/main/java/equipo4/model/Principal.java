@@ -8,17 +8,93 @@ import java.util.*;
 import equipo5.dao.NotInDatabaseException;
 import equipo5.dao.metodosCompany;
 import equipo6.model.DatosContainer;
+import equipo8.model.GeneradorQR2;
 
-public class Principal extends DatosContainer{
+public class Principal extends Thread {
 
 	private static Date fechaActual = new Date();
 	private static double densidad;
 
+	public static Lote crearLote(String tipo) throws Exception {
+		Lote l = new Lote();
+		l.setTipo(tipo);
+		l.setFecha_inicio(fechaActual);
+		l.setQr(GeneradorQR2.generadorQR(l.getIdBd()));
+		return l;
+	}
+	
+	
+	
+	
+	/*
 	@SuppressWarnings("deprecation")
 	public static void moler(Lote lote) throws InterruptedException {
 		lote.setFecha_inicio(fechaActual);
-		System.out
-				.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
+		Thread.sleep(3000);
+		fechaActual.setDate(fechaActual.getDate() + 1);
+		lote.setMolido(true);
+	}
+
+	@SuppressWarnings("deprecation")
+	public static void cocinar(Lote lote) throws InterruptedException {
+		if (lote.isMolido()) {
+			Thread.sleep(3000);
+			fechaActual.setDate(fechaActual.getDate() + 1);
+			lote.setCocido(true);
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public static void fermentar(Lote lote) throws InterruptedException {
+		if (lote.isCocido()) {
+			Thread.sleep(3000);
+			fechaActual.setDate(fechaActual.getDate() + 7);
+			densidad = 1.045 - (Math.random() * 0.5);
+			if (densidad > 1.010) {
+				fermentar2(lote);
+			}
+			lote.setFermentado(true);
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public static void fermentar2(Lote lote) throws InterruptedException {
+		if (lote.isFermentado()) {
+			Thread.sleep(3000);
+			fechaActual.setDate(fechaActual.getDate() + 15);
+			densidad -= (Math.random() * 0.1);
+			lote.setFermentado2(true);
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public static void embotellar(Lote lote) throws InterruptedException {
+		if (lote.isFermentado()) {
+			Thread.sleep(3000);
+			fechaActual.setDate(fechaActual.getDate() + 2);
+			lote.setEmbotellado(true);
+			AlmacenLotes.almacenarLote(lote);
+			lote.setFecha_final(fechaActual);
+		}
+	}
+	
+	
+	
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*@SuppressWarnings("deprecation")
+	public static void moler(Lote lote) throws InterruptedException {
+		lote.setFecha_inicio(fechaActual);
+		System.out.println("Dia: " + fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" + fechaActual.getYear());
 		System.out.println("Moliendo...");
 		Thread.sleep(3000);
 		fechaActual.setDate(fechaActual.getDate() + 1);
@@ -92,8 +168,8 @@ public class Principal extends DatosContainer{
 			//lote.setQr(GeneradorQR2.generadorQR(lote.getIdBd()));
 			lote.setFecha_final(fechaActual);
 		}
-	}
-
+	}*/
+/*
 	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		System.out.println("¿Desea generar un lote? (s/n)");
 		Scanner sc = new Scanner(System.in);
@@ -176,4 +252,4 @@ public class Principal extends DatosContainer{
 		sc.close();
 	}
 		}
-	}}
+	}*/}

@@ -47,42 +47,42 @@
                     <p><strong>1. Llegada a la fábrica</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="home" data-toggle="submit" href="Llegada.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Llegada" data-toggle="submit" href="Llegada.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>     
                     <p><strong>2. Molienda</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="home" data-toggle="submit" href="Molienda.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Molienda" data-toggle="submit" href="Molienda.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
                     <p><strong>3. Cocción</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="home" data-toggle="submit" href="Coccion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Coccion" data-toggle="submit" href="Coccion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
                     <p><strong>4. Fermentación</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="home" data-toggle="submit" href="Fermentacion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Fermentacion" data-toggle="submit" href="Fermentacion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
                     <p><strong>5. Embotellado</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="home" data-toggle="submit" href="Embotellado.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Embotellado" data-toggle="submit" href="Embotellado.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
                     <p><strong>6. Salida de la fábrica</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="home" data-toggle="submit" href="Salida.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Salida" data-toggle="submit" href="Salida.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
@@ -107,8 +107,154 @@
         <br/><br/><br/><br/><br/><br/>
     </div> 
 </div>
+<script type="text/javascript">
 
+ function molienda(){
+
+      var request = $.ajax({
+      url : '/molienda',
+      data : "fechaFin=" + $("#Molienda").val(),
+      type : 'POST',
+      dataType : 'json',
+ 
+      });
+ 	  request.done(function(data){
+      
+      //Este metodo redirige a la URL
+     if(data.existe){
+   alert(data.num);
+   }
+   else{
+   alert("No existe el lote en esta fase");
+   }
+    
+     });
+ 
+     request.fail(function(data) {
+   
+     alert("Error en el servidor");
+   
+     });
+ 
+ }
+ 
+  function coccion(){
+
+      var request = $.ajax({
+      url : '/coccion',
+      data : "fechaFin=" + $("#Coccion").val(),
+      type : 'POST',
+      dataType : 'json',
+ 
+      });
+ 	  request.done(function(data){
+      
+      //Este metodo redirige a la URL
+     if(data.existe){
+   alert(data.num);
+   }
+   else{
+   alert("No existe el lote en esta fase");
+   }
+    
+     });
+ 
+     request.fail(function(data) {
+   
+     alert("Error en el servidor");
+   
+     });
+ 
+ }
+ 
+  function fermentacion(){
+
+      var request = $.ajax({
+      url : '/fermentacion',
+      data : "fechaFin=" + $("#Fermentacion").val(),
+      type : 'POST',
+      dataType : 'json',
+ 
+      });
+ 	  request.done(function(data){
+      
+      //Este metodo redirige a la URL
+     if(data.existe){
+   alert(data.num);
+   }
+   else{
+   alert("No existe el lote en esta fase");
+   }
+    
+     });
+ 
+     request.fail(function(data) {
+   
+     alert("Error en el servidor");
+   
+     });
+ 
+ }
+
+ function embotellado(){
+
+      var request = $.ajax({
+      url : '/embotellado',
+      data : "fechaFin=" + $("#Embotellado").val(),
+      type : 'POST',
+      dataType : 'json',
+ 
+      });
+ 	  request.done(function(data){
+      
+      //Este metodo redirige a la URL
+     if(data.existe){
+   alert(data.num);
+   }
+   else{
+   alert("No existe el lote en esta fase");
+   }
+    
+     });
+ 
+     request.fail(function(data) {
+   
+     alert("Error en el servidor");
+   
+     });
+ 
+ }
+
+ function salidaDeLaFabrica(){
+
+      var request = $.ajax({
+      url : '/salidaDeLaFabrica',
+      data : "fechaFin=" + $("#Salida").val(),
+      type : 'POST',
+      dataType : 'json',
+ 
+      });
+ 	  request.done(function(data){
+      
+      //Este metodo redirige a la URL
+     if(data.existe){
+   alert(data.num);
+   }
+   else{
+   alert("No existe el lote en esta fase");
+   }
+    
+     });
+ 
+     request.fail(function(data) {
+   
+     alert("Error en el servidor");
+   
+     });
+ 
+ }
+
+
+</script>
 </body>
-
-
                            

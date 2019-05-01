@@ -445,20 +445,19 @@ public class metodosCompany {
 			pst.setBoolean(7, lote.isFermentado2());
 			pst.setBoolean(8, lote.isEmbotellado());
 			pst.setBytes(9, lote.getQr());
-			pst.setInt(10, lote.getCantidad());
 			pst.setString(11, lote.getTipo());
 			pst.executeUpdate();
 			pst.close();
 		conn.close();
 	}
 
-	public static Lote extraerLote(int idLote) throws SQLException {
+	public static Lote extraerLote(int idLote) throws SQLException, ClassNotFoundException {
 		conectar();
 		String query = "SELECT * FROM company.lote WHERE idLote = " + idLote;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			Lote buscado = new Lote(rs.getInt(1),  rs.getDate(2), rs.getString(11), rs.getDate(3), rs.getBoolean(4), rs.getBoolean(5), rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBytes(9), rs.getInt(10));
+			Lote buscado = new Lote();
 			pst.close();
 			rs.close();
 			conn.close();
@@ -800,7 +799,6 @@ public class metodosCompany {
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			    pst.setString(1, actor.getId());
 			    pst.setInt(2, lote.getIdBd());
-			    pst.setInt(3, lote.getCantidad());
 			    pst.executeUpdate();
 			    pst.close();
 			    conn.close();
@@ -810,7 +808,6 @@ public class metodosCompany {
 			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, cantidad) VALUES (?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
 			    pst2.setInt(1, lote.getIdBd());
-			    pst2.setInt(2, lote.getCantidad());
 			    pst2.executeUpdate();
 			    pst2.close();
 			    conn.close();
@@ -935,7 +932,7 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			MateriaPrima buscado = new MateriaPrima(nombre, rs.getInt(1));
+			MateriaPrima buscado = new MateriaPrima(nombre, rs.getInt(1), 0);
 			pst.close();
 			rs.close();
 			conn.close();
@@ -948,7 +945,6 @@ public class metodosCompany {
 		String query = "INSERT INTO company.materiaPrima (idMateriaPrima, nombre) VALUES (?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, mp.getId());
-		pst.setString(2, mp.getNombre());
 		pst.executeUpdate();
 		pst.close();
 	}
