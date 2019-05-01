@@ -68,18 +68,18 @@ public class metodosCompany {
 				"CREATE TABLE company.lote (" +
 						"idLote INT NOT NULL ," +
 						"fecha_inicio TIMESTAMP NOT NULL ," +
-						"fecha_final TIMESTAMP NOT NULL, " +
+						"fecha_final TIMESTAMP, " +
 						"molido BOOLEAN NOT NULL, " +
 						"cocido BOOLEAN NOT NULL, " +
 						"fermentado BOOLEAN NOT NULL, " +
 						"fermentado2 BOOLEAN NOT NULL, " +
 						"embotellado BOOLEAN NOT NULL, " +
 						"qr BYTEA, " +
-						"fecha_molido BOOLEAN NOT NULL, " +
-						"fecha_cocido BOOLEAN NOT NULL, " +
-						"fecha_fermentado BOOLEAN NOT NULL, " +
-						"fecha_fermentado2 BOOLEAN NOT NULL, " +
-						"fecha_embotellado BOOLEAN NOT NULL, " +
+						"fecha_molido TIMESTAMP, " +
+						"fecha_cocido TIMESTAMP, " +
+						"fecha_fermentado TIMESTAMP, " +
+						"fecha_fermentado2 TIMESTAMP, " +
+						"fecha_embotellado TIMESTAMP, " +
 						"tipo VARCHAR(45) NOT NULL ," +
 						"PRIMARY KEY (idLote));"
 				);
