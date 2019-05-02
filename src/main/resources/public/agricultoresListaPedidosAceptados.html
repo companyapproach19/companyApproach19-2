@@ -11,252 +11,94 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<!------ TEST SCRIPTSS ---------->
+<script type="text/javascript" src="ajaxs.js"></script>
+<!------ TEST SCRIPTSS ---------->
+
 <link href="style2.css" rel="stylesheet" id="bootstrap-css">
 </head>
 <body>
 <div class="container register agricultores">
-                <div class="row">
-             
-                    <div class="col-md-3 register-left">
-                        <img src="icono-agricultor.png" alt=""/>
-                        <h1>Agricultores</h1>
-                        <!--<p>Pedidos recibidos</p>-->
-                    </div>
-                    <div class="col-md-9 register-right pedidosaceptados">
-                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
-                            </li>
-                            </ul>
-                            <p></p>
-                            <div class="col-3 borde">
-                                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='agricultoresInicio.html';">Volver</a>
-                                </li>
-                                </ul>
-                            </div>
-
-                            <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading titlecenter">PEDIDOS ACEPTADOS</h3>
-								<br>
-                                <div class="row register-form">
-                                    <div class="col-md-8 pedidoscenter">
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto1" id="producto1" value="Pedido id1">
-                                            <label for="producto1" id="label1">Pedido noPedido</label>
-                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
-
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto2" id="producto2" value="Pedido id2">
-                                            <label for="producto2" id="label2">Pedido noPedido</label>
-                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto3" id="producto3" value="Pedido id3">
-                                            <label for="producto3" id="label3">Pedido noPedido</label>
-                                           <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>                        
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto4" id="producto4" value="Pedido id4">
-                                            <label for="producto4" id="label4">Pedido noPedido</label>
-                                            <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto5" id="producto5" value="Pedido id5">
-                                            <label for="producto5" id="label5">Pedido noPedido</label>
-                                            <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto6" id="producto6" value="Pedido id6">
-                                            <label for="producto6" id="label6">Pedido noPedido</label>
-                                            <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="producto7" id="producto7" value="Pedido id7">
-                                            <label for="producto7" id="label7">Pedido noPedido</label>
-                                            <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>
-                                        </div>
-																																		   
-											
-                                <input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids(); window.location.href='agricultoresInicio.html';" value="Completar pedidos"/>
-
-                                <!-- MODAL -->
-                                <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalScrollableTitle">Información del pedido</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                            </button>
-                                          </div>
-                                          <div class="modal-body">
-                                           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-
-Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-
-Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                                          </div>
-                                          <div class="modal-footer">
-<!--                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Atrás</button>
- -->                                            <button class="btnRegister" data-dismiss="modal">Atrás</button>
-                                            <button class="btnRegister" data-dismiss="modal">Aceptar pedido</button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>   
-                                    <!-- MODAL -->
-									  
-								
-                            </div>
-                                <!-- <label for="producto">*Los pedidos que no sean seleccionados se rechazaran automaticamente*</label> -->
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+    <div class="row">
+        <div class="col-md-3 register-left">
+			<img src="icono-agricultor.png" alt=""/>
+			<h1>Agricultores</h1>
+			<!--<p>Pedidos recibidos</p>-->
+        </div>
+        <div class="col-md-9 register-right pedidosaceptados">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
+                </li>
+            </ul>
+            <p></p>
+            <div class="col-3 borde">
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='agricultoresInicio.html';">Volver</a>
+                    </li>
+                </ul>
             </div>
+
+			<div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <h3  class="register-heading titlecenter">PEDIDOS ACEPTADOS</h3>
+				<br>
+				<div class="row register-form">
+					<div class="col-md-8 pedidoscenter">
+					
+						<script>
+						var stri = "'none'";
+						var j = 0;
+							if (idsOrdenes != null){
+								for ( var i = 1; i <=idsOrdenes.length; i++) {
+									//CADA LINEA DE CHECKBOX
+									document.write('<div class="form-group">');
+									document.write('<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">');
+									document.write('<label for="producto'+i+'" id="label'+i+'">Pedido noPedido</label>');
+									document.write('<a href="" data-toggle="modal" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>');
+									document.write('</div>');
+									
+									
+									//////////MODAAAAAAAAAL
+									<!-- MODAL -->
+									document.write('<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">');
+									document.write('<div class="modal-dialog modal-dialog-scrollable" role="document">');
+									document.write('<div class="modal-content">');
+									document.write('<div class="modal-header">');
+									document.write('<button type="button" class="close" data-dismiss="modal" aria-label="Close">');
+									document.write('<span aria-hidden="true">&times;</span>');
+									document.write('</button>');
+									document.write('<a class="btn" href="#" id="d"  onclick="intermedio('+(i-1)+',1); style.display ='+stri+'"  data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1">PEDIDO</a>');
+									document.write('<div id="popup1" style="display: none;">');
+									document.write('<div class="inner">');
+									document.write('<h1>PEDIDO</h1>');
+									document.write('<popup1></popup1>');
+									document.write('</div>');
+									document.write('</div>');
+									document.write('</div>');
+									document.write('</div>');
+									document.write('</div>'); 
+									document.write('</div>');
+									<!-- MODAL -->
+									j++;
+								}
+							}
+						</script>
+						
+																															   
+																									<!-- V ;window.location.href='agricultoresInicio.html' ;-->  
+						<input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids();" value="Completar pedidos"/>
+					</div>
+				</div>
+			</div>
+        </div>
+	</div>
 </div>
 	   
 <script>
  
-window.onload = hacerPeticion;
-var sifalla = [1,25,695,22,88,7];
-data2 = {"listaIDs" : [1,5,9]};
-data = JSON.stringify(data2);
+window.onload = pedirIds(0,2);
 
- function hacerPeticion(){
-  //Aqui se puede dar un valor por defecto, solo por si acaso
-        var local_data;
-
-
-      var request = $.ajax({
-      // la URL para la petición
-      url : '/pedidosEnProceso',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos) //ID del actor
-      data :"5" ,
- 
-      // especifica si será una petición POST o GET
-      type : 'GET',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-      });
- 
-     request.done(function(data){
-      
-		
-     imprimirjson();
-    
-     });
- 
-     request.fail(function(data) {
-     
-
-     alert("Error en el servidor obteniendo ids");
-     mostrarFallo();
-     });
- 
- }
- //Funcion que saca una lista
- function imprimirjson(){
-          var hola = JSON.parse(data);
-          var local_data = hola.listaIDs;
-          //console.log(data);
-          //console.log(local_data);
-                 var label = 'label';
-            for (var i = 1; i< local_data.length + 1; i++) {
-                var x = i.toString(10);
-                //console.log(label.concat(x));
-                document.getElementById(label.concat(x)).innerHTML = local_data[i-1];
-
-                }
-
- }
-
-
-  function mostrarFallo(){
-         var local_data = sifalla;
-            var label = 'label';
-            for (var i = 1; i< local_data.length + 1; i++) {
-                var x = i.toString(10);
-                //console.log(label.concat(x));
-                document.getElementById(label.concat(x)).innerHTML = sifalla[i-1];
-
-                }    
-        }
-
-
-
-function mandarids(){
-  var str = 'producto';
-  var array = [-1,-1,-1,-1,-1,-1,-1];
-  var booleano = false;
-  var str2 = '';
-  var aux;
-  var label = 'label';
-  for (var i = 1; i< 8; i++) {
-    var x = i.toString(10);
-    str2 = str.concat(x);
-    aux = document.getElementById(str2);
-    if (aux.checked){
-      array[i-1] = document.getElementById(label.concat(x));
-      }
-    
-    }
-
-data2 = {"listaIDs" : array};
-data = JSON.stringify(data2);
-
-  var request = $.ajax({
-      // la URL para la petición
-      url : '/listoPedido',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos) //ID del actor
-      data :data,
- 
-      // especifica si será una petición POST o GET
-      type : 'POST',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-
-      });
- 
-     request.done(function(data){
-      
-         
-     });
- 
-     request.fail(function(data) {
-     
-     alert("Error en el servidor al completar");
-   
-     });
-
-
-
-
-}
-
-
-  
-		 
-
-  
 </script>
 </body>
 </html> 
