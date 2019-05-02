@@ -36,7 +36,7 @@
           <br/><br/><br/><br/><br/>
             <div class="row">
                 <div class="col-md-10 offset-md-2">
-                   <p><h3><strong> Lote:</strong> <?php echo "$miVariable:$miVariable;?></h3>
+                   <p><h3><strong> Lote:</strong> <?php echo "$numLoteIntroducido:$numLoteIntroducido;?></h3>
                     
                       </br>
 
