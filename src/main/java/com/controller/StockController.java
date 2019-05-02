@@ -51,11 +51,10 @@ public class StockController {
 	
 	
 	/*
-	* Metodo pensado para fabrica, pero puede ser usado por quien lo necesite
-	* dado un actor devuelve la lista de los lotes que hay en la bbdd
+	* devuelve una lista de stocklotes dado un actor
 	*/
 	
-	public static LinkedList<Lote> getListaLotes(Actor actor) throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
+	public static LinkedList<StockLote> getListaLotes(Actor actor) throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return metodosCompany.extraerStockLote(actor);		
 	}
 		
@@ -99,6 +98,36 @@ public class StockController {
 	public static void setCantidadLote(Actor actor, Lote lote) throws Throwable,ClassNotFoundException, SQLException {
 		metodosCompany.insertarStockLote(actor, lote);
 	}
+	
+	public static String buscarTipoCerveza(int idOrden) throws ClassNotFoundException, SQLException {
+		BlockchainServices bcs;
+		
+		bcs = new BlockchainServices();
+		OrdenTrazabilidad orden=bcs.getOrden(idOrden);
+		if(orden.getProductosPedidos().getCant_lotes_bisner()!=0) {
+			return "pilsner";
+		}
+		if (orden.getProductosPedidos().getCant_lotes_stout()!=0) {
+			return "stout";
+		}
+		return null;
+	}
+	
+	public static int buscarCantidadCerveza(int idOrden) throws ClassNotFoundException, SQLException {
+		BlockchainServices bcs;
+		
+		bcs = new BlockchainServices();
+		OrdenTrazabilidad orden=bcs.getOrden(idOrden);
+		if(orden.getProductosPedidos().getCant_lotes_bisner()!=0) {
+			return orden.getProductosPedidos().getCant_lotes_bisner();
+		}
+		if (orden.getProductosPedidos().getCant_lotes_stout()!=0) {
+			return orden.getProductosPedidos().getCant_lotes_stout();
+		}
+		return 0;
+	}
+	
+	
 	
 	public String get_id_actor_cookie(Cookie[] lista_cookies) 
 	{
@@ -224,9 +253,9 @@ public class StockController {
 			
 			for(Actor actor : cadena.getlista_actores()) 
 			{
-				for(OrdenTrazabilidad or : metodosCompany.extraerPedidosActorDestino(actor.getId()))
+				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
 				{
-						if(or.getNecesitaTransportista()) 
+						if(or.isNecesitaTransportista()) 
 						{
 							json_resp.add(or.getId()+"", parse.parse(gson.toJson(or)).getAsJsonObject());
 							index++;
@@ -248,7 +277,7 @@ public class StockController {
 	@Scope("request")
 	@RequestMapping("/actualizar_geolocalizacion")
 	@ResponseBody
-	public String get_trazabilidad(
+	public void actualizar_geolocalizacion(
 			@RequestParam(name="id_pedido", required=true) int id_pedido,
 			@RequestParam(name="id_orden", required=true) int id_orden,
 			@RequestParam(name="datos_geolocalizacion", required=true) String datos_geolocalizacion,
@@ -257,11 +286,11 @@ public class StockController {
 		BlockchainServices bcs;
 		geolocalizacion geo;
 		
-		geo = new geolocalizacion(id_pedido, id_orden, datos_geolocalizacion);
+		int idGeoloca = metodosCompany.idGeolocalizacion();
+		geo = new geolocalizacion(idGeoloca, id_pedido, id_orden, datos_geolocalizacion);
 		bcs = new BlockchainServices();		
 		bcs.guardarOrden(geo);
 		
-		return bcs.get_trazabilidad(id_pedido);
 	}
 	
 	

@@ -56,6 +56,14 @@ public class geolocalizacion extends DatosContainer {
 		this.coordenadas = coordenadas;
 	}
 	
+	public Date getTime() {
+		return this.date;
+	}
+	
+	public void setTime(Date d) {
+		this.date=d;
+	}
+	
 	
 	
 	

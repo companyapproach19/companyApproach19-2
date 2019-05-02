@@ -18,6 +18,7 @@ import equipo5.model.Cadena;
 import equipo6.model.Bloque;
 import equipo6.model.CadenaActores;
 import equipo6.model.DatosContainer;
+import equipo6.model.geolocalizacion;
 import equipo6.model.Actor;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
@@ -27,16 +28,17 @@ public class metodosCompany {
 
 	private static Connection conn;
 
-	//private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
-	private static String JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/company?user=gonzalo&password=root";
+	private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
+
 	static boolean primerusuario= true;
 
 
 	public static void conectar(){
 		try {
-			if(conn == null || conn.isClosed())
+			if(conn == null || conn.isClosed()) {
 			 conn= DriverManager.getConnection(JDBC_DATABASE_URL);
-			//System.out.println("Conectado");
+			System.out.println("Conectado");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +56,8 @@ public class metodosCompany {
 		PreparedStatement pst16 = conn.prepareStatement(
 	            "CREATE TABLE company.materiaPrima (" + 			//tabla materia prima
 	            		"idMateriaPrima INT NOT NULL ," +
-	                    "nombre VARCHAR(45) UNIQUE NOT NULL ," +
+	                    "tipo VARCHAR(45) NOT NULL ," +
+	            		"cantidad FLOAT NOT NULL ," +
 	                    "PRIMARY KEY (idMateriaPrima));"
 	    );
 	    pst16.executeUpdate();
@@ -70,7 +73,11 @@ public class metodosCompany {
 						"fermentado2 BOOLEAN NOT NULL, " +
 						"embotellado BOOLEAN NOT NULL, " +
 						"qr BYTEA, " +
-						"cantidad INT NOT NULL ," +
+						"fecha_molido BOOLEAN NOT NULL, " +
+						"fecha_cocido BOOLEAN NOT NULL, " +
+						"fecha_fermentado BOOLEAN NOT NULL, " +
+						"fecha_fermentado2 BOOLEAN NOT NULL, " +
+						"fecha_embotellado BOOLEAN NOT NULL, " +
 						"tipo VARCHAR(45) NOT NULL ," +
 						"PRIMARY KEY (idLote));"
 				);
@@ -93,33 +100,23 @@ public class metodosCompany {
 		
 		PreparedStatement pst11 = conn.prepareStatement(
 				"CREATE TABLE company.cadena ( " +
-						"codLote INT NOT NULL, " +
+						"idPedido INT NOT NULL, " +
 						"hashInicio VARCHAR(45) NULL, " +
 						"numBloques INT NOT NULL, " +
-						"PRIMARY KEY (codLote))"
+						"PRIMARY KEY (idPedido))"
 				);
 		pst11.executeUpdate();
 		
 		PreparedStatement pst14 = conn.prepareStatement(
 				" CREATE TABLE company.registro (" +
 						"id INT NOT NULL, " +
-						"idLote INT NOT NULL, " +
-						"idActor VARCHAR(45) NOT NULL, " +
+						"idOrden INT NOT NULL, " +
+						"idPedido INT NOT NULL, " +
 						"fechaInicio VARCHAR(45), " +
 						"fechaFin VARCHAR(45), " +
 						"tempMax VARCHAR(45), " +
 						"tempMin VARCHAR(45), " +
 						"PRIMARY KEY (id)," +
-						"CONSTRAINT fk_registro_1 " +
-						"  FOREIGN KEY (idLote) " +
-						"  REFERENCES company.lote(idLote) " +
-						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION, " +
-						"CONSTRAINT fk_registro_2 " +
-						"  FOREIGN KEY (idActor) " +
-						"  REFERENCES company.actor(cif) " +
-						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION " +
 						");"
 				);
 		pst14.executeUpdate();
@@ -150,12 +147,14 @@ public class metodosCompany {
 						"idActorDestino VARCHAR(45) NOT NULL, " +
 						"necesitaTransportista BOOLEAN NOT NULL, " +
 						"idProductos INT NOT NULL, " +
-						"mensaje VARCHAR(45), " +
 						"estado INT NOT NULL, " +
 						"firmaRecogida BYTEA, " +
 						"firmaEntrega BYTEA, " +
 						"idTransportista VARCHAR(45), " +
-						"PRIMARY KEY (id,estado)," +
+						"idRegistro INT, " +
+						"idPedido INT NOT NULL, " +
+						"fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+						"PRIMARY KEY (id, fecha)," +
 						"CONSTRAINT fk_orden_1 " +
 						"  FOREIGN KEY (idActorOrigen) " +
 						"  REFERENCES company.actor(cif) " +
@@ -175,7 +174,17 @@ public class metodosCompany {
 						"  FOREIGN KEY (idTransportista) " +
 						"  REFERENCES company.actor(cif) " +
 						"  ON DELETE NO ACTION " +
-						"  ON UPDATE NO ACTION ); " 
+						"  ON UPDATE NO ACTION, " +
+						"CONSTRAINT fk_orden_5 " +
+						"  FOREIGN KEY (idRegistro) " +
+						"  REFERENCES company.registro(id) " +
+						"  ON DELETE NO ACTION " +
+						"  ON UPDATE NO ACTION), " +
+						"CONSTRAINT fk_orden_6 " +
+						"  FOREIGN KEY (idPedido) " +
+						"  REFERENCES company.cadena(idPedido) " +
+						"  ON DELETE NO ACTION " +
+						"  ON UPDATE NO ACTION; "
 						
 				);
 		pst13.executeUpdate();
@@ -230,8 +239,7 @@ public class metodosCompany {
 	                    "  REFERENCES company.materiaPrima(idMateriaPrima) " +	//con que tabla se relaciona? también ponerlo en StockAgricultor
 	                    "  ON DELETE NO ACTION " +
 	                    "  ON UPDATE NO ACTION " +
-	                    ");"
-	                    
+	                    ");"  
 	    );
 	    pst17.executeUpdate();
 	    
@@ -256,7 +264,6 @@ public class metodosCompany {
 	                    ");"
 	    );
 	    pst18.executeUpdate();
-	    
 	    PreparedStatement pst19 = conn.prepareStatement(
 	            "CREATE TABLE company.stockAgricultor (" +
 						"idStockAgricultor INT GENERATED BY DEFAULT AS IDENTITY," +
@@ -294,10 +301,99 @@ public class metodosCompany {
 	                    ");"
 	    );
 	    pst20.executeUpdate();
+	    
+	    PreparedStatement pst21 = conn.prepareStatement(
+	            "CREATE TABLE company.productosOrden (" +
+	            		"idOrden INT NOT NULL," +
+	                    "idMPoLote TIMESTAMP DEFAULT CURRENT_TIMESTAMP ," +
+	                    "PRIMARY KEY (idOrden, idMPoLote)" + 
+	                    ");"
+	    );
+	    pst21.executeUpdate();
+	    
+	    PreparedStatement pst22 = conn.prepareStatement(
+	            "CREATE TABLE company.geolocalizacion (" +
+	            		"id INT NOT NULL," +
+	            		"idOrden INT NOT NULL," +
+	            		"idPedido INT NOT NULL," +
+	            		"coordenadas VARCHAR(45)," +
+	                    "fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP ," +
+	                    "PRIMARY KEY (id)" + 
+	                    ");"
+	    );
+	    pst22.executeUpdate();
 
 		System.out.println("�Base de datos Creada!");
 
 	}
+	//Ver como se saca geolocalizacion
+	public static geolocalizacion extraerGeolocalizacion (int id) throws SQLException{
+		conectar();
+		String query = "SELECT * FROM company.geolocalizacion WHERE id = " + id;
+		Statement pst = conn.createStatement();
+		ResultSet rs = pst.executeQuery(query);
+		while(rs.next()) {
+			geolocalizacion buscado = new geolocalizacion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getDate(5));
+			pst.close();
+			rs.close();
+			//conn.close();
+			return buscado;
+		}
+		//conn.close();
+		return null;
+	}
+	public static ArrayList<geolocalizacion> extraerGeolocalizaciones (int idOrden) throws SQLException{
+		conectar();
+		String query = "SELECT * FROM company.geolocalizacion WHERE idOrden = " + idOrden;
+		Statement pst = conn.createStatement();
+		ResultSet rs = pst.executeQuery(query);
+		ArrayList<geolocalizacion> buscado = null;
+		while(rs.next()) {
+			buscado.add(new geolocalizacion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getDate(5)));
+		}
+		pst.close();
+		rs.close();
+		//conn.close();
+		return buscado;
+	}
+	
+	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException {
+		conectar();
+		String query = "INSERT INTO company.geolocalizacion (id, idOrden, idPedido, coordenadas) VALUES (?, ?, ?, ?);";
+		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+		pst.setInt(1, geo.getId());
+		pst.setInt(2, geo.getIdOrden());
+		pst.setInt(3,geo.getIdPedido());
+		pst.setString(4,geo.getCoordenadas());
+		pst.executeUpdate();
+		pst.close();
+	}
+	
+	public static ArrayList<Integer> extraerProductosOrden(int idOrden) throws SQLException{
+		conectar();
+		ArrayList<Integer> buscado = new ArrayList<Integer>();
+		String query = "SELECT * FROM company.productosOrden WHERE idOrden = " + idOrden;
+		Statement pst = conn.createStatement();
+		ResultSet rs = pst.executeQuery(query);
+		while(rs.next()) {
+			buscado.add(rs.getInt(2));
+		}
+		return buscado;
+	}
+	
+	public static void insertarProductosOrden(ArrayList<Integer> pedidos, int idOrden) throws SQLException {
+		conectar();
+		for(int i =0; i<pedidos.size(); i++) {
+			String query = "INSERT INTO company.productosOrden (idOrden, idMPoLote) VALUES (?, ?);";
+			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+			pst.setInt(1, pedidos.get(i));
+			pst.setInt(2,idOrden);
+			pst.executeUpdate();
+			pst.close();
+		}
+	}
+	
+
 
 	public static OrdenTrazabilidad extraerOrdenTrazabilidad(int id) throws SQLException, ClassNotFoundException {
 		conectar();
@@ -305,47 +401,52 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			Actor actor = extraerActor(rs.getString(2));
-			Actor actor1 = extraerActor(rs.getString(3));
+			String firmaRecogida;
+			String firmaEntrega;
+			Actor actorOrigen = extraerActor(rs.getString(2));
+			Actor actorDestino = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
-			Actor actor2 = extraerActor(rs.getString(10));
-			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actor, actor1, rs.getBoolean(4), productos,
-					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9),actor2);
+			Actor actorTransportista = extraerActor(rs.getString(9));
+			ArrayList<Integer> productosOrden = null;
+			if(extraerProductosOrden(rs.getInt(1))!=null) {
+				productosOrden = extraerProductosOrden(rs.getInt(1));
+			}
+			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
+					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
 			pst.close();
 			rs.close();
-			
+			conn.close();
 			return buscado;
 		}
-		
+		//conn.close();
 		return null;	
 	}
 
 	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException {
 		conectar();
-		/*OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
-				Productos productos, String mensaje, int estado,byte[] firmaRecogida, byte[] firmaEntrega,
-				Actor transportista) */
-		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, mensaje, estado, firmaRecogida, firmaEntrega, idTransportista)"
-				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		//comprobar que los productos no pueden ser null
+		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, estado, firmaRecogida, firmaEntrega, idTransportista, idRegistro, idPedido)"
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, orden.getId());
 		pst.setString(2, orden.getActorOrigen().getId());
 		pst.setString(3, orden.getActorDestino().getId());
-		pst.setBoolean(4, orden.getNecesitaTransportista());
-		if(extraerProductos(orden.getProductos().getId())==null) insertarProductos(orden.getProductos());
-		pst.setInt(5, orden.getProductos().getId());
-		pst.setString(6, orden.getMensaje());
-		pst.setInt(7, orden.getEstado());
-		pst.setBytes(8,orden.getFirmaRecogida());
-		pst.setBytes(9,orden.getFirmaEntrega());
+		pst.setBoolean(4, orden.isNecesitaTransportista());
+		if(extraerProductos(orden.getId())==null) insertarProductos(orden.getProductosPedidos(), orden.getId());
+		pst.setInt(5, orden.getId());
+		pst.setInt(6, orden.getEstado());
+		pst.setBytes(7,orden.getFirmaRecogidaBBDD());
+		pst.setBytes(8,orden.getFirmaEntregaBBDD());
 		if(orden.getTransportista()!=null) {
 			if(extraerActor(orden.getTransportista().getId())!=null) {
-				pst.setString(10, orden.getTransportista().getId());
-			}else pst.setString(10, "0");
-		}else pst.setString(10, "0");
+				pst.setString(9, orden.getTransportista().getId());
+			}else pst.setString(9, "0");
+		}else pst.setString(9, "0");
+		pst.setInt(10, orden.getIdRegistro());
+		pst.setInt(11, orden.getIdPedido());
 		pst.executeUpdate();
 		pst.close();
-		
+		insertarProductosOrden(orden.getProductosAEntregar(), orden.getIdPedido());
 	}
 
 	public static Productos extraerProductos(int id) throws SQLException {
@@ -354,23 +455,23 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			Productos buscado = new Productos(id, rs.getInt(2),  rs.getInt(3), rs.getInt(4),rs.getInt(5),
+			Productos buscado = new Productos(rs.getInt(2),  rs.getInt(3), rs.getInt(4),rs.getInt(5),
 					rs.getInt(6),rs.getInt(7),rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11),rs.getInt(12));
 			pst.close();
 			rs.close();
-			
+			//conn.close();
 			return buscado;
 		}
 		return null;	
 	}
 
-	public static void insertarProductos(Productos producto) throws SQLException, ClassNotFoundException {
+	public static void insertarProductos(Productos producto, int idOrden) throws SQLException, ClassNotFoundException {
 		conectar();
 		String query = "INSERT INTO company.productos (id, malta_palida, matla_munich, malta_negra, malta_crystal, "
 				+ "malta_chocolate , malta_caramelo, cebada, cebada_tostada, lupulo_centenial, cajas_stout ,cajas_bisner)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-		pst.setInt(1, producto.getId());
+		pst.setInt(1, idOrden);
 		pst.setInt(2, producto.getCant_malta_palida());
 		pst.setInt(3, producto.getCant_malta_munich());
 		pst.setInt(4, producto.getCant_malta_negra());
@@ -380,56 +481,56 @@ public class metodosCompany {
 		pst.setInt(8, producto.getCant_cebada());
 		pst.setInt(9, producto.getCant_cebada_tostada());
 		pst.setInt(10, producto.getCant_lupulo_centenial());
-		pst.setInt(11, producto.getCant_cajas_stout());
-		pst.setInt(12, producto.getCant_cajas_bisner());
+		pst.setInt(11, producto.getCant_lotes_stout());
+		pst.setInt(12, producto.getCant_lotes_bisner());
 		pst.executeUpdate();
 		pst.close();
-		
+		//conn.close();
 	}
 
-	public static Cadena extraerCadena(int codLote) throws SQLException {
+	public static Cadena extraerCadena(int idPedido) throws SQLException {
 		conectar();
-		String query = "SELECT * FROM company.cadena WHERE cadena.codLote = "+codLote;
+		String query = "SELECT * FROM company.cadena WHERE cadena.idPedido = "+idPedido;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		Cadena buscado = null;
 		while(rs.next()) {
-			buscado = new Cadena(codLote, rs.getString(2), rs.getInt(3));
+			buscado = new Cadena(idPedido, rs.getString(2), rs.getInt(3));
 		}
 		pst.close();
 		rs.close();
-		
+		//conn.close();
 		return buscado;
 	}
 
 	public static void insertarCadena(Cadena cadena) throws SQLException {
-		int codLote = cadena.getCodLote();
-		if(extraerCadena(codLote)!= null) {
+		int idPedido = cadena.getCodLote();
+		if(extraerCadena(idPedido)!= null) {
 			conectar();
-			String query = "UPDATE company.cadena SET hashInicio = ? , numBloques = ?  WHERE codLote= ?";
+			String query = "UPDATE company.cadena SET hashInicio = ? , numBloques = ?  WHERE idPedido= ?";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			pst.setString(1, cadena.getHashUltimoBloque());
 			pst.setInt(2, cadena.getNumBloques());
-			pst.setInt(3, codLote);
+			pst.setInt(3, idPedido);
 			pst.executeUpdate();
 			pst.close();
-			
+			//conn.close();
 		}else {
 			conectar();
-			String query = "INSERT INTO company.cadena (codLote, hashInicio, numBloques) VALUES (?, ?, ?);";
+			String query = "INSERT INTO company.cadena (idPedido, hashInicio, numBloques) VALUES (?, ?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-			pst.setInt(1, codLote);
+			pst.setInt(1, idPedido);
 			pst.setString(2, cadena.getHashUltimoBloque());
 			pst.setInt(3, cadena.getNumBloques());
 			pst.executeUpdate();
 			pst.close();
-			
+			//conn.close();
 		}
 	}
 
 	public static void insertarLote(Lote lote) throws Throwable {
 		conectar();
-			String query = "INSERT INTO company.lote (idLote, fecha_inicio, fecha_final, molido, cocido, fermentado, fermentado2, embotellado, qr, cantidad, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?);";
+			String query = "INSERT INTO company.lote (idLote, fecha_inicio, fecha_final, molido, cocido, fermentado, fermentado2, embotellado, qr, fecha_molido, fecha_cocido, fecha_fermentado, fecha_fermentado2, fecha_embotellado, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			pst.setInt(1, lote.getIdBd());
 			pst.setDate(2, new Date(lote.getFecha_inicio().getTime()));
@@ -440,11 +541,16 @@ public class metodosCompany {
 			pst.setBoolean(7, lote.isFermentado2());
 			pst.setBoolean(8, lote.isEmbotellado());
 			pst.setBytes(9, lote.getQr());
-			pst.setInt(10, lote.getCantidad());
-			pst.setString(11, lote.getTipo());
+			pst.setDate(10, new Date(lote.getFecha_molido().getTime()));
+			pst.setDate(11, new Date(lote.getFecha_cocido().getTime()));
+			pst.setDate(12, new Date(lote.getFecha_fermentado().getTime()));
+			pst.setDate(13, new Date(lote.getFecha_fermentado2().getTime()));
+			pst.setDate(14, new Date(lote.getFecha_embotellado().getTime()));
+			pst.setString(15, lote.getTipo());
 			pst.executeUpdate();
 			pst.close();
-		
+		  //conn.close();
+
 	}
 
 	public static Lote extraerLote(int idLote) throws SQLException {
@@ -453,30 +559,29 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			Lote buscado = new Lote(rs.getInt(1),  rs.getDate(2), rs.getString(11), rs.getDate(3), rs.getBoolean(4), rs.getBoolean(5), rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBytes(9), rs.getInt(10));
+			Lote buscado = new Lote(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getBytes(9), rs.getBoolean(4), rs.getBoolean(5), rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getString(15),  rs.getDate(10), rs.getDate(11),  rs.getDate(12), rs.getDate(13), rs.getDate(14));
 			pst.close();
 			rs.close();
-			
+			//conn.close();
 			return buscado;
 		}
-		
 		return null;
 	}
 
 	public static void insertarRegistro (Registro registro) throws SQLException{
 		conectar();
-		String query = "INSERT INTO company.registro (id, idLote, idActor, fechaInicio, fechaFin, tempMax, tempMin) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO company.registro (id, idOrden, idPedido, fechaInicio, fechaFin, tempMax, tempMin) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, registro.getId());
-		pst.setInt(2, registro.getLote().getIdBd());
-		pst.setString(3, registro.getActor().getId());
+		pst.setInt(2, registro.getIdOrdenTrazabilidad());
+		pst.setInt(3, registro.getIdPedido());
 		pst.setString(4, registro.getFechaInicio());
 		pst.setString(5, registro.getFechaFin());
 		pst.setInt(6, registro.getTempMax());
 		pst.setInt(7, registro.getTempMin());
 		pst.executeUpdate();
 		pst.close();
-		
+		//conn.close();
 	}
 
 	public static Registro extraerRegistro (int id) throws SQLException, ClassNotFoundException {
@@ -485,15 +590,13 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()){
-			Lote lote = extraerLote(rs.getInt(2));
-			Actor actor = extraerActor(rs.getString(3));
-			Registro buscado = new Registro(rs.getInt(1), lote , actor, rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
+			Registro buscado = new Registro(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
 			pst.close();
 			rs.close();
-			
+			//conn.close();
 			return buscado;
 		}
-		
+		//conn.close();
 		return null;
 	}
 
@@ -508,7 +611,7 @@ public class metodosCompany {
 					rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
 			cadena.addActor(buscado);
 		}
-		
+		//conn.close();
 		return cadena;
 
 	}
@@ -526,7 +629,7 @@ public class metodosCompany {
 				rs.close();
 				return buscado; 
 			}
-			
+			//conn.close();
 			return null;
 		}
 		else return null;
@@ -547,7 +650,7 @@ public class metodosCompany {
 		pst.setString(9, actor.getCifcooperativa());
 		pst.executeUpdate();
 		pst.close();
-		
+		//conn.close();
 	}
 
 	public static Bloque extraerBloque(String hashBloquePedido) throws SQLException, ClassNotFoundException, RuntimeException {
@@ -575,6 +678,10 @@ public class metodosCompany {
 				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerLote(rs.getInt(6)), idCadena);
 				devolver = buscado2;
 				break;
+			case 3:
+				Bloque buscado4 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerGeolocalizacion(rs.getInt(6)), idCadena);
+				devolver = buscado4;
+				break;
 			default:
 				Bloque buscado3 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer(), idCadena);
 				devolver = buscado3;
@@ -582,10 +689,10 @@ public class metodosCompany {
 			}
 			pst.close();
 			rs.close();
-			
+			//conn.close();
 			return devolver;
 		}
-		
+		//conn.close();
 		return null;
 	}
 
@@ -613,6 +720,13 @@ public class metodosCompany {
 				insertarLote(aInsertar3);
 			}			
 			break;
+		case 3: //Geolocalizacion
+			geolocalizacion aInsertar4 = (geolocalizacion) bloqAinsertar.getDatos();
+			data = aInsertar4.getIdOrden();
+			if(extraerGeolocalizacion(data)==null) {
+				insertarGeolocalizacion(aInsertar4);
+			}			
+			break;
 		}
 		conectar();
 		String query = "INSERT INTO company.bloque (hashBloque, hashPrevio, tipoBloque, numBloque, codLote, datosContainer, timeStamp, idCadena) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
@@ -627,33 +741,84 @@ public class metodosCompany {
 		pst.setInt(8, bloqAinsertar.getIdCadena());
 		pst.executeUpdate();
 		pst.close();
-		
+		//conn.close();
 	}
 	
-	public static ArrayList<OrdenTrazabilidad> extraerPedidosActorDestino(String idActor) throws SQLException, ClassNotFoundException{
+	public static ArrayList<OrdenTrazabilidad> extraerOrdenesActorOrigen(String idActor) throws SQLException, ClassNotFoundException{
 		conectar();
 		ArrayList<OrdenTrazabilidad> lista = new ArrayList<OrdenTrazabilidad>();
 		String query = "SELECT * FROM company.ordenTrazabilidad";
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			Actor actor = extraerActor(rs.getString(2));
-			Actor actor1 = extraerActor(rs.getString(3));
+			String firmaRecogida;
+			String firmaEntrega;
+			Actor actorOrigen = extraerActor(rs.getString(2));
+			Actor actorDestino = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
-			Actor actor2 = extraerActor(rs.getString(12));
-			Registro registro = extraerRegistro(rs.getInt(13));
-			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actor, actor1, rs.getBoolean(4), productos,
-					rs.getString(6), rs.getInt(7), rs.getBytes(8), rs.getBytes(9),actor2);
-			if(actor1 != null && actor1.getId()!= null && idActor!=null && actor1.getId().compareTo(idActor)==0) {
+			Actor actorTransportista = extraerActor(rs.getString(9));
+			ArrayList<Integer> productosOrden = null;
+			if(extraerProductosOrden(rs.getInt(1))!=null) {
+				productosOrden = extraerProductosOrden(rs.getInt(1));
+			}
+			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
+					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
+			if(actorOrigen != null && actorOrigen.getId()!= null && idActor!=null && actorOrigen.getId().compareTo(idActor)==0) {
 				lista.add(buscado);
 			}
 		}		
 		pst.close();
 		rs.close();
-		
+		//conn.close();
 
 		return lista;	
 	}
+	public static ArrayList<OrdenTrazabilidad> extraerOrdenesActorDestino(String idActor) throws SQLException, ClassNotFoundException{
+		conectar();
+		ArrayList<OrdenTrazabilidad> lista = new ArrayList<OrdenTrazabilidad>();
+		String query = "SELECT * FROM company.ordenTrazabilidad";
+		Statement pst = conn.createStatement();
+		ResultSet rs = pst.executeQuery(query);
+		while(rs.next()) {
+			String firmaRecogida;
+			String firmaEntrega;
+			Actor actorOrigen = extraerActor(rs.getString(2));
+			Actor actorDestino = extraerActor(rs.getString(3));
+			Productos productos = extraerProductos(rs.getInt(5));
+			Actor actorTransportista = extraerActor(rs.getString(9));
+			ArrayList<Integer> productosOrden = null;
+			if(extraerProductosOrden(rs.getInt(1))!=null) {
+				productosOrden = extraerProductosOrden(rs.getInt(1));
+			}
+			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
+					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
+			if(actorDestino != null && actorDestino.getId()!= null && idActor!=null && actorDestino.getId().compareTo(idActor)==0) {
+				lista.add(buscado);
+			}
+		}		
+		pst.close();
+		rs.close();
+		//conn.close();
+
+		return lista;	
+	}
+	
+	  public static LinkedList<Registro> registrosConOrden(int idOrden) throws SQLException, ClassNotFoundException{
+	        conectar();
+	        String query = "SELECT * FROM company.registro WHERE registro.idOrden = " + idOrden;
+	        PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+	        ResultSet rs = pst.executeQuery(query);
+	        LinkedList<Registro> lista = new LinkedList<Registro>();
+	        while(rs.next()){
+				Registro buscado = new Registro(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
+	            lista.add(buscado);
+	        }
+	        pst.close();
+	        rs.close();
+	        conn.close();
+	        return lista;
+	    }
+	
 	public static LinkedList<Lote> extraerStockLote(Actor actor) throws SQLException, ClassNotFoundException, NotInDatabaseException {
 		conectar();
 		LinkedList<Lote> buscado = new LinkedList<Lote>();
@@ -683,7 +848,7 @@ public class metodosCompany {
 			}
 			pst.close();
 			rs.close();
-			
+			//conn.close();
 			break;
 		case 3:
 			String query2 = "SELECT * FROM company.stockFabricaLotes"; 
@@ -708,7 +873,7 @@ public class metodosCompany {
 			}
 			pst2.close();
 			rs2.close();
-			
+			//conn.close();
 			break;
 		default:  
 			System.out.println("el actor suministrado no almacena lotes");
@@ -738,7 +903,7 @@ public class metodosCompany {
 			}
 			pst2.close();
 			rs2.close();
-			
+			//conn.close();
 			break;
 		case 1:
 			conectar();
@@ -758,7 +923,7 @@ public class metodosCompany {
 			}
 			pst.close();
 			rs.close();
-			
+			//conn.close();
 			break;
 		case 3:
 			conectar();
@@ -777,7 +942,7 @@ public class metodosCompany {
 			}
 			pst3.close();
 			rs3.close();
-			
+			//conn.close();
 			break;		
 		default: 
 			System.out.println("el actor suministrado no almacena materias primas.");
@@ -798,7 +963,7 @@ public class metodosCompany {
 			    pst.setInt(3, lote.getCantidad());
 			    pst.executeUpdate();
 			    pst.close();
-			    
+			    //conn.close();
 			    break;
 	   		case 3:
 	   			conectar();
@@ -808,7 +973,7 @@ public class metodosCompany {
 			    pst2.setInt(2, lote.getCantidad());
 			    pst2.executeUpdate();
 			    pst2.close();
-			    
+			    //conn.close();
 			    break;
 	    } 	
     }
@@ -823,7 +988,7 @@ public class metodosCompany {
 			    pst.setInt(3, cantidad);
 			    pst.executeUpdate();
 			    pst.close();
-			    
+			    //conn.close();
 			    break;
 	   		case 1:
 	   			conectar();
@@ -834,7 +999,7 @@ public class metodosCompany {
 			    pst2.setInt(3, cantidad);
 			    pst2.executeUpdate();
 			    pst2.close();
-			    
+			    //conn.close();
 			    break;
 	   		case 3:
 	   			conectar();
@@ -844,7 +1009,7 @@ public class metodosCompany {
 			    pst3.setInt(2, cantidad);
 			    pst3.executeUpdate();
 			    pst3.close();
-			    
+			    //conn.close();
 			    break;
 	    } 	
     }    
@@ -860,8 +1025,7 @@ public class metodosCompany {
             siguienteId = rs.getInt(1) + 1;
         }
         pst.close();
-       rs.close();
-       
+      	rs.close();
         return siguienteId;
     }
     
@@ -875,8 +1039,21 @@ public class metodosCompany {
             siguienteId = rs.getInt(1) + 1;
         }
         pst.close();
-       rs.close();
-       
+        rs.close();
+        return siguienteId;
+    }
+    public static int idPedido() throws SQLException, ClassNotFoundException{
+        conectar();
+        String query = "SELECT MAX (idPedido) FROM company.cadena";
+        Statement pst = conn.createStatement();
+        ResultSet rs = pst.executeQuery(query);
+        int siguienteId = 1;
+        if(rs.next()){
+            siguienteId = rs.getInt(1) + 1;
+        }
+        pst.close();
+        rs.close();
+        conn.close();
         return siguienteId;
     }
     
@@ -891,7 +1068,22 @@ public class metodosCompany {
         }
         pst.close();
        rs.close();
-       
+       //conn.close();
+        return siguienteId;
+    }
+    
+    public static int idGeolocalizacion() throws SQLException, ClassNotFoundException{
+        conectar();
+        String query = "SELECT MAX (id) FROM company.geolocalizacion";
+        Statement pst = conn.createStatement();
+        ResultSet rs = pst.executeQuery(query);
+        int siguienteId = 1;
+        if(rs.next()){
+            siguienteId = rs.getInt(1) + 1;
+        }
+        pst.close();
+       rs.close();
+       //conn.close();
         return siguienteId;
     }
     
@@ -906,7 +1098,7 @@ public class metodosCompany {
         }
         pst.close();
        rs.close();
-       
+       //conn.close();
         return siguienteId;
     }
     
@@ -921,29 +1113,29 @@ public class metodosCompany {
         }
         pst.close();
        rs.close();
-       
+       //conn.close();
         return siguienteId;
     }
-    public static MateriaPrima extraerMateriaPrima(String nombre) throws SQLException {
+    public static MateriaPrima extraerMateriaPrima(int id) throws SQLException {
     	conectar();
-		String query = "SELECT * FROM company.materiaPrima WHERE nombre = " + nombre;
+		String query = "SELECT * FROM company.materiaPrima WHERE idMateriaPrima = " + id;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			MateriaPrima buscado = new MateriaPrima(nombre, rs.getInt(1));
+			MateriaPrima buscado = new MateriaPrima(rs.getString(2), id, rs.getFloat(3));
 			pst.close();
 			rs.close();
-			
 			return buscado;
 		}
 		return null;
     }
     public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException{
 		conectar();
-		String query = "INSERT INTO company.materiaPrima (idMateriaPrima, nombre) VALUES (?, ?);";
+		String query = "INSERT INTO company.materiaPrima (idMateriaPrima, tipo, cantidad) VALUES (?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, mp.getId());
-		pst.setString(2, mp.getNombre());
+		pst.setString(2, mp.getTipo());
+		pst.setFloat(3, (float) mp.getCantidad());
 		pst.executeUpdate();
 		pst.close();
 	}

@@ -91,7 +91,7 @@ public class AlmacenMMPP {
 		return m7;
 	}
 	
-	public static double getLupuloCentennial() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getLupuloCentennial() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m11());
 	}
 
@@ -104,7 +104,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getLevaduraAle() throws ClassNotFoundException, SQLException, NotInDatabaseException  {
+	public static double getLevaduraAle() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException  {
 		return StockController.getCantidadStock(actor,m12());
 	}
 
@@ -117,7 +117,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getLevaduraLager() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getLevaduraLager() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m13());
 	}
 
@@ -131,7 +131,7 @@ public class AlmacenMMPP {
 	}
 	
 	
-	public static double getCebadaTostada() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getCebadaTostada() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m8());
 	}
 
@@ -144,7 +144,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getMaltaChocolate() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getMaltaChocolate() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m7());
 	}
 
@@ -153,7 +153,7 @@ public class AlmacenMMPP {
 	}
 	
 	
-	public static double getMaltaCrystal() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getMaltaCrystal() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m6());
 	}
 
@@ -166,7 +166,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getMaltaNegra() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getMaltaNegra() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m5());
 	}
 
@@ -179,7 +179,7 @@ public class AlmacenMMPP {
 		}
 	}
 	
-	public static double getMaltaMunich() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getMaltaMunich() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m4());
 	}
 
@@ -193,7 +193,7 @@ public class AlmacenMMPP {
 	}
 	
 	
-	public static double getMaltaBasePalida() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getMaltaBasePalida() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m3());
 	}
 
@@ -207,7 +207,7 @@ public class AlmacenMMPP {
 	}
 	
 	
-	public static double getMaltaPilsner() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getMaltaPilsner() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m1());
 	}
 
@@ -220,7 +220,7 @@ public class AlmacenMMPP {
 		}
 	}
 
-	public static double getMaltaCaramelo() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getMaltaCaramelo() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m2());
 	}
 
@@ -233,7 +233,7 @@ public class AlmacenMMPP {
 		}
 	}
 
-	public static double getLupuloPerle() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getLupuloPerle() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m9());
 	}
 
@@ -246,7 +246,7 @@ public class AlmacenMMPP {
 		}
 	}
 
-	public static double getLupuloTettnanger() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getLupuloTettnanger() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m10());
 	}
 
@@ -259,7 +259,7 @@ public class AlmacenMMPP {
 		}
 	}
 
-	public static double getLevaduraLager1() throws ClassNotFoundException, SQLException, NotInDatabaseException {
+	public static double getLevaduraLager1() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return StockController.getCantidadStock(actor,m13());
 	}
 
@@ -304,7 +304,7 @@ public class AlmacenMMPP {
 		maxlevaduraAle= 16541665;
 		maxlevaduraLager=687464;
 		
-		m2().setCapacidad(maxmaltaCaramelo);
+		/*m2().setCapacidad(maxmaltaCaramelo);
 		m3().setCapacidad(maxmaltaBasePalida);
 		m4().setCapacidad(maxmaltaMunich);
 		m5().setCapacidad(maxmaltaNegra);
@@ -316,7 +316,7 @@ public class AlmacenMMPP {
 		m11().setCapacidad(maxlupuloCentennial);
 		m10().setCapacidad(maxlupuloTettnanger);
 		m12().setCapacidad(maxlevaduraAle);
-		m13().setCapacidad(maxlevaduraLager);
+		m13().setCapacidad(maxlevaduraLager);*/
 
 
 

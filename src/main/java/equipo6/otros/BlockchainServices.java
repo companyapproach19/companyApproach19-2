@@ -131,9 +131,14 @@ public class BlockchainServices{
     }
     
 
-    public ArrayList<OrdenTrazabilidad> extraerPedido(String idActor) throws ClassNotFoundException, SQLException
+   public ArrayList<OrdenTrazabilidad> extraerOrdenesDestino(String idActor) throws ClassNotFoundException, SQLException
     {
-    	return metodosCompany.extraerPedidosActorDestino(idActor);
+    	return metodosCompany.extraerOrdenesActorDestino(idActor);
+    }
+    
+    public ArrayList<OrdenTrazabilidad> extraerOrdenesOrigen(String idActor) throws ClassNotFoundException, SQLException
+    {
+    	return metodosCompany.extraerOrdenesActorOrigen(idActor);
     }
     
     
@@ -205,4 +210,13 @@ public class BlockchainServices{
     	}
       return null;    	
     } 
+	
+	
+	   
+    public OrdenTrazabilidad getOrden(int idOrden) throws ClassNotFoundException, SQLException{
+    	return	equipo5.dao.metodosCompany.extraerOrdenTrazabilidad(idOrden);
+    }
+	
+	
+	
 }
