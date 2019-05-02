@@ -30,10 +30,15 @@ public class MainActivity extends AppCompatActivity {
     private int posicion = 0;
     private ArrayList<Pedido> pedidos;
     private FloatingActionButton refresh;
+    private Call<JSONArray> peticion;
+
+    public Call<JSONArray> getPeticion(){
+        return this.peticion;
+    }
 
     private PedidosAPI servicio;
 
-    private static final String URL = "";//"https:://beer-company2019.herokuapp.com/damePedidosTransportista";
+    private static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTransportista/";//"https:://beer-company2019.herokuapp.com/damePedidosTransportista";
 
 
     final int FICHA = 1;
@@ -87,9 +92,8 @@ public class MainActivity extends AppCompatActivity {
     public void cargaAdaptador () {
 
         if (URL != "") {
-            Call<JSONArray> peticion;
 
-            peticion = servicio.getPedidos();
+            peticion = servicio.getPedidos(URL);
 
             peticion.enqueue(new ObtenerResultados());
         }

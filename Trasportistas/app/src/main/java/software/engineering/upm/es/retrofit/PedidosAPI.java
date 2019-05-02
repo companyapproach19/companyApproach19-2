@@ -13,10 +13,10 @@ import software.engineering.upm.es.objetos.parceables.Pedido;
 
 public interface PedidosAPI {
     @GET("")
-    Call<String> getPedidos();
+    Call<JSONArray> getPedidos();
 
     @GET("{id}")
-    Call<String> getPedidos(@Path("id") String id);
+    Call<JSONArray> getPedidos(@Path("id") String id);
 
     @POST("ejemplo")
     Call<JSONArray> insertPedido(@Body Pedido pedido);

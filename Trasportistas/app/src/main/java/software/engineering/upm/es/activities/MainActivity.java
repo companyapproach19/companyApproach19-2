@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             servicio = retrofit.create(PedidosAPI.class);
 
-            Call<String> peticion = servicio.getPedidos();
+            Call<JSONArray> peticion = servicio.getPedidos();
 
             peticion.enqueue(new ObtenerResultados());
         }
@@ -99,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
         fijaAdaptador();
     }
 
-    private class ObtenerResultados implements Callback<String> {
+    private class ObtenerResultados implements Callback<JSONArray> {
         @Override
-        public void onResponse(Call<String> call, Response<String> response) {
+        public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
 
             try {
                 procesarConsulta(response.body());
@@ -111,13 +111,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<String> call, Throwable t) {
+        public void onFailure(Call<JSONArray> call, Throwable t) {
 
             procesarError(t.getMessage());
         }
     }
 
-    private void procesarConsulta (String jsonString) throws JSONException {
+    private void procesarConsulta (JSONArray jsonString) throws JSONException {
         JSONArray jsonArray = null;
 
         try {
