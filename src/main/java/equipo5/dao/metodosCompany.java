@@ -248,7 +248,7 @@ public class metodosCompany {
 	    PreparedStatement pst21 = conn.prepareStatement(
 	            "CREATE TABLE company.productosOrden (" +
 	            		"idOrden INT NOT NULL," +
-	                    "idMPoLote TIMESTAMP DEFAULT CURRENT_TIMESTAMP ," +
+	                    "idMPoLote INT NOT NULL ," +
 	                    "PRIMARY KEY (idOrden, idMPoLote)" + 
 	                    ");"
 	    );
@@ -290,7 +290,7 @@ public class metodosCompany {
 		String query = "SELECT * FROM company.geolocalizacion WHERE idOrden = " + idOrden;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
-		ArrayList<geolocalizacion> buscado = null;
+		ArrayList<geolocalizacion> buscado = new ArrayList<geolocalizacion>();
 		while(rs.next()) {
 			buscado.add(new geolocalizacion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getDate(5)));
 		}
@@ -350,7 +350,7 @@ public class metodosCompany {
 			Actor actorDestino = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
 			Actor actorTransportista = extraerActor(rs.getString(9));
-			ArrayList<Integer> productosOrden = null;
+			ArrayList<Integer> productosOrden = new ArrayList<Integer>();
 			if(extraerProductosOrden(rs.getInt(1))!=null) {
 				productosOrden = extraerProductosOrden(rs.getInt(1));
 			}
@@ -699,7 +699,7 @@ public class metodosCompany {
 			Actor actorDestino = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
 			Actor actorTransportista = extraerActor(rs.getString(9));
-			ArrayList<Integer> productosOrden = null;
+			ArrayList<Integer> productosOrden = new ArrayList<Integer>();
 			if(extraerProductosOrden(rs.getInt(1))!=null) {
 				productosOrden = extraerProductosOrden(rs.getInt(1));
 			}
@@ -728,7 +728,7 @@ public class metodosCompany {
 			Actor actorDestino = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
 			Actor actorTransportista = extraerActor(rs.getString(9));
-			ArrayList<Integer> productosOrden = null;
+			ArrayList<Integer> productosOrden = new ArrayList<Integer>();
 			if(extraerProductosOrden(rs.getInt(1))!=null) {
 				productosOrden = extraerProductosOrden(rs.getInt(1));
 			}
@@ -748,7 +748,7 @@ public class metodosCompany {
 	  public static LinkedList<Registro> registrosConOrden(int idOrden) throws SQLException, ClassNotFoundException{
 	        conectar();
 	        String query = "SELECT * FROM company.registro WHERE registro.idOrden = " + idOrden;
-	        PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+	        Statement pst = conn.createStatement();
 	        ResultSet rs = pst.executeQuery(query);
 	        LinkedList<Registro> lista = new LinkedList<Registro>();
 	        while(rs.next()){
@@ -766,11 +766,11 @@ public class metodosCompany {
 		LinkedList<StockLote> buscado = new LinkedList<StockLote>();
 		switch(actor.getTipoActor()) {
 		case 4:
-			String query = "SELECT * FROM company.stockRetailer WHERE idRetailer = " + actor.getId()+" AND idOrden = "+idOrden+";";
+			String query = "SELECT * FROM company.stockRetailer WHERE idActor = '" + actor.getId()+"' AND idOrden = "+idOrden+";";
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
 			while(rs.next()){
-				Lote loteBD = extraerLote(rs.getInt(4));
+				Lote loteBD = extraerLote(rs.getInt(2));
 				StockLote nuevo = new StockLote(loteBD, rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getInt(6), rs.getString(7));
 				buscado=estaLote(buscado, nuevo);
 			}
@@ -782,7 +782,7 @@ public class metodosCompany {
 			Statement pst2 = conn.createStatement();
 			ResultSet rs2 = pst2.executeQuery(query2);
 			while(rs2.next()){
-				Lote loteBD = extraerLote(rs2.getInt(3));
+				Lote loteBD = extraerLote(rs2.getInt(2));
 				StockLote nuevo = new StockLote(loteBD, rs2.getDate(3), rs2.getDate(4), rs2.getInt(5), rs2.getInt(6), null);
 				buscado=estaLote(buscado, nuevo);
 			}
