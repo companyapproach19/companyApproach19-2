@@ -110,7 +110,7 @@ function llegadaALaFabrica(){
 	alert("llamadaALaFabrica");
     var request = $.ajax({
     url : '/llegadaALaFabrica',
-    data : "numLoteIntroducido='1'",
+    data : "numLoteIntroducido=" + $("#numLoteIntroducido).val(),
     type : 'POST',
     dataType : 'json',
     });
@@ -132,8 +132,8 @@ function llegadaALaFabrica(){
 function molienda(){
 	alert("moliendo");
 	var request = $.ajax({
-		url:'/molienda'
-		data : "numLoteIntroducido='1'",
+		url:'/molienda',
+		data : "numLoteIntroducido=" + $("#numLoteIntroducido).val(),
 		type : 'POST',
 		dataType : 'json',
 	});
@@ -151,8 +151,8 @@ function molienda(){
 function coccion(){
 	alert("cociendo");
 	var request = $.ajax({
-		url:'/coccion'
-		data : "numLoteIntroducido='1'",
+		url:'/coccion',
+		data : "numLoteIntroducido=" + $("#numLoteIntroducido).val(),
 		type : 'POST',
 		dataType : 'json',
 	});
@@ -170,8 +170,8 @@ function coccion(){
 function fermentacion(){
 	alert("fermentando");
 	var request = $.ajax({
-		url:'/fermentacion'
-		data : "numLoteIntroducido='1'",
+		url:'/fermentacion',
+		data : "numLoteIntroducido=" + $("#numLoteIntroducido).val(),
 		type : 'POST',
 		dataType : 'json',
 	});
@@ -190,8 +190,8 @@ function fermentacion(){
 function embotellado(){
 	alert("embotellando");
 	var request = $.ajax({
-		url:'/embotellado'
-		data : "numLoteIntroducido='1'",
+		url:'/embotellado',
+		data : "numLoteIntroducido=" + $("#numLoteIntroducido).val(),
 		type : 'POST',
 		dataType : 'json',
 	});
@@ -209,8 +209,8 @@ function embotellado(){
 function salidaDeLaFabrica(){
 	alert("salida de la fabrica");
 	var request = $.ajax({
-		url:'/salidaDeLaFabrica'
-		data : "numLoteIntroducido='1'",
+		url:'/salidaDeLaFabrica',
+		data : "numLoteIntroducido=" + $("#numLoteIntroducido).val(),
 		type : 'POST',
 		dataType : 'json',
 	});
