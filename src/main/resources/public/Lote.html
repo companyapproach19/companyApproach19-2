@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8">
     <title>Lote</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
@@ -110,7 +110,7 @@
 </div>
 
 <script>
-function LlegadaALaFabrica(){
+function llegadaALaFabrica(){
 	alert("llamadaALaFabrica");
     var request = $.ajax({
     url : '/llegadaALaFabrica',
@@ -118,7 +118,6 @@ function LlegadaALaFabrica(){
     type : 'POST',
     dataType : 'json',
     });
-	alert("Antes del done");
 	request.done(function(response){
 		//var fecha = response.fechaInicio;
 		alert("llama funcion ajax correcta");
