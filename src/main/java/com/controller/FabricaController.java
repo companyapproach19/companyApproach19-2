@@ -64,11 +64,12 @@ package com.controller;
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
+			int introducido = Integer.parseInt(numLoteIntroducido);
 			//obj.addProperty("fechaInicio", "");
 			//ya hemos comprobado que la lista contiene al lote deseado
 			/*for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
-				if (lote1.getIdPedido()==numLoteIntroducido) {
+				if (lote1.getIdPedido()==introducido) {
 					Lote lote2 = lote1.getLote();
 					Date fechaLlegada = lote2.getFecha_inicio();
 					String fecha = fechaLlegada.getDate() + "/" + fechaLlegada.getMonth() + "/" + fechaLlegada.getYear();
@@ -79,128 +80,134 @@ package com.controller;
 			return obj.toString();
 		}
 		
-		/*@Scope("request")
+		@Scope("request")
 		@RequestMapping("/molienda")
 		@ResponseBody
-		public JsonObject molienda(HttpServletResponse response,
-										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
+		public String molienda(HttpServletResponse response,
+										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
+			int introducido = Integer.parseInt(numLoteIntroducido);
 			//ya hemos comprobado que la lista contiene al lote deseado
-			for (int i=0; i<lista.size(); i++) {
+			/*for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
 					obj.addProperty("molido", lote2.isMolido());
 					Date fecha = lote2.getFecha_molido();
 					String fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
-					obj.addProperty("fechaFin", fechaFin);
+					obj.addProperty("fechaInicio", fechaFin);
 				}
-			}
-			return obj;
+			}*/
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+			return obj.toString();
 		}
 		
 		@Scope("request")
 		@RequestMapping("/numLote")
 		@ResponseBody
-		public JsonObject coccion(HttpServletResponse response,
-										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
+		public String coccion(HttpServletResponse response,
+										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
+			int introducido = Integer.parseInt(numLoteIntroducido);
 			//ya hemos comprobado que la lista contiene al lote deseado
-			for (int i=0; i<lista.size(); i++) {
+			/*for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
 					obj.addProperty("cocido", lote2.isCocido());
 					Date fecha = lote2.getFecha_cocido();
-					String fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
-					obj.addProperty("fechaFin", fechaFin);
+					String fechaInicio = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
+					obj.addProperty("fechaInicio", fechaInicio);
 				}
-			}
-			return obj;
+			}*/
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+			return obj.toString();
 		}
 		
 		@Scope("request")
 		@RequestMapping("/fermentacion")
 		@ResponseBody
-		public JsonObject fermentacion(HttpServletResponse response,
-										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
+		public String fermentacion(HttpServletResponse response,
+										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
+			int introducido = Integer.parseInt(numLoteIntroducido);
+
 			//ya hemos comprobado que la lista contiene al lote deseado
-			for (int i=0; i<lista.size(); i++) {
+			/*for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
 					obj.addProperty("fermentado", lote2.isFermentado());
 					Date fecha = lote2.getFecha_fermentado2();
 					String fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
-					obj.addProperty("fechaFin", fechaFin);
+					obj.addProperty("fechaInicio", fechaFin);
 				}
-			}
-			return obj;
+			}*/
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+			return obj.toString();
 		}
 		
 		@Scope("request")
 		@RequestMapping("/embotellado")
 		@ResponseBody
-		public JsonObject embotellado(HttpServletResponse response,
-										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
+		public String embotellado(HttpServletResponse response,
+										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
+			int introducido = Integer.parseInt(numLoteIntroducido);
+
 			//ya hemos comprobado que la lista contiene al lote deseado
-			for (int i=0; i<lista.size(); i++) {
+		/*	for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
 					obj.addProperty("embotellado", lote2.isEmbotellado());
 					Date fecha = lote2.getFecha_embotellado();
 					String fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
-					obj.addProperty("fechaFin", fechaFin);
+					obj.addProperty("fechaInicio", fechaFin);
 				}
-			}
-			return obj;
+			}*/
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+
+			return obj.toString();
 		}
 		
 		@Scope("request")
 		@RequestMapping("/salidaDeLaFabrica")
 		@ResponseBody
-		public JsonObject salidaDeLaFabrica(HttpServletResponse response,
-										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
+		public String salidaDeLaFabrica(HttpServletResponse response,
+										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
 			obj.addProperty("fechaFin", "");
 			//ya hemos comprobado que la lista contiene al lote deseado
-			for (int i=0; i<lista.size(); i++) {
+		/*	for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
 					Lote lote2 = lote1.getLote();
 					Date fechaSalida = lote2.getFecha_final();
 					String fecha = fechaSalida.getDate() + "/" + fechaSalida.getMonth() + "/" + fechaSalida.getYear();
-					obj.addProperty("fechaFin", fecha);
+					obj.addProperty("fechaInicio", fecha);
 				}
-			}
-			return obj;
+			}*/
+			return obj.toString();
 		}
 		
-		@Scope("request")
-		@RequestMapping("/funWait")
-		@ResponseBody
-		public void funWait(HttpServletResponse response,
-				@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido,
-				Model model) throws Exception {
-			Thread.sleep(1000);
-			;
-		}*/
+		
+		
+		
+		
 }
