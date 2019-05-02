@@ -89,7 +89,7 @@
                         <div class="col-md-10 offset-md-2">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item" >
-                                <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">volver</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="NumLote.php" role="submit" aria-controls="home" aria-selected="true">volver</a>
                             </li>
                             </ul>
                         </div>
@@ -128,7 +128,6 @@ function llegadaALaFabrica(){
  
    });
 }
-
 function molienda(){
 	alert("moliendo");
 	var request = $.ajax({
@@ -147,7 +146,6 @@ function molienda(){
 	});
 	
 }
-
 function coccion(){
 	alert("cociendo");
 	var request = $.ajax({
@@ -166,7 +164,6 @@ function coccion(){
 	});
 	
 }
-
 function fermentacion(){
 	alert("fermentando");
 	var request = $.ajax({
@@ -186,7 +183,6 @@ function fermentacion(){
 	});
 	
 }
-
 function embotellado(){
 	alert("embotellando");
 	var request = $.ajax({
@@ -205,7 +201,6 @@ function embotellado(){
 	});
 	
 }
-
 function salidaDeLaFabrica(){
 	alert("salida de la fabrica");
 	var request = $.ajax({
@@ -224,7 +219,5 @@ function salidaDeLaFabrica(){
 	});
 	
 }
-
 </script>
 </body>
-                           
