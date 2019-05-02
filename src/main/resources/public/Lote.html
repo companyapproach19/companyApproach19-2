@@ -51,35 +51,35 @@
                     <p><strong>2. Molienda</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="Molienda" data-toggle="submit" href="Molienda.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Molienda" onclick="molienda()" data-toggle="submit" href="Molienda.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
                     <p><strong>3. Cocción</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="Coccion" data-toggle="submit" href="Coccion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Coccion" onclick="coccion()" data-toggle="submit" href="Coccion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
                     <p><strong>4. Fermentación</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="Fermentacion" data-toggle="submit" href="Fermentacion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Fermentacion" onclick="fermentacion()" data-toggle="submit" href="Fermentacion.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
                     <p><strong>5. Embotellado</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="Embotellado" data-toggle="submit" href="Embotellado.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Embotellado" onclick="embotellado()" data-toggle="submit" href="Embotellado.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
                     <p><strong>6. Salida de la fábrica</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="Salida" data-toggle="submit" href="Salida.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
+                        <a class="nav-link" id="Salida" onclick="salidaDeLaFabrica()" data-toggle="submit" href="Salida.html" role="submit" aria-controls="home" aria-selected="true">+ info</a>
                       </div>
                       
                     </p>   
@@ -128,6 +128,103 @@ function llegadaALaFabrica(){
  
    });
 }
+
+function molienda(){
+	alert("moliendo");
+	var request = $.ajax({
+		url:'/molienda'
+		data : "numLoteIntroducido='1'",
+		type : 'POST',
+		dataType : 'json',
+	});
+	request.done(function(response){
+		alert("llama funcion ajax correcta");
+		var fecha = response["fechaInicio"];
+		alert("la fecha que se ha recogido del servicio es: " + fecha);
+	});
+	request.fail(function(response){
+		alert("Error en el servidor");
+	});
+	
+}
+
+function coccion(){
+	alert("cociendo");
+	var request = $.ajax({
+		url:'/coccion'
+		data : "numLoteIntroducido='1'",
+		type : 'POST',
+		dataType : 'json',
+	});
+	request.done(function(response){
+		alert("llama funcion ajax correcta");
+		var fecha = response["fechaInicio"];
+		alert("la fecha que se ha recogido del servicio es: " + fecha);
+	});
+	request.fail(function(response){
+		alert("Error en el servidor");
+	});
+	
+}
+
+function fermentacion(){
+	alert("fermentando");
+	var request = $.ajax({
+		url:'/fermentacion'
+		data : "numLoteIntroducido='1'",
+		type : 'POST',
+		dataType : 'json',
+	});
+	request.done(function(response){
+		alert("llama funcion ajax correcta");
+		var fecha = response["fechaInicio"];
+		alert("la fecha que se ha recogido del servicio es: " + fecha);
+		alert("la densidad es 1.2 no hace falta segunda fermentación")
+	});
+	request.fail(function(response){
+		alert("Error en el servidor");
+	});
+	
+}
+
+function embotellado(){
+	alert("embotellando");
+	var request = $.ajax({
+		url:'/embotellado'
+		data : "numLoteIntroducido='1'",
+		type : 'POST',
+		dataType : 'json',
+	});
+	request.done(function(response){
+		alert("llama funcion ajax correcta");
+		var fecha = response["fechaInicio"];
+		alert("la fecha que se ha recogido del servicio es: " + fecha);
+	});
+	request.fail(function(response){
+		alert("Error en el servidor");
+	});
+	
+}
+
+function salidaDeLaFabrica(){
+	alert("salida de la fabrica");
+	var request = $.ajax({
+		url:'/salidaDeLaFabrica'
+		data : "numLoteIntroducido='1'",
+		type : 'POST',
+		dataType : 'json',
+	});
+	request.done(function(response){
+		alert("llama funcion ajax correcta");
+		var fecha = response["fechaInicio"];
+		alert("la fecha que se ha recogido del servicio es: " + fecha);
+	});
+	request.fail(function(response){
+		alert("Error en el servidor");
+	});
+	
+}
+
 </script>
 </body>
                            
