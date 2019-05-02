@@ -856,7 +856,7 @@ public class metodosCompany {
 			break;
 		case 3:
 			conectar();
-			String query3 = "SELECT * FROM company.stockCooperativa WHERE idOrden = "+idOrden;
+			String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idOrden = "+idOrden;
 			Statement pst3 = conn.createStatement();
 			ResultSet rs3 = pst3.executeQuery(query3);
 			while(rs3.next()) {
@@ -969,7 +969,7 @@ public class metodosCompany {
 			    break;
 	   		case 3:
 	   			conectar();
-			    String query2 = "INSERT INTO company.stockFabricaLotes (idMateriaPrima, fecha_entrada, idOrden, idPedido) VALUES (?, ?, ?, ?);"; 
+			    String query2 = "INSERT INTO company.stockFabricaMMPP (idMateriaPrima, fecha_entrada, idOrden, idPedido) VALUES (?, ?, ?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
 			    Date date2 = new Date(System.currentTimeMillis());
 		        pst2.setInt(1, stockMateria.getMp().getId());
@@ -1014,7 +1014,7 @@ public class metodosCompany {
 			    break;
 	   		case 3:
 	   			conectar();
-			    String query2 = "INSERT INTO company.stockFabricaLotes (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idPedido) VALUES (?, ?, ?, ?, ?);"; 
+			    String query2 = "INSERT INTO company.stockFabricaMMPP (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idPedido) VALUES (?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
 			    Date date2 = new Date(System.currentTimeMillis());
 		        pst2.setInt(1, stockMateria.getMp().getId());
