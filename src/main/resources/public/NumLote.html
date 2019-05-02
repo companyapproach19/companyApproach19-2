@@ -45,13 +45,13 @@
               Introduzca el número de una <strong>producción:</strong>
               <br/></br>
               <div>
-                <span class="fa fa-user"></span>
+                <span class="fa fa-user" id = numeroIntroducido></span> 
                 <input type="text"  name="lote" Placeholder="1234..." required>
                 
                 <div class="input-group-append">
                   <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                     <li class="nav-item" >
-                       <a class="nav-link" id="home" data-toggle="submit" href="Lote.html" role="submit" aria-controls="home" aria-selected="true">Buscar</a>
+                       <a class="nav-link" id="home" data-toggle="submit" href="Lote.php?miVariable=numeroIntroducido" role="submit" aria-controls="home" aria-selected="true">Buscar</a>
                     </li>
                   </ul>
                 </div>
@@ -74,11 +74,13 @@
                        <a class="nav-link" id="home" data-toggle="submit" href="Pilsner.html" role="submit" aria-controls="home" aria-selected="true">Crear producción Pilsner</a>
                     </li>
                   </ul>
+
                   <ul class="nav nav-tabs nav-justified ml-2" id="myTab" role="tablist">
                     <li class="nav-item">
                        <a class="nav-link" id="home" data-toggle="submit" href="Stout.html" role="submit" aria-controls="home" aria-selected="true">Crear produción Stout</a>
                     </li>
                   </ul>
+
                 </div>
                 <br/>            
               </div>-->
@@ -169,4 +171,84 @@
                                 
                             </div>-->
 
+       <script>
+       function hacerSeguimientoLote(){
+    	   var request = $.ajax({
+    		   url: '/obtenerNumLote',
+    		   data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+    		   type : 'POST',
+    		   dataType : 'json',
+    	   });
+    	   request.done(function(data){
+    		      
+    		      //Este metodo redirige a la URL
+    		     if(data.existe){
+    		    	 href = "Lote.html";
+    		   alert(data.num);
+    		   }
+    		   else{
+    		   alert("No existe el lote");
+    		   }
+    		    
+    		     });
+    		 
+    		     request.fail(function(data) {
+    		   
+    		     alert("Error en el servidor");
+    		   
+    		     });
+       }
+       
+       
+       
+          function obtenerNumLote(){
+
+      var request = $.ajax({
+      // la URL para la petición
+      url : '/numLote',
+ 
+      // la información a enviar
+      // (también es posible utilizar una cadena de datos)
+      data : "numLoteIntroducido=" + $("#numeroIntroducido").val(),
+ 
+      // especifica si será una petición POST o GET
+      type : 'POST',
+ 
+      // el tipo de información que se espera de respuesta
+      dataType : 'json',
+ 
+      });
+ 
+     request.done(function(data){
       
+      //Este metodo redirige a la URL
+     if(data.existe){
+   alert(data.num);
+   }
+   else{
+   alert("No existe el lote");
+   }
+    
+     });
+ 
+     request.fail(function(data) {
+   
+     alert("Error en el servidor");
+   
+     });
+ 
+ }
+        </script>
+        function comprobarValor(valor){
+          if(!NaN( $("#numeroIntroducido").val())){
+        	  alert("Numero introducido no valido.");
+        		  location.reload();
+          }
+          }
+          function pasarVariables(pagina, nombres) {
+        	  pagina +="?";
+        	  nomVec=$("#numeroIntroducido").val();
+        	    pagina += nomVec + "=" + escape(eval(nomVec));
+        	  	pagina = pagina.substring(0,pagina.length-1);
+        	  	location.href=pagina;
+        	}
