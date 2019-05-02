@@ -20,11 +20,15 @@ package com.controller;
 
 	import equipo4.model.Lote;
 	//import equipo5.model.StockLote;
+import equipo4.model.Principal;
 
 
 	@Controller
 	@SpringBootApplication
 	public class FabricaController {
+		
+
+
 		//va a dar error hasta que equipo5 suba el código de este sprint a máster
 //		LinkedList<StockLote> lista = StockController.getStockListas();
 		
@@ -67,6 +71,7 @@ package com.controller;
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			//obj.addProperty("fechaInicio", "");
 			//ya hemos comprobado que la lista contiene al lote deseado
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
 			/*for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==introducido) {
@@ -91,6 +96,7 @@ package com.controller;
 			JsonObject obj = new JsonObject();
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			//ya hemos comprobado que la lista contiene al lote deseado
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
 			/*for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
@@ -106,7 +112,7 @@ package com.controller;
 		}
 		
 		@Scope("request")
-		@RequestMapping("/numLote")
+		@RequestMapping("/coccion")
 		@ResponseBody
 		public static String coccion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
@@ -116,6 +122,7 @@ package com.controller;
 			JsonObject obj = new JsonObject();
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			//ya hemos comprobado que la lista contiene al lote deseado
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
 			/*for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
@@ -142,6 +149,7 @@ package com.controller;
 			int introducido = Integer.parseInt(numLoteIntroducido);
 
 			//ya hemos comprobado que la lista contiene al lote deseado
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
 			/*for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
@@ -168,6 +176,7 @@ package com.controller;
 			int introducido = Integer.parseInt(numLoteIntroducido);
 
 			//ya hemos comprobado que la lista contiene al lote deseado
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
 		/*	for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
@@ -194,6 +203,7 @@ package com.controller;
 			JsonObject obj = new JsonObject();
 			obj.addProperty("fechaFin", "");
 			//ya hemos comprobado que la lista contiene al lote deseado
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
 		/*	for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==numLoteIntroducido) {
@@ -209,36 +219,87 @@ package com.controller;
 		}
 	
 		
-		/*@Scope("request")
-		@RequestMapping("/salidaDeLaFabrica")
+		@Scope("request")
+		@RequestMapping("/moliendaCadena")
 		@ResponseBody
-		public static String moliendaCadena(HttpServletResponse response,
-										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
-										Model model) 
+		public static String moliendaCadena(HttpServletResponse response,Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
-			obj.addProperty("fechaFin", "");
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
 			//ya hemos comprobado que la lista contiene al lote deseado
-			for (int i=0; i<lista.size(); i++) {
-				StockLote lote1 = lista.get(i);
-					Lote lote2 = lote1.getLote();
-					Date fechaInicial = lote2.getFecha_inicio();
-					Date fechaActual = new Date();
-					int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
-					switch
-					
-					
-					
-					String fecha = fechaSalida.getDate() + "/" + fechaSalida.getMonth() + "/" + fechaSalida.getYear();
-					obj.addProperty("fechaInicio", fecha);
-				}
-			
-			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
-
+			Principal.actualizarLista();
+			if(Principal.getMoliendo().isEmpty()) {
+				obj.addProperty("info", "No hay lotes en la fase de molienda");
+			}
+			else {
+				Lote l = Principal.getMoliendo().get(0);
+				String info= "Lote moliendo numero: "+l.getIdBd()+"\n Fecha de llegada a fabrica: "+l.getFecha_inicio();
+				obj.addProperty("info", info);
+			}
 			return obj.toString();
-		}*/
+		}
 		
+		@Scope("request")
+		@RequestMapping("/cocinandoCadena")
+		@ResponseBody
+		public static String cocinandoCadena(HttpServletResponse response,Model model) 
+						throws Exception {
+			JsonObject obj = new JsonObject();
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
+			//ya hemos comprobado que la lista contiene al lote deseado
+			Principal.actualizarLista();
+			if(Principal.getCociendo().isEmpty()) {
+				obj.addProperty("info", "No hay lotes en la fase de cocinado");
+			}
+			else {
+				Lote l = Principal.getCociendo().get(0);
+				String info= "Lote cocinando numero: "+l.getIdBd()+"\n Fecha de llegada a fabrica: "+l.getFecha_inicio();
+				obj.addProperty("info", info);
+			}
+			return obj.toString();
+		}
+		
+		@Scope("request")
+		@RequestMapping("/fermentandoCadena")
+		@ResponseBody
+		public static String fermentandoCadena(HttpServletResponse response,Model model) 
+						throws Exception {
+			JsonObject obj = new JsonObject();
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
+			//ya hemos comprobado que la lista contiene al lote deseado
+			Principal.actualizarLista();
+			if(Principal.getFermentando().isEmpty()) {
+				obj.addProperty("info", "No hay lotes en la fase de fermentacion");
+			}
+			else {
+				Lote l = Principal.getFermentando().get(0);
+				String info= "Lote fermentando numero: "+l.getIdBd()+"\n Fecha de llegada a fabrica: "+l.getFecha_inicio();
+				obj.addProperty("info", info);
+			}
+			return obj.toString();
+		}
+		
+		@Scope("request")
+		@RequestMapping("/embotellandoCadena")
+		@ResponseBody
+		public static String embotellandoCadena(HttpServletResponse response,Model model) 
+						throws Exception {
+			JsonObject obj = new JsonObject();
+			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
+			//ya hemos comprobado que la lista contiene al lote deseado
+			Principal.actualizarLista();
+			if(Principal.getEmbotellando().isEmpty()) {
+				obj.addProperty("info", "No hay lotes en la fase de embotellado");
+			}
+			else {
+				Lote l = Principal.getEmbotellando().get(0);
+				String info= "Lote embotellando numero: "+l.getIdBd()+"\n Fecha de llegada a fabrica: "+l.getFecha_inicio();
+				obj.addProperty("info", info);
+			}
+			return obj.toString();
+		}
+		
+	
 		
 		
 		
