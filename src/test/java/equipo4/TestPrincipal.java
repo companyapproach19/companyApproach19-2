@@ -19,73 +19,61 @@ public class TestPrincipal {
 	Model model = null;
 	String fecha = "fechaqueyoheescrito";
 	String a = null;
+	String idLote = "";
 
 	@Test
-	public void testMetodo1() {
-		JsonObject result = new JsonObject();
-		result.addProperty("fechaInicio", fecha);
-		try {
-			a = FabricaController.llegadaALaFabrica(response, "1234", model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		assertEquals(result.toString(), a);
-	}
-	
-	@Test
-	public void testMetodo2() {
+	public void testFabricaController() {
+		
 		JsonObject res = new JsonObject();
+		
 		res.addProperty("fechaInicio", fecha);
 		try {
-			a = FabricaController.molienda(response, "1234", model);
+			a = FabricaController.llegadaALaFabrica(response, idLote, model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertEquals(res.toString(), a);
-	}
 	
-	@Test
-	public void testMetodo3() {
-		JsonObject res = new JsonObject();
+		res = new JsonObject();
 		res.addProperty("fechaInicio", fecha);
 		try {
-			a = FabricaController.coccion(response, "1234", model);
+			a = FabricaController.molienda(response, idLote, model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertEquals(res.toString(), a);
-	}
 	
-	@Test
-	public void testMetodo4() {
-		JsonObject res = new JsonObject();
+		res = new JsonObject();
 		res.addProperty("fechaInicio", fecha);
 		try {
-			a = FabricaController.fermentacion(response, "1234", model);
+			a = FabricaController.coccion(response, idLote, model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertEquals(res.toString(), a);
-	}
-	
-	@Test
-	public void testMetodo5() {
-		JsonObject res = new JsonObject();
+		
+		res = new JsonObject();
 		res.addProperty("fechaInicio", fecha);
 		try {
-			a = FabricaController.embotellado(response, "1234", model);
+			a = FabricaController.fermentacion(response, idLote, model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertEquals(res.toString(), a);
-	}
 	
-	@Test
-	public void testMetodo6() {
-		JsonObject res = new JsonObject();
+		res = new JsonObject();
 		res.addProperty("fechaInicio", fecha);
 		try {
-			a = FabricaController.salidaDeLaFabrica(response, "1234", model);
+			a = FabricaController.embotellado(response, idLote, model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		assertEquals(res.toString(), a);
+	
+		res = new JsonObject();
+		res.addProperty("fechaInicio", fecha);
+		try {
+			a = FabricaController.salidaDeLaFabrica(response, idLote, model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
