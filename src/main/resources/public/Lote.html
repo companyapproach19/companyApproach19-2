@@ -112,11 +112,11 @@
 function LlegadaALaFabrica(){
 	alert("llamadaALaFabrica");
     var request = $.ajax({
-    url : '/llegadaALaFabrica?numLoteIntroducido='+numLote,
+    url : '/llegadaALaFabrica'
+    data: "numLoteIntroducido="+1,
     type : 'POST',
     dataType : 'json',
     });
-	alert("Antes del done");
 	request.done(function(response){
 		//var fecha = response.fechaInicio;
 		alert("llama funcion ajax correcta");
