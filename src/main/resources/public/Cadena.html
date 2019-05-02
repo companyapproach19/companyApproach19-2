@@ -235,7 +235,63 @@ function moliendaCadena(){
  
    });
 }
-
+function cocinandoCadena(){
+	alert("cocinandoCadena");
+    var request = $.ajax({
+    url : '/cocinandoCadena',
+    type : 'POST',
+    dataType : 'json',
+    });
+	request.done(function(response){
+		alert("llama funcion ajax correcta");
+		var info = response["info"];
+		alert("la informacion que he recogido del servicio es:" + info);
+  
+   });
+   request.fail(function(response) {
+ 
+		alert("Error en el servidor");
+ 
+   });
+}
+function fermentandoCadena(){
+	alert("fermentandoCadena");
+    var request = $.ajax({
+    url : '/fermentandoCadena',
+    type : 'POST',
+    dataType : 'json',
+    });
+	request.done(function(response){
+		alert("llama funcion ajax correcta");
+		var info = response["info"];
+		alert("la informacion que he recogido del servicio es:" + info);
+  
+   });
+   request.fail(function(response) {
+ 
+		alert("Error en el servidor");
+ 
+   });
+}
+function embotellandoCadena(){
+	alert("embotellandoCadena");
+    var request = $.ajax({
+    url : '/embotellandoCadena',
+    type : 'POST',
+    dataType : 'json',
+    });
+	request.done(function(response){
+		alert("llama funcion ajax correcta");
+		var info = response["info"];
+		alert("la informacion que he recogido del servicio es:" + info);
+  
+   });
+   request.fail(function(response) {
+ 
+		alert("Error en el servidor");
+ 
+   });
+}
 </script>
 
 
