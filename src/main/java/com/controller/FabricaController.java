@@ -58,7 +58,7 @@ package com.controller;
 		@Scope("request")
 		@RequestMapping("/llegadaALaFabrica")
 		@ResponseBody
-		public String llegadaALaFabrica(HttpServletResponse response,
+		public static String llegadaALaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
@@ -76,14 +76,14 @@ package com.controller;
 					obj.addProperty("fechaInicio", fecha);
 				}
 			}*/
-			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito1");
 			return obj.toString();
 		}
 		
 		@Scope("request")
 		@RequestMapping("/molienda")
 		@ResponseBody
-		public String molienda(HttpServletResponse response,
+		public static String molienda(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
@@ -101,14 +101,14 @@ package com.controller;
 					obj.addProperty("fechaInicio", fechaFin);
 				}
 			}*/
-			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito2");
 			return obj.toString();
 		}
 		
 		@Scope("request")
 		@RequestMapping("/numLote")
 		@ResponseBody
-		public String coccion(HttpServletResponse response,
+		public static String coccion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
@@ -126,14 +126,14 @@ package com.controller;
 					obj.addProperty("fechaInicio", fechaInicio);
 				}
 			}*/
-			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito3");
 			return obj.toString();
 		}
 		
 		@Scope("request")
 		@RequestMapping("/fermentacion")
 		@ResponseBody
-		public String fermentacion(HttpServletResponse response,
+		public static String fermentacion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
@@ -152,14 +152,14 @@ package com.controller;
 					obj.addProperty("fechaInicio", fechaFin);
 				}
 			}*/
-			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito4");
 			return obj.toString();
 		}
 		
 		@Scope("request")
 		@RequestMapping("/embotellado")
 		@ResponseBody
-		public String embotellado(HttpServletResponse response,
+		public static String embotellado(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
@@ -178,7 +178,7 @@ package com.controller;
 					obj.addProperty("fechaInicio", fechaFin);
 				}
 			}*/
-			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito5");
 
 			return obj.toString();
 		}
@@ -186,7 +186,7 @@ package com.controller;
 		@Scope("request")
 		@RequestMapping("/salidaDeLaFabrica")
 		@ResponseBody
-		public String salidaDeLaFabrica(HttpServletResponse response,
+		public static String salidaDeLaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
@@ -203,8 +203,42 @@ package com.controller;
 					obj.addProperty("fechaInicio", fecha);
 				}
 			}*/
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito6");
+
 			return obj.toString();
 		}
+	
+		
+		/*@Scope("request")
+		@RequestMapping("/salidaDeLaFabrica")
+		@ResponseBody
+		public static String moliendaCadena(HttpServletResponse response,
+										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
+										//comprueba el número de lote introducido en la vista
+										Model model) 
+						throws Exception {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("fechaFin", "");
+			//ya hemos comprobado que la lista contiene al lote deseado
+			for (int i=0; i<lista.size(); i++) {
+				StockLote lote1 = lista.get(i);
+					Lote lote2 = lote1.getLote();
+					Date fechaInicial = lote2.getFecha_inicio();
+					Date fechaActual = new Date();
+					int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
+					switch
+					
+					
+					
+					String fecha = fechaSalida.getDate() + "/" + fechaSalida.getMonth() + "/" + fechaSalida.getYear();
+					obj.addProperty("fechaInicio", fecha);
+				}
+			
+			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
+
+			return obj.toString();
+		}*/
+		
 		
 		
 		
