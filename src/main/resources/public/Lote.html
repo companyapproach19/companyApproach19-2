@@ -1,6 +1,7 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 <html lang="es">
   <head>
@@ -47,7 +48,7 @@
                     <p><strong>1. Llegada a la fábrica</strong>
                       <br>
                       <div class="col-md-5 offset-md-2">
-                        <a class="nav-link" id="Llegada" onclick="LlegadaALaFabrica()" data-toggle="submit" href="#" role="submit" aria-controls="home" aria-selected="true">+ info</a>-->
+                        <a class="nav-link" id="Llegada" onclick="LlegadaALaFabrica()" aria-controls="home" aria-selected="true">+ info</a>-->
                       </div>
                       
                     </p>     
@@ -112,7 +113,8 @@
 function LlegadaALaFabrica(){
 	alert("llamadaALaFabrica");
     var request = $.ajax({
-    url : '/llegadaALaFabrica?numLoteIntroducido='+numLote,
+    url : '/llegadaALaFabrica',
+    data : "numLoteIntroducido='1'",
     type : 'POST',
     dataType : 'json',
     });
