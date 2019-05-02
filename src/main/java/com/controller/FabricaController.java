@@ -58,7 +58,7 @@ package com.controller;
 		@Scope("request")
 		@RequestMapping("/llegadaALaFabrica")
 		@ResponseBody
-		public JsonObject llegadaALaFabrica(HttpServletResponse response,
+		public String llegadaALaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
 										//comprueba el número de lote introducido en la vista
 										Model model) 
@@ -76,7 +76,7 @@ package com.controller;
 				}
 			}*/
 			obj.addProperty("fechaInicio", "fechaqueyoheescrito");
-			return obj;
+			return obj.toString();
 		}
 		
 		/*@Scope("request")
