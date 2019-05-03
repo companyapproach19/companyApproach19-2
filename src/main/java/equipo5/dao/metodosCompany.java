@@ -199,7 +199,7 @@ public class metodosCompany {
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
 	                    "idPedido INT NOT NULL ," +
-	            		"idCooperativa VARCHAR(45) NOT NULL," +
+	            		"idActor VARCHAR(45) NOT NULL," +
 	                    "PRIMARY KEY (idStockCooperativa)" +
 	                    ");"  
 	    );
@@ -226,7 +226,7 @@ public class metodosCompany {
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
 	                    "idPedido INT NOT NULL ," +
-	            		"idAgricultor VARCHAR(45) NOT NULL," +
+	            		"idActor VARCHAR(45) NOT NULL," +
 	                    "PRIMARY KEY (idStockAgricultor)" + 
 	                    ");"
 	    );
@@ -830,7 +830,7 @@ public class metodosCompany {
 		switch(actor.getTipoActor()){
 		case 0:
 			conectar();
-			String query = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = '"+actor.getId()+"' AND idOrden = "+idOrden;
+			String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idOrden = "+idOrden;
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
 			while(rs.next()) {
@@ -843,7 +843,7 @@ public class metodosCompany {
 			break;
 		case 1:
 			conectar();
-			String query2 = "SELECT * FROM company.stockCooperativa WHERE idCooperativa = '"+actor.getId()+"' AND idOrden = "+idOrden;
+			String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idOrden = "+idOrden;
 			Statement pst2 = conn.createStatement();
 			ResultSet rs2 = pst2.executeQuery(query2);
 			while(rs2.next()) {
@@ -1154,6 +1154,52 @@ public class metodosCompany {
 		pst.executeUpdate();
 		pst.close();
 	}
-    
-
+    public static LinkedList<StockMP> extraerStockMpPorPedido(Actor actor,OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, NotInDatabaseException {
+        LinkedList<StockMP> aDevolver = new LinkedList<StockMP>();
+        switch(actor.getTipoActor()){
+        case 0:
+            conectar();
+            String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockAgricultor WHERE fecha_salida <> NULL)";
+            Statement pst = conn.createStatement();
+            ResultSet rs = pst.executeQuery(query);
+            while(rs.next()) {
+                    MateriaPrima mp = extraerMateriaPrima(rs.getInt(2));
+                    StockMP nuevo = new StockMP(mp, rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getInt(6), rs.getString(7));
+                    aDevolver=estaMP(aDevolver, nuevo);
+            }
+            pst.close();
+            rs.close();
+            break;
+        case 1:
+            conectar();
+            String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockCooperativa WHERE fecha_salida <> NULL)";
+            Statement pst2 = conn.createStatement();
+            ResultSet rs2 = pst2.executeQuery(query2);
+            while(rs2.next()) {
+                MateriaPrima mp = extraerMateriaPrima(rs2.getInt(2));
+                StockMP nuevo = new StockMP(mp, rs2.getDate(3), rs2.getDate(4), rs2.getInt(5), rs2.getInt(6), rs2.getString(7));
+                aDevolver=estaMP(aDevolver, nuevo);
+            }
+            pst2.close();
+            rs2.close();
+            break;
+        case 3:
+            conectar();
+            String query3 = "SELECT * FROM company.stockfabricalotes WHERE idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockfabricalotes WHERE fecha_salida <> NULL)";
+            Statement pst3 = conn.createStatement();
+            ResultSet rs3 = pst3.executeQuery(query3);
+            while(rs3.next()) {
+                MateriaPrima mp = extraerMateriaPrima(rs3.getInt(2));
+                StockMP nuevo = new StockMP(mp, rs3.getDate(3), rs3.getDate(4), rs3.getInt(5), rs3.getInt(6), null);
+                aDevolver=estaMP(aDevolver, nuevo);
+            }
+            pst3.close();
+            rs3.close();
+            break;
+        default:
+            System.out.println("el actor suministrado no almacena materias primas.");
+        }
+        return aDevolver;
+    }
+   
 }

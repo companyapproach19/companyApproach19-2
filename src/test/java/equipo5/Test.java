@@ -176,14 +176,14 @@ public class Test extends metodosCompany {
 			StockMP stockG2_7 = new StockMP(maltaPilsner, dateiniG2_4, datefinG2_4, 53, 5, "3");
 			StockMP stockG2_8 = new StockMP(levaduraAle, dateiniG2_4, datefinG2_4, 53, 5, "3");
 
-//			insertarStockMP(stockG2_1);
-//			insertarStockMP(stockG2_2);
-//			insertarStockMP(stockG2_3);
-//			insertarStockMP(stockG2_4);
-//			insertarStockMP(stockG2_5);
-//			insertarStockMP(stockG2_6);
-//			insertarStockMP(stockG2_7);
-//			insertarStockMP(stockG2_8);
+			insertarStockMP(stockG2_1);
+			insertarStockMP(stockG2_2);
+			insertarStockMP(stockG2_3);
+			insertarStockMP(stockG2_4);
+			insertarStockMP(stockG2_5);
+			insertarStockMP(stockG2_6);
+			insertarStockMP(stockG2_7);
+			insertarStockMP(stockG2_8);
 
 			// Actores pedidos equipo 7
 			// 0->4 para Productor, Cooperativa, Transportista, Fabrica y Retailer
@@ -217,6 +217,12 @@ public class Test extends metodosCompany {
 					"Avenida Ilustración", "fg1");
 			Actor receptor2 = new Actor("18", "rick", "password", "rick@gmail.es", 4, "Calle Gaseta", "rick",
 					"Avenida Argentina", "fg0");
+			Actor error = new Actor("200", "rickkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+					+ "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+					+ "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+					+ "kkkk"
+					+ "", "password", "rick@gmail.es", 4, "Calle Gaseta", "rick",
+					"Avenida Argentina", "fg0");
 
 			insertarActor(prueba);
 			insertarActor(emisor1);
@@ -229,6 +235,16 @@ public class Test extends metodosCompany {
 			extraerActor("maria");
 			extraerActor("felipe");
 			extraerActor("rick");
+			
+			//SQL INJECTION
+			//System.out.println(extraerActor("rick; DROP TABLE actor").getId());
+			//System.out.println(extraerActor("rick; SELECT * FROM GEOLOCALIZACIONES").getId());
+			
+			//Sin conocer ningún dato de la BBDD
+			//System.out.println(extraerActor("jajks OR 1=1; SELECT * FROM LOTE").getId());
+			
+			//insertarActor(error);
+			//System.out.println(extraerActor("").getId());
 
 			CadenaActores cadena = extraerCadenaActores();
 			List<Actor> listact = cadena.getlista_actores();
@@ -272,6 +288,14 @@ public class Test extends metodosCompany {
 			extraerLote(1);
 			extraerLote(2);
 			System.out.println("Lotes extraidos");
+			
+			
+			// Sin fecha de inicio
+
+			Lote lotemal = new Lote(1, null, datefin2, null, false, true, false, true, false, "stout", dateMoli2,
+					dateCoci2, dateFerme2_1, dateFerme2_2, dateEmbo2);
+//			insertarLote(lotemal);
+
 
 			// Pruebas Productos
 			Productos productos1 = new Productos(1, 12, 5, 0, 4, 7, 8, 10, 11, 0, 1);
@@ -317,7 +341,7 @@ public class Test extends metodosCompany {
 			extraerRegistro(2);
 
 			System.out.println("Registros extraidos");
-
+	
 			// Pruebas cadena
 
 			Cadena cadenaPrueba1 = new Cadena(1, "INICIO", 1);
@@ -328,6 +352,7 @@ public class Test extends metodosCompany {
 
 			extraerCadena(1);
 			extraerCadena(2);
+			//System.out.println("Debería ser Null:" + extraerCadena(92101).getCodLote());
 			System.out.println("Pruebas Cadena OK");
 
 			// Prueba bloques
@@ -369,8 +394,8 @@ public class Test extends metodosCompany {
 			StockMP stockMp1 = new StockMP(cebadaTostada, dateinistock1, datefinstock1, 1, 1, "10");
 			StockMP stockMp2 = new StockMP(levaduraAle, dateinistock2, datefinstock2, 2, 2, "16");
 
-//			insertarStockMP(stockMp1);
-//			insertarStockMP(stockMp2);
+			insertarStockMP(stockMp1);
+			insertarStockMP(stockMp2);
 
 			System.out.println("Materias Primas Stock introducidas");
 
