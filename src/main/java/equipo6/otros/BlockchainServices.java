@@ -95,7 +95,7 @@ public class BlockchainServices{
     	{
     	case 1:
     		if(orden.getActorDestino().getTipoActor() == 0)return true;
-    		stock_mp = metodosCompany.extraerStockMpPorPedido(orden.getActorDestino(),orden.getIdPedido());
+    		stock_mp = metodosCompany.extraerStockMpPorPedido(orden.getActorDestino(),orden);
     		stock_mp = filtrar_stock_por_materia_prima(stock_mp, materia_prima.getTipo());
     		if(stock_mp.size() == 0)return false;
     		metodosCompany.insertarStockMP(stock_mp.get(0));
