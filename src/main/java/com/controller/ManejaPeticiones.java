@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo7.otros.DescodificadorJson;
-import main.java.equipo7.otros.ListaIDs;
+import equipo7.otros.ListaIDs;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
