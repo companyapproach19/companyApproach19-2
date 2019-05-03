@@ -3,20 +3,25 @@
 
 function pedirIds(actor, estado){
 	
+	
+	
 	  var url;
  
 	  switch (estado) {
 		  case 0 :
 		  url = "/ordenesPendientesPorAceptar";
 		  alert("obteniendo pedidos recibidos (pendientes por aceptar)");
+		  console.log("pido /ordenesPendientesPorAceptar?id="+actor);
 		  break;
 		  case 1 :
 		  url = "/ordenesEnProceso";
 		  alert("obteniendo pedidos por resolver");
+		  console.log("pido /ordenesEnProceso?id="+actor);
 		  break;
 		  case 2 :
 		  url = "/ordenesQueHeEnviado";
 		  alert("obteniendo pedidos aceptados");
+		  console.log("pido /ordenesQueHeEnviado?id="+actor);
 		  break;
 	    }
 	  
@@ -86,45 +91,81 @@ function pedirIds(actor, estado){
 
 
 
-  function mostrarPedido(pos, actor){
-	  
-        
+
+function creaOrden(actor){
+
+      var request = $.ajax({
+      // la URL para la petición
+      url : '/crearOrden',
+ 
+      // la información a enviar
+      // (también es posible utilizar una cadena de datos)
+      data : paraJson(actor),
+ 
+      // especifica si será una petición POST o GET
+      type : 'POST',
+ 
+      // el tipo de información que se espera de respuesta
+      dataType : 'json',
+ 
+      });
+ 
+     request.done(function(data){
+      
+      //TODO Este metodo redirige a la URL
+      windows.append('/cooperativaInicio.html');
+    
+     });
+ 
+     request.fail(function(data) {
+     
+     alert("Error en el servidor creando orden");
 	 
-		 request.fail(function(data) {
-		 
-			alert("Error en el servidor obteniendo el pedido");
-			
-			switch(actor) {
-	  case 1:
-	  alert("HOLA AGRICULTOR");
-			  $("popup1").text("Petición al servidor fallida. Se utilizarán datos locales");
-		  rellenaPopup(JSON.parse(json_aux1), actor);
-		  break;
-	  case 2:
-			  $("popup3").text("Petición al servidor fallida. Se utilizarán datos locales");
-		  rellenaPopup(JSON.parse(json_aux2), actor);
-		  break;
-	  case 3:
-			  $("popup2").text("Petición al servidor fallida. Se utilizarán datos locales");
-		  rellenaPopup(JSON.parse(json_aux3), actor);
-		  break;
-	  case 4:
-			  $("popup4").text("Petición al servidor fallida. Se utilizarán datos locales");
-		  rellenaPopup(JSON.parse(json_aux4), actor);
-		  break;
-	  default:
-		  break;
-	  }
-			
-			
-		 });
-		  
-    }
+     
+     });
+ 
+ }
+ 
+ function paraJson(actor) {
 
+	
+	// switch(actor){} dependiendo tipo actor se rellenan unos campos u otros
+	
+	
+    var object = { 
+		id: -1,
+		mensaje : "",
+		actorOrigen: {
+		  id: 6,
+		  nombreUsuario: "Productor",
+		  tipoActor:  2
+		},
+		"actorDestino": {
+			id: document.getElementById("identificador").value,
+		  nombreUsuario: "Agricultor",
+		  tipoActor: 1 
+		},
+		productos: {
+		cant_malta_palida: document.getElementById("malta_palida").value,
+		cant_malta_munich: document.getElementById("malta_munich").value,
+		cant_malta_negra: document.getElementById("malta_negra").value,
+		cant_malta_crystal: document.getElementById("malta_crystal").value,
+		cant_malta_chocolate: document.getElementById("malta_chocolate").value,
+		cant_malta_caramelo: document.getElementById("malta_caramelo").value,
+		cant_cebada: document.getElementById("cebada").value, 
+		cant_cebada_tostada: document.getElementById("cebada_tostada").value,
+		cant_lupulo_centenial:document.getElementById("lupulo_centinental").value,
+		cant_cajas_stout:0,
+		cant_cajas_bisner:0
+		},
+  
+    };
+		
+	var jsonText = JSON.stringify(object);
+    console.log(jsonText);
+	return jsonText;
 
-
-
-
+  }
 
 
 
@@ -299,7 +340,7 @@ $(document).ready(function(){
 });
 
 
-
+// id: 1 = Agricultor, 2 = Fabrica, 3 = Cooperativa, 4  Tienda
 function intermedio(pos, id){
 	
 	alert("intermedio("+pos+","+id+")");
@@ -381,7 +422,7 @@ function pedirPedido(pos, actor) {
 		 
 	var idOrden = idsOrdenes[pos];
 		
-	console.log("peticion ajax para obtener pedido "+idOrden);
+	console.log("pido pedido a /obtenerOrden?id="+idOrden);
 		 
 		var request = $.ajax({
 		  
