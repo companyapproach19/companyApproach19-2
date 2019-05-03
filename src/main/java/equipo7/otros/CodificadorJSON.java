@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import equipo7.model.OrdenTrazabilidad;
-import main.java.equipo7.otros.ListaIDs;
+import equipo7.otros.ListaIDs;
 
 public class CodificadorJSON {
 

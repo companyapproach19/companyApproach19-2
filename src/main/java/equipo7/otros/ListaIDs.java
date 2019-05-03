@@ -1,4 +1,4 @@
-package main.java.equipo7.otros;
+package equipo7.otros;
 
 import java.util.ArrayList;
 

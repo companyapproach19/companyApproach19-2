@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import equipo7.model.OrdenTrazabilidad;
-import main.java.equipo7.otros.ListaIDs;
+import equipo7.otros.ListaIDs;
 
 
 public class DescodificadorJson {
