@@ -74,12 +74,12 @@
 function getDataLogin(){
 	var email = $("#username").val();
 	var password = $("#password").val();
-	var log = {"email":email,"password":password};
+	var log = {"usuario":email,"pwd":password};
 	console.log(log);
 	logIn(email, password);
 }
 function logIn(email,password){
-  $.getJSON("loginUser?username="+email+"&password="+password, function(data) {
+  $.getJSON("loginUser?usuario="+email+"&pwd="+password, function(data) {
     alert("BIEN. FUNCIONO GET JSON");
     if(data==null){
 		console.log("soy null");
