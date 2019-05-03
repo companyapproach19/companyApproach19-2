@@ -12,6 +12,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <link href="style2.css" rel="stylesheet" id="bootstrap-css">
+
+<!------ TEST SCRIPTSS ---------->
+<script type="text/javascript" src="ajaxs.js"></script>
+<!------ TEST SCRIPTSS ---------->
+
 </head>
 <body>
 <div class="container register solicitarpedidos">
@@ -104,7 +109,7 @@
                                             <h6>Lupulo centinal:</h6>
                                             <input type="number" class="form-control"  placeholder="Cantidad en kg" id="lupulo_centinental" value="" />
                                         </div>
-                                       <input type="submit" class="btnRegister"  onClick="hacerPeticion();" value="Enviar pedido"/>
+                                       <input type="submit" class="btnRegister"  onClick="creaOrden(3);" value="Enviar pedido"/>
                                     </div>
                                 </div>
                             </div>
@@ -115,77 +120,6 @@
 </div>
 </body>
 <script>
-function hacerPeticion(){
-      var request = $.ajax({
-      // la URL para la petición
-      url : '/creaPedido',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos)
-      data : paraJson(),
- 
-      // especifica si será una petición POST o GET
-      type : 'POST',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-      });
- 
-     request.done(function(data){
-      
-      //TODO Este metodo redirige a la URL
-      windows.append('/NumLote.html');
-    
-     });
- 
-     request.fail(function(data) {
-     
-     alert("Error en el servidor");
-     
-     });
- 
- }
- 
- function paraJson() {
-
-    var object = { 
-	    id: -1,
-      mensaje : "",
-    actorOrigen: {
-      id: 6,
-      nombreUsuario: "Productor",
-      tipoActor:  2
-    },
-    "actorDestino": {
-        id: document.getElementById("identificador").value,
-      nombreUsuario: "Agricultor",
-      tipoActor: 1 
-    },
-    productos: {
-	cant_malta_palida: document.getElementById("malta_palida").value,
-	cant_malta_munich: document.getElementById("malta_munich").value,
-	cant_malta_negra: document.getElementById("malta_negra").value,
-	cant_malta_crystal: document.getElementById("malta_crystal").value,
-	cant_malta_chocolate: document.getElementById("malta_chocolate").value,
-	cant_malta_caramelo: document.getElementById("malta_caramelo").value,
-	cant_cebada: document.getElementById("cebada").value, 
-	cant_cebada_tostada: document.getElementById("cebada_tostada").value,
-	cant_lupulo_centenial:document.getElementById("lupulo_centinental").value,
-	cant_cajas_stout:0,
-    	cant_cajas_bisner:0
-    },
-  
-        };
-		
-		var jsonText = JSON.stringify(object);
-    console.log(jsonText);
-    return jsonText;
-
-  }
- 
- 
- //TODO 
  
 </script>
 </html>
