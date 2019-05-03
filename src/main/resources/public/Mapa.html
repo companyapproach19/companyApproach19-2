@@ -57,6 +57,8 @@ function initialize(data) {
 	//Obtener el stock de diferentes partes
 	var stock=new Map();
 	
+	console.log(data)
+	
 	for(var i=0;i<data.length;i++){
 		markers.push([data[i].tipo, data[i].nombre, data[i].email, data[i].coord, data[i].lat, data[i].lon]);
 		stock.set(data[i].nombre, 0);
@@ -93,7 +95,19 @@ function initialize(data) {
     var infoWindow = new google.maps.InfoWindow();
     var marker;
     var i;
+    var mapeo_color_tipo;
     
+    mapeo_color_tipo = 
+    {
+    		"A":"http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
+    		"F":"http://maps.google.com/mapfiles/ms/icons/purple-dot.png",
+    		"C":"http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+    		"R":"http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+    		"T":"http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+    		"G":"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+    };
+    
+    // para el icono del pedido "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
     // Loop through our array of markers & place each one on the map  
     for( i = 0; i < markers.length; i++ ) {
         var position = new google.maps.LatLng(markers[i][4], markers[i][5]);
@@ -103,7 +117,7 @@ function initialize(data) {
             map: map,
             title: markers[i][1],
             icon: {
-                url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                url: mapeo_color_tipo[data[i].tipo[0]]
           	}
         });
         

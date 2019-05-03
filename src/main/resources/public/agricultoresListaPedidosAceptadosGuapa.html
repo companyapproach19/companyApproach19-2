@@ -25,14 +25,14 @@
                     <div class="col-md-9 register-right pedidosaceptados">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='C:/Users/crist/OneDrive/Documents/companyApproach19-2/src/main/resources/templates/login.html';">Log out</a>
                             </li>
                             </ul>
                             <p></p>
                             <div class="col-3 borde">
                                 <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='agricultoresInicio.html';">Volver</a>
+                                    <a class="nav-link" id="home2" data-toggle="submit" href="agricultoresInicio.html" role="submit" aria-controls="home2" aria-selected="true">Volver</a>
                                 </li>
                                 </ul>
                             </div>
@@ -43,10 +43,18 @@
                                 <div class="row register-form">
                                     <div class="col-md-8 pedidoscenter">
                                         <div class="form-group">
+										
+										
+					 <!---------A BORRAR SI MODAL----->						
+					<div class="container">
+					<table id="my_table" class="table">
+					</table>
+				     </div>
+				     <!-------------->				
+										
                                             <input type="checkbox" name="producto1" id="producto1" value="Pedido id1">
                                             <label for="producto1" id="label1">Pedido noPedido</label>
-                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
-
+                                            <a href="" onclick="mostrarPedido(0)" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
                                         </div>
 
                                         <div class="form-group">
@@ -81,9 +89,9 @@
                                             <label for="producto7" id="label7">Pedido noPedido</label>
                                             <a href="genericaAgricultoresAceptar.html">Ver mas informacion del pedido</a>
                                         </div>
-																																		   
-											
-                                <input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids(); window.location.href='agricultoresInicio.html';" value="Completar pedidos"/>
+										
+<!-- 								<input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids(); window.location.href='agricultoresInicio.html';" value="Completar pedidos"/>
+ -->                                <input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids();" value="Completar pedidos"/>
 
                                 <!-- MODAL -->
                                 <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -113,8 +121,6 @@ Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac fa
                                       </div>
                                     </div>   
                                     <!-- MODAL -->
-									  
-								
                             </div>
                                 <!-- <label for="producto">*Los pedidos que no sean seleccionados se rechazaran automaticamente*</label> -->
 
@@ -125,26 +131,22 @@ Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac fa
 
             </div>
 </div>
-	   
 <script>
  
-window.onload = hacerPeticion;
-var sifalla = [1,25,695,22,88,7];
-data2 = {"listaIDs" : [1,5,9]};
-data = JSON.stringify(data2);
-
- function hacerPeticion(){
-  //Aqui se puede dar un valor por defecto, solo por si acaso
-        var local_data;
+window.onload = pedirIds;
 
 
-      var request = $.ajax({
-      // la URL para la petición
-      url : '/pedidosEnProceso',
+ function pedirIds(){
  
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos) //ID del actor
-      data :"5" ,
+	  console.log("peticion ajax para obtener idsOrdenes");
+	  
+      var request = $.ajax({
+	  
+      // la URL para la petición
+      url : '/ordenesPendientesPorAceptar',
+ 
+      // la información a enviar (ID agricultor=0)
+      data :"id=0" ,
  
       // especifica si será una petición POST o GET
       type : 'GET',
@@ -155,106 +157,289 @@ data = JSON.stringify(data2);
       });
  
      request.done(function(data){
-      
+	 
+        //HA FUNCIONADO AJAX
 		
-     imprimirjson();
+		//se han obtenido datos de la peticion ajax
+		//parseo lo obtenido para obtener array de ids de las ORDENES
+		//reescribo el array local idsOrdenes
+		
+		idsOrdenes = JSON.parse(data);
+		//idsOrdenes = idsOrdenes.listaIDs;
+		
+		//paso por parametro a imprimir
+		imprimirjson(idsOrdenes);
     
      });
  
      request.fail(function(data) {
      
-
-     alert("Error en el servidor obteniendo ids");
-     mostrarFallo();
+		alert("Error en el servidor obteniendo ids");
+		
+		//paso por parametro array idsOrdenes local 
+		imprimirjson(idsOrdenes);
+		
+		
      });
  
  }
- //Funcion que saca una lista
- function imprimirjson(){
-          var hola = JSON.parse(data);
-          var local_data = hola.listaIDs;
-          //console.log(data);
-          //console.log(local_data);
-                 var label = 'label';
-            for (var i = 1; i< local_data.length + 1; i++) {
+ 
+ //Funcion que imprime cada id ORDEN
+ function imprimirjson(ids){
+
+		  if (ids==null){ 
+			alert("No hay pedidos");
+		  } else {
+			var label = 'label';
+            for (var i = 1; i< ids.length + 1; i++) {
                 var x = i.toString(10);
-                //console.log(label.concat(x));
-                document.getElementById(label.concat(x)).innerHTML = local_data[i-1];
-
-                }
-
- }
+                document.getElementById(label.concat(x)).innerHTML = ids[i-1];
+			}
+		  }
+	}
 
 
-  function mostrarFallo(){
-         var local_data = sifalla;
-            var label = 'label';
-            for (var i = 1; i< local_data.length + 1; i++) {
-                var x = i.toString(10);
-                //console.log(label.concat(x));
-                document.getElementById(label.concat(x)).innerHTML = sifalla[i-1];
 
-                }    
-        }
+
+  function mostrarPedido(pos){
+        alert("voy a mostrar pedido "+pos);
+		 
+		var idOrden = idsOrdenes[pos];
+		
+		console.log("peticion ajax para obtener pedido "+idOrden);
+		 
+			var request = $.ajax({
+		  
+				  // la URL para la petición
+				  url : '/obtenerOrden',
+			 
+				  // la información a enviar (ID agricultor=0)
+				  data :"id="+idOrden ,
+			 
+				  // especifica si será una petición POST o GET
+				  type : 'GET',
+			 
+				  // el tipo de información que se espera de respuesta
+				  dataType : 'json',
+			 
+				  });
+	 
+		 request.done(function(data){
+		 
+			//HA FUNCIONADO AJAX
+			
+			//se han obtenido json del pedido
+			pedido = JSON.parse(data);
+			
+			//paso por parametro a imprimir
+			imprimirPedido(pedido);
+		
+		 });
+	 
+		 request.fail(function(data) {
+		 
+			alert("Error en el servidor obteniendo el pedido");
+			
+			//paso por parametro array idsOrdenes local 
+			imprimirPedido(pedido);
+			
+			
+		 });
+		  
+    }
+
+
+
+
+
+
+function imprimirPedido(muestra){
+	
+	var local_data = muestra;
+						var productos =  '<tr>' +
+									' <td>' + 'Cantidad '  + '</td>' +
+									' <td>' + ' Productos '   +  '</td>' +
+									
+									'</tr>' +
+									
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_palida  + '</td>' +
+									' <td>' + ' Malta Palida'   +  '</td>' +
+									
+									'</tr>' + 
+									
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_munich  + '</td>' +
+									' <td>' + ' Malta Munich'   +  '</td>' +
+									
+									'</tr>' +
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_negra  + '</td>' +
+									' <td>' + ' Malta Negra'   +  '</td>' +
+									
+									'</tr>' +  
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_crystal  + '</td>' +
+									' <td>' + ' Malta Crystal'   +  '</td>' +
+									
+									'</tr>' +
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_chocolate  + '</td>' +
+									' <td>' + ' Malta Chocolate'   +  '</td>' +
+									
+									'</tr>' +
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_malta_caramelo  + '</td>' +
+									' <td>' + ' Malta Caramelo'   +  '</td>' +
+									
+									'</tr>' + 
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_cebada  + '</td>' +
+									' <td>' + ' Cebada'   +  '</td>' +
+									
+									'</tr>' + 
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_cebada_tostada  + '</td>' +
+									' <td>' + ' Cebada Tostada'   +  '</td>' +
+									
+									'</tr>' +
+									'<tr>' +
+									
+									' <td>' + local_data.productos.cant_lupulo_centenial  + '</td>' +
+									' <td>' + ' Lupulo Centenial'   +  '</td>' +
+									
+									'</tr>';
+     
+	var table_body_element = document.createElement('tbody');
+	table_body_element.innerHTML = productos;
+	document.getElementById('my_table').appendChild(table_body_element);
+	
+	
+			
+}
+
+
+
 
 
 
 function mandarids(){
+
+
   var str = 'producto';
   var array = [-1,-1,-1,-1,-1,-1,-1];
-  var booleano = false;
   var str2 = '';
   var aux;
-  var label = 'label';
+  //var label = 'label';
   for (var i = 1; i< 8; i++) {
-    var x = i.toString(10);
-    str2 = str.concat(x);
-    aux = document.getElementById(str2);
-    if (aux.checked){
-      array[i-1] = document.getElementById(label.concat(x));
-      }
+  
+		var x = i.toString(10);
+		str2 = str.concat(x);
+		aux = document.getElementById(str2);
+		if (aux.checked){
+		
+		  array[i-1] = 1;
+		  
+		  
+			var request = $.ajax({
+			
+			
+			  // la URL para la petición
+			  url : '/aceptarOrden',
+		 
+			  // la información a enviar
+			  data :"id="+idsOrdenes[i-1] ,
+		 
+			  // especifica si será una petición POST o GET
+			  type : 'POST',
+		 
+			  // el tipo de información que se espera de respuesta
+			  dataType : 'json',
+		 
+
+			});
+		 
+			request.done(function(data){
+			  
+				 
+				 
+			});
+		 
+			request.fail(function(data) {
+			 
+			 //que curioso,,, aqui es como que no existe variable i
+			 alert("ERROR al aceptar "+idsOrdenes[i-1]+" pedido");
+		   
+			});
+	  
+	    }
     
     }
-
-data2 = {"listaIDs" : array};
-data = JSON.stringify(data2);
-
-  var request = $.ajax({
-      // la URL para la petición
-      url : '/listoPedido',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos) //ID del actor
-      data :data,
- 
-      // especifica si será una petición POST o GET
-      type : 'POST',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-
-      });
- 
-     request.done(function(data){
-      
-         
-     });
- 
-     request.fail(function(data) {
-     
-     alert("Error en el servidor al completar");
-   
-     });
-
-
-
-
+	
+	data2 = {"listaIDs" : array};
+	data = JSON.stringify(data2);
+	//console.log("DATA2  ES  "+data2);
+	console.log("DATA  ES  "+data);
+	console.log("ARRAY ES  "+array);
+	
+	
+	
+	//window.location.href='agricultoresInicio.html'
 }
 
+//--------------------------------TRAMPAS------------------------------------------
 
+var idsOrdenes = [1,25,695,22,88,7];
+//var idsOrdenes = null;
+
+var pedido = {
+    "id": 49126,
+    "actorOrigen": {
+      "id": 15,
+      "nombreUsuario": "Juan Jose Romagosa",
+      "email": "hipojuan@empresaperros.com",
+      "tipoActor": 1
+    },
+    "actorDestino": {
+      "id": 54,
+      "nombreUsuario": "Chocu El Magnate del Cereal",
+      "email": "monitochocu@desatranquesjaen.com",
+      "tipoActor": 3
+    },
+    "necesitaTransportista": true,
+    "productos": {
+	"cant_malta_palida": 20,
+	"cant_malta_munich": 40,
+	"cant_malta_negra": 0,
+	"cant_malta_crystal": 0,
+	"cant_malta_chocolate": 0,
+	"cant_malta_caramelo": 0,
+	"cant_cebada": 0,
+	"cant_cebada_tostada": 0,
+	"cant_lupulo_centenial": 0,
+	"cant_cajas_stout":0,
+    "cant_cajas_bisner":0
+    },
+    "mensaje": "PeticiĂ³n de prueba.",
+    "estado": 0,
+    "idPadre": 5196,
+    "idHijo": 1952,
+    "transportista": {
+      "id": 92,
+      "nombreUsuario": "Doctor Jirafa",
+      "email": "dortoc@refranes.com",
+      "tipoActor": 2
+    }
+}
   
-		 
 
   
 </script>

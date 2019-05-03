@@ -15,6 +15,62 @@ import equipo7.model.Productos;
 import equipo8.model.Registro;
 import equipo6.model.Actor;
 
+
+/*
+ 
+  
+  
+INSERT INTO company.actor(cif,nombreusuario,passwdplana,email,tipoactor,localizacion,nombre,direccion,cifcooperativa)
+VALUES ('33','G6','password','G6@gmail.es','2','40.4026076;-3.8363219','Luis','CalleOlivares','fg7'),
+('11','TranspG3_1','password','tranpG3_1@gmail.es','2','40.4022076;-3.8369319','Maria','CalleRenacimiento','fg4'),
+('12','TranspG3_2','password','tranpG3_2@gmail.es','2','40.4029076;-3.8369319','Jose','CalleIlustración','fg5'),
+('0','agricultorG2','password','agricultorG2@gmail.es','0','40.4025976;-3.8393319','Marta','CalleGirona','fg3'),
+('1','cooperativaG2','password','cooperativaG2@gmail.es','1','40.4025079;-3.8369319','Maria','CalleTarragona','fg2'),
+('2','fabricaG3','password','fabricaG3@gmail.es','3','40.4925076;-3.8363399','Luis','CalleLerida','fg1'),
+('3','retailerG2','password','retailerG2@gmail.es','4','40.4825076;-3.8383319','Santiago','CalleBarcelona','fg3'),
+('5','Productor','password','prod@gmail.es','0','40.4085076;-3.8363318','Marta','CalleValladolid','fg3'),
+('6','Cooperativa','password','coop@gmail.es','1','40.4825076;-3.8863319','Maria','CalleMurcia','fg2'),
+('7','Transportista','password','transp@gmail.es','2','40.4025776;-3.8367319','Luis','CalleCartagena','fg1'),
+('8','Fabrica','password','fab@gmail.es','3','40.4085076;-3.8363919','Santiago','CalleAndalucía','fg3'),
+('9','Retailer','password','ret@gmail.es','4','40.4085076;-3.8393319','Pilar','CalleMadrid','fg2'),
+('10','Agricultor','password','agri@gmail.es','0','40.4725076;-3.8763319','juan','CalleGoicoechea','fg3'),
+('15','alberto','password','alberto@gmail.es','1','40.4028076;-3.8368319','alberto','AvenidaJarales','fg3'),
+('17','felipe','password','felipe@gmail.es','2','40.4027076;-3.8368319','felipe','AvenidaIlustración','fg1'),
+('16','maria','password','maria@gmail.es','3','40.4025086;-3.8363379','maria','AvenidaEuropa','fg2'),
+('18','rick','password','rick@gmail.es','4','40.4025876;-3.8363379','rick','AvenidaArgentina','fg0');
+
+
+  salidaTemporal ="[\n";
+		salidaTemporal+="{\n";
+		salidaTemporal+="\"nombre\":\"Fabrica A\", \n";
+		salidaTemporal+="\"coordLat\":40.4025076 , \n";
+		salidaTemporal+="\"coordLon\":-3.8363319 , \n";
+		salidaTemporal+="\"stock\": 200 \n";
+		salidaTemporal+="},{ \n";
+		salidaTemporal+="\"nombre\":\"Fabrica B\", \n";
+		salidaTemporal+="\"coordLat\":40.4035076 , \n";
+		salidaTemporal+="\"coordLon\":-3.8353319 , \n";
+		salidaTemporal+="\"stock\": 100 \n";
+		salidaTemporal+="},{ \n";
+		salidaTemporal+="\"nombre\":\"Fabrica C\", \n";
+		salidaTemporal+="\"coordLat\":40.4030076 , \n";
+		salidaTemporal+="\"coordLon\":-3.8343319 , \n";
+		salidaTemporal+="\"stock\": 150 \n";
+		salidaTemporal+="},{ \n";
+		salidaTemporal+="\"nombre\":\"Fabrica D\", \n";
+		salidaTemporal+="\"coordLat\":40.4130076 , \n";
+		salidaTemporal+="\"coordLon\":-3.8243319 , \n";
+		salidaTemporal+="\"stock\": 550 \n";
+		salidaTemporal+="}\n";
+		salidaTemporal+="]\n";
+  
+  
+  
+ */
+
+
+
+
 class TestTrazabilidad {
 
 
@@ -38,9 +94,15 @@ class TestTrazabilidad {
 	{
 		metodosCompany.conectar();
 		metodosCompany.crearBD();
-		insertar_usuarios();
-		insertar_lote();
+		//insertar_usuarios();
+		//insertar_lote();
 
+	}
+	
+	@Test
+	void testInit() throws Throwable 
+	{
+		init_data_base();
 	}
 
 
@@ -198,7 +260,6 @@ class TestTrazabilidad {
 
 	}
 
-	@Test
 	void testInsertarOrdenTrazabilidad() throws Throwable  {
 		try {
 			try {

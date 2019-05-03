@@ -1,4 +1,10 @@
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+    <title>CooperativaSolicitarPedido</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -8,8 +14,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <link href="style2.css" rel="stylesheet" id="bootstrap-css">
-
-<div class="container register">
+</head>
+<body>
+<div class="container register solicitarpedidos">
                 <div class="row">
              
                     <div class="col-md-3 register-left">
@@ -20,23 +27,40 @@
                     <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
                             </li>
                         </ul>
+                        <p></p>
+                            <div class="col-3 borde">
+                                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
+                                </li>
+                                </ul>
+                            </div>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <h3 class="register-heading">SOLICITAR PEDIDO</h3>
-								<br>
+                                <br>					
+                                <br>			
                                 <div class="row register-form">
                                     <div class="col-md-6">
+											   
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Destino *" id="destino" value="" />
+                                            <h6>* Destino:</h6>
+                                            <input type="text" class="form-control" placeholder="* Destino" id="destino" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Identificador *" id="identificador" value="" />
+                                          <h6>* Identificador:</h6>
+                                            <input type="text" class="form-control" placeholder="* Número de Identificador" id="identificador" value="" />
+                                           
+                                          </div>
+                                            <div class="form-group">
+                                            <h6>* Identificador de pedido:</h6>
+                                            <input type="text" class="form-control" placeholder="* Número de Identificador de pedido" id="destino" value="" />
+                                           <br>
+                                            <label for="producto">Las casillas con * son campos obligatorios</label>
+                                            <label for="producto">La cantidad en kg no puede contener números con decimales </label>
                                         </div>
                                        
                                         <div class="form-group">
@@ -46,34 +70,44 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+											   
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Malta de base palida" id="malta_palida" value="" min=0 />
+                                          <h6>Malta de base palida:</h6>
+                                            <input type="number" class="form-control" placeholder="Cantidad en kg" id="malta_palida" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Malta Munich" id="malta_munich" value="" min=0 />
+                                          <h6>Malta Munich:</h6>
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="malta_munich" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Malta negra" id="malta_negra" value="" min=0 />
+                                          <h6>Malta negra:</h6>
+                                            <input type="number" class="form-control" placeholder="Cantidad en kg" id="malta_negra" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Malta crystal" id="malta_crystal" value="" min=0 />
+                                          <h6>Malta crystal:</h6>
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="malta_crystal" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Malta chocolate" id="malta_chocolate" value="" min=0 />
+                                          <h6>Malta chocolate:</h6>
+                                            <input type="number" class="form-control" placeholder="Cantidad en kg" id="malta_chocolate" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Malta caramelo" id="malta_caramelo" value="" min=0 />
+                                          <h6>Malta caramelo:</h6>
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="malta_caramelo" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Cebada" id="cebada" value="" />
+                                          <h6>Cebada:</h6>
+                                            <input type="number" class="form-control" placeholder="Cantidad en kg" id="cebada" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Cebada tostada" id="cebada_tostada" value="" />
+                                          <h6>Cebada tostada:</h6>
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="cebada_tostada" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Lupulo centenial" id="lupulo_centinental" value="" />
+                                          <h6>Lupulo centinal:</h6>
+                                            <input type="number" class="form-control"  placeholder="Cantidad en kg" id="lupulo_centinental" value="" />
                                         </div>
-                                        <input type="submit" class="btnRegister"  onClick="hacerPeticion();" value="Enviar pedido"/>
+                                       <input type="submit" class="btnRegister"  onClick="hacerPeticion();" value="Enviar pedido"/>
                                     </div>
                                 </div>
                             </div>
@@ -82,15 +116,16 @@
 
             </div>
 </div>
+</body>
 <script>
 function hacerPeticion(){
       var request = $.ajax({
       // la URL para la petición
-      url : '/creaPedido',
+      url : '/crearOrden',
  
       // la información a enviar
       // (también es posible utilizar una cadena de datos)
-      data : paraJson(),
+      data : "json="+paraJson(),
  
       // especifica si será una petición POST o GET
       type : 'POST',
@@ -103,7 +138,7 @@ function hacerPeticion(){
      request.done(function(data){
       
       //TODO Este metodo redirige a la URL
-      windows.append('/cooperativaInicio.html');
+      window.location.replace('/cooperativaInicio.html');
     
      });
  
@@ -122,7 +157,7 @@ function hacerPeticion(){
       mensaje : "",
     actorOrigen: {
       id: 6,
-      nombreUsuario: "Productor",
+      nombreUsuario: "Cooperativa",
       tipoActor:  2
     },
     "actorDestino": {
@@ -130,18 +165,18 @@ function hacerPeticion(){
       nombreUsuario: "Agricultor",
       tipoActor: 1 
     },
-    productos: {
-	cant_malta_palida: document.getElementById("malta_palida").value,
-	cant_malta_munich: document.getElementById("malta_munich").value,
-	cant_malta_negra: document.getElementById("malta_negra").value,
-	cant_malta_crystal: document.getElementById("malta_crystal").value,
-	cant_malta_chocolate: document.getElementById("malta_chocolate").value,
-	cant_malta_caramelo: document.getElementById("malta_caramelo").value,
-	cant_cebada: document.getElementById("cebada").value, 
-	cant_cebada_tostada: document.getElementById("cebada_tostada").value,
-	cant_lupulo_centenial:document.getElementById("lupulo_centinental").value,
-	cant_cajas_stout:0,
-    	cant_cajas_bisner:0
+    productosPedidos: {
+	cant_malta_palida: document.getElementById("malta_palida").value-0,
+	cant_malta_munich: document.getElementById("malta_munich").value-0,
+	cant_malta_negra: document.getElementById("malta_negra").value-0,
+	cant_malta_crystal: document.getElementById("malta_crystal").value-0,
+	cant_malta_chocolate: document.getElementById("malta_chocolate").value-0,
+	cant_malta_caramelo: document.getElementById("malta_caramelo").value-0,
+	cant_cebada: document.getElementById("cebada").value-0, 
+	cant_cebada_tostada: document.getElementById("cebada_tostada").value-0,
+	cant_lupulo_centenial:document.getElementById("lupulo_centinental").value-0,
+	cant_lotes_stout:0,
+    	cant_lotes_bisner:0
     },
   
         };
@@ -156,3 +191,4 @@ function hacerPeticion(){
  //TODO 
  
 </script>
+</html>

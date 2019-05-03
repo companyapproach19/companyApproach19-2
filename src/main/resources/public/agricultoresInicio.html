@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Agricultores</title>
-    <meta charset="utf-8">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
  --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -29,15 +28,21 @@
                         <img src="icono-agricultor.png" alt=""/>
                         <h1>Agricultores</h1>
                     </div>
-                    <div class="col-md-9 register-right pedidosaceptados">
+                    <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                           <!--  <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Volver</a>
-                            </li> -->
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='C:/Users/crist/OneDrive/Documents/companyApproach19-2/src/main/resources/templates/login.html';">Log out</a>
                             </li>
                         </ul>
+                        <p></p>
+                        <!-- <div class="col-3 borde">
+                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+	                            <li class="nav-item">
+	                                <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='login.html';">Volver</a>
+	                            </li>
+                        	</ul>
+                    	</div> -->
+
                         <div class="register-form">
                             <h3 class="register-heading titlecenter">¿Qué desea realizar?</h3>
 							<br>
@@ -45,8 +50,9 @@
                             <div class="col">
                                <div class="container">
                                     <div class="row">
-                                        <a class="btn" href="#" onclick="window.location.href='agricultoresListaPedidosRecibidos.html';">Pedidos recibidos</a>
-                                        <a class="btn" href="#" onclick="window.location.href='agricultoresListaPedidosAceptados.html';">Pedidos acepados</a>
+                                        <a class="btn" href="agricultoresListaPedidosRecibidos.html">Pedidos recibidos</a>
+                                        <a class="btn" href="agricultoresListaPedidosAceptados.html">Pedidos aceptados</a>
+                                        <a class="btn" href="#" id="bt1" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1" >Stock</a>
                                         
 										
 										
@@ -58,14 +64,6 @@
 										<popup1></popup1>
 										<p><a href="" class="ok" id="hide1">Aceptar</a></p>      
 										</div>
-									</div>
-
-    
-	
-									<div class="Botones1">
-									<!-- Botón de la cooperativa -->
-									<button id="bt1" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1" >Stock>
-									</button>                
 									</div>
 									<!-- FIIIIIINNN  MOSTRAR STOCKKK -->
 	      

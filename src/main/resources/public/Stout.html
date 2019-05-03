@@ -1,125 +1,131 @@
-<html lang="es">
-  <head>
-    <title>Stout</title>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    
-  </head>
-  <body style="display: block; height: 100vh; !important">
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="container-fluid register" style="margin-top: 0px">
-      <div class="row">
-        <div class="col-md-3 register-left">
-          <img src="https://image.flaticon.com/icons/png/512/25/25007.png" alt=""/>
-          <h1>Fábrica</h1>
-                        <!--<p>Pedidos recibidos</p>
-                        <input type="submit" name="" value="Log out"/><br/>
-                            -->
-        </div>
+<head>
 
-        <div class="col-md-9 register-right">
-          <div class="row">
-             <div class="col-md-4 offset-md-2">
-              <h3 class="register-heading">Cerveza Stout</h3>
-            </div>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link" id="home" data-toggle="submit" href="login.html" role="submit" aria-controls="home" aria-selected="true">Log out</a>
-              </li>
-            </ul>
-          </div>
-          <br/><br/><br/><br/><br/><br/><br/>
+  <title>Stout</title>
 
-          <div class="row">
-            <div class="col-md-10 offset-md-2">
-              <a class="btn btn-primary" data-toggle="collapse" href="#collapseStout" role="button" aria-expanded="false" aria-controls="collapseStout">
-                Procesos y duración
-            </a>
-            
-            <div class="collapse" id="collapseStout">
+  <!-- Bootstrap core CSS -->
+  <link href="Stout.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="Stout.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="overlay"></div>
+  
+
+  <div class="masthead">
+    <div class="masthead-bg"></div>
+    <div class="container h-100">
+      <div class="row h-100">
+        <div class="col-12 my-auto">
+          <div class="masthead-content text-white py-5 py-md-0">
+            <div class = "article">
+             <p class="mb-3"><strong><u>Ingredientes :</u></strong></h1> 
               
-              <strong>Macerado: </strong>0-60 mins (65-68 grados)<br/>
+              <p class="mb-5"> <strong>Malta base pálida:</strong>5.5 kg
+              </p>
 
-                                    <strong>Cocción Lúpulo Perle 20gr:</strong> 30 mins<br/>
-                                    
-                                    <strong>Cocción Lúpulo Tettnanger 25gr:</strong> 45 mins<br/>
-                          
-                                    <strong>Cocción Lúpulo Tettnanger 20gr:</strong> 85 mins<br/>
-                                    
+              <p class="mb-5"> <strong>Malta múnich:</strong> 1.3 kg
+              </p>
+              
+              <p class="mb-5"> <strong>Cebada tostada:</strong> 450 gr
+              </p>
 
-                                     <strong>Fermentación primaria</strong> 7 días<br/>
-                                    
+              <p class="mb-5"> <strong>Malta negra:</strong> 225 gr
+              </p>
 
-                                     <strong>Fermentación secundaria:</strong> 15 días (10 grados o menos)<br/>
-            </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-10 offset-md-2">
-              <a class="btn btn-primary" data-toggle="collapse" href="#collapseCreacion" role="button" aria-expanded="false" aria-controls="collapseCreacion">
-                Ingredientes
-              </a>
+              <p class="mb-5"> <strong>Malta crystal:</strong> 140 gr
+              </p>
 
-              <div class="collapse" id="collapseCreacion">
-               
-                  <strong>Malta Pilsner:</strong> 4kg<br/>
-                                  
-                                  <strong>Malta Caramelo 30:</strong> 500gr
-                                  <br/>
-                                  
-                                  
-                                  <strong>Lúpulo Perle:</strong> 20gr
-                                  <br/>
-                                  
+              <p class="mb-5"> <strong>Malta chocolate:</strong> 120 gr
+              </p>
 
-                                  <strong>Lúpulo Tettnanger:</strong> 40gr
-                                  <br/>
+              <p class="mb-5"> <strong>Malta caramelo:</strong> 90 gr
+              </p>
+           
+              <p class="mb-5"> <strong>Lúpulo Centennial:</strong> 70 gr
+              </p>
 
-                                  <strong>Levadura Lager</strong>
-                                  <br/>
-                        
-              </div>
-            </div>
-          </div>
+              <p class="mb-5"> <strong>Levadura:</strong> Ale
+              </p>
 
-
-            <div class="row">
-              <div class="col-md-10 offset-md-2">
-                <a class="btn btn-primary" data-toggle="collapse" href="#collapseVisualizar" role="button" aria-expanded="false" aria-controls="collapseVisualizar">
-                  Densidades
-                </a>
-
-                  <div class="collapse" id="collapseVisualizar">
-                                <strong> Original: </strong> 1045 <br/>
-                                <strong>Final:</strong> 1010
-                                </br>
-              </div>
-            </div>
            </div>
-           <br/><br/><br/><br/>
-           <div class="row">
-                        <div class="col-md-11 ">
-                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                            <li class="nav-item" >
-                                <a class="nav-link" id="home" data-toggle="submit" href="Lote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
-                            </li>
-                            </ul>
-                        </div>
-                        <br/><br/><br/><br/>
-          
-  </body>
+           <div class = "aside">
+              <h1 class="mb-3">Creación de cerveza Stout</p>
+              <p class="mb-3"><strong><u>Procesos y duración:</u></strong></h1> 
+              
+              <p class="mb-5"> <strong>Macerado:</strong> 0-60 mins (63 grados)</p>
+              <p class="mb-5"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 60-70 mins (68 grados)</p>
+              </p>
+
+              <p class="mb-5"> <strong>Cocción Lúpulo Centennial 70 gr:</strong> 90 minutos
+              </p>
+              
+              <p class="mb-5"> <strong>Fermentación primaria:</strong> 7 días (22 grados)
+              </p>
+
+              <p class="mb-5"> <strong>Fermentación secundaria:</strong> 2 semanas (17-20 grados)
+              </p>
+              </p></p></p></p></p></p></p>
+
+
+
+
+              </div>
+              <div class="input-group-append">
+                <button class="btn boton1" type="button">Crear lote</button></div>
+                <button class="btn volver" type="button">volver</button>
+              </div>            
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="social-icons">
+    <ul class="list-unstyled text-center mb-0">
+      <li class="list-unstyled-item">
+        <a href="#">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      <li class="list-unstyled-item">
+        <a href="#">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+      <li class="list-unstyled-item">
+        <a href="#">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/coming-soon.min.js"></script>
+
+</body>
+
 </html>
-
-
-
-
-
-
-<!------ Include the above in your HEAD tag ---------->
-
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>     

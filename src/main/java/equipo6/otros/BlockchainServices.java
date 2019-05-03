@@ -10,12 +10,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import equipo4.model.Lote;
+import equipo4.model.MateriaPrima;
 import equipo6.model.Bloque;
 import equipo5.dao.metodosCompany;
 import equipo5.model.Cadena;
+import equipo5.model.NotInDatabaseException;
+import equipo5.model.StockMP;
 import equipo6.model.DatosContainer;
 import equipo6.model.geolocalizacion;
 import equipo7.model.OrdenTrazabilidad;
+import equipo7.model.Productos;
 import equipo8.model.Registro;
 
 
@@ -48,12 +52,41 @@ public class BlockchainServices{
         	if(cadena == null) {
         		cadena = new Cadena(codLote);
         	}
+        	else if(tipoBlque == 0)
+        	{
+        		System.out.println(((OrdenTrazabilidad)datos_container).getActorOrigen().getId());
+        		System.out.println(((OrdenTrazabilidad)datos_container).getActorDestino().getId());
+        		if(!operaciones_stock((OrdenTrazabilidad)datos_container))return; 
+        	}
         	cadena.incorporarBloque(datos_container, tipoBlque); //Cambiar cuando asignemos cada entero a cada tipo de bloque
         }catch (Exception ex) {
         	ex.printStackTrace();
         }
 
           
+    }
+    
+    
+    private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException 
+    {
+    	List <StockMP> stock_mp;
+    	MateriaPrima materia_prima;
+    	
+    	switch(orden.getEstado()) 
+    	{
+    	case 1:
+    		if(orden.getActorDestino().getTipoActor() == 0)return true;
+    		stock_mp = metodosCompany.extraerStockMP(orden.getActorDestino(), getTraspaso(orden.getIdPedido()).getId());
+    		if(stock_mp.size() != 1)return false;
+    		metodosCompany.insertarStockMP(stock_mp.get(0));
+    		break;
+    	case 4:
+    		materia_prima = get_materia_prima(orden.getProductosPedidos());
+    		metodosCompany.insertarStockMP(new StockMP(materia_prima, null, null, orden.getId(), orden.getIdPedido(), orden.getActorOrigen().getId()));
+    		break;
+    	}
+    	
+    	return true;
     }
     
     public void guardarRespuestaPedido(int id_pedido_destino, ArrayList<Integer> ids_stock_origen) throws Throwable 
@@ -158,7 +191,7 @@ public class BlockchainServices{
     
     private int get_id_datos(DatosContainer datos_container) 
     {
-    	if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getId();
+    	if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getIdPedido();
     	if(datos_container instanceof Registro) return ((Registro)datos_container).getId();
     	if(datos_container instanceof Lote) return ((Lote)datos_container).getIdBd();
     	if(datos_container instanceof geolocalizacion) return ((geolocalizacion)datos_container).getIdOrden();
@@ -196,10 +229,10 @@ public class BlockchainServices{
     //Obtiene bloque adecuado utilizando los metodos de clase Cadena, y una vez lo tiene 
     //extrae la informacion del traspaso y la devuelve.
     //TODO anton
-    public OrdenTrazabilidad getTraspaso(int codLote){ 	
+    private OrdenTrazabilidad getTraspaso(int idPedido){ 	
     	
     	try {
-			Cadena cadena = equipo5.dao.metodosCompany.extraerCadena(codLote);
+			Cadena cadena = equipo5.dao.metodosCompany.extraerCadena(idPedido);
 			List<Bloque> bloques = cadena.getBloque(0);
 			if (!bloques.isEmpty()) {
 				return (OrdenTrazabilidad) bloques.get(bloques.size() - 1).getDatos();
@@ -215,6 +248,71 @@ public class BlockchainServices{
 	   
     public OrdenTrazabilidad getOrden(int idOrden) throws ClassNotFoundException, SQLException{
     	return	equipo5.dao.metodosCompany.extraerOrdenTrazabilidad(idOrden);
+    }
+    
+    
+    private MateriaPrima get_materia_prima(Productos productos) throws ClassNotFoundException, SQLException 
+    {
+    	MateriaPrima materia_prima;
+    	int id;
+    	int cantidad;
+    	
+    	if(productos.getCant_cebada() != 0) 
+    	{
+    		cantidad = productos.getCant_cebada();
+    		id = metodosCompany.idMateriaPrima();
+    		materia_prima = new MateriaPrima("Cebada", id, cantidad);
+    	}
+    	else if(productos.getCant_cebada_tostada() != 0) 
+    	{
+    		cantidad = productos.getCant_cebada_tostada();
+    		id = metodosCompany.idMateriaPrima();
+    		materia_prima = new MateriaPrima("cebadaTostada", id, cantidad);
+    	}
+    	else if(productos.getCant_lupulo_centenial() != 0) 
+    	{
+    		cantidad = productos.getCant_lupulo_centenial();
+    		id = metodosCompany.idMateriaPrima();
+    		materia_prima = new MateriaPrima("lupuloCentennial", id, cantidad);
+    	}
+    	else if(productos.getCant_malta_caramelo() != 0) 
+    	{
+    		cantidad = productos.getCant_malta_caramelo();
+    		id = metodosCompany.idMateriaPrima();
+    		materia_prima = new MateriaPrima("maltaCaramelo", id, cantidad);
+    	}
+    	else if(productos.getCant_malta_chocolate() != 0) 
+    	{
+    		cantidad = productos.getCant_malta_chocolate();
+    		id = metodosCompany.idMateriaPrima();
+    		materia_prima = new MateriaPrima("maltaChocolate", id, cantidad);
+    	}
+    	else if(productos.getCant_malta_crystal() != 0) 
+    	{
+    		cantidad = productos.getCant_malta_crystal();
+    		id = metodosCompany.idMateriaPrima();
+    		materia_prima = new MateriaPrima("maltaCrystal", id, cantidad);
+    	}
+    	else if(productos.getCant_malta_munich() != 0) 
+    	{
+    		cantidad = productos.getCant_malta_munich();
+    		id = metodosCompany.idMateriaPrima();
+    		materia_prima = new MateriaPrima("maltaMunich", id, cantidad);
+    	}
+    	else if(productos.getCant_malta_negra() != 0) 
+    	{
+    		cantidad = productos.getCant_malta_negra();
+    		id = metodosCompany.idMateriaPrima();
+    		materia_prima = new MateriaPrima("maltaNegra", id, cantidad);
+    	}
+    	else 
+    	{
+    		cantidad = productos.getCant_malta_palida();
+    		id = metodosCompany.idMateriaPrima();
+    		materia_prima = new MateriaPrima("maltaBasePalida", id, cantidad);
+    	}
+    	
+    	return materia_prima;
     }
 	
 	

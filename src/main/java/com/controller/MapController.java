@@ -28,7 +28,7 @@ public class MapController {
 	@RequestMapping("/cargarMapaActores")
 	@ResponseBody
 	public ResponseEntity cargarMapaActores(Model model,
-			@RequestParam(name="idOrden", required=false) int idOrden) {
+			@RequestParam(name="idOrden", required=false) Integer idOrden) {
 		String JSON;
 		JSON=getMapData(idOrden);
 		
@@ -152,8 +152,6 @@ public class MapController {
 		case 3:
 			return "Transportista";
 		case 4:
-			return "Frabrica";
-		case 5:
 			return "Retailer";
 		default:
 			return "";

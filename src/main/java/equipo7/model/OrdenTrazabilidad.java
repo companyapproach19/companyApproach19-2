@@ -75,8 +75,8 @@ public class OrdenTrazabilidad extends DatosContainer
 		//Constructor para descodificar json de vistas inicial
 		public OrdenTrazabilidad(int id, Actor actorOrigen, Actor actorDestino, Productos productosPedidos) {
 			this.id = id;
-			this.actorDestino=actorOrigen;
-			this.actorOrigen=actorDestino;
+			this.actorDestino=actorDestino;
+			this.actorOrigen=actorOrigen;
 			this.productosPedidos=productosPedidos;
 			
 			this.productosAEntregar=new ArrayList<Integer>();

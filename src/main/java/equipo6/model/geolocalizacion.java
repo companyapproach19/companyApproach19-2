@@ -8,23 +8,26 @@ public class geolocalizacion extends DatosContainer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private int idPedido; 
 	private int idOrden;
 	private String coordenadas; 
 	private Date date;
 
-	//constructor vistas
-	public geolocalizacion(int idPedido, int idOrden, String coordenadas,Date date) {
+	//constructor bbdd
+	public geolocalizacion(int id,int idPedido, int idOrden, String coordenadas,Date date) {
 		super();
+		this.id=id;
 		this.idPedido = idPedido;
 		this.idOrden = idOrden;
 		this.coordenadas = coordenadas;
 		this.date=date;
 	}
 
-	//constructor bbdd
-	public geolocalizacion(int idPedido, int idOrden, String coordenadas) {
+	//constructor vista
+	public geolocalizacion(int id,int idPedido, int idOrden, String coordenadas) {
 		super();
+		this.id=id;
 		this.idPedido = idPedido;
 		this.idOrden = idOrden;
 		this.coordenadas = coordenadas;
@@ -55,14 +58,15 @@ public class geolocalizacion extends DatosContainer {
 	public void setCoordenadas(String coordenadas) {
 		this.coordenadas = coordenadas;
 	}
-	
-	public Date getTime() {
-		return this.date;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
-	public void setTime(Date d) {
-		this.date=d;
-	}
 	
 	
 	

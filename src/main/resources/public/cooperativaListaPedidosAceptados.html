@@ -1,4 +1,7 @@
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CooperativaPedidosAceptados</title><link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -8,8 +11,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <link href="style2.css" rel="stylesheet" id="bootstrap-css">
-
-<div class="container register">
+</head>
+<body>
+<div class="container register agricultores">
                 <div class="row">
              
                     <div class="col-md-3 register-left">
@@ -17,70 +21,107 @@
                         <h1>Cooperativa</h1>
                         <!--<p>Pedidos recibidos</p>-->
                     </div>
-                    <div class="col-md-9 register-right">
+                    <div class="col-md-9 register-right pedidosaceptados">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
                             </li>
                             </ul>
+                            <p></p>
+                            <div class="col-3 borde">
+                                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
+                                </li>
+                                </ul>
+                            </div>
                             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading">PEDIDOS ACEPTADOS</h3>
+                                <h3  class="register-heading titlecenter">PEDIDOS ACEPTADOS</h3>
 								<br>
                                 <div class="row register-form">
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <input type="checkbox" name="producto1" id="producto1" value="Pedido id1">
-                                            <label for="producto1">Pedido 98573</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+                                            <label for="producto1" id="label1">Pedido noPedido</label>
+                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
 
                                         </div>
                                         <div class="form-group">
-                                            <input type="checkbox" name="producto2" id="producto1" value="Pedido id2">
-                                            <label for="producto2">Pedido 45483</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+                                            <input type="checkbox" name="producto2" id="producto2" value="Pedido id2">
+                                            <label for="producto2" id="label2">Pedido noPedido</label>
+                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
 
                                         </div>
                                         <div class="form-group">
                                             <input type="checkbox" name="producto3" id="producto3" value="Pedido id3">
-                                            <label for="producto3">Pedido 29384</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+                                            <label for="producto3" id="label3">Pedido noPedido</label>
+                                           <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>                        
                                         </div>
                                         <div class="form-group">
                                             <input type="checkbox" name="producto4" id="producto4" value="Pedido id4">
-                                            <label for="producto4">Pedido 89907</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+                                            <label for="producto4" id="label4">Pedido noPedido</label>
+                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
 
                                         </div>
                                         <div class="form-group">
                                             <input type="checkbox" name="producto5" id="producto5" value="Pedido id5">
-                                            <label for="producto5">Pedido 97898</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+                                            <label for="producto5" id="label5">Pedido noPedido</label>
+                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
                                         </div>
                                         <div class="form-group">
                                             <input type="checkbox" name="producto6" id="producto6" value="Pedido id6">
-                                            <label for="producto6">Pedido 76697</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+                                            <label for="producto6" id="label6">Pedido noPedido</label>
+                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
                                         </div>
                                         <div class="form-group">
                                             <input type="checkbox" name="producto7" id="producto7" value="Pedido id7">
-                                            <label for="producto7">Pedido 89706</label>
-                                            <a href="generica.html">Ver mas informacion del pedido</a>
+                                            <label for="producto7" id="label7">Pedido noPedido</label>
+                                            <a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>
                                         </div>
-                                        <input type="submit" class="btnRegister"  value="Completar pedidos"/>
-                                </div>
-                                <label for="producto">*Los pedidos que no sean seleccionados se rechazaran automaticamente*</label>
+                                        <input type="submit" class="btnRegister"  onClick="mandarids(); window.location.href='cooperativaInicio.html';" value="Completar pedidos"/>
 
+                                        <!-- MODAL -->
+                                <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalScrollableTitle">Información del pedido</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+
+Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button class="btnRegister" data-dismiss="modal">Atrás</button>
+                                            <button class="btnRegister" data-dismiss="modal">Aceptar pedido</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>   
+                                    <!-- MODAL -->
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-</div>
+</body>
 <script>
+window.onload = hacerPeticion;
+var sifalla = [1,25,695,22,88,7];
+data2 = {"listaIDs" : [1,5,9]};
+data = JSON.stringify(data2);
+
  function hacerPeticion(){
   //Aqui se puede dar un valor por defecto, solo por si acaso
         var local_data;
@@ -88,11 +129,11 @@
 
       var request = $.ajax({
       // la URL para la petición
-      url : '/listoParaEntregar',
+      url : '/pedidosEnProceso',
  
       // la información a enviar
       // (también es posible utilizar una cadena de datos) //ID del actor
-      data :"6" ,
+      data :"idActor=6" ,
  
       // especifica si será una petición POST o GET
       type : 'GET',
@@ -104,26 +145,102 @@
  
      request.done(function(data){
       
+
      imprimirjson();
     
      });
  
-     request.fail(function(data) {
+   request.fail(function(data) {
      
-     alert("Error en el servidor");
-     
+     alert("Error en el servidor obteniendo ids");
+    mostrarFallo();
      });
  
  }
+ //Funcion que saca una lista
  function imprimirjson(){
- var local_data = JSON.parse(data);
-//TODO local_data es ya un json, json de ids 
-//Con este formato {"listaIDs" : [1,5,9]} TODO
+          var hola = JSON.parse(data);
+          var local_data = hola.listaIDs;
+          //console.log(data);
+          //console.log(local_data);
+                 var label = 'label';
+            for (var i = 1; i< local_data.length + 1; i++) {
+                var x = i.toString(10);
+                //console.log(label.concat(x));
+                document.getElementById(label.concat(x)).innerHTML = local_data[i-1];
 
-
-
-
+                }
 
  }
+
+
+  function mostrarFallo(){
+         var local_data = sifalla;
+            var label = 'label';
+            for (var i = 1; i< local_data.length + 1; i++) {
+                var x = i.toString(10);
+                //console.log(label.concat(x));
+                document.getElementById(label.concat(x)).innerHTML = sifalla[i-1];
+
+                }    
+        }
+
+
+
+function mandarids(){
+  var str = 'producto';
+  var array = [-1,-1,-1,-1,-1,-1,-1];
+  var booleano = false;
+  var str2 = '';
+  var aux;
+  var label = 
+'label';
+  for (var i = 1; i< 8; i++) {
+    var x = i.toString(10);
+    str2 = str.concat(x);
+    aux = document.getElementById(str2);
+    if (aux.checked){
+      array[i-1] = document.getElementById(label.concat(x));
+      }
+    
+    }
+
+data2 = {"listaIDs" : array};
+data = JSON.stringify(data2);
+
+  var request = $.ajax({
+      // la URL para la petición
+      url : '/listoPedido',
+ 
+      // la información a enviar
+      // (también es posible utilizar una cadena de datos) //ID del actor
+      data :data,
+ 
+      // especifica si será una petición POST o GET
+      type : 'POST',
+ 
+      // el tipo de información que se espera de respuesta
+      dataType : 'json',
+ 
+      });
+ 
+     request.done(function(data){
+      
+         
+     });
+ 
+     request.fail(function(data) {
+     
+
+     alert("Error en el servidor al completar");
+   
+     });
+
+
+
+
+}
+
+
   
 </script>
