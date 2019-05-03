@@ -11,6 +11,7 @@ import com.google.gson.JsonParser;
 
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
+import equipo6.model.Actor;
 import equipo6.model.Bloque;
 import equipo5.dao.metodosCompany;
 import equipo5.model.Cadena;
@@ -66,22 +67,40 @@ public class BlockchainServices{
           
     }
     
+    private List <StockMP> filtrar_stock_por_materia_prima(List <StockMP> stock_mp,String tipo) 
+    {
+    	List <StockMP> stock_filtrado;
+    	
+    	stock_filtrado = new ArrayList<StockMP>();
+    	
+    	for(StockMP stock : stock_mp) 
+    	{
+    		if(stock.getMp().getTipo().equals(tipo)) 
+    		{
+    			stock_filtrado.add(stock);
+    		}
+    	}
+    	
+    	return stock_filtrado;
+    }
     
     private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException 
     {
     	List <StockMP> stock_mp;
     	MateriaPrima materia_prima;
     	
+		materia_prima = get_materia_prima(orden.getProductosPedidos());
+
     	switch(orden.getEstado()) 
     	{
     	case 1:
     		if(orden.getActorDestino().getTipoActor() == 0)return true;
-    		stock_mp = metodosCompany.extraerStockMP(orden.getActorDestino(), getTraspaso(orden.getIdPedido()).getId());
-    		if(stock_mp.size() != 1)return false;
+    		stock_mp = metodosCompany.extraerStockMpPorPedido(orden.getActorDestino(),orden.getIdPedido());
+    		stock_mp = filtrar_stock_por_materia_prima(stock_mp, materia_prima.getTipo());
+    		if(stock_mp.size() == 0)return false;
     		metodosCompany.insertarStockMP(stock_mp.get(0));
     		break;
     	case 4:
-    		materia_prima = get_materia_prima(orden.getProductosPedidos());
     		metodosCompany.insertarStockMP(new StockMP(materia_prima, null, null, orden.getId(), orden.getIdPedido(), orden.getActorOrigen().getId()));
     		break;
     	}

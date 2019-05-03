@@ -198,18 +198,37 @@ public class StockController {
 	@ResponseBody
 	public String getStockActores(
 			HttpServletRequest request,
-			@RequestParam(name="tipoActor") String tipoActor,
+			@RequestParam(name="id") String id,
 			Model model) throws Exception {
-		int tipo = Integer.parseInt(tipoActor);
-		String todo = "[";
-		List<Actor> actores = actoresDeTipo(tipo);
-		for(int i=0;i<actores.size();i++){
-			todo += getStockActor(request,actores.get(i).getId(),model);
-			todo += ",";
+		int a = Integer.parseInt(id);
+		String tipo = "";
+		switch(a){
+			case 0:
+				tipo="Agricultor";
+				break;
+			case 1:
+				tipo="Cooperativa";
+				break;
+			case 2:
+				tipo="Transportista";
+				break;
+			case 3:
+				tipo="Fabrica";
+				break;
+			case 4:
+				tipo="Reatiler";
+				break;
+			default:
+				tipo = "Unknown";
+				break;
 		}
-		todo += "]";
-
-		return todo;
+		JsonObject todos = new JsonObject();
+		List<Actor> actores = actoresDeTipo(a);
+		for(int i=0;i<actores.size();i++){ 
+			JsonObject stock = get_stock_actor(actores.get(i).getId());
+			todos.add(tipo+Integer.toString(i),stock);
+		}
+		return todos.toString();
 	}
 
 	private void init_map_nombres_bbdd_vistas(Map<String,String> mapeo_nombres) 
