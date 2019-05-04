@@ -93,7 +93,7 @@ function creaOrden(actor){
       
 			//TODO Este metodo redirige a la URL 
 			// switch(actor){}
-			windows.append('/cooperativaInicio.html');
+			// mejor en boton window.append('/cooperativaInicio.html');
     
 		});
  
