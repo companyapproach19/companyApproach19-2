@@ -9,7 +9,19 @@
 <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
 
 </head>
-<body style="display: block; height: 100vh; !important">
+	
+	
+<script type="text/javascript">
+      function get_params() {
+          var url_string = window.location.href;
+          console.log(url_string);
+          var url = new URL(url_string);
+          var numLoteIntroducido = url.searchParams.get("numLoteIntroducido");
+          console.log(numLoteIntroducido);
+      }
+ </script>
+	
+<body onload="get_params()" style="display: block; height: 100vh; !important">
 <body>
     
 
