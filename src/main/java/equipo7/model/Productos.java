@@ -81,3 +81,4 @@ public class Productos implements Serializable {
         return cant_lotes_bisner;
     }
 }
+

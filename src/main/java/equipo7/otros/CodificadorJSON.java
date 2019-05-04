@@ -9,6 +9,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import equipo7.model.OrdenTrazabilidad;
+import equipo7.otros.ListaIDs;
+
 public class CodificadorJSON {
 
     /* Esta clase se encarga de pasar de objetos en Java
@@ -22,7 +24,7 @@ public class CodificadorJSON {
     }
     
     //Pasar una lista de ids de ordenes a json
-    public static String crearJSONlista(ArrayList<Integer> ordenes) {
+    public static String crearJSONlista(ListaIDs ordenes) {
     	GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.setPrettyPrinting().create();
         return gson.toJson(ordenes);

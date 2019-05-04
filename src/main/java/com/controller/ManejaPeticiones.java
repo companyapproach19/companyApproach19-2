@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo7.otros.DescodificadorJson;
+import equipo7.otros.ListaIDs;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,7 @@ public class ManejaPeticiones {
 			BlockchainServices bloque = new BlockchainServices();
 		    bloque.guardarOrden(orden);
 		        
-			return orden;
+			return CodificadorJSON.crearJSON(orden);
 		}
 		else {
 			return "ERROR: no se pudo crear la orden";
@@ -76,10 +77,10 @@ public class ManejaPeticiones {
 
 		//Obtenemos el pedido de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad pedido = bloque.getOrden(idInt);
+		OrdenTrazabilidad orden = bloque.getOrden(idInt);
 		
-		if (pedido != null)
-			return CodificadorJSON.crearJSON(pedido);
+		if (orden != null)
+			return CodificadorJSON.crearJSON(orden);
 		else
 			return "ERROR: No se pudo obtener la orden";
 	}
@@ -91,6 +92,7 @@ public class ManejaPeticiones {
 			
 		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesDestino(idActor);
 		ArrayList<Integer> ordenesPendientes = new ArrayList<Integer>();
+		ListaIDs listaIDs = new ListaIDs();
 				
 		if(ordenes!=null && ordenes.size()>0) {
 					
@@ -107,9 +109,12 @@ public class ManejaPeticiones {
 			}
 						
 			//Devolver lista de identificadores
-			return CodificadorJSON.crearJSONlista(ordenesPendientes);		
+			listaIDs.setListaIDs(ordenesPendientes);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		} else {
+			listaIDs.setListaIDs(null);
+			return CodificadorJSON.crearJSONlista(listaIDs);
 		}
-		else return "null";
 	}
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
@@ -133,21 +138,24 @@ public class ManejaPeticiones {
 		//Obtenemos las ordenes
 		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
 		ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+		ListaIDs listaIDs = new ListaIDs();
 		
 		if(ordenes!=null && ordenes.size()>0) {
 						
 			Iterator<OrdenTrazabilidad> it = ordenes.iterator();
 			while(it.hasNext()) {
-				//Hay que asegurarse que el actor sea origen
+				//Hay que asegurarse que el actor sea origen y no sean ordenes rechazadas
 				OrdenTrazabilidad actual = it.next();
-				if(actual.getActorOrigen().getId().compareTo(idActor)==0) {
+				if(actual.getActorOrigen().getId().compareTo(idActor)==0 && actual.getEstado()!=-1) {
 						ordenesIds.add(actual.getId());
 				}
 			}
-			
-			return CodificadorJSON.crearJSONlista(ordenesIds);
-		}	
-		return "null";
+			listaIDs.setListaIDs(ordenesIds);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		} else {
+			listaIDs.setListaIDs(null);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		}
 	}
 	
 	
@@ -179,8 +187,31 @@ public class ManejaPeticiones {
 	public String ordenesRechazadas(HttpServletResponse response,
 			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 				
-		return this.ordenesPendientes(idActor, -1);
-							
+		BlockchainServices bloque = new BlockchainServices();
+		//Obtenemos las ordenes
+		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
+		ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+		ListaIDs listaIDs = new ListaIDs();
+		
+		if(ordenes!=null && ordenes.size()>0) {
+						
+			Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+			while(it.hasNext()) {
+				//Hay que asegurarse que el actor sea origen
+				OrdenTrazabilidad actual = it.next();
+				if(actual.getActorOrigen().getId().compareTo(idActor)==0) {
+					if(actual.getEstado()==-1) {
+						ordenesIds.add(actual.getId());			
+					}
+				}
+			}
+
+			listaIDs.setListaIDs(ordenesIds);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		} else {
+			listaIDs.setListaIDs(null);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		}
 	}
 		
 	//PARA EQUIPO 2: VISTAS

@@ -37,5 +37,5 @@ public class OrdenInicial {
 	public Productos getProductosPedidos() {
 		return productosPedidos;
 	}
-
+	
 }
