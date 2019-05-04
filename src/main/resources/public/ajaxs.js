@@ -79,6 +79,8 @@ function pedirIds(actor, estado){
 
 
 function creaOrden(actor){
+	
+	  console.log("mando orden a /crearOrden");
 
       var request = $.ajax({
       
@@ -93,7 +95,7 @@ function creaOrden(actor){
       
 			//TODO Este metodo redirige a la URL 
 			// switch(actor){}
-			// mejor en boton window.append('/cooperativaInicio.html');
+			//window.append('/cooperativaInicio.html'); mejor en el boton.
     
 		});
  
@@ -105,44 +107,38 @@ function creaOrden(actor){
  
  }
  
+ 
  function paraJson(actor) {
 
 	
-	// switch(actor){} dependiendo tipo actor se rellenan unos campos u otros
-	
-	
-    var object = { 
-		id: -1,
-		mensaje : "",
-		actorOrigen: {
-		  id: 6,
-		  nombreUsuario: "Productor",
-		  tipoActor:  2
-		},
-		"actorDestino": {
-			id: document.getElementById("identificador").value,
-		  nombreUsuario: "Agricultor",
-		  tipoActor: 1 
-		},
-		productos: {
-		cant_malta_palida: document.getElementById("malta_palida").value,
-		cant_malta_munich: document.getElementById("malta_munich").value,
-		cant_malta_negra: document.getElementById("malta_negra").value,
-		cant_malta_crystal: document.getElementById("malta_crystal").value,
-		cant_malta_chocolate: document.getElementById("malta_chocolate").value,
-		cant_malta_caramelo: document.getElementById("malta_caramelo").value,
-		cant_cebada: document.getElementById("cebada").value, 
-		cant_cebada_tostada: document.getElementById("cebada_tostada").value,
-		cant_lupulo_centenial:document.getElementById("lupulo_centinental").value,
-		cant_cajas_stout:0,
-		cant_cajas_bisner:0
-		},
-  
-    };
+	if (actor == 1 || actor == 3){ // coope, fabrica
+		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value;
+		nuevaOrden.idPedido = document.getElementById("idPedido").value;
+		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value;
+		nuevaOrden.productosPedidos.cant_malta_munich= document.getElementById("malta_munich").value;
+		nuevaOrden.productosPedidos.cant_malta_negra= document.getElementById("malta_negra").value;
+		nuevaOrden.productosPedidos.cant_malta_crystal= document.getElementById("malta_crystal").value;
+		nuevaOrden.productosPedidos.cant_malta_chocolate= document.getElementById("malta_chocolate").value;
+		nuevaOrden.productosPedidos.cant_malta_caramelo= document.getElementById("malta_caramelo").value;
+		nuevaOrden.productosPedidos.cant_cebada= document.getElementById("cebada").value;
+		nuevaOrden.productosPedidos.cant_cebada_tostada= document.getElementById("cebada_tostada").value;
+		nuevaOrden.productosPedidos.cant_lupulo_centenial=document.getElementById("lupulo_centinental").value;
+	}else if (actor == 4){  // tienda
+		nuevaOrden.idPedido = -1;
+		nuevaOrden.actorDestino.id = document.getElementById("idTransportista").value;
+		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value;
+		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value;
 		
-	var jsonText = JSON.stringify(object);
-    console.log(jsonText);
-	return jsonText;
+	}
+	else { alert("Error llmando a paraJson(MAL:"+actor+")");}
+	
+	    
+		
+		console.log(nuevaOrden);
+		var orden = JSON.stringify(nuevaOrden);
+		console.log(orden);
+		return orden;
+	
 
   }
 
@@ -377,15 +373,15 @@ function muestraFallo(actor, i){
 	
 	switch(actor) {
 			  case 0:
-			  alert("HOLA Agricultor");
+			  alert("HOLA Agricultoraa");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
-				  rellenaPopup(JSON.parse(json_aux1), actor,i);  
+				  rellenaPopup(pedido, actor,i);  
 				  break;
 				  
 			  case 1:
 			  alert("HOLA Cooperativa");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
-				  rellenaPopup(JSON.parse(json_aux2), actor,i);  
+				  rellenaPopup(pedido, actor,i);  
 				  break;
 				  
 			  //case 2: Transportista
@@ -393,13 +389,13 @@ function muestraFallo(actor, i){
 			  case 3:
 			  alert("HOLA Fabrica");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
-				  rellenaPopup(JSON.parse(json_aux3), actor,i);
+				  rellenaPopup(pedido, actor,i);
 				  break;
 				  
 			  case 4:
 			  alert("HOLA Tienda");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
-				  rellenaPopup(JSON.parse(json_aux4), actor,i);
+				  rellenaPopup(pedido, actor,i);
 				  break;
 				  
 			  default:
@@ -455,20 +451,26 @@ function rellenaPopup(json, actor, i) {
 
 
 
-	  case "0":
+	  case 0:
+	  alert("still agri");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado +"<br><br>Datos Cooperativa<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial);
 	  break;
 	  
-	  case "1":
+	  
+	  
+	  case 1:
+	  alert("still cope");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado  +"<br><br>Datos Fabrica<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial);
 	  break;
 
-		case "3":
-	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido +"<br>Estado:"+ estado  +"<br><br>Datos Retailer<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial +" kg<br>10.Lotes Bisner: "+ json.prodcutotsPedidos.cant_lotes_bisner + " kg<br>11. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
+		case 3:
+		alert("still fab");
+			   $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido +"<br>Estado:"+ estado  +"<br><br>Datos Retailer<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial +" kg<br>10.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " kg<br>11. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
 
-		case "4":
-	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido  +"<br>Estado:"+ estado +"<br><br>Cantidades: <br>1.Lotes Bisner: "+ json.prodcutotsPedidos.cant_lotes_bisner + " kg<br>2. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
+		case 4:
+		alert("still tienda");
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido  +"<br>Estado:"+ estado +"<br><br>Cantidades: <br>1.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " kg<br>2. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
 
 		default :
@@ -483,14 +485,6 @@ function rellenaPopup(json, actor, i) {
 /* JSON local por si el servidor falla o no hay datos */
 
 ////// JSONS VIEJOSSSS /////
-
-var json_aux1 = '{ "id": 10,  "actorOrigen": {"id": 42,"nombreUsuario": "Cooperativa","passwordPlana": "password","email": "ret@gmail.es","tipoActor": 4},"actorDestino": {"id": 43,"nombreUsuario": "Agricultores","passwordPlana": "password","email": "fab@gmail.es","tipoActor": 3},"necesitaTransportista": true,"productosPedidos": {"cant_malta_palida": 10,"cant_malta_munich": 0,"cant_malta_negra": 0, "cant_malta_crystal": 0,"cant_malta_chocolate": 0,"cant_malta_caramelo": 0,"cant_cebada": 0, "cant_cebada_tostada": 0, "cant_lupulo_centenial": 0,"cant_lotes_stout": 4,"cant_lotes_bisner": 0},"productosAEntregar": [80,81,82,83],"estado": 4,"firmaRecogida": "SEFIQSBTTklDSEU=","firmaEntrega": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs","transportista": {"id": "7","nombreUsuario": "Transportista","passwordPlana": "password","email": "trans@gmail.com","tipoActor": 2},"idRegistro": 300,"idPedido": 1,"fecha": "may 26, 3919"}';
-
-var json_aux2 = '{ "id": 10,  "actorOrigen": {"id": 42,"nombreUsuario": "Cooperativa","passwordPlana": "password","email": "ret@gmail.es","tipoActor": 4},"actorDestino": {"id": 43,"nombreUsuario": "Agricultores","passwordPlana": "password","email": "fab@gmail.es","tipoActor": 3},"necesitaTransportista": true,"productosPedidos": {"cant_malta_palida": 10,"cant_malta_munich": 0,"cant_malta_negra": 0, "cant_malta_crystal": 0,"cant_malta_chocolate": 0,"cant_malta_caramelo": 0,"cant_cebada": 0, "cant_cebada_tostada": 0, "cant_lupulo_centenial": 0,"cant_lotes_stout": 4,"cant_lotes_bisner": 0},"productosAEntregar": [80,81,82,83],"estado": 4,"firmaRecogida": "SEFIQSBTTklDSEU=","firmaEntrega": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs","transportista": {"id": "7","nombreUsuario": "Transportista","passwordPlana": "password","email": "trans@gmail.com","tipoActor": 2},"idRegistro": 300,"idPedido": 1,"fecha": "may 26, 3919"}';
-
-var json_aux3 = '{ "id": 10,  "actorOrigen": {"id": 42,"nombreUsuario": "Fabrica","passwordPlana": "password","email": "ret@gmail.es","tipoActor": 4},"actorDestino": {"id": 43,"nombreUsuario": "Cooperativa","passwordPlana": "password","email": "fab@gmail.es","tipoActor": 3},"necesitaTransportista": true,"productosPedidos": {"cant_malta_palida": 10,"cant_malta_munich": 0,"cant_malta_negra": 0, "cant_malta_crystal": 0,"cant_malta_chocolate": 0,"cant_malta_caramelo": 0,"cant_cebada": 0, "cant_cebada_tostada": 0, "cant_lupulo_centenial": 0,"cant_lotes_stout": 4,"cant_lotes_bisner": 0},"productosAEntregar": [80,81,82,83],"estado": 4,"firmaRecogida": "SEFIQSBTTklDSEU=","firmaEntrega": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs","transportista": {"id": "7","nombreUsuario": "Transportista","passwordPlana": "password","email": "trans@gmail.com","tipoActor": 2},"idRegistro": 300,"idPedido": 1,"fecha": "may 26, 3919"}';
-
-var json_aux4 = '{ "id": 10,  "actorOrigen": {"id": 42,"nombreUsuario": "Retailer","passwordPlana": "password","email": "ret@gmail.es","tipoActor": 4},"actorDestino": {"id": 43,"nombreUsuario": "Fabrica","passwordPlana": "password","email": "fab@gmail.es","tipoActor": 3},"necesitaTransportista": true,"productosPedidos": {"cant_malta_palida": 10,"cant_malta_munich": 0,"cant_malta_negra": 0, "cant_malta_crystal": 0,"cant_malta_chocolate": 0,"cant_malta_caramelo": 0,"cant_cebada": 0, "cant_cebada_tostada": 0, "cant_lupulo_centenial": 0,"cant_lotes_stout": 4,"cant_lotes_bisner": 2},"productosAEntregar": [80,81,82,83],"estado": 4,"firmaRecogida": "SEFIQSBTTklDSEU=","firmaEntrega": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs","transportista": {"id": "7","nombreUsuario": "Transportista","passwordPlana": "password","email": "trans@gmail.com","tipoActor": 2},"idRegistro": 300,"idPedido": 1,"fecha": "may 26, 3919"}';
 
 
 
@@ -514,7 +508,7 @@ var pedido = {
   },
   "necesitaTransportista": true,
   "productosPedidos": {
-    "cant_malta_palida": 0,       // para acceder a esto x ejemplo seria, pedido.productosPedidos.cant_malta_palida (al ponerlo en el metodo de arriba envez de pedido es stock(ke es el nombre del parametro))
+    "cant_malta_palida": 0,       
     "cant_malta_munich": 0,
     "cant_malta_negra": 0,
     "cant_malta_crystal": 0,
@@ -543,5 +537,55 @@ var pedido = {
   "idPedido": 1,
   "fecha": "may 26, 3919"
 }
+
+
+var nuevaOrden = {
+  "id": 0,
+  "actorOrigen": {
+    "id": 0,
+    "nombreUsuario": "",
+    "passwordPlana": "",
+    "email": "",
+    "tipoActor": 0
+  },
+  "actorDestino": {
+    "id": 0,
+    "nombreUsuario": "",
+    "passwordPlana": "",
+    "email": "",
+    "tipoActor": 0
+  },
+  "necesitaTransportista": true,
+  "productosPedidos": {
+    "cant_malta_palida": 0,       
+    "cant_malta_munich": 0,
+    "cant_malta_negra": 0,
+    "cant_malta_crystal": 0,
+    "cant_malta_chocolate": 0,
+    "cant_malta_caramelo": 0,
+    "cant_cebada": 0,
+    "cant_cebada_tostada": 0,
+    "cant_lupulo_centenial": 0,
+    "cant_lotes_stout": 0,
+    "cant_lotes_bisner": 0
+  },
+  "productosAEntregar": [
+    
+  ],
+  "estado": 0,
+  "firmaRecogida": "",
+  "firmaEntrega": "",
+  "transportista": {
+    "id": "",
+    "nombreUsuario": "",
+    "passwordPlana": "",
+    "email": "",
+    "tipoActor": 0
+  },
+  "idRegistro": 0,
+  "idPedido": 0,
+  "fecha": ""
+}
+
 
 
