@@ -407,27 +407,13 @@ function pedirStock(actor) {
 /////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////PARA VER CADA PEDIDO VVVVVVVVVVVVVVVVVVVVVVV
 
-//pos es la posicion del idsOrdenes (para ver cada pedido a mostrar)
-// id: 1 = Agricultor, 2 = Fabrica, 3 = Cooperativa, 4  Tienda
-function intermedio(pos, id,i){
-	
-	alert("intermedio("+pos+","+id+")");
-	if (id == "1") {  pedirPedido(pos, id,i); $("#popup"+i).show(); return;}
-	/*
-	if (id == "2") {  pedirPedido(pos, id); $("#popup3").show(); return;}
-	if (id == "3") {  pedirPedido(pos, id); $("#popup2").show(); return;}
-	if (id == "4") {  pedirPedido(pos, id); $("#popup4").show(); return;}
-	alert("ERROR"); return;
-	*/
-    
-}
-
 
 
 
 function pedirPedido(pos, actor,i) {
-	alert("pedirPedido("+pos+","+actor+")");
-	alert("voy a mostrar pedido "+idsOrdenes[pos]);
+	
+	$("#popup"+i).show();
+	
 		 
 	var idOrden = idsOrdenes[pos];
 		
@@ -457,41 +443,40 @@ function pedirPedido(pos, actor,i) {
 			pedido = JSON.parse(data);
 			
 			//paso por parametro a imprimir
-			rellenaPopup(pedido, parseInt(actor));
+			rellenaPopup(pedido, parseInt(actor),i);
 		
 		 });
 		 
-		request.fail(function(data) {
-			alert("fallo el ajax Pedido");
-		  // Escribe en el popup "Petición al servidor fallida"
-		  // De momento, si la petición falla lee el JSON auxiliar que tenemos
-	  
+		request.fail(function(data){
+			
+			alert("fallo el ajax Pedido "+idsOrdenes[pos]);
+		  
 		  switch(actor) {
-		  case 1:
-		  alert("HOLA Agricultor");
-				  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
-			  rellenaPopup(JSON.parse(json_aux1), parseInt(actor),i);  // parse estupido,, pero rellenaPopup mas aun.
-			  break;
-			  /*
-		  case 2:
-		  alert("HOLA Cooperativa");
-				  $("popup3").text("Petición al servidor fallida. Se utilizarán datos locales");
-			  rellenaPopup(JSON.parse(json_aux2), parseInt(actor));  
-			  break;
-		  case 3:
-		  alert("HOLA Fabrica");
-				  $("popup2").text("Petición al servidor fallida. Se utilizarán datos locales");
-			  rellenaPopup(JSON.parse(json_aux3), parseInt(actor));
-			  break;
-		  case 4:
-		  alert("HOLA Tienda");
-				  $("popup4").text("Petición al servidor fallida. Se utilizarán datos locales");
-			  rellenaPopup(JSON.parse(json_aux4), parseInt(actor));
-			  break;
-		  default:
-			  break;
-			  */
-		  }
+			  case 1:
+			  alert("HOLA Agricultor");
+					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
+				  rellenaPopup(JSON.parse(json_aux1), parseInt(actor),i);  
+				  break;
+				  
+			  case 2:
+			  alert("HOLA Cooperativa");
+					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
+				  rellenaPopup(JSON.parse(json_aux2), parseInt(actor),i);  
+				  break;
+			  case 3:
+			  alert("HOLA Fabrica");
+					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
+				  rellenaPopup(JSON.parse(json_aux3), parseInt(actor),i);
+				  break;
+			  case 4:
+			  alert("HOLA Tienda");
+					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
+				  rellenaPopup(JSON.parse(json_aux4), parseInt(actor),i);
+				  break;
+			  default:
+				  break;
+			  
+		    }
 		});
 }
 
@@ -501,47 +486,40 @@ function pedirPedido(pos, actor,i) {
 
 
 
-
-
-
 function rellenaPopup(stock, actor, i) {
 	
-	alert("rellenaPopup("+stock+","+actor+")");
-    
+   
     if (stock == null) {
-  // En este caso ni el servidor ha devuelto nada ni tenemos JSON local
-  // Escribir en el popup "Respuesta del servidor errónea" y terminar
-  $("popup" + actor).append("<br><br>Respuesta del servidor o datos locales erróneos. No hay stock para mostrar");
-  return;
+	  // En este caso ni el servidor ha devuelto nada ni tenemos JSON local
+	  // Escribir en el popup "Respuesta del servidor errónea" y terminar
+	  $("popup" + i).append("<br><br>Respuesta del servidor o datos locales erróneos. No hay stock para mostrar");
+	  return;
     }
     
     // Leer info del JSON y ponerla en el popup correspondiente
     
 	switch(stock.tipoActor) {
 
-    case "Agricultor":
-	alert("still Agricultor"); // entra aqui y no sabe imprimirlo. problema con popup
-  $("popup"+i).append("<br><br>Datos del Agricultor<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg");
-  break;
-  
-  /*
+		case "Agricultor":
+	  $("popup"+i).append("<br><br>Datos del Agricultor<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg");
+	  break;
+	  
+	  case "Cooperativa":
+	  $("popup"+i).append("<br><br>Datos de la Cooperativa<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg");
+	  break;
 
-    case "Cooperativa":
-  $("popup3").append("<br><br>Datos de la Cooperativa<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg");
-  break;
+		case "Fabrica":
+	  $("popup"+i).append("<br><br>Datos de la Fábrica<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg<br><br>LOTES:"+"<br>1. Cerveza Pilsner: "+ stock.stock.lotes_pilsner +" lotes<br>2. Cerveza Stout: " + stock.stock.lotes_stout + " lotes");
+	  break;
 
-    case "Fabrica":
-  $("popup2").append("<br><br>Datos de la Fábrica<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg<br><br>LOTES:"+"<br>1. Cerveza Pilsner: "+ stock.stock.lotes_pilsner +" lotes<br>2. Cerveza Stout: " + stock.stock.lotes_stout + " lotes");
-  break;
+		case "Retailer":
+	  $("popup"+i).append("<br><br>Datos de la Tienda<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Retailer: "+"<br>LOTES:"+"<br>1. Cerveza Pilsner: "+ stock.stock.lotes_pilsner +" lotes<br>2. Cerveza Stout: " + stock.stock.lotes_stout + " lotes");
+	  break;
 
-    case "Retailer":
-  $("popup4").append("<br><br>Datos del Retailer<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Retailer: "+"<br>LOTES:"+"<br>1. Cerveza Pilsner: "+ stock.stock.lotes_pilsner +" lotes<br>2. Cerveza Stout: " + stock.stock.lotes_stout + " lotes");
-  break;
+		default :
+	  $("popup"+i + actor).append("<br><br>Respuesta del servidor o datos locales erróneos. No hay stock para mostrar");
+	  break;
 
-    default :
-  $("popup" + actor).append("<br><br>Respuesta del servidor o datos locales erróneos. No hay stock para mostrar");
-  break;
-*/
     }   
 }
 
