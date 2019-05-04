@@ -241,56 +241,6 @@ function mandarids(){
 var idsOrdenes = [6,7,5,3,21,43,76,4,6534];
 //var idsOrdenes = null;
 
-var pedido = {
-  "id": 10,
-  "actorOrigen": {
-    "id": 42,
-    "nombreUsuario": "Retailer",
-    "passwordPlana": "password",
-    "email": "ret@gmail.es",
-    "tipoActor": 4
-  },
-  "actorDestino": {
-    "id": 43,
-    "nombreUsuario": "Fabrica",
-    "passwordPlana": "password",
-    "email": "fab@gmail.es",
-    "tipoActor": 3
-  },
-  "necesitaTransportista": true,
-  "productosPedidos": {
-    "cant_malta_palida": 0,
-    "cant_malta_munich": 0,
-    "cant_malta_negra": 0,
-    "cant_malta_crystal": 0,
-    "cant_malta_chocolate": 0,
-    "cant_malta_caramelo": 0,
-    "cant_cebada": 0,
-    "cant_cebada_tostada": 0,
-    "cant_lupulo_centenial": 0,
-    "cant_lotes_stout": 4,
-    "cant_lotes_bisner": 0
-  },
-  "productosAEntregar": [
-    80,81,82,83
-  ],
-  "estado": 4,
-  "firmaRecogida": "SEFIQSBTTklDSEU=",
-  "firmaEntrega": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs",
-  "transportista": {
-    "id": "7",
-    "nombreUsuario": "Transportista",
-    "passwordPlana": "password",
-    "email": "trans@gmail.com",
-    "tipoActor": 2
-  },
-  "idRegistro": 300,
-  "idPedido": 1,
-  "fecha": "may 26, 3919"
-}
-
-
-
 
 
 
@@ -500,6 +450,10 @@ function rellenaPopup(stock, actor, i) {
     
 	switch(stock.tipoActor) {
 
+		// ESTOS METODOS ESTAN ECHOS PARA EL JSON VIEJO, HAY QUE ACTUALIZARLOS
+		
+		//           por ejemplo lo que antes era stock.nomUsuario, ahora sera stock.actorOrigen
+		//                                          ^del json viejo                 ^del json nuevo
 		case "Agricultor":
 	  $("popup"+i).append("<br><br>Datos del Agricultor<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg");
 	  break;
@@ -527,6 +481,8 @@ function rellenaPopup(stock, actor, i) {
 
 /* JSON local por si el servidor falla o no hay datos */
 
+////// JSONS VIEJOSSSS /////
+
 var json_aux1 = '{"nomUsuario":"Agricultor1","tipoActor":"Agricultor","email":"agricultor1@email.com","stock":{ "malta_palida":"2343","malta_tostada":"234252","malta_negra":"74564","malta_crystal":"09340234","malta_chocolate":"324","malta_caramelo":"90428042","malta_pilsner":"23424","malta_munich":"54353","lupulo_perle":"4242","lupulo_tettnager":"4242342","lupulo_centennial":"34242","levadura_ale": "34243","levadura_lagger": "84092","lotes_pilsner":"","lotes_stout":""}}';
 
 var json_aux2 = '{"nomUsuario":"Cooperativa1","tipoActor":"Cooperativa","email":"cooperativa1@email.com","stock":{ "malta_palida": "2343","malta_tostada": "234252","malta_negra": "74564","malta_crystal": "09340234","malta_chocolate": "324","malta_caramelo": "90428042","malta_pilsner": "23424","malta_munich": "54353","lupulo_perle": "4242","lupulo_tettnager": "4242342", "lupulo_centennial": "34242","levadura_ale": "34243","levadura_lagger": "84092","lotes_pilsner":"","lotes_stout":""}}';
@@ -537,5 +493,52 @@ var json_aux4 = '{"nomUsuario":"Retailer1","tipoActor":"Retailer","email":"retai
 
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////JSON NUEVO//////////////////////
 
+var pedido = {
+  "id": 10,
+  "actorOrigen": {
+    "id": 42,
+    "nombreUsuario": "Retailer",
+    "passwordPlana": "password",
+    "email": "ret@gmail.es",
+    "tipoActor": 4
+  },
+  "actorDestino": {
+    "id": 43,
+    "nombreUsuario": "Fabrica",
+    "passwordPlana": "password",
+    "email": "fab@gmail.es",
+    "tipoActor": 3
+  },
+  "necesitaTransportista": true,
+  "productosPedidos": {
+    "cant_malta_palida": 0,       // para acceder a esto x ejemplo seria, pedido.productosPedidos.cant_malta_palida (al ponerlo en el metodo de arriba envez de pedido es stock(ke es el nombre del parametro))
+    "cant_malta_munich": 0,
+    "cant_malta_negra": 0,
+    "cant_malta_crystal": 0,
+    "cant_malta_chocolate": 0,
+    "cant_malta_caramelo": 0,
+    "cant_cebada": 0,
+    "cant_cebada_tostada": 0,
+    "cant_lupulo_centenial": 0,
+    "cant_lotes_stout": 4,
+    "cant_lotes_bisner": 0
+  },
+  "productosAEntregar": [
+    80,81,82,83
+  ],
+  "estado": 4,
+  "firmaRecogida": "SEFIQSBTTklDSEU=",
+  "firmaEntrega": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs",
+  "transportista": {
+    "id": "7",
+    "nombreUsuario": "Transportista",
+    "passwordPlana": "password",
+    "email": "trans@gmail.com",
+    "tipoActor": 2
+  },
+  "idRegistro": 300,
+  "idPedido": 1,
+  "fecha": "may 26, 3919"
+}
