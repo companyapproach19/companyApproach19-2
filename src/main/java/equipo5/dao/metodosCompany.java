@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import equipo5.model.NullException;
+import equipo5.dao.NullException;
 import equipo5.model.StockLote;
 import equipo5.model.StockMP;
 
@@ -30,8 +30,9 @@ public class metodosCompany {
 
 	private static Connection conn;
 
-	private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
-
+	//private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
+	private static String JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/company?user=gonzalo&password=root";
+	
 	static boolean primerusuario= true;
 
 
@@ -300,7 +301,7 @@ public class metodosCompany {
 		return buscado;
 	}
 	
-	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException {
+	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException, equipo5.dao.NullException {
 		if(geo == null){
 	             throw new NullException("La geolocalización introducida no es válida.");
 		}
@@ -327,7 +328,7 @@ public class metodosCompany {
 		return buscado;
 	}
 	
-	public static void insertarProductosOrden(ArrayList<Integer> pedidos, int idOrden) throws SQLException {
+	public static void insertarProductosOrden(ArrayList<Integer> pedidos, int idOrden) throws SQLException, equipo5.dao.NullException {
 		if(pedidos == null){
 	             throw new NullException("La lista de pedidos introducida no es válida.");
 		}
@@ -371,7 +372,7 @@ public class metodosCompany {
 		return null;	
 	}
 
-	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException {
+	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, equipo5.dao.NullException {
 		if(orden == null){
 	             throw new NullException("La orden introducida no es válida.");
 		}
@@ -420,7 +421,7 @@ public class metodosCompany {
 		return null;	
 	}
 
-	public static void insertarProductos(Productos producto, int idOrden) throws SQLException, ClassNotFoundException {
+	public static void insertarProductos(Productos producto, int idOrden) throws SQLException, ClassNotFoundException, equipo5.dao.NullException {
 		if(producto == null){
 	             throw new NullException("El producto introducido no es válido.");
 		}
@@ -461,7 +462,7 @@ public class metodosCompany {
 		return buscado;
 	}
 
-	public static void insertarCadena(Cadena cadena) throws SQLException {
+	public static void insertarCadena(Cadena cadena) throws SQLException, equipo5.dao.NullException {
 		if(cadena == null){
 	             throw new NullException("La cadena introducida no es válida.");
 		}
@@ -531,7 +532,7 @@ public class metodosCompany {
 		return null;
 	}
 
-	public static void insertarRegistro (Registro registro) throws SQLException{
+	public static void insertarRegistro (Registro registro) throws SQLException, equipo5.dao.NullException{
 		if(registro == null){
 	             throw new NullException("El registro introducido no es válido.");
 		}
@@ -601,7 +602,7 @@ public class metodosCompany {
 		else return null;
 	}		 
 
-	public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException{
+	public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException, equipo5.dao.NullException{
 		if(actor == null){
 	             throw new NullException("El actor introducido no es válido.");
 		}
@@ -669,7 +670,7 @@ public class metodosCompany {
 		if(bloqAinsertar == null){
 	             throw new NullException("El bloque introducido no es válido.");
 		}
-		int data=0;
+		int data=-1;
 		switch (bloqAinsertar.getTipoBloque()) {
 		case 0:
 			OrdenTrazabilidad aInsertar = (OrdenTrazabilidad) bloqAinsertar.getDatos();
@@ -700,7 +701,7 @@ public class metodosCompany {
 			}			
 			break;
 		}
-		if(data == null){
+		if(data == -1){
 	             throw new NullException("El atributo datosContainer no es válido.");
 		}
 		conectar();
@@ -830,7 +831,10 @@ public class metodosCompany {
 	
 	public static LinkedList<StockMP> estaMP(LinkedList<StockMP> lista, StockMP nuevo) {
 		for(int i =0; i<lista.size(); i++) {
-			if(lista.get(i).getMp().getId()==nuevo.getMp().getId()) {
+			if(lista.get(i)
+					.getMp()
+					.getId()
+					==nuevo.getMp().getId()) {
 				if(lista.get(i).getFecha_salida()==null && nuevo.getFecha_salida()!=null) {
 					lista.remove(i);
 					lista.add(nuevo);
@@ -973,11 +977,11 @@ public class metodosCompany {
 	   		} 
 	    } 	
     }
-    public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException{
+    public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException, equipo5.dao.NullException{
     	    if(stockMateria == null){
 	             throw new NullException("El stock de materia prima introducido no es válido.");
 		}
-	    if(stockMateria.getFecha_salida()==null) {
+	    if(stockMateria.getFecha_entrada()==null) {
 	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 0:
@@ -1021,6 +1025,7 @@ public class metodosCompany {
 	   		} 
 	   	}
 	   	else if(stockMateria.getFecha_entrada()!=null) {
+	   		System.out.println("pasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 0:
@@ -1170,6 +1175,20 @@ public class metodosCompany {
        //conn.close();
         return siguienteId;
     }
+    public static int idMateriaPrimaStock() throws SQLException, ClassNotFoundException{
+        conectar();
+        String query = "SELECT MAX (idMateriaPrima) FROM company.materiaPrima";
+        Statement pst = conn.createStatement();
+        ResultSet rs = pst.executeQuery(query);
+        int siguienteId = 1;
+        if(rs.next()){
+            siguienteId = rs.getInt(1) + 1;
+        }
+        pst.close();
+       rs.close();
+       //conn.close();
+        return siguienteId;
+    }
     public static MateriaPrima extraerMateriaPrima(int id) throws SQLException {
     	conectar();
 		String query = "SELECT * FROM company.materiaPrima WHERE idMateriaPrima = " + id;
@@ -1183,7 +1202,7 @@ public class metodosCompany {
 		}
 		return null;
     }
-    public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException{
+    public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException, equipo5.dao.NullException{
 		if(mp == null){
 	             throw new NullException("La materia prima introducida no es válida.");
 		}

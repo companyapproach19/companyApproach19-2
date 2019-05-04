@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
     <title>AgricultoresPedidosAceptados</title>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
 
 <!------ TEST SCRIPTSS ---------->
 <script type="text/javascript" src="ajaxs.js"></script>
@@ -55,7 +56,7 @@
 									document.write('<div class="form-group">');
 									document.write('<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">');
 									document.write('<label for="producto'+i+'" id="label'+i+'">Pedido noPedido</label>');
-									document.write('<a href="" data-toggle="modal" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>');
+									document.write('<a href="" data-toggle="modal" onclick="pedirPedido('+(i-1)+',0,'+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>');
 									document.write('</div>');                                                          
 									
 									
@@ -68,7 +69,6 @@
 									document.write('<button type="button" class="close" data-dismiss="modal" aria-label="Close">');
 									document.write('<span aria-hidden="true">&times;</span>');
 									document.write('</button>');
-									document.write('<a class="btn" href="#" id="d"  onclick="pedirPedido('+(i-1)+',0,'+i+'); style.display ='+stri+'"  data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1"><h2>PEDIDO:  '+idsOrdenes[i-1]+' </h2></a>');
 									document.write('<div id="popup'+i+'" style="display: none;">');  
 									document.write('<div class="inner">');                      
 									document.write('<h1>PEDIDO</h1>');                     

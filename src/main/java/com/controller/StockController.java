@@ -29,11 +29,14 @@ import equipo5.dao.metodosCompany;
 import equipo5.model.StockLote;
 import equipo5.model.StockMP;
 import equipo5.dao.NotInDatabaseException;
+import equipo5.dao.NullException;
 import equipo6.model.Actor;
+import equipo6.model.Bloque;
 import equipo6.model.CadenaActores;
 import equipo6.model.geolocalizacion;
 import equipo6.otros.BlockchainServices;
 import equipo7.model.OrdenTrazabilidad;
+import equipo8.model.Registro;
 @Controller
 @SpringBootApplication
 public class StockController {
@@ -45,7 +48,7 @@ public class StockController {
 	 * dado un actor y una materia prima devuelve la cantidad de esa materia prima
 	 */
 	public static double getCantidadStock(Actor actor, int idOrden, MateriaPrima mp)
-			throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException {
+			throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException, NotInDatabaseException {
 		double devolvemos = 0;
 		LinkedList<StockMP> lista = new LinkedList<StockMP>();
 		lista = metodosCompany.extraerStockMP(actor, idOrden);
@@ -71,7 +74,7 @@ public class StockController {
 	/*
 	 * dado un actor y un lote devuelve el stock de un tipo de lote
 	 */
-	public static int getStockLote(Actor actor, int idOrden, Lote lote) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException {
+	public static int getStockLote(Actor actor, int idOrden, Lote lote) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException, NotInDatabaseException {
 
 		// nos devuleve una lista con todos los lotes de un actor, luego tenemos que
 		// buscar
@@ -87,7 +90,7 @@ public class StockController {
 		return resultado;
 	}
 
-	public static HashMap<String, Double> getStockPeidoFabrica(int idOrden) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException {
+	public static HashMap<String, Double> getStockPeidoFabrica(int idOrden) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException, NotInDatabaseException {
 		HashMap<String, Double> hm = new HashMap<String, Double>();
 		LinkedList<StockMP> lista = new LinkedList<StockMP>();
 		Actor actor=new Actor(null,null,3);
@@ -102,7 +105,7 @@ public class StockController {
 	 * metodo para cambiar la cantidad de stock de materia prima
 	 */	
 	public static void setCantidadMateriaPrima(Actor actor, MateriaPrima mp, double cantidad,int idOrden)
-			throws ClassNotFoundException, SQLException {
+			throws ClassNotFoundException, SQLException, NullException {
 		int cantidad_entera;
 		cantidad_entera = (int) cantidad;
 		BlockchainServices bcs;
@@ -203,24 +206,24 @@ public class StockController {
 		int a = Integer.parseInt(id);
 		String tipo = "";
 		switch(a){
-			case 0:
-				tipo="Agricultor";
-				break;
-			case 1:
-				tipo="Cooperativa";
-				break;
-			case 2:
-				tipo="Transportista";
-				break;
-			case 3:
-				tipo="Fabrica";
-				break;
-			case 4:
-				tipo="Reatiler";
-				break;
-			default:
-				tipo = "Unknown";
-				break;
+		case 0:
+			tipo="Agricultor";
+			break;
+		case 1:
+			tipo="Cooperativa";
+			break;
+		case 2:
+			tipo="Transportista";
+			break;
+		case 3:
+			tipo="Fabrica";
+			break;
+		case 4:
+			tipo="Reatiler";
+			break;
+		default:
+			tipo = "Unknown";
+			break;
 		}
 		JsonObject todos = new JsonObject();
 		List<Actor> actores = actoresDeTipo(a);
@@ -275,7 +278,7 @@ public class StockController {
 		stock = new JsonObject();
 		json_resp = new JsonObject();
 		try {
-				lista_ordenes = metodosCompany.extraerOrdenesActorOrigen(idActor);
+			lista_ordenes = metodosCompany.extraerOrdenesActorOrigen(idActor);
 		}catch (Exception e) {
 			e.printStackTrace();
 			lista_ordenes = new ArrayList<OrdenTrazabilidad>();
@@ -301,16 +304,16 @@ public class StockController {
 		LinkedList<StockMP> lista = new LinkedList<StockMP>();
 		try {
 			for (OrdenTrazabilidad orden : lista_ordenes) {
-				lista = metodosCompany.extraerStockMP(actor, orden.getId());
+				lista = metodosCompany.extraerStockMpPorPedido(actor, orden);
 				for (StockMP var : lista) {
-						stock.addProperty(
-											lista_nombre_mp.get(var.getMp().getTipo()), 
-											var.getMp().getCantidad()
-											);
+					stock.addProperty(
+							lista_nombre_mp.get(var.getMp().getTipo()), 
+							var.getMp().getCantidad()
+							);
 				}
 			}
 
-		} catch (equipo5.model.NotInDatabaseException | ClassNotFoundException | SQLException e1) {
+		} catch (ClassNotFoundException | SQLException | NotInDatabaseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -442,6 +445,82 @@ public class StockController {
 		bcs.guardarOrden(geo);
 
 	}
+
+	@Scope("request")
+	@RequestMapping("/get_trabilidad_vista")
+	@ResponseBody
+	public String get_trabilidad_vista(@RequestParam(name="id_pedido", required=true) int id_pedido,
+			Model model) throws SQLException 
+	{
+		try {
+			JsonObject json_respuesta;	
+			BlockchainServices bcs;
+			Registro ultimo_registro;
+			Lote ultimo_lote;
+			List <Bloque> lista_bloques_lotes;
+			List <Bloque> lista_bloques_registro;
+			List <Bloque> lista_bloques_ordenes;
+
+
+			bcs = new BlockchainServices();
+			lista_bloques_ordenes = bcs.get_cadena(id_pedido).getBloque(0);
+			lista_bloques_registro = bcs.get_cadena(id_pedido).getBloque(1);
+			lista_bloques_lotes = bcs.get_cadena(id_pedido).getBloque(2);
+			json_respuesta = new JsonObject();
+
+			if(lista_bloques_ordenes == null || lista_bloques_ordenes.size() == 0) throw new Exception();
+			if(lista_bloques_registro == null || lista_bloques_registro.size() == 0) throw new Exception();
+			//esto es un hardcodeo asta que el grupo de lote meta el id de pedido dentro de lote
+			if(lista_bloques_lotes == null || lista_bloques_lotes.size() == 0) 
+			{
+				json_respuesta.addProperty("Tipo", "Lager");
+			}
+			else 
+			{
+				ultimo_lote = ((Lote)(lista_bloques_lotes.get(lista_bloques_lotes.size()-1).getDatos()));
+				json_respuesta.addProperty("Tipo", ultimo_lote.getTipo());
+			}
+
+			insertar_actores(lista_bloques_ordenes,json_respuesta);
+			ultimo_registro = ((Registro)(lista_bloques_registro.get(lista_bloques_registro.size()-1).getDatos()));
+			json_respuesta.addProperty("Temperatura maxima", ultimo_registro.getTempMax());
+			json_respuesta.addProperty("Temperatura minima", ultimo_registro.getTempMax());
+
+			return json_respuesta.toString();
+
+		}
+		catch (Exception e) {
+			return "{\"Error\":\"cadena con encotrada\"}";
+		}
+	}
+	
+	private void insertar_actores(List<Bloque> list_blo, JsonObject json) 
+	{
+		Actor actor;
+		for (Bloque bloque : list_blo) {
+			actor = ((OrdenTrazabilidad)bloque.getDatos()).getActorDestino();
+			switch(actor.getTipoActor()) 
+			{
+			case 0:
+				json.addProperty("Agricultor", actor.getNombre());
+				break;
+			case 3:
+				json.addProperty("Fabrica", actor.getNombre());
+				break;
+			}
+		}
+	}
+	
+	
+	/*
+	 {
+		"Tipo":"Lager",
+		"Agricultor":"Malta Madrid",
+		"Fábrica": "Kolks",
+		"Temperatura máxima":"6ºC",
+		"Temperatura mínima":"4ºC"
+		
+	 */
 
 
 
