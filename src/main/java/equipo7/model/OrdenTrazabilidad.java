@@ -2,6 +2,7 @@ package equipo7.model;
 
 import equipo6.model.DatosContainer;
 import equipo6.model.Actor;
+import equipo7.model.Productos;
 import java.util.Base64;
 
 import java.sql.Date;
