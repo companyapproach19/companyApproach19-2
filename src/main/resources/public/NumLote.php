@@ -51,7 +51,10 @@
                 <div class="input-group-append">
                   <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                     <li class="nav-item" >
-                       <a class="nav-link" id="home" data-toggle="submit" href="Lote.php?numLoteIntroducido=numLoteIntroducido" role="submit" aria-controls="home" aria-selected="true">Buscar</a>
+                       <a class="nav-link" id="home" data-toggle="submit" href="Lote.php?numLoteIntroducido=$numLoteIntroducido" role="submit" aria-controls="home" aria-selected="true" onclick="function recogidaNumLote() {
+                            window.location = 'Lote.html?numLoteIntroducido=' + document.getElementById('numLote').value;
+                       }
+                       recogidaNumLote()">Buscar</a>
                     </li>
                   </ul>
                 </div>
