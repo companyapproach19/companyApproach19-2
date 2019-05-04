@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import equipo5.model.NotInDatabaseException;
+import equipo5.model.NullException;
 import equipo5.model.StockLote;
 import equipo5.model.StockMP;
 
@@ -301,6 +301,9 @@ public class metodosCompany {
 	}
 	
 	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException {
+		if(geo == null){
+	             throw new NullException("La geolocalización introducida no es válida.");
+		}
 		conectar();
 		String query = "INSERT INTO company.geolocalizacion (id, idOrden, idPedido, coordenadas) VALUES (?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -325,6 +328,9 @@ public class metodosCompany {
 	}
 	
 	public static void insertarProductosOrden(ArrayList<Integer> pedidos, int idOrden) throws SQLException {
+		if(pedidos == null){
+	             throw new NullException("La lista de pedidos introducida no es válida.");
+		}
 		conectar();
 		for(int i =0; i<pedidos.size(); i++) {
 			String query = "INSERT INTO company.productosOrden (idOrden, idMPoLote) VALUES (?, ?);";
@@ -366,6 +372,12 @@ public class metodosCompany {
 	}
 
 	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException {
+		if(orden == null){
+	             throw new NullException("La orden introducida no es válida.");
+		}
+		if(orden.getActorOrigen() == null || orden.getActorDestino() == null){
+	             throw new NullException("Los actores de la orden no pueden ser null.");
+		}
 		conectar();
 		//comprobar que los productos no pueden ser null
 		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, estado, firmaRecogida, firmaEntrega, idTransportista, idRegistro, idPedido)"
@@ -409,6 +421,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarProductos(Productos producto, int idOrden) throws SQLException, ClassNotFoundException {
+		if(producto == null){
+	             throw new NullException("El producto introducido no es válido.");
+		}
 		conectar();
 		String query = "INSERT INTO company.productos (id, malta_palida, matla_munich, malta_negra, malta_crystal, "
 				+ "malta_chocolate , malta_caramelo, cebada, cebada_tostada, lupulo_centenial, cajas_stout ,cajas_bisner)"
@@ -447,6 +462,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarCadena(Cadena cadena) throws SQLException {
+		if(cadena == null){
+	             throw new NullException("La cadena introducida no es válida.");
+		}
 		int idPedido = cadena.getCodLote();
 		if(extraerCadena(idPedido)!= null) {
 			conectar();
@@ -472,6 +490,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarLote(Lote lote) throws Throwable {
+		if(lote == null){
+	             throw new NullException("El lote introducido no es válido.");
+		}
 		conectar();
 			String query = "INSERT INTO company.lote (idLote, fecha_inicio, fecha_final, molido, cocido, fermentado, fermentado2, embotellado, qr, fecha_molido, fecha_cocido, fecha_fermentado, fecha_fermentado2, fecha_embotellado, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -511,6 +532,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarRegistro (Registro registro) throws SQLException{
+		if(registro == null){
+	             throw new NullException("El registro introducido no es válido.");
+		}
 		conectar();
 		String query = "INSERT INTO company.registro (id, idOrden, idPedido, fechaInicio, fechaFin, tempMax, tempMin) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -578,6 +602,9 @@ public class metodosCompany {
 	}		 
 
 	public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException{
+		if(actor == null){
+	             throw new NullException("El actor introducido no es válido.");
+		}
 		conectar();
 		String query = "INSERT INTO company.actor (cif, nombreUsuario, passwdPlana, email, tipoActor, localizacion, nombre, direccion, cifCooperativa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -639,6 +666,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarBloque(Bloque bloqAinsertar) throws Throwable {
+		if(bloqAinsertar == null){
+	             throw new NullException("El bloque introducido no es válido.");
+		}
 		int data=0;
 		switch (bloqAinsertar.getTipoBloque()) {
 		case 0:
@@ -669,6 +699,9 @@ public class metodosCompany {
 				insertarGeolocalizacion(aInsertar4);
 			}			
 			break;
+		}
+		if(data == null){
+	             throw new NullException("El atributo datosContainer no es válido.");
 		}
 		conectar();
 		String query = "INSERT INTO company.bloque (hashBloque, hashPrevio, tipoBloque, numBloque, codLote, datosContainer, timeStamp, idCadena) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
@@ -874,7 +907,10 @@ public class metodosCompany {
 	}
     
 	public static void insertarStockLote(StockLote stockLote) throws Throwable{
-	   	if(stockLote.getFecha_salida()==null) {
+	   	if(stockLote == null){
+	             throw new NullException("El stock de lote introducido no es válido.");
+		}
+		if(stockLote.getFecha_salida()==null) {
 	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 4:
@@ -938,7 +974,10 @@ public class metodosCompany {
 	    } 	
     }
     public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException{
-    	if(stockMateria.getFecha_salida()==null) {
+    	    if(stockMateria == null){
+	             throw new NullException("El stock de materia prima introducido no es válido.");
+		}
+	    if(stockMateria.getFecha_salida()==null) {
 	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 0:
@@ -1145,7 +1184,10 @@ public class metodosCompany {
 		return null;
     }
     public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException{
-		conectar();
+		if(mp == null){
+	             throw new NullException("La materia prima introducida no es válida.");
+		}
+                conectar();
 		String query = "INSERT INTO company.materiaPrima (idMateriaPrima, tipo, cantidad) VALUES (?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, mp.getId());
