@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo7.otros.DescodificadorJson;
+import equipo7.otros.ListaIDs;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -39,33 +40,27 @@ public class ManejaPeticiones {
 		OrdenInicial inicial = decodificador.DescodificadorJSONinicial(json);
 		
 		//Pedimos id de la orden
-		System.out.println("pasasaaaaaaaaaa");
 		int idOrden = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
-		System.out.println("pepepepepe1");
 		int idPedido = inicial.getIdPedido();
 		if(inicial.getActorOrigen().getTipoActor()==4) {
 			//Si se trata de Retailer, hay que pedir el idPedido a BBDD
 			idPedido = equipo5.dao.metodosCompany.idPedido();
 		}
-		System.out.println("pepepepepe2"+inicial.getActorOrigen().getId()+" "+ inicial.getActorDestino().getId()+" "+ inicial.getProductosPedidos());
 		
 		if(inicial.getActorOrigen()!=null && inicial.getActorDestino()!=null && inicial.getProductosPedidos()!=null) {
-			System.out.println("pepepepepe3");
-
 			//Creamos el objeto orden
 			OrdenTrazabilidad orden = new OrdenTrazabilidad(idOrden, inicial.getActorOrigen(),
 					inicial.getActorDestino(), inicial.getProductosPedidos());
 			orden.setIdPedido(idPedido);
 			
-			System.out.println("holaaaaaaaaaaa");
+			//Guardamos en la cadena la orden
 			BlockchainServices bloque = new BlockchainServices();
 		    bloque.guardarOrden(orden);
 		        
-			return "{\"respuesta\":\"hecho\"}";
+			return CodificadorJSON.crearJSON(orden);
 		}
 		else {
-			System.out.println("errorrrrrrrrrrrr");
-			return "{\"respuesta\":\"error\"}";
+			return "ERROR: no se pudo crear la orden";
 		}
 		
 	}
@@ -82,10 +77,10 @@ public class ManejaPeticiones {
 
 		//Obtenemos el pedido de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad pedido = bloque.getOrden(idInt);
+		OrdenTrazabilidad orden = bloque.getOrden(idInt);
 		
-		if (pedido != null)
-			return CodificadorJSON.crearJSON(pedido);
+		if (orden != null)
+			return CodificadorJSON.crearJSON(orden);
 		else
 			return "ERROR: No se pudo obtener la orden";
 	}
@@ -94,9 +89,10 @@ public class ManejaPeticiones {
 	private String ordenesPendientes(String idActor, int estado) throws ClassNotFoundException, SQLException{
 		//Obtenemos los pedidos de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
-		System.out.println("id destinooooooooooooooooo =  "+idActor);	
+			
 		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesDestino(idActor);
 		ArrayList<Integer> ordenesPendientes = new ArrayList<Integer>();
+		ListaIDs listaIDs = new ListaIDs();
 				
 		if(ordenes!=null && ordenes.size()>0) {
 					
@@ -113,9 +109,12 @@ public class ManejaPeticiones {
 			}
 						
 			//Devolver lista de identificadores
-			return CodificadorJSON.crearJSONlista(ordenesPendientes);		
+			listaIDs.setListaIDs(ordenesPendientes);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		} else {
+			listaIDs.setListaIDs(null);
+			return CodificadorJSON.crearJSONlista(listaIDs);
 		}
-		else return "{}";
 	}
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
@@ -139,6 +138,7 @@ public class ManejaPeticiones {
 		//Obtenemos las ordenes
 		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
 		ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+		ListaIDs listaIDs = new ListaIDs();
 		
 		if(ordenes!=null && ordenes.size()>0) {
 						
@@ -150,10 +150,12 @@ public class ManejaPeticiones {
 						ordenesIds.add(actual.getId());
 				}
 			}
-			
-			return CodificadorJSON.crearJSONlista(ordenesIds);
-		}	
-		return "null";
+			listaIDs.setListaIDs(ordenesIds);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		} else {
+			listaIDs.setListaIDs(null);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		}
 	}
 	
 	
@@ -189,6 +191,7 @@ public class ManejaPeticiones {
 		//Obtenemos las ordenes
 		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
 		ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+		ListaIDs listaIDs = new ListaIDs();
 		
 		if(ordenes!=null && ordenes.size()>0) {
 						
@@ -202,10 +205,13 @@ public class ManejaPeticiones {
 					}
 				}
 			}
-			
-			return CodificadorJSON.crearJSONlista(ordenesIds);
-		}	
-		return "null";
+
+			listaIDs.setListaIDs(ordenesIds);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		} else {
+			listaIDs.setListaIDs(null);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		}
 	}
 		
 	//PARA EQUIPO 2: VISTAS

@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import equipo5.model.NotInDatabaseException;
+import equipo5.model.NullException;
 import equipo5.model.StockLote;
 import equipo5.model.StockMP;
 
@@ -30,8 +30,8 @@ public class metodosCompany {
 
 	private static Connection conn;
 
-	//private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
-	private static String JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/company?user=gonzalo&password=root";
+	private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
+
 	static boolean primerusuario= true;
 
 
@@ -199,7 +199,7 @@ public class metodosCompany {
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
 	                    "idPedido INT NOT NULL ," +
-	            		"idCooperativa VARCHAR(45) NOT NULL," +
+	            		"idActor VARCHAR(45) NOT NULL," +
 	                    "PRIMARY KEY (idStockCooperativa)" +
 	                    ");"  
 	    );
@@ -226,7 +226,7 @@ public class metodosCompany {
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
 	                    "idPedido INT NOT NULL ," +
-	            		"idAgricultor VARCHAR(45) NOT NULL," +
+	            		"idActor VARCHAR(45) NOT NULL," +
 	                    "PRIMARY KEY (idStockAgricultor)" + 
 	                    ");"
 	    );
@@ -301,6 +301,9 @@ public class metodosCompany {
 	}
 	
 	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException {
+		if(geo == null){
+	             throw new NullException("La geolocalización introducida no es válida.");
+		}
 		conectar();
 		String query = "INSERT INTO company.geolocalizacion (id, idOrden, idPedido, coordenadas) VALUES (?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -325,6 +328,9 @@ public class metodosCompany {
 	}
 	
 	public static void insertarProductosOrden(ArrayList<Integer> pedidos, int idOrden) throws SQLException {
+		if(pedidos == null){
+	             throw new NullException("La lista de pedidos introducida no es válida.");
+		}
 		conectar();
 		for(int i =0; i<pedidos.size(); i++) {
 			String query = "INSERT INTO company.productosOrden (idOrden, idMPoLote) VALUES (?, ?);";
@@ -366,6 +372,12 @@ public class metodosCompany {
 	}
 
 	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException {
+		if(orden == null){
+	             throw new NullException("La orden introducida no es válida.");
+		}
+		if(orden.getActorOrigen() == null || orden.getActorDestino() == null){
+	             throw new NullException("Los actores de la orden no pueden ser null.");
+		}
 		conectar();
 		//comprobar que los productos no pueden ser null
 		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, estado, firmaRecogida, firmaEntrega, idTransportista, idRegistro, idPedido)"
@@ -409,6 +421,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarProductos(Productos producto, int idOrden) throws SQLException, ClassNotFoundException {
+		if(producto == null){
+	             throw new NullException("El producto introducido no es válido.");
+		}
 		conectar();
 		String query = "INSERT INTO company.productos (id, malta_palida, matla_munich, malta_negra, malta_crystal, "
 				+ "malta_chocolate , malta_caramelo, cebada, cebada_tostada, lupulo_centenial, cajas_stout ,cajas_bisner)"
@@ -447,6 +462,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarCadena(Cadena cadena) throws SQLException {
+		if(cadena == null){
+	             throw new NullException("La cadena introducida no es válida.");
+		}
 		int idPedido = cadena.getCodLote();
 		if(extraerCadena(idPedido)!= null) {
 			conectar();
@@ -472,6 +490,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarLote(Lote lote) throws Throwable {
+		if(lote == null){
+	             throw new NullException("El lote introducido no es válido.");
+		}
 		conectar();
 			String query = "INSERT INTO company.lote (idLote, fecha_inicio, fecha_final, molido, cocido, fermentado, fermentado2, embotellado, qr, fecha_molido, fecha_cocido, fecha_fermentado, fecha_fermentado2, fecha_embotellado, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -511,6 +532,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarRegistro (Registro registro) throws SQLException{
+		if(registro == null){
+	             throw new NullException("El registro introducido no es válido.");
+		}
 		conectar();
 		String query = "INSERT INTO company.registro (id, idOrden, idPedido, fechaInicio, fechaFin, tempMax, tempMin) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -578,6 +602,9 @@ public class metodosCompany {
 	}		 
 
 	public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException{
+		if(actor == null){
+	             throw new NullException("El actor introducido no es válido.");
+		}
 		conectar();
 		String query = "INSERT INTO company.actor (cif, nombreUsuario, passwdPlana, email, tipoActor, localizacion, nombre, direccion, cifCooperativa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -639,6 +666,9 @@ public class metodosCompany {
 	}
 
 	public static void insertarBloque(Bloque bloqAinsertar) throws Throwable {
+		if(bloqAinsertar == null){
+	             throw new NullException("El bloque introducido no es válido.");
+		}
 		int data=0;
 		switch (bloqAinsertar.getTipoBloque()) {
 		case 0:
@@ -669,6 +699,9 @@ public class metodosCompany {
 				insertarGeolocalizacion(aInsertar4);
 			}			
 			break;
+		}
+		if(data == null){
+	             throw new NullException("El atributo datosContainer no es válido.");
 		}
 		conectar();
 		String query = "INSERT INTO company.bloque (hashBloque, hashPrevio, tipoBloque, numBloque, codLote, datosContainer, timeStamp, idCadena) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
@@ -824,61 +857,13 @@ public class metodosCompany {
 		lista.add(nuevo);
 		return lista;
 	}
-	
-	public static LinkedList<StockMP> extraerStockMpPorPedido(Actor actor,OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, NotInDatabaseException {
-		LinkedList<StockMP> aDevolver = new LinkedList<StockMP>();
-		switch(actor.getTipoActor()){
-		case 0:
-			conectar();
-			String query = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = '"+actor.getId()+"' AND idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden WHERE fecha_salida <> NULL)";
-			Statement pst = conn.createStatement();
-			ResultSet rs = pst.executeQuery(query);
-			while(rs.next()) {
-					MateriaPrima mp = extraerMateriaPrima(rs.getInt(2));
-					StockMP nuevo = new StockMP(mp, rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getInt(6), rs.getString(7));
-					aDevolver=estaMP(aDevolver, nuevo);
-			}
-			pst.close();
-			rs.close();
-			break;
-		case 1:
-			conectar();
-			String query2 = "SELECT * FROM company.stockCooperativa WHERE idCooperativa = '"+actor.getId()+"' AND idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden WHERE fecha_salida <> NULL)";
-			Statement pst2 = conn.createStatement();
-			ResultSet rs2 = pst2.executeQuery(query2);
-			while(rs2.next()) {
-				MateriaPrima mp = extraerMateriaPrima(rs2.getInt(2));
-				StockMP nuevo = new StockMP(mp, rs2.getDate(3), rs2.getDate(4), rs2.getInt(5), rs2.getInt(6), rs2.getString(7));
-				aDevolver=estaMP(aDevolver, nuevo);
-			}
-			pst2.close();
-			rs2.close();
-			break;
-		case 3:
-			conectar();
-			String query3 = "SELECT * FROM company.stockfabricalotes WHERE idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden WHERE fecha_salida <> NULL)";
-			Statement pst3 = conn.createStatement();
-			ResultSet rs3 = pst3.executeQuery(query3);
-			while(rs3.next()) {
-				MateriaPrima mp = extraerMateriaPrima(rs3.getInt(2));
-				StockMP nuevo = new StockMP(mp, rs3.getDate(3), rs3.getDate(4), rs3.getInt(5), rs3.getInt(6), null);
-				aDevolver=estaMP(aDevolver, nuevo);
-			}
-			pst3.close();
-			rs3.close();
-			break;
-		default: 
-			System.out.println("el actor suministrado no almacena materias primas.");
-		}
-		return aDevolver;
-	}
     
 	public static LinkedList<StockMP> extraerStockMP(Actor actor, int idOrden) throws SQLException, ClassNotFoundException, NotInDatabaseException {
 		LinkedList<StockMP> aDevolver = new LinkedList<StockMP>();
 		switch(actor.getTipoActor()){
 		case 0:
 			conectar();
-			String query = "SELECT * FROM company.stockAgricultor WHERE idAgricultor = '"+actor.getId()+"' AND idOrden = "+idOrden;
+			String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idOrden = "+idOrden;
 			Statement pst = conn.createStatement();
 			ResultSet rs = pst.executeQuery(query);
 			while(rs.next()) {
@@ -891,7 +876,7 @@ public class metodosCompany {
 			break;
 		case 1:
 			conectar();
-			String query2 = "SELECT * FROM company.stockCooperativa WHERE idCooperativa = '"+actor.getId()+"' AND idOrden = "+idOrden;
+			String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idOrden = "+idOrden;
 			Statement pst2 = conn.createStatement();
 			ResultSet rs2 = pst2.executeQuery(query2);
 			while(rs2.next()) {
@@ -904,7 +889,7 @@ public class metodosCompany {
 			break;
 		case 3:
 			conectar();
-			String query3 = "SELECT * FROM company.stockCooperativa WHERE idOrden = "+idOrden;
+			String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idOrden = "+idOrden;
 			Statement pst3 = conn.createStatement();
 			ResultSet rs3 = pst3.executeQuery(query3);
 			while(rs3.next()) {
@@ -922,7 +907,10 @@ public class metodosCompany {
 	}
     
 	public static void insertarStockLote(StockLote stockLote) throws Throwable{
-	   	if(stockLote.getFecha_salida()==null) {
+	   	if(stockLote == null){
+	             throw new NullException("El stock de lote introducido no es válido.");
+		}
+		if(stockLote.getFecha_salida()==null) {
 	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 4:
@@ -986,7 +974,10 @@ public class metodosCompany {
 	    } 	
     }
     public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException{
-    	if(stockMateria.getFecha_salida()==null) {
+    	    if(stockMateria == null){
+	             throw new NullException("El stock de materia prima introducido no es válido.");
+		}
+	    if(stockMateria.getFecha_salida()==null) {
 	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 0:
@@ -1017,7 +1008,7 @@ public class metodosCompany {
 			    break;
 	   		case 3:
 	   			conectar();
-			    String query2 = "INSERT INTO company.stockFabricaLotes (idMateriaPrima, fecha_entrada, idOrden, idPedido) VALUES (?, ?, ?, ?);"; 
+			    String query2 = "INSERT INTO company.stockFabricaMMPP (idMateriaPrima, fecha_entrada, idOrden, idPedido) VALUES (?, ?, ?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
 			    Date date2 = new Date(System.currentTimeMillis());
 		        pst2.setInt(1, stockMateria.getMp().getId());
@@ -1062,7 +1053,7 @@ public class metodosCompany {
 			    break;
 	   		case 3:
 	   			conectar();
-			    String query2 = "INSERT INTO company.stockFabricaLotes (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idPedido) VALUES (?, ?, ?, ?, ?);"; 
+			    String query2 = "INSERT INTO company.stockFabricaMMPP (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idPedido) VALUES (?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
 			    Date date2 = new Date(System.currentTimeMillis());
 		        pst2.setInt(1, stockMateria.getMp().getId());
@@ -1193,7 +1184,10 @@ public class metodosCompany {
 		return null;
     }
     public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException{
-		conectar();
+		if(mp == null){
+	             throw new NullException("La materia prima introducida no es válida.");
+		}
+                conectar();
 		String query = "INSERT INTO company.materiaPrima (idMateriaPrima, tipo, cantidad) VALUES (?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, mp.getId());
@@ -1202,6 +1196,52 @@ public class metodosCompany {
 		pst.executeUpdate();
 		pst.close();
 	}
-    
-
+    public static LinkedList<StockMP> extraerStockMpPorPedido(Actor actor,OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, NotInDatabaseException {
+        LinkedList<StockMP> aDevolver = new LinkedList<StockMP>();
+        switch(actor.getTipoActor()){
+        case 0:
+            conectar();
+            String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockAgricultor WHERE fecha_salida <> NULL)";
+            Statement pst = conn.createStatement();
+            ResultSet rs = pst.executeQuery(query);
+            while(rs.next()) {
+                    MateriaPrima mp = extraerMateriaPrima(rs.getInt(2));
+                    StockMP nuevo = new StockMP(mp, rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getInt(6), rs.getString(7));
+                    aDevolver=estaMP(aDevolver, nuevo);
+            }
+            pst.close();
+            rs.close();
+            break;
+        case 1:
+            conectar();
+            String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockCooperativa WHERE fecha_salida <> NULL)";
+            Statement pst2 = conn.createStatement();
+            ResultSet rs2 = pst2.executeQuery(query2);
+            while(rs2.next()) {
+                MateriaPrima mp = extraerMateriaPrima(rs2.getInt(2));
+                StockMP nuevo = new StockMP(mp, rs2.getDate(3), rs2.getDate(4), rs2.getInt(5), rs2.getInt(6), rs2.getString(7));
+                aDevolver=estaMP(aDevolver, nuevo);
+            }
+            pst2.close();
+            rs2.close();
+            break;
+        case 3:
+            conectar();
+            String query3 = "SELECT * FROM company.stockfabricalotes WHERE idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockfabricalotes WHERE fecha_salida <> NULL)";
+            Statement pst3 = conn.createStatement();
+            ResultSet rs3 = pst3.executeQuery(query3);
+            while(rs3.next()) {
+                MateriaPrima mp = extraerMateriaPrima(rs3.getInt(2));
+                StockMP nuevo = new StockMP(mp, rs3.getDate(3), rs3.getDate(4), rs3.getInt(5), rs3.getInt(6), null);
+                aDevolver=estaMP(aDevolver, nuevo);
+            }
+            pst3.close();
+            rs3.close();
+            break;
+        default:
+            System.out.println("el actor suministrado no almacena materias primas.");
+        }
+        return aDevolver;
+    }
+   
 }

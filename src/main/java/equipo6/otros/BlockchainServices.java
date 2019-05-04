@@ -84,26 +84,34 @@ public class BlockchainServices{
     	return stock_filtrado;
     }
     
-    private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException 
+    private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.dao.NotInDatabaseException 
     {
     	List <StockMP> stock_mp;
-    	MateriaPrima materia_prima;
+    	List <MateriaPrima> list_materia_prima;
     	
-		materia_prima = get_materia_prima(orden.getProductosPedidos());
+    	list_materia_prima = get_materia_prima(orden.getProductosPedidos());
+    	
 
-    	switch(orden.getEstado()) 
-    	{
-    	case 1:
-    		if(orden.getActorDestino().getTipoActor() == 0)return true;
-    		stock_mp = metodosCompany.extraerStockMpPorPedido(orden.getActorDestino(),orden);
-    		stock_mp = filtrar_stock_por_materia_prima(stock_mp, materia_prima.getTipo());
-    		if(stock_mp.size() == 0)return false;
-    		metodosCompany.insertarStockMP(stock_mp.get(0));
-    		break;
-    	case 4:
-    		metodosCompany.insertarStockMP(new StockMP(materia_prima, null, null, orden.getId(), orden.getIdPedido(), orden.getActorOrigen().getId()));
-    		break;
-    	}
+    	try {
+			switch(orden.getEstado()) 
+			{
+			case 1:
+				if(orden.getActorDestino().getTipoActor() == 0)return true;
+				stock_mp = metodosCompany.extraerStockMpPorPedido(orden.getActorDestino(),orden);
+				for(MateriaPrima materia_prima : list_materia_prima)
+					stock_mp.addAll(filtrar_stock_por_materia_prima(stock_mp, materia_prima.getTipo()));
+				if(stock_mp.size() == 0)return false;
+				metodosCompany.insertarStockMP(stock_mp.get(0));
+				break;
+			case 4:
+				for(MateriaPrima materia_prima : list_materia_prima)
+					metodosCompany.insertarStockMP(new StockMP(materia_prima, null, null, orden.getId(), orden.getIdPedido(), orden.getActorOrigen().getId()));
+				break;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     	return true;
     }
@@ -208,12 +216,13 @@ public class BlockchainServices{
     	return null;
     }
     
-    private int get_id_datos(DatosContainer datos_container) 
+    private int get_id_datos(DatosContainer datos_container) throws ClassNotFoundException, SQLException 
     {
+    	
     	if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getIdPedido();
-    	if(datos_container instanceof Registro) return ((Registro)datos_container).getId();
+    	if(datos_container instanceof Registro) return ((Registro)datos_container).getIdPedido();
     	if(datos_container instanceof Lote) return ((Lote)datos_container).getIdBd();
-    	if(datos_container instanceof geolocalizacion) return ((geolocalizacion)datos_container).getIdOrden();
+    	if(datos_container instanceof geolocalizacion) return metodosCompany.extraerOrdenTrazabilidad(((geolocalizacion)datos_container).getIdOrden()).getIdPedido();
 
     	return -1;
     }
@@ -270,68 +279,71 @@ public class BlockchainServices{
     }
     
     
-    private MateriaPrima get_materia_prima(Productos productos) throws ClassNotFoundException, SQLException 
+    private List <MateriaPrima> get_materia_prima(Productos productos) throws ClassNotFoundException, SQLException 
     {
-    	MateriaPrima materia_prima;
+    	List <MateriaPrima> list_materia_prima;
     	int id;
     	int cantidad;
+    	
+    	
+    	list_materia_prima = new ArrayList<MateriaPrima>();
     	
     	if(productos.getCant_cebada() != 0) 
     	{
     		cantidad = productos.getCant_cebada();
     		id = metodosCompany.idMateriaPrima();
-    		materia_prima = new MateriaPrima("Cebada", id, cantidad);
+    		list_materia_prima.add(new MateriaPrima("Cebada", id, cantidad));
     	}
-    	else if(productos.getCant_cebada_tostada() != 0) 
+    	if(productos.getCant_cebada_tostada() != 0) 
     	{
     		cantidad = productos.getCant_cebada_tostada();
     		id = metodosCompany.idMateriaPrima();
-    		materia_prima = new MateriaPrima("cebadaTostada", id, cantidad);
+    		list_materia_prima.add(new MateriaPrima("cebadaTostada", id, cantidad));
     	}
-    	else if(productos.getCant_lupulo_centenial() != 0) 
+    	if(productos.getCant_lupulo_centenial() != 0) 
     	{
     		cantidad = productos.getCant_lupulo_centenial();
     		id = metodosCompany.idMateriaPrima();
-    		materia_prima = new MateriaPrima("lupuloCentennial", id, cantidad);
+    		list_materia_prima.add(new MateriaPrima("lupuloCentennial", id, cantidad));
     	}
-    	else if(productos.getCant_malta_caramelo() != 0) 
+    	if(productos.getCant_malta_caramelo() != 0) 
     	{
     		cantidad = productos.getCant_malta_caramelo();
     		id = metodosCompany.idMateriaPrima();
-    		materia_prima = new MateriaPrima("maltaCaramelo", id, cantidad);
+    		list_materia_prima.add(new MateriaPrima("maltaCaramelo", id, cantidad));
     	}
-    	else if(productos.getCant_malta_chocolate() != 0) 
+    	if(productos.getCant_malta_chocolate() != 0) 
     	{
     		cantidad = productos.getCant_malta_chocolate();
     		id = metodosCompany.idMateriaPrima();
-    		materia_prima = new MateriaPrima("maltaChocolate", id, cantidad);
+    		list_materia_prima.add(new MateriaPrima("maltaChocolate", id, cantidad));
     	}
-    	else if(productos.getCant_malta_crystal() != 0) 
+    	if(productos.getCant_malta_crystal() != 0) 
     	{
     		cantidad = productos.getCant_malta_crystal();
     		id = metodosCompany.idMateriaPrima();
-    		materia_prima = new MateriaPrima("maltaCrystal", id, cantidad);
+    		list_materia_prima.add(new MateriaPrima("maltaCrystal", id, cantidad));
     	}
-    	else if(productos.getCant_malta_munich() != 0) 
+    	if(productos.getCant_malta_munich() != 0) 
     	{
     		cantidad = productos.getCant_malta_munich();
     		id = metodosCompany.idMateriaPrima();
-    		materia_prima = new MateriaPrima("maltaMunich", id, cantidad);
+    		list_materia_prima.add(new MateriaPrima("maltaMunich", id, cantidad));
     	}
-    	else if(productos.getCant_malta_negra() != 0) 
+    	if(productos.getCant_malta_negra() != 0) 
     	{
     		cantidad = productos.getCant_malta_negra();
     		id = metodosCompany.idMateriaPrima();
-    		materia_prima = new MateriaPrima("maltaNegra", id, cantidad);
+    		list_materia_prima.add(new MateriaPrima("maltaNegra", id, cantidad));
     	}
-    	else 
+    	if(productos.getCant_malta_palida() != 0)
     	{
     		cantidad = productos.getCant_malta_palida();
     		id = metodosCompany.idMateriaPrima();
-    		materia_prima = new MateriaPrima("maltaBasePalida", id, cantidad);
+    		list_materia_prima.add(new MateriaPrima("maltaBasePalida", id, cantidad));
     	}
     	
-    	return materia_prima;
+    	return list_materia_prima;
     }
 	
 	

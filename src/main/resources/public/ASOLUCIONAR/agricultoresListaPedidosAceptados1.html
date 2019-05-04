@@ -56,11 +56,11 @@
 									document.write('<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">');
 									document.write('<label for="producto'+i+'" id="label'+i+'">Pedido noPedido</label>');
 									document.write('<a href="" data-toggle="modal" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>');
-									document.write('</div>');                                                          
+									document.write('</div>');                                                     <!-- ^ '+i+' -->       
 									
 									
 									//////////MODAAAAAAAAAL
-									<!-- MODAL -->                                                
+									<!-- MODAL -->                                              <!-- V '+i+' -->    
 									document.write('<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">');
 									document.write('<div class="modal-dialog modal-dialog-scrollable" role="document">');
 									document.write('<div class="modal-content">');
@@ -68,10 +68,10 @@
 									document.write('<button type="button" class="close" data-dismiss="modal" aria-label="Close">');
 									document.write('<span aria-hidden="true">&times;</span>');
 									document.write('</button>');
-									document.write('<a class="btn" href="#" id="d"  onclick="pedirPedido('+(i-1)+',0,'+i+'); style.display ='+stri+'"  data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1"><h2>PEDIDO:  '+idsOrdenes[i-1]+' </h2></a>');
-									document.write('<div id="popup'+i+'" style="display: none;">');  
-									document.write('<div class="inner">');                      
-									document.write('<h1>PEDIDO</h1>');                     
+									document.write('<a class="btn" href="#" id="d"  onclick="intermedio('+(i-1)+',1,'+i+'); style.display ='+stri+'"  data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1">PEDIDO</a>');
+									document.write('<div id="popup'+i+'" style="display: none;">');  <!--      ^      ^    -->
+									document.write('<div class="inner">');                     <!--   pos pedido   Tipo actor    -->      
+									document.write('<h1>PEDIDO</h1>');                      <!--     de idsOrdenes     cada tipo de actor popup distinto  -->
 									document.write('<popup'+i+'></popup'+i+'>');
 									document.write('</div>');
 									document.write('</div>');
@@ -87,7 +87,7 @@
 						
 																															   
 																									<!-- V ;window.location.href='agricultoresInicio.html' ;-->  
-						<input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids(1);" value="Completar pedidos"/>
+						<input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids();" value="Completar pedidos"/>
 					</div>
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 	   
 <script>
  
-window.onload = pedirIds(0,1);
+window.onload = pedirIds(0,2);
 
 </script>
 </body>

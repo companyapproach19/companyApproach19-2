@@ -2,6 +2,7 @@ package equipo7.model;
 
 import equipo6.model.DatosContainer;
 import equipo6.model.Actor;
+import equipo7.model.Productos;
 import java.util.Base64;
 
 import java.sql.Date;
@@ -78,7 +79,6 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.actorDestino=actorDestino;
 			this.actorOrigen=actorOrigen;
 			this.productosPedidos=productosPedidos;
-			
 			this.productosAEntregar=new ArrayList<Integer>();
 			this.estado=0;
 			this.necesitaTransportista=false;
@@ -119,13 +119,9 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.id = id;
 		}
 
-		public Actor getActorOrigen() {
-			return actorOrigen;
-		}
+		public Actor getActorOrigen() { return actorOrigen; }
 
-		public void setActorOrigen(Actor actorOrigen) {
-			this.actorOrigen = actorOrigen;
-		}
+		public void setActorOrigen(Actor actorOrigen) { this.actorOrigen = actorOrigen; }
 
 		public Actor getActorDestino() {
 			return actorDestino;
