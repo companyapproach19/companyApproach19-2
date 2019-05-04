@@ -12,12 +12,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
 
-<link href="style2.css" rel="stylesheet" id="bootstrap-css">
 
 <!------ TEST SCRIPTSS ---------->
 <script type="text/javascript" src="ajaxs.js"></script>
 <!------ TEST SCRIPTSS ---------->
 
+
+<link href="style2.css" rel="stylesheet" id="bootstrap-css">
 </head>
 <body>
 <div class="container register solicitarpedidos">
@@ -25,7 +26,7 @@
              
                     <div class="col-md-3 register-left">
                         <img src="icono-fabrica.png" alt=""/>
-                        <h1>Fábrica</h1>
+                        <h1>Fabrica</h1>
                         <!--<p>Pedidos recibidos</p>-->
                     </div>
                     <div class="col-md-9 register-right">
@@ -38,30 +39,27 @@
                             <div class="col-3 borde">
                                 <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='NumLote.html';">Volver</a>
+                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
                                 </li>
                                 </ul>
                             </div>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <h3 class="register-heading">SOLICITAR PEDIDO</h3>
-                                <br>	
-                                <br>							
+                                <br>					
+                                <br>			
                                 <div class="row register-form">
                                     <div class="col-md-6">
 											   
                                         <div class="form-group">
                                             <h6>* Destino:</h6>
-                                            <input type="text" class="form-control" placeholder="* Destino" id="destino" value="" />
+                                            <input type="text" class="form-control" placeholder="* Destino" id="idDestino" value="" />
                                         </div>
-                                        <div class="form-group">
-                                            <h6>* Identificador:</h6>
-                                            <input type="text" class="form-control" placeholder="* Número de Identificador" id="identificador" value="" />
-                                          </div>
-                                            <div>
+                                        
+                                            <div class="form-group">
                                             <h6>* Identificador de pedido:</h6>
-                                            <input type="text" class="form-control" placeholder="* Número de Identificador de pedido" id="destino" value="" />
-                                            <br>
+                                            <input type="text" class="form-control" placeholder="* Número de Identificador de pedido" id="idPedido" value="" />
+                                           <br>
                                             <label for="producto">Las casillas con * son campos obligatorios</label>
                                             <label for="producto">La cantidad en kg no puede contener números con decimales </label>
                                         </div>
@@ -91,26 +89,26 @@
                                             <input type="number" class="form-control"  placeholder="Cantidad en kg" id="malta_crystal" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <h6>Malta chocolate:</h6>
+                                          <h6>Malta chocolate:</h6>
                                             <input type="number" class="form-control" placeholder="Cantidad en kg" id="malta_chocolate" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <h6>Malta caramelo:</h6>
+                                          <h6>Malta caramelo:</h6>
                                             <input type="number" class="form-control"  placeholder="Cantidad en kg" id="malta_caramelo" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <h6>Cebada:</h6>
+                                          <h6>Cebada:</h6>
                                             <input type="number" class="form-control" placeholder="Cantidad en kg" id="cebada" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <h6>Cebada tostada:</h6>
+                                          <h6>Cebada tostada:</h6>
                                             <input type="number" class="form-control"  placeholder="Cantidad en kg" id="cebada_tostada" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <h6>Lupulo centinal:</h6>
+                                          <h6>Lupulo centinal:</h6>
                                             <input type="number" class="form-control"  placeholder="Cantidad en kg" id="lupulo_centinental" value="" />
                                         </div>
-                                       <input type="submit" class="btnRegister"  onClick="creaOrden(3);" value="Enviar pedido"/>
+                                       <input type="submit" class="btnRegister"  onClick="creaOrden(3)" value="Enviar pedido"/>
                                     </div>
                                 </div>
                             </div>
@@ -121,6 +119,5 @@
 </div>
 </body>
 <script>
- 
 </script>
 </html>

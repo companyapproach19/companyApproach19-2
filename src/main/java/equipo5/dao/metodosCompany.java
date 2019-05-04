@@ -391,6 +391,7 @@ public class metodosCompany {
 		if(extraerProductos(orden.getId())==null) insertarProductos(orden.getProductosPedidos(), orden.getId());
 		pst.setInt(5, orden.getId());
 		pst.setInt(6, orden.getEstado());
+		System.out.println("firmaaaaa :  "+orden.getFirmaRecogidaBBDD());
 		pst.setBytes(7,orden.getFirmaRecogidaBBDD());
 		pst.setBytes(8,orden.getFirmaEntregaBBDD());
 		if(orden.getTransportista()!=null) {
@@ -675,9 +676,7 @@ public class metodosCompany {
 		case 0:
 			OrdenTrazabilidad aInsertar = (OrdenTrazabilidad) bloqAinsertar.getDatos();
 			data = aInsertar.getId();
-			if(extraerOrdenTrazabilidad(data)==null) {
-				insertarOrdenTrazabilidad(aInsertar);
-			}
+			insertarOrdenTrazabilidad(aInsertar);
 			break;
 		case 1: //Registro
 			Registro aInsertar2 = (Registro) bloqAinsertar.getDatos();

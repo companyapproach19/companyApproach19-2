@@ -121,7 +121,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/ordenesPendientesPorAceptar")
 	@ResponseBody
 	public String ordenesPendientesPorAceptar(HttpServletResponse response,
-			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+			@RequestParam(name="id", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
 		return this.ordenesPendientes(idActor, 0);
 			
@@ -132,7 +132,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/ordenesQueHeEnviado")
 	@ResponseBody
 	public String ordenesQueHeEnviado(HttpServletResponse response,
-			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+			@RequestParam(name="id", required=true) String idActor) throws ClassNotFoundException, SQLException {
 
 		BlockchainServices bloque = new BlockchainServices();
 		//Obtenemos las ordenes
@@ -159,12 +159,13 @@ public class ManejaPeticiones {
 	}
 	
 	
+	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
 	@RequestMapping("/ordenesEnProceso")
 	@ResponseBody
 	public String ordenesEnProceso(HttpServletResponse response,
-			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+			@RequestParam(name="id", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
 		return this.ordenesPendientes(idActor, 1);					
 	}
@@ -174,7 +175,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/ordenesListasParaEntregar")
 	@ResponseBody
 	public String ordenesListasParaEntregar(HttpServletResponse response,
-			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+			@RequestParam(name="id", required=true) String idActor) throws ClassNotFoundException, SQLException {
 			
 		return this.ordenesPendientes(idActor, 2);
 						
@@ -185,7 +186,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/ordenesRechazadas")
 	@ResponseBody
 	public String ordenesRechazadas(HttpServletResponse response,
-			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+			@RequestParam(name="id", required=true) String idActor) throws ClassNotFoundException, SQLException {
 				
 		BlockchainServices bloque = new BlockchainServices();
 		//Obtenemos las ordenes
@@ -219,7 +220,7 @@ public class ManejaPeticiones {
 	@RequestMapping("/ordenesEnProcesoDeEntrega")
 	@ResponseBody
 	public String ordenesEnProcesoDeEntrega(HttpServletResponse response,
-			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+			@RequestParam(name="id", required=true) String idActor) throws ClassNotFoundException, SQLException {
 						
 		return this.ordenesPendientes(idActor, 3);
 									
@@ -240,11 +241,12 @@ public class ManejaPeticiones {
 		
 		if(orden!=null) {
 			orden.setEstado(1);
+			System.out.println("actor detino : "+orden.getActorDestino().getTipoActor());
 			bloque.guardarOrden(orden);
-			return "OK";
+			return "{\"resp\":\"okey\"}";
 		}
 		else {
-			return "ERROR: no existe la orden asociada a este ID";
+			return "{\"resp\":\"error\"}";
 		}
 
 	}
