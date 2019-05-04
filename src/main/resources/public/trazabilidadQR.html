@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+	  <!--ZONA SCRIPTS EXTERNOS NECESARIOS -->
+	         
+	  <head>
+		  <meta charset="utf-8">
+		  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+	      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  </head>
+	  
+	  
+	  <body>
+	   <center>
+	
+	   
+	   
+	 <!--ZONA TITULOS E IMAGEN -->
+	 
+	 <div class="container">
+	     <!--Título de la pestania en el navegador -->       
+		    <title>Trazabilidad cerveza</title>
+		    
+		 	<!--Título ppal -->    
+			<font size=10>Trazabilidad cerveza</font>
+		
+			<!--Imagen de el neon de cerveza -->  
+			<div class="card"style="width:500px">
+			<img src="https://images.vexels.com/media/users/3/144118/isolated/lists/31093a4558d1aa47a6fcec2a174f2754-signo-de-cerveza-de-neon.png" alt="Card image" style="width:80%">
+			</div>
+			<div class="card"style="width:900px">
+		</div>
+	    
+	
+	
+	
+	 <!--ZONA DIBUJAR TABLA -->
+	 
+	    <div class="container">
+		    <table class="table table-bordered table-striped table-hover">
+		    	<thead>
+		     		<tr>
+		    			<th>Tipo:</th>
+		    			<th>Agricultor:</th>
+		    			<th>Fábrica:</th>
+		    			<th>Temperatura máxima:</th>
+		    			<th>Temperatura mínima:</th>
+		    		</tr>
+		     	</thead>
+		      	<tbody> </tbody>
+		     </table>
+		</div>
+    
+	    
+	        <!--ZONA SCRIPTS -->
+	    
+	    
+                <!--SCRIPT GET IDPEDIDO -->
+	        <!--Este script recupera el numero que se le pasa después del # a la vista de trazabilidadQR.html -->  
+		<p id="idLote"></p> <!--ya no pone el #-->
+		<script>
+			function getID() {
+			  return window.location.hash;
+			}
+			<!--Esta linea imprime por pantalla idLote, hay que quitarla y pasar el idLote a  SCRIPT PETICION A BLOCKCHAIN-->  
+			document.getElementById('idLote').innerHTML = window.getID().substr(1);
+		</script>
+		
+		
+	        <!--SCRIPT PETICION A BLOCKCHAIN -->
+		<!--Petición para conseguir json trazabilidad --> 
+		<!--Ahora mismo va mal, por eso lanza el cuadro de error --> 
+		<script>
+		window.onload = hacerPeticion;
+		 function hacerPeticion(){
+		      var request = $.ajax({
+		      // la URL para la petición
+		      url : 'get_trazabilidad_vista', //esta es la url de la peticion
+		      data :"id_pedido=window.getID().substr(1)" , //idPedido real que capturamos con el otro script
+		      // empleamos GET porque estamos obteniendo datos del servidor
+		      type : 'GET',
+		      // el tipo de información que se espera de respuesta
+		      dataType : 'json',
+		      });
+		     request.done(function(data){
+		           alert("Quitar esta linea y llamar a SCRIPT TO TABLE");
+		     });
+		     request.fail(function(data) {
+		     alert("Error al recuperar campos trazabilidad");
+		     });
+		 }  
+		</script>
+		
+		
+	    <!--SCRIPT TO TABLE -->
+	    <!--Este script rellena la tabla con los campos de get_trazabilidad_vista.json -->  
+	    <script>
+	    $.getJSON("get_trazabilidad_vista.json",function(data){
+	    	var items=[];
+	    	$.each(data,function(key,val){
+	    		  items.push("<tr>");
+				  items.push("<td id=''"+key+"''>"+val.Tipo+"</td>");
+				  items.push("<td id=''"+key+"''>"+val.Agricultor+"</td>");
+				  items.push("<td id=''"+key+"''>"+val.Fabrica+"</td>");
+				  items.push("<td id=''"+key+"''>"+val.TemperaturaMax+"</td>");
+				  items.push("<td id=''"+key+"''>"+val.TemperaturaMin+"</td>");
+				  items.push("<t/r>");
+				  });
+				  $("<tbody/>",{html:items.join("")}).appendTo("table");
+	    });
+	    </script>
+	    
+	    
+		<!--FIN ZONA SCRIPTS -->
+		
+		
+		
+    </center>
+  </body>
+</html>
