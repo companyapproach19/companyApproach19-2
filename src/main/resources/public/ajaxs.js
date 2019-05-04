@@ -150,8 +150,15 @@ function creaOrden(actor){
 
 
 
-function mandarids(){
+function mandarids(urlpar){
 
+  //Distintos casos
+	//0aceptar pedido ->Para los recibidos pero no aceptados
+	//1ordenes listas para entregar ->Completar
+var urlaux;
+if(urlpar=='0') urlaux='/aceptarOrden';
+if(urlpar=='1') urlaux='/listaOrden';
+console.log(urlaux);
   //creare un array de longitud tantos como Ordenes haya (pedidos)
   //donde 1 en i pos significa que he marcado la orden i, -1 si no marcado
   var str = 'producto';
@@ -165,14 +172,15 @@ function mandarids(){
 		aux = document.getElementById(str2);
 		if (aux.checked){
 		
-		console.log("intento mandar  a /aceptarOrden?id="+idsOrdenes[i-1]);
-		  
+		if(urlpar=='0')console.log("intento mandar  a /aceptarOrden?id="+idsOrdenes[i-1]);
+		 if(urlpar=='1')console.log("intento mandar  a /listaOrden?id="+idsOrdenes[i-1]);
+
 		  array[i-1] = 1;
 		  
 		  
 			var request = $.ajax({
 			
-				url : '/aceptarOrden',
+				url : urlaux,
 				data :"id="+idsOrdenes[i-1] ,
 				type : 'POST',
 				dataType : 'json',  // el tipo de información que se espera de respuesta
@@ -188,8 +196,11 @@ function mandarids(){
 			request.fail(function(data) {
 			 
 			 
-			 alert("ERROR al aceptar "+idsOrdenes[i-1]+" pedido");
-		   
+			if (urlpar == '0') alert("ERROR al aceptar "+idsOrdenes[i-1]+" pedido");
+
+		   	else {
+			alert("ERROR al completar "+idsOrdenes[i-1]+" pedido");
+				}
 			});
 	  
 	    } else {
