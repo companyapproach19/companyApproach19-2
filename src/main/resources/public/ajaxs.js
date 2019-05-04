@@ -150,15 +150,36 @@ function creaOrden(actor){
 
 
 
+
+
+
+// 0 = /aceptarOrden, 1 = /listaOrden, 2 = /comienzoProcesoFabricacion
+//Distintos casos
+	//0 aceptar pedido ->Para los recibidos pero no aceptados
+	//1 ordenes listas para entregar ->Completar
 function mandarids(urlpar){
 
-  //Distintos casos
-	//0aceptar pedido ->Para los recibidos pero no aceptados
-	//1ordenes listas para entregar ->Completar
-var urlaux;
-if(urlpar=='0') urlaux='/aceptarOrden';
-if(urlpar=='1') urlaux='/listaOrden';
-console.log(urlaux);
+	var url;
+
+	switch(urlpar){
+		
+		case 0 :
+		url = "/aceptarOrden";
+		break;
+		
+		case 1 :
+		url = "/listaOrden";
+		break;
+		
+		case 2:
+		break;
+		
+		default:
+		alert("parametro incorrecto mandarids(MAL:"+urlpar+")");
+		return;
+			
+	}
+	
   //creare un array de longitud tantos como Ordenes haya (pedidos)
   //donde 1 en i pos significa que he marcado la orden i, -1 si no marcado
   var str = 'producto';
@@ -172,38 +193,87 @@ console.log(urlaux);
 		aux = document.getElementById(str2);
 		if (aux.checked){
 		
-		if(urlpar=='0')console.log("intento mandar  a /aceptarOrden?id="+idsOrdenes[i-1]);
-		 if(urlpar=='1')console.log("intento mandar  a /listaOrden?id="+idsOrdenes[i-1]);
-
+		
 		  array[i-1] = 1;
 		  
-		  
-			var request = $.ajax({
+		  // proceso fabricacion
+		  if (urlpar==2){ // necesito obtener el id del pedido
+				
+				var idPedidoAux;
+				console.log("pido idPedido en /obtenerOrden?id="+idsOrdenes[i-1]);
+				var requestIdPedido = $.ajax({
+				  
+					url : '/obtenerOrden',  // la URL para la petición
+					data :"id="+idsOrdenes[i-1] ,
+					type : 'GET',
+					dataType : 'json',  // el tipo de información que se espera de respuesta
+						 
+				});
+				 
+				requestIdPedido.done(function(data){
+					 
+					 url = "/comienzoProcesoFabricacion";
+					//se han obtenido json del pedido
+					idPedidoAux = JSON.parse(data).idPedido;
+					// ahora ya puedo empezar fabricacion
+					
+					console.log("empiezo fabricacion en /comienzoProcesoFabricacion?peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1]);
+					var request = $.ajax({
 			
-				url : urlaux,
+						url : url,
+						data :"peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1] ,
+						type : 'POST',
+						dataType : 'json',  // el tipo de información que se espera de respuesta
+						
+						});
+				 
+						request.done(function(data){
+					  
+						 
+						 
+						});
+				 
+						request.fail(function(data) {
+					 
+							alert("fallo empezando fabricacion de"+idsOrdenes[i-1]);
+						
+						});
+					
+				});
+					 
+				requestIdPedido.fail(function(data){
+						
+					alert("fallo el ajax obtenerIdPedido "+idsOrdenes[i-1]);
+						
+					  
+				});
+			} else { //urlpar es 0 o 1
+			
+				console.log("acepto/completo en "+url+"id="+idsOrdenes[i-1]);
+				var request = $.ajax({
+			
+				url : url,
 				data :"id="+idsOrdenes[i-1] ,
 				type : 'POST',
 				dataType : 'json',  // el tipo de información que se espera de respuesta
 				
-			});
+				});
 		 
-			request.done(function(data){
+				request.done(function(data){
 			  
 				 
 				 
-			});
+				});
 		 
-			request.fail(function(data) {
+				request.fail(function(data) {
 			 
-			 
-			if (urlpar == '0') alert("ERROR al aceptar "+idsOrdenes[i-1]+" pedido");
-
-		   	else {
-			alert("ERROR al completar "+idsOrdenes[i-1]+" pedido");
-				}
-			});
-	  
-	    } else {
+			  		alert("error aceptando pedido: "+idsOrdenes[i-1]);
+				
+				});
+				
+			}
+		  
+		} else {
 			array[i-1] = -1;
 		}
     
@@ -215,6 +285,11 @@ console.log(urlaux);
 	
 	
 }
+
+
+
+
+
 
 //--------------------------------LOCALES------------------------------------------
 
