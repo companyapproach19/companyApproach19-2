@@ -85,9 +85,9 @@ function logIn(email,password){
 		console.log("soy null");
 		alert("Identification error. Please check that the email and password are correct.")
     }else{
-		localStorage.setItem("currentUser", JSON.stringify(data));
+    	localStorage.setItem("currentUser", JSON.stringify(data));
         console.log("correct!");
-        location.href = "allIdeas.html";
+        location.href = data.redirect;
     } 
 						 
  
