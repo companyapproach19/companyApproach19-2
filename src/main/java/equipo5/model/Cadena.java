@@ -1,10 +1,13 @@
 package equipo5.model;
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.Bloque;
 import equipo6.model.DatosContainer;
+import equipo7.model.OrdenTrazabilidad;
 
 
 public class Cadena{
@@ -118,8 +121,14 @@ public class Cadena{
         5. Actualizar tabla de referencia de hash+
         6. LLamar a BBDD para almacenar la tabla de referencia
         */
-
-        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc, -1);
+    	int estadoOrden;
+    	
+    	estadoOrden = -1;
+    	if(dc instanceof OrdenTrazabilidad) 
+		{
+    		estadoOrden = ((OrdenTrazabilidad)dc).getEstado();
+		}
+        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc, -1, estadoOrden);
         nuevoBloque.setTimeStamp();
         String hashNuevo = nuevoBloque.getHashCode();
 		try {
