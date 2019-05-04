@@ -335,36 +335,65 @@ function muestraFallo(actor, i){
 
 
 
-function rellenaPopup(stock, actor, i) {
+function rellenaPopup(json, actor, i) {
 	
    
-    if (stock == null) {
+    if (json == null) {
 		
 	  // En este caso ni el servidor ha devuelto nada ni tenemos JSON local
 	  $("popup" + i).append("<br><br>Respuesta del servidor o datos locales erróneos. No hay stock para mostrar");
 	  return;
     }
+
+    var estado = "";
+		switch(json.estado){
+		case "-1":
+		estado="rechazado";
+		break;
+		case "0":
+		estado="Pendiente por aceptar";
+		break;
+		case "1":
+		estado="Preparando";
+		break;
+		case "2":
+		estado="listo para entregar";
+		break;
+		case "3":
+		estado="transportandose";
+		break;
+		case "4":
+		estado="entregado";
+		break;
+		}
     
-    switch(stock.tipoActor) {
+    switch(actor) {
 
 		// ESTOS METODOS ESTAN ECHOS PARA EL JSON VIEJO, HAY QUE ACTUALIZARLOS
 		
 		//           por ejemplo lo que antes era stock.nomUsuario, ahora sera stock.actorOrigen
 		//                                          ^del json viejo                 ^del json nuevo
-	  case "Agricultor":
-	  $("popup"+i).append("<br><br>Datos del Agricultor<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg");
+	  
+		
+
+
+
+
+
+	  case "0":
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado +"<br><br>Datos Cooperativa<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial);
 	  break;
 	  
-	  case "Cooperativa":
-	  $("popup"+i).append("<br><br>Datos de la Cooperativa<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg");
+	  case "1":
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado  +"<br><br>Datos Fabrica<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial);
 	  break;
 
-		case "Fabrica":
-	  $("popup"+i).append("<br><br>Datos de la Fábrica<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Agricultor: " + "<br>MALTA:" + "<br>1.Base pálida: "+ stock.stock.malta_palida +" kg<br>2.Cebada tostada:" +" "+ stock.stock.malta_tostada +" kg<br>3.Negra: "+ stock.stock.malta_negra +" kg<br>4.Crystal: "+ stock.stock.malta_crystal +" kg<br>5.Chocolate: "+ stock.stock.malta_chocolate +" kg<br>6.Caramelo: "+ stock.stock.malta_caramelo +" kg<br>7.Pilsner: "+ stock.stock.malta_pilsner +" kg<br>8.Munich: "+ stock.stock.malta_munich +" kg<br><br>LÚPULO:" + "<br>1.Perle: "+ stock.stock.lupulo_perle +" kg<br>2.Tettnager: "+ stock.stock.lupulo_tettnager +" kg<br>3.Centennial: "+ stock.stock.lupulo_centennial +" kg<br><br>LEVADURA:"+"<br>1.Ale: "+ stock.stock.levadura_ale +" kg<br>2.Lagger: "+ stock.stock.levadura_lagger +" kg<br><br>LOTES:"+"<br>1. Cerveza Pilsner: "+ stock.stock.lotes_pilsner +" lotes<br>2. Cerveza Stout: " + stock.stock.lotes_stout + " lotes");
+		case "3":
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido +"<br>Estado:"+ estado  +"<br><br>Datos Retailer<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial +" kg<br>10.Lotes Bisner: "+ json.prodcutotsPedidos.cant_lotes_bisner + " kg<br>11. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
 
-		case "Retailer":
-	  $("popup"+i).append("<br><br>Datos de la Tienda<br>Nombre: " + stock.nomUsuario + "<br>Email: " + stock.email + "<br><br>Stock del Retailer: "+"<br>LOTES:"+"<br>1. Cerveza Pilsner: "+ stock.stock.lotes_pilsner +" lotes<br>2. Cerveza Stout: " + stock.stock.lotes_stout + " lotes");
+		case "4":
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido  +"<br>Estado:"+ estado +"<br><br>Cantidades: <br>1.Lotes Bisner: "+ json.prodcutotsPedidos.cant_lotes_bisner + " kg<br>2. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
 
 		default :
@@ -439,3 +468,5 @@ var pedido = {
   "idPedido": 1,
   "fecha": "may 26, 3919"
 }
+
+
