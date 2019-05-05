@@ -112,22 +112,22 @@ function creaOrden(actor){
 
 	
 	if (actor == 1 || actor == 3){ // coope, fabrica
-		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value;
-		nuevaOrden.idPedido = document.getElementById("idPedido").value;
-		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value;
-		nuevaOrden.productosPedidos.cant_malta_munich= document.getElementById("malta_munich").value;
-		nuevaOrden.productosPedidos.cant_malta_negra= document.getElementById("malta_negra").value;
-		nuevaOrden.productosPedidos.cant_malta_crystal= document.getElementById("malta_crystal").value;
-		nuevaOrden.productosPedidos.cant_malta_chocolate= document.getElementById("malta_chocolate").value;
-		nuevaOrden.productosPedidos.cant_malta_caramelo= document.getElementById("malta_caramelo").value;
-		nuevaOrden.productosPedidos.cant_cebada= document.getElementById("cebada").value;
-		nuevaOrden.productosPedidos.cant_cebada_tostada= document.getElementById("cebada_tostada").value;
-		nuevaOrden.productosPedidos.cant_lupulo_centenial=document.getElementById("lupulo_centinental").value;
+		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value -0;
+		nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
+		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value -0;
+		nuevaOrden.productosPedidos.cant_malta_munich= document.getElementById("malta_munich").value -0;
+		nuevaOrden.productosPedidos.cant_malta_negra= document.getElementById("malta_negra").value -0;
+		nuevaOrden.productosPedidos.cant_malta_crystal= document.getElementById("malta_crystal").value -0;
+		nuevaOrden.productosPedidos.cant_malta_chocolate= document.getElementById("malta_chocolate").value -0;
+		nuevaOrden.productosPedidos.cant_malta_caramelo= document.getElementById("malta_caramelo").value -0;
+		nuevaOrden.productosPedidos.cant_cebada= document.getElementById("cebada").value -0;
+		nuevaOrden.productosPedidos.cant_cebada_tostada= document.getElementById("cebada_tostada").value -0;
+		nuevaOrden.productosPedidos.cant_lupulo_centenial=document.getElementById("lupulo_centinental").value -0;
 	}else if (actor == 4){  // tienda
 		nuevaOrden.idPedido = -1;
-		nuevaOrden.actorDestino.id = document.getElementById("idTransportista").value;
-		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value;
-		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value;
+		nuevaOrden.actorDestino.id = document.getElementById("idTransportista").value -0;
+		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
+		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
 		
 	}
 	else { alert("Error llmando a paraJson(MAL:"+actor+")");}
