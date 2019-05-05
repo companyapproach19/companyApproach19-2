@@ -69,11 +69,12 @@
 
 
 <script>
-
+var email;
+var password;
 
 function getDataLogin(){
-	var email = $("#username").val();
-	var password = $("#password").val();
+	email = $("#username").val();
+	password = $("#password").val();
 	var log = {"usuario":email,"pwd":password};
 	console.log(log);
 	logIn(email, password);
@@ -90,30 +91,20 @@ function logIn(email,password){
         location.href = data.redirect;
     } 
 						 
- }
- )
-}
-</script>														   
-																				
- 
-													 
-					
- 
-														   
-						
- 
-		 
- 
-								 
-  
-	  
-									 
-											 
-	
-});
+ });	
+};
 	alert("MAL. NO FUNCIONO GET JSON");
 	
 	//TRAMPA
+
+
+var usuarios = new Array ( '{ "nombre":"Agricultor","mail":"agricultor@email.com", "tipoActor":"Agricultor" }',
+	'{ "nombre":"Cooperativa","mail":"cooperativa@email.com", "tipoActor":"Cooperativa" }',
+	'{ "nombre":"Transportista","mail":"transportista@email.com", "tipoActor":"Transportista" }',
+	'{ "nombre":"Fábrica","mail":"fabrica@email.com", "tipoActor":"Fábrica" }',
+	'{ "nombre":"Retailer","mail":"retailer@email.com", "tipoActor":"Retailer" }' );
+
+
 	for (var i = 0; i < usuarios.length; i++) {
 		var actor = JSON.parse( usuarios[i] );
 								  
@@ -126,13 +117,7 @@ function logIn(email,password){
 		}
     }
 	  
-}
 //-----------------------------TRAMPA-----------------------------
-var usuarios = new Array ( '{ "nombre":"Agricultor","mail":"agricultor@email.com", "tipoActor":"Agricultor" }',
-	'{ "nombre":"Cooperativa","mail":"cooperativa@email.com", "tipoActor":"Cooperativa" }',
-	'{ "nombre":"Transportista","mail":"transportista@email.com", "tipoActor":"Transportista" }',
-	'{ "nombre":"Fábrica","mail":"fabrica@email.com", "tipoActor":"Fábrica" }',
-	'{ "nombre":"Retailer","mail":"retailer@email.com", "tipoActor":"Retailer" }' )
   
   
 function vistaPrincipal(tipoActor) {
