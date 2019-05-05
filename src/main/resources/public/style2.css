@@ -53,6 +53,11 @@
     -webkit-animation: mover 2s infinite  alternate;
     animation: mover 1s infinite  alternate;
 }
+.desplazable{
+  overflow-y: scroll;
+  height: 22rem;
+  text-align: center;
+}
 
 @-webkit-keyframes mover {
     0% { transform: translateY(0); }
@@ -78,9 +83,26 @@
     padding: 8%;
     margin-top: 5%;
 }
+.register .register-desplazable{
+    padding: 5%;
+    margin-top: 5%;
+}
 .btnRegister{
     float: right;
     margin-top: 10%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #0062cc;  /*Boton enviar pedido*/
+    color: #fff;          /*Letras enviar pedidos*/
+    font-weight: 600;
+    width: 50%;
+    cursor: pointer;
+}
+.btnCompletar{
+    float: right;
+    margin-top: 2%;
+    margin-left: 18%;
     border: none;
     border-radius: 1.5rem;
     padding: 2%;
