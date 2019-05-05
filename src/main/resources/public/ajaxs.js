@@ -36,7 +36,7 @@ function pedirIds(actor, estado){
      request.done(function(data){
 	 
         //reescribo el array local idsOrdenes
-		idsOrdenes = JSON.parse(data).listaIDs;
+		idsOrdenes = data.listaIDs;
 		
 		//paso por parametro a imprimir
 		imprimirjson(idsOrdenes);
@@ -323,7 +323,7 @@ function pedirStock(actor,i) {
     request.done(function(data){
   
 		//se han obtenido json del STOCK
-		pedido = JSON.parse(data);
+		pedido = data;
 			
 		//paso por parametro a imprimir
 		rellenaPopup(pedido, actor,i);
@@ -359,7 +359,7 @@ function pedirPedido(pos, actor,i) {
 	request.done(function(data){
 		 
 		//se han obtenido json del pedido
-		pedido = JSON.parse(data);
+		pedido = data;
 			
 		//paso por parametro a imprimir
 		rellenaPopup(pedido, actor,i);
@@ -489,9 +489,16 @@ function rellenaPopup(json, actor, i) {
 
 //Para el stock
 
-
-
-
+/*var stock = '<br><br>Stock';
+//json es el json
+for(var key of Object.keys(json.stock))
+{
+stock = stock.concat("<br>".concat(key).concat(":"));
+//donde key es el nombre de la materia prima
+var valor_mat = json.stock[key];
+stock = stock.concat(valor_mat)
+}
+*/
 /* JSON local por si el servidor falla o no hay datos */
 
 ////// JSONS VIEJOSSSS /////
