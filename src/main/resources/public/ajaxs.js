@@ -338,16 +338,19 @@ function pedirStock(actor,i) {
     request.done(function(data){
   
 		//se han obtenido json del STOCK
-		pedido = data;
+		//pedido = data;
 			
 		//paso por parametro a imprimir
-		rellenaPopup(pedido, actor,i);
+		
+		//rellenaPopup(pedido, actor,i);
+		imprimeStock(data, i); //maybe parse?
   
     });
     request.fail(function(data) {
 		
 		alert("fallo el ajax Stock");
 		
+		//imprimeStock(i);
 		muestraFallo(actor, i);
 		  
 	});
@@ -503,17 +506,18 @@ function rellenaPopup(json, actor, i) {
 }
 
 //Para el stock
-
-/*var stock = '<br><br>Stock';
-//json es el json
-for(var key of Object.keys(json.stock))
-{
-stock = stock.concat("<br>".concat(key).concat(":"));
-//donde key es el nombre de la materia prima
-var valor_mat = json.stock[key];
-stock = stock.concat(valor_mat)
+function imprimeStock(json, i){
+	var stock = '<br><br>Stock';
+	//json es el json
+	for(var key of Object.keys(json.stock)){
+		stock = stock.concat("<br>".concat(key).concat(":"));
+		//donde key es el nombre de la materia prima
+		var valor_mat = json.stock[key];
+		stock = stock.concat(valor_mat)
+	}
+	$("popup"+i).append(stock);
 }
-*/
+
 /* JSON local por si el servidor falla o no hay datos */
 
 ////// JSONS VIEJOSSSS /////
