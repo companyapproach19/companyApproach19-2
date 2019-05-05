@@ -103,7 +103,7 @@
 	    <!--SCRIPT TO TABLE -->
 	    <!--Este script rellena la tabla con los campos de get_trazabilidad_vista.json -->  
 	    <script>
-	    $.getJSON("get_trazabilidad_vista.json",function(data){
+	    $.getJSON("ajax/get_trazabilidad_vista.json",function(data){
 	    	var items=[];
 	    	$.each(data,function(key,val){
 	    		  items.push("<tr>");
