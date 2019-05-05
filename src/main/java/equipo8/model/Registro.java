@@ -1,35 +1,46 @@
 package equipo8.model;
 
-import equipo4.model.Lote;
-import equipo6.model.Actor;
-import equipo6.model.DatosContainer;
 import java.sql.SQLException;
-import equipo5.dao.metodosCompany;
+
+import equipo6.model.DatosContainer;
+//import equipo5.dao.metodosCompany;
 
 public class Registro extends DatosContainer{
 	
 	private int id;
-	private Lote lote;
-	private Actor actor;
+	private int idOrdenTrazabilidad;
+	private int idPedido;
 	private String fechaInicio;
 	private String fechaFin;
 	private int tempMax;
 	private int tempMin;
+	//private static int contId = 1; //tests sin servidor
 	
-	public Registro(int id,Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
+	public Registro(int id,int idOrdenTrazabilidad, int idPedido, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
 		this.id = id;
-		this.lote=lote;
-		this.actor = actor;
+		this.idOrdenTrazabilidad=idOrdenTrazabilidad;
+		this.idPedido = idPedido;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.tempMax = tempMax;
 		this.tempMin = tempMin;
 	}
 	
-	public Registro(Lote lote, Actor actor, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
-		//this.id = metodosCompany.idRegistro(); 
-		this.lote=lote;
-		this.actor = actor;
+	public Registro(int idPedido,int idOrdenTrazabilidad,String fechaInicio, String fechaFin, int tempMax, int tempMin) {
+		try {
+			this.id = equipo5.dao.metodosCompany.idRegistro();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		//tests sin servidors
+//		this.id = contId;
+//		contId++;
+		this.idOrdenTrazabilidad=idOrdenTrazabilidad;
+		this.idPedido = idPedido;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.tempMax = tempMax;
@@ -43,33 +54,24 @@ public class Registro extends DatosContainer{
 		this.fechaFin = "error";
 		this.tempMax=-1000;
 		this.tempMin=-1000;
-		actor=new Actor();
-		try {
-      lote=new Lote();
-    } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    
 	}
 	
 
 	public String toString(){
-		return "\n"+"Temperatura máxima:"+tempMax+"ºC"+"\n"+"Temperatura mínima:"+tempMin +"ºC"+"\n"+"Fecha inicio:"+fechaInicio +"\n"+"Fecha fin:"+fechaFin+"\n";   
+		return "\n"+ "idRegistro: " + this.id + "\nidOrdenTrazabilidad: "+ this.idOrdenTrazabilidad + "\nidPedido: " + this.idPedido +"\nTemperatura máxima: "+ this.tempMax +"ºC"+"\n"+"Temperatura mínima: "+ this.tempMin +"ºC"+"\n"+"Fecha inicio: "+ this.fechaInicio +"\n"+"Fecha fin: " + this.fechaFin+"\n";   
 	}
 	
 	public void setId (int id) {
 		this.id = id;		
 	}
 	
-	public void setLote (Lote lote) {
-		this.lote = lote;		
+	public void setIdOrdenTrazabilidad (int idOrdenTrazabilidad) {
+		this.idOrdenTrazabilidad = idOrdenTrazabilidad;		
 	}
 	
-	public void setActor (Actor actor) {
-		this.actor = actor;
+	public void setIdPedido (int idPedido) {
+		this.idPedido = idPedido;
 	}
 	
 	public void setFechaInicio (String fechaInicio) {
@@ -92,12 +94,12 @@ public class Registro extends DatosContainer{
 		return this.id;
 	}
 	
-	public Lote getLote() {
-		return this.lote;
+	public int getIdOrdenTrazabilidad() {
+		return this.idOrdenTrazabilidad;
 	}
 
-	public Actor getActor() {
-		return this.actor;
+	public int getIdPedido() {
+		return this.idPedido;
 	}
 
 	
@@ -117,7 +119,3 @@ public class Registro extends DatosContainer{
 		return this.tempMin;
 	}
 }
-
-
-
-
