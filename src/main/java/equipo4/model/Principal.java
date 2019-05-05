@@ -6,10 +6,10 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 
-import equipo5.dao.NotInDatabaseException;
 import equipo5.dao.metodosCompany;
 import equipo6.model.DatosContainer;
 import equipo8.model.GeneradorQR2;
+import equipo5.model.NotInDatabaseException;
 
 public class Principal extends Thread {
 
