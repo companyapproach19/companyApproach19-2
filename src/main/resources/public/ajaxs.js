@@ -85,7 +85,7 @@ function creaOrden(actor){
       var request = $.ajax({
       
 			url : '/crearOrden',    // la URL para la petición
-			data : paraJson(actor),
+			data : 'json='paraJson(actor),
 			type : 'POST',
 			dataType : 'json',  // el tipo de información que se espera de respuesta
  
