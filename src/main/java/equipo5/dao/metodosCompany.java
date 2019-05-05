@@ -128,7 +128,7 @@ public class metodosCompany {
 				"CREATE TABLE company.productos ( " +
 						"id INT NOT NULL, " +
 						"malta_palida INT NOT NULL, " +
-						"matla_munich INT NOT NULL, " +
+						"malta_munich INT NOT NULL, " +
 						"malta_negra INT NOT NULL, " +
 						"malta_crystal INT NOT NULL, " +
 						"malta_chocolate INT NOT NULL, " +
@@ -270,7 +270,6 @@ public class metodosCompany {
 		System.out.println("�Base de datos Creada!");
 
 	}
-	
 	//Ver como se saca geolocalizacion
 	public static geolocalizacion extraerGeolocalizacion (int id) throws SQLException{
 		conectar();
@@ -427,7 +426,7 @@ public class metodosCompany {
 	             throw new NullException("El producto introducido no es válido.");
 		}
 		conectar();
-		String query = "INSERT INTO company.productos (id, malta_palida, matla_munich, malta_negra, malta_crystal, "
+		String query = "INSERT INTO company.productos (id, malta_palida, malta_munich, malta_negra, malta_crystal, "
 				+ "malta_chocolate , malta_caramelo, cebada, cebada_tostada, lupulo_centenial, cajas_stout ,cajas_bisner)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -490,7 +489,7 @@ public class metodosCompany {
 			//conn.close();
 		}
 	}
-	
+
 	public static void insertarLote(Lote lote) throws Throwable {
 		if(lote == null){
 	             throw new NullException("El lote introducido no es válido.");
@@ -944,7 +943,7 @@ public class metodosCompany {
 	   		switch(actor.getTipoActor()){
 	   		case 4:
 	   			conectar();
-			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?. ?);"; 
+			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			    Date date = new Date(System.currentTimeMillis());
 		        pst.setInt(1, stockLote.getLote().getIdBd());
