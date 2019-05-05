@@ -31,8 +31,8 @@ public class metodosCompany {
 
 	private static Connection conn;
 
-	private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
-
+	//private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
+	private static String JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/company?user=gonzalo&password=root";
 	static boolean primerusuario= true;
 
 
