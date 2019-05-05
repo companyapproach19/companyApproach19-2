@@ -85,7 +85,7 @@ public class Test extends metodosCompany {
 			Lote loteG3_1 = new Lote(11, dateiniG3_1, datefinG3_1, null, false, true, false, true, false, "pilsner",
 					dateMoli1, dateCoci1, dateFerme1_1, dateFerme1_2, dateEmbo1);
 			loteG3_1.setQr(GeneradorQR2.generadorQR(loteG3_1.getIdBd()));
-			// insertarLote(loteG3_1);
+			insertarLote(loteG3_1);
 
 			Registro registroG3_1 = new Registro(11, 11, dateiniG3_1.toLocaleString(), datefinG3_1.toLocaleString(), 30,
 					5);
@@ -318,6 +318,7 @@ public class Test extends metodosCompany {
 			byte[] firmaent = null;
 
 			OrdenTrazabilidad orden1 = new OrdenTrazabilidad(1, emisor1, emisor2, productosord1);
+			orden1.setNecesitaTransportista(true);
 			insertarOrdenTrazabilidad(orden1);
 			extraerOrdenTrazabilidad(1);
 
@@ -358,8 +359,8 @@ public class Test extends metodosCompany {
 			DatosContainer datos1 = registro1;
 			DatosContainer datos2 = lote1;
 
-			Bloque bloque1 = new Bloque("hashPrevio1", 1, 1, lote1.getIdBd(), datos1, 1);
-			Bloque bloque2 = new Bloque("hashPrevio2", 2, 2, lote2.getIdBd(), datos2, 2);
+			Bloque bloque1 = new Bloque("hashPrevio1", 1, 1, lote1.getIdBd(), datos1, 1, -1);
+			Bloque bloque2 = new Bloque("hashPrevio2", 2, 2, lote2.getIdBd(), datos2, 2, -1);
 
 			insertarBloque(bloque1);
 			insertarBloque(bloque2);
@@ -487,7 +488,7 @@ public class Test extends metodosCompany {
 				System.out.println("Id orden:" + prod.get(i));
 			}
 
-			//extraerOrdenesActorOrigen, extraerOrdenesActorDestino, registrosConOrden
+			// extraerOrdenesActorOrigen, extraerOrdenesActorDestino, registrosConOrden
 			System.out.println("Extraemos ordenes referentes a transpG3_1 y transpG3_2: ");
 
 			ArrayList<OrdenTrazabilidad> elem1 = extraerOrdenesActorOrigen("11");

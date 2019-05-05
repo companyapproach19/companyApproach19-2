@@ -174,6 +174,7 @@ public class metodosCompany {
 						"datosContainer INT, " +
 						"timeStamp FLOAT, " +
 						"idCadena INT NOT NULL, " +
+                        "estadoOrden INT NOT NULL, "+
 						"PRIMARY KEY (hashBloque));"
 				);
 		pst15.executeUpdate();
@@ -351,8 +352,6 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			String firmaRecogida;
-			String firmaEntrega;
 			Actor actorOrigen = extraerActor(rs.getString(2));
 			Actor actorDestino = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
@@ -363,9 +362,11 @@ public class metodosCompany {
 			}
 			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
 					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
+			buscado.setFirmaEntregaBBDD(rs.getBytes(8));
+			buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
 			pst.close();
 			rs.close();
-			conn.close();
+			//conn.close();
 			return buscado;
 		}
 		//conn.close();
@@ -635,25 +636,26 @@ public class metodosCompany {
 			int numBloque = rs.getInt(4);
 			int codLote = rs.getInt(5);
 			int idCadena = rs.getInt(8);
+			int estadoOrden = rs.getInt(9);
 			switch (tipoBloque) {
 			case 0:
-				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerOrdenTrazabilidad(rs.getInt(6)), idCadena);
+				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerOrdenTrazabilidad(rs.getInt(6)), idCadena, estadoOrden);
 				devolver = buscado;
 				break;
 			case 1:
-				Bloque buscado1 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerRegistro(rs.getInt(6)), idCadena);
+				Bloque buscado1 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerRegistro(rs.getInt(6)), idCadena, estadoOrden);
 				devolver = buscado1;
 				break;
 			case 2:
-				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerLote(rs.getInt(6)), idCadena);
+				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerLote(rs.getInt(6)), idCadena, estadoOrden);
 				devolver = buscado2;
 				break;
 			case 3:
-				Bloque buscado4 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerGeolocalizacion(rs.getInt(6)), idCadena);
+				Bloque buscado4 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerGeolocalizacion(rs.getInt(6)), idCadena, estadoOrden);
 				devolver = buscado4;
 				break;
 			default:
-				Bloque buscado3 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer(), idCadena);
+				Bloque buscado3 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer(), idCadena, estadoOrden);
 				devolver = buscado3;
 				break;
 			}
@@ -702,7 +704,7 @@ public class metodosCompany {
 			break;
 		}
 		conectar();
-		String query = "INSERT INTO company.bloque (hashBloque, hashPrevio, tipoBloque, numBloque, codLote, datosContainer, timeStamp, idCadena) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO company.bloque (hashBloque, hashPrevio, tipoBloque, numBloque, codLote, datosContainer, timeStamp, idCadena, estadoOrden) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setString(1, bloqAinsertar.getHashCode());
 		pst.setString(2, bloqAinsertar.getHashPrevio());
@@ -712,6 +714,7 @@ public class metodosCompany {
 		pst.setInt(6, data);
 		pst.setFloat(7, bloqAinsertar.getTimeStamp());
 		pst.setInt(8, bloqAinsertar.getIdCadena());
+		pst.setInt(9, bloqAinsertar.getEstadoOrden());
 		pst.executeUpdate();
 		pst.close();
 		//conn.close();
@@ -1105,7 +1108,7 @@ public class metodosCompany {
         }
         pst.close();
         rs.close();
-        conn.close();
+        //conn.close();
         return siguienteId;
     }
     
@@ -1240,6 +1243,32 @@ public class metodosCompany {
             System.out.println("el actor suministrado no almacena materias primas.");
         }
         return aDevolver;
+    }
+    public static OrdenTrazabilidad extraerOrdenTrazabilidadEstado(int id,int estado) throws SQLException, ClassNotFoundException {
+        conectar();
+        String query = "SELECT * FROM company.ordenTrazabilidad WHERE id = " + id+" AND estado = "+estado;
+        Statement pst = conn.createStatement();
+        ResultSet rs = pst.executeQuery(query);
+        while(rs.next()) {
+            Actor actorOrigen = extraerActor(rs.getString(2));
+            Actor actorDestino = extraerActor(rs.getString(3));
+            Productos productos = extraerProductos(rs.getInt(5));
+            Actor actorTransportista = extraerActor(rs.getString(9));
+            ArrayList<Integer> productosOrden = new ArrayList<Integer>();
+            if(extraerProductosOrden(rs.getInt(1))!=null) {
+                productosOrden = extraerProductosOrden(rs.getInt(1));
+            }
+            OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
+                    productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
+			buscado.setFirmaEntregaBBDD(rs.getBytes(8));
+			buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
+            pst.close();
+            rs.close();
+            conn.close();
+            return buscado;
+        }
+        //conn.close();
+        return null;    
     }
    
 }
