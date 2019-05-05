@@ -31,10 +31,12 @@ import equipo5.model.StockLote;
 import equipo5.model.StockMP;
 import equipo5.model.NotInDatabaseException;
 import equipo6.model.Actor;
+import equipo6.model.Bloque;
 import equipo6.model.CadenaActores;
 import equipo6.model.geolocalizacion;
 import equipo6.otros.BlockchainServices;
 import equipo7.model.OrdenTrazabilidad;
+import equipo8.model.Registro;
 @Controller
 @SpringBootApplication
 public class StockController {
@@ -443,7 +445,71 @@ public class StockController {
 		bcs.guardarOrden(geo);
 
 	}
+	@Scope("request")
+	@RequestMapping("/get_trazabilidad_vista")
+	@ResponseBody
+	public String get_trabilidad_vista(@RequestParam(name="id_pedido", required=true) int id_pedido,
+			Model model) throws SQLException 
+	{
+		try {
+			JsonObject json_respuesta;	
+			BlockchainServices bcs;
+			Registro ultimo_registro;
+			Lote ultimo_lote;
+			List <Bloque> lista_bloques_lotes;
+			List <Bloque> lista_bloques_registro;
+			List <Bloque> lista_bloques_ordenes;
 
+
+			bcs = new BlockchainServices();
+			lista_bloques_ordenes = bcs.get_cadena(id_pedido).getBloque(0);
+			lista_bloques_registro = bcs.get_cadena(id_pedido).getBloque(1);
+			lista_bloques_lotes = bcs.get_cadena(id_pedido).getBloque(2);
+			json_respuesta = new JsonObject();
+
+			if(lista_bloques_ordenes == null || lista_bloques_ordenes.size() == 0) throw new Exception();
+			if(lista_bloques_registro == null || lista_bloques_registro.size() == 0) throw new Exception();
+			//esto es un hardcodeo asta que el grupo de lote meta el id de pedido dentro de lote
+			if(lista_bloques_lotes == null || lista_bloques_lotes.size() == 0) 
+			{
+				json_respuesta.addProperty("Tipo", "Lager");
+			}
+			else 
+			{
+				ultimo_lote = ((Lote)(lista_bloques_lotes.get(0).getDatos()));
+				json_respuesta.addProperty("Tipo", ultimo_lote.getTipo());
+			}
+
+			insertar_actores(lista_bloques_ordenes,json_respuesta);
+			ultimo_registro = ((Registro)(lista_bloques_registro.get(0).getDatos()));
+			json_respuesta.addProperty("Temperatura maxima", ultimo_registro.getTempMax());
+			json_respuesta.addProperty("Temperatura minima", ultimo_registro.getTempMin());
+
+			return json_respuesta.toString();
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return "{\"Error\":\"cadena no encotrada\"}";
+		}
+	}
+	
+	private void insertar_actores(List<Bloque> list_blo, JsonObject json) throws ClassNotFoundException, SQLException, RuntimeException, NullException 
+	{
+		OrdenTrazabilidad orden;
+		for (Bloque bloque : list_blo) {
+			orden = ((OrdenTrazabilidad)bloque.getDatos());
+			switch(orden.getActorDestino().getTipoActor()) 
+			{
+			case 0:
+				json.addProperty("Agricultor", orden.getActorDestino().getDireccion()+" "+BlockchainServices.extraer_nombres_materias_primas(orden.getProductosPedidos()));
+				break;
+			case 3:
+				json.addProperty("Fabrica", orden.getActorDestino().getNombre());
+				break;
+			}
+		}
+	}
 
 
 }
