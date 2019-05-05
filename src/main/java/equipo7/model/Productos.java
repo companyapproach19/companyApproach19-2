@@ -43,8 +43,21 @@ public class Productos implements Serializable {
 	            int cant_malta_negra, int cant_malta_crystal,
 	            int cant_malta_chocolate, int cant_malta_caramelo,
 	            int cant_cebada, int cant_cebada_tostada, int cant_lupulo_centenial,
+<<<<<<< HEAD
 	            int cant_cajas_stout, int cant_cajas_bisner) throws ClassNotFoundException, SQLException {
 	this.id=metodosCompany.idProductos();
+=======
+	            int cant_cajas_stout, int cant_cajas_bisner) {
+	try {
+    this.id=metodosCompany.idProductos();
+  } catch (ClassNotFoundException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  } catch (SQLException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  }
+>>>>>>> 2617ac256a11f7c9c41d26e9adc5aa6d86211dac
 	this.cant_malta_palida = cant_malta_palida;
 	this.cant_malta_munich = cant_malta_munich;
 	this.cant_malta_negra = cant_malta_negra;

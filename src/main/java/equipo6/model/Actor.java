@@ -3,16 +3,40 @@ import java.io.Serializable;
 
 public class Actor implements Serializable{
     static final long serialVersionUID=10L;
-    private int id;
+    private String id;
     private String nombreUsuario;
     private String passwordPlana;
-    private String passwordSalt = null;
     private String email = null;
-    private int tipoActor = 0; //0->4 para Productor, Cooperativa, Transportista, Fabrica y Retailer
+    private int tipoActor = 0; //0->5 para Productor, Cooperativa, Transportista, Fabrica, Retailer, Tienda
+    private String localizacion;
+    private String nombre;
+    private String direccion;
+    private String cifcooperativa;
+    
+    
 
+    public Actor(String id, String nombreUsuario, String passwordPlana, String email, int tipoActor,
+			String localizacion, String nombre, String direccion, String cifcooperativa) {
+		this.id = id;
+		this.nombreUsuario = nombreUsuario;
+		this.passwordPlana = passwordPlana;
+		this.email = email;
+		this.tipoActor = tipoActor;
+		this.localizacion = localizacion;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.cifcooperativa = cifcooperativa;
+	}
 
-    public boolean actor_compare(Actor usuarioIntentaAcceder)
-    {
+	
+	//constructor que necesitan los de pedidos
+	public Actor(String id, String nombreUsuario, int tipoActor){
+		this.id=id;
+		this.nombreUsuario = nombreUsuario;
+		this.tipoActor = tipoActor;	
+	}
+
+	public boolean actor_compare(Actor usuarioIntentaAcceder){
         return (
                     this.nombreUsuario.equals(usuarioIntentaAcceder.nombreUsuario) &&
                     this.passwordPlana.equals(usuarioIntentaAcceder.passwordPlana)
@@ -25,7 +49,6 @@ public class Actor implements Serializable{
         this.email="";
         this.tipoActor=-1;
         this.passwordPlana="";
-        this.passwordSalt="";
     }
 
     //Constructor utilizado por la vista para pasarnos los datos
@@ -39,9 +62,9 @@ public class Actor implements Serializable{
     //Constructor usado por la BBDD para instanciar el objeto que nos va a devolver
     //TODO gonzalo
 
-    public Actor(String nombreUsuario, String passwordSalt, String email, int tipoActor){
+    public Actor(String nombreUsuario, String passwordPlana, String email, int tipoActor){
         this.nombreUsuario = nombreUsuario;
-        this.passwordSalt = passwordSalt;
+        this.passwordPlana = passwordPlana;
         this.email = email;
         this.tipoActor = tipoActor;
     }
@@ -53,38 +76,6 @@ public class Actor implements Serializable{
         this.tipoActor = tipoActor;
     }
     
-    public Actor(int id, String nombreUsuario, String passwordSalt, String email, int tipoActor){
-    	this.id = id;
-        this.nombreUsuario = nombreUsuario;
-        this.passwordSalt = passwordSalt;
-        this.email = email;
-        //this.usuarioPrevio = usuarioPrevio;
-        this.tipoActor = tipoActor;
-    }
-    //Funcion que, checkea si el Actor pasado como parametro se corresponde con este (this),
-    //y si no es asi, llama a este m�todo en el Actor guardado en el campo usuarioPrevio.
-    //De esta manera se recorre la lista de Actores desde el final al principio.
-    //Si usuario se corresponde, devolverse a si mismo (de momento, ya veremos como lo hacemos con la vista)
-    //Si no se corresponde, pero existe usuario previo, devolver lo que devuelva la llamada a logMe del usuario previo
-    //Si usuarioPrevio==Actor vacio (campos nombre y mail vacios) (inicio de la lista), se 
-    //lanza una excepcion gen�rica, y devolver null
-    //TODO gonzalo
-
-    public Actor logMe(Actor usuarioIntentaAcceder) throws Exception{
-        if(actor_compare(usuarioIntentaAcceder))
-        {
-        	System.out.println("Usuario encontrado.");
-        	return this;
-        }
-        else
-        {
-            throw new Exception
-                                (
-                                    "Error al logear usuario : " + usuarioIntentaAcceder.nombreUsuario +
-                                    " contrase�a : " + usuarioIntentaAcceder.passwordPlana
-                                );
-        }
-    }
 
     //GETTERS
     //TODO gonzalo
@@ -98,10 +89,10 @@ public class Actor implements Serializable{
     {
         return this.passwordPlana;
     }
-
+    
     public String getpasswordSalt()
     {
-        return this.passwordSalt;
+        return this.passwordPlana;
     }
 
     public String getEmail()
@@ -122,13 +113,46 @@ public class Actor implements Serializable{
     	
     	return valido;
     }
+    
+
+	public String getLocalizacion() {
+		return localizacion;
+	}
+
+	public void setLocalizacion(String localizacion) {
+		this.localizacion = localizacion;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getCifcooperativa() {
+		return cifcooperativa;
+	}
+
+	public void setCifcooperativa(String cifcooperativa) {
+		this.cifcooperativa = cifcooperativa;
+	}
 
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -136,4 +160,11 @@ public class Actor implements Serializable{
 		this.passwordPlana=string;
 		
 	}
+	
+	public String toString() {
+		
+		return this.nombreUsuario;
+		
+	}
 }
+

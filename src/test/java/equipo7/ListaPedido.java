@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class ListaPedido {//objeto 
+  
 	private ListaPedidos lista ;
 	Integer meter; 
 	private ArrayList<Integer> l;
@@ -88,7 +89,11 @@ public class ListaPedido {//objeto
    }
    
    public boolean checkList() { //comprueba que la funcion anyadirsea correca
+<<<<<<< HEAD
 	   return (lista.getListaIDs().equals(l));
+=======
+	   return (false/*CORREGIDlista.GetArrayList().equals(l)*/);
+>>>>>>> 2617ac256a11f7c9c41d26e9adc5aa6d86211dac
    }
  
 }

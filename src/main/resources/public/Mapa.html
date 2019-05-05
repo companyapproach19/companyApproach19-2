@@ -1,0 +1,128 @@
+
+<html>
+<head>
+
+<style>
+#map_wrapper {
+    height: 400px;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
+</style>
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script>
+jQuery(function($) {
+    // Asynchronously Load the map API 
+    var script = document.createElement('script');
+    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCKFH4j_BhsaOcyZUqSyvGTtH2pRc98Zag&sensor=false&callback=hacerPeticion";
+    document.body.appendChild(script);
+});
+
+
+function hacerPeticion(){
+       	var request = $.ajax({
+	   		url : '/cargarMapaActores',
+	   		data : "",
+	   		type : 'GET',
+	   		dataType : 'json',
+	   	});
+      	request.done(function(data){
+      		
+	  		initialize(data);
+      	});
+      	request.fail(function(err,data) {
+	  		console.log(err);
+      	});
+}
+  	
+function parseJSONdata(){
+	//
+}
+
+
+
+function initialize(data) {
+	//Obtener nombres y coords de cosos a mostrar
+    var markers = []; 
+
+
+	//Obtener el stock de diferentes partes
+	var stock=new Map();
+	
+	for(var i=0;i<data.length;i++){
+		markers.push([data[i].nombre, data[i].coordLat, data[i].coordLon]);
+		stock.set(data[i].nombre, data[i].stock);
+	}
+
+
+
+	//Creamos el mapa y la configuracion
+    var map;
+    var bounds = new google.maps.LatLngBounds();
+    var mapOptions = {
+        mapTypeId: 'terrain'
+    };
+                    
+    // Display a map on the page
+    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    map.setTilt(45);
+        
+    
+    
+    
+    var infoWindowContent2 = new Map();
+    for (var clave of stock.keys()) {
+  		infoWindowContent2.set(clave, '<div class="info_content">' +
+        '<h3>Stock</h3>' +
+        '<p>'+stock.get(clave)+'</p>' +
+        '</div>');
+	}
+        
+    // Display multiple markers on a map
+    var infoWindow = new google.maps.InfoWindow();
+    var marker;
+    var i;
+    
+    // Loop through our array of markers & place each one on the map  
+    for( i = 0; i < markers.length; i++ ) {
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        bounds.extend(position);
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: markers[i][0]
+        });
+        
+        // Allow each marker to have an info window    
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(infoWindowContent2.get(marker.title));
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
+
+        // Automatically center the map fitting all markers on the screen
+        map.fitBounds(bounds);
+    }
+
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(14);
+        google.maps.event.removeListener(boundsListener);
+    });
+    
+}
+
+</script>
+
+</head>
+<body>
+	<div id="map_wrapper">
+    	<div id="map_canvas" class="mapping"></div>
+	</div>
+</body>
+</html>

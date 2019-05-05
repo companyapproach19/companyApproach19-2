@@ -18,4 +18,5 @@ public class Traspaso extends DatosContainer {
 	public String getInfo() {
 		return this.info;
 	}
+
 }
