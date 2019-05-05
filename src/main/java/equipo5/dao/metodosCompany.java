@@ -270,6 +270,7 @@ public class metodosCompany {
 		System.out.println("�Base de datos Creada!");
 
 	}
+	
 	//Ver como se saca geolocalizacion
 	public static geolocalizacion extraerGeolocalizacion (int id) throws SQLException{
 		conectar();
@@ -489,7 +490,7 @@ public class metodosCompany {
 			//conn.close();
 		}
 	}
-
+	
 	public static void insertarLote(Lote lote) throws Throwable {
 		if(lote == null){
 	             throw new NullException("El lote introducido no es válido.");

@@ -5,43 +5,31 @@ import java.sql.SQLException;
 import equipo5.dao.metodosCompany;
 
 public class MateriaPrima {
-	private static String nombre;
-	private static int id ;
-	private static double capacidad;
-
-	public MateriaPrima(String nombre, int id) {
-		this.nombre=nombre;
-		this.id=id;
-		this.capacidad=0;
-	}
-	public MateriaPrima(String nombre) throws ClassNotFoundException, SQLException {
-		this.nombre=nombre;
-		//id de alberto
-		this.id=metodosCompany.idMateriaPrima();
-		this.capacidad=0;
-	}
-
-	public static String getNombre() {
-		return nombre;
-	}
-
-	public static void setCapacidad(double c) {
-		MateriaPrima.capacidad = c;
-	}
-	public static double getCapacidad() {
-		return capacidad;
-	}
-
-	public static void setNombre(String nombre) {
-		MateriaPrima.nombre = nombre;
-	}
+	private String tipo;
+	private int id ;
+	private double cantidad;
 	
-
-	public static int getId() {
+	public MateriaPrima(String tipo, int id, double cantidad) {
+		this.tipo = tipo;
+		this.id = id;
+		this.cantidad = cantidad;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	public int getId() {
 		return id;
 	}
-
-	public static void setId(int id) {
-		MateriaPrima.id = id;
+	public void setId(int id) {
+		this.id = id;
+	}
+	public double getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(double cantidad) {
+		this.cantidad = cantidad;
 	}
 }
