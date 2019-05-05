@@ -943,7 +943,7 @@ public class metodosCompany {
 	   		switch(actor.getTipoActor()){
 	   		case 4:
 	   			conectar();
-			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?. ?);"; 
+			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			    Date date = new Date(System.currentTimeMillis());
 		        pst.setInt(1, stockLote.getLote().getIdBd());

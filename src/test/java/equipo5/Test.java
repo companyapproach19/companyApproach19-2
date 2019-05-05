@@ -352,7 +352,6 @@ public class Test extends metodosCompany {
 
 			extraerCadena(1);
 			extraerCadena(2);
-			//System.out.println("Debería ser Null:" + extraerCadena(92101).getCodLote());
 			System.out.println("Pruebas Cadena OK");
 
 			// Prueba bloques
@@ -408,7 +407,7 @@ public class Test extends metodosCompany {
 			StockLote stockLote1 = new StockLote(lote1, dateinilote1, datefinlote1, 1, 1, "16");
 			StockLote stockLote2 = new StockLote(lote2, dateinilote2, datefinlote2, 2, 2, "18");
 			insertarStockLote(stockLote1);
-			//insertarStockLote(stockLote2);
+			insertarStockLote(stockLote2);
 
 			System.out.println("Lotes Stock introducidas");
 
@@ -429,19 +428,19 @@ public class Test extends metodosCompany {
 			}
 			System.out.println("Lotes Stock extraidos");
 
-//			extraerStockMP(prueba, 1);
-//			extraerStockMP(receptor1, 2);
-//			
-//			LinkedList<StockMP> recibido1 = extraerStockMP(emisor1, 1);
-//			System.out.println("Stock emisor1");
-//			for(int i=0; i<recibido1.size(); i++ ) {
-//				System.out.print("Identificador actor: ");
-//				System.out.println(recibido1.get(i).getIdActor());
-//				System.out.print("Orden: ");
-//				System.out.println(recibido1.get(i).getIdOrden());
-//				System.out.println("MateriaPrima:" + recibido1.get(i).getMp());
-//
-//			}
+			extraerStockMP(prueba, 1);
+			extraerStockMP(receptor1, 2);
+			
+			LinkedList<StockMP> recibido1 = extraerStockMP(emisor1, 1);
+			System.out.println("Stock emisor1");
+			for(int i=0; i<recibido1.size(); i++ ) {
+				System.out.print("Identificador actor: ");
+				System.out.println(recibido1.get(i).getIdActor());
+				System.out.print("Orden: ");
+				System.out.println(recibido1.get(i).getIdOrden());
+				System.out.println("MateriaPrima:" + recibido1.get(i).getMp());
+
+			}
 
 			System.out.println("Materias Primas Stock extraidos");
 
@@ -488,7 +487,7 @@ public class Test extends metodosCompany {
 				System.out.println("Id orden:" + prod.get(i));
 			}
 
-			// extraerOrdenesActorOrigen, extraerOrdenesActorDestino, registrosConOrden
+			//extraerOrdenesActorOrigen, extraerOrdenesActorDestino, registrosConOrden
 			System.out.println("Extraemos ordenes referentes a transpG3_1 y transpG3_2: ");
 
 			ArrayList<OrdenTrazabilidad> elem1 = extraerOrdenesActorOrigen("11");
