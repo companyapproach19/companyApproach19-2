@@ -34,4 +34,8 @@
     <string name="errorAPI">Error en el acceso al API</string>
     <string name="sinRegistros">La consulta no devuelve ningún registro</string>
     <string name="empresa">Empresa</string>
+
+    <string name="resume">Resume</string>
+    <string name="pause">Pause</string>
+
 </resources>

@@ -12,7 +12,7 @@ import retrofit2.http.Path;
 import software.engineering.upm.es.objetos.parceables.Pedido;
 
 public interface PedidosAPI {
-    @GET("")
+    @GET("damePedidosTransportistas")
     Call<JSONArray> getPedidos();
 
     @GET("{id}")

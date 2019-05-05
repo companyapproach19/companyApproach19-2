@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private PedidosAPI servicio;
 
-    private static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTransportista/";//"https:://beer-company2019.herokuapp.com/damePedidosTransportista";
+    private static final String URL = "https://beer-company2019.herokuapp.com/";//"https:://beer-company2019.herokuapp.com/damePedidosTransportista";
 
 
     final int FICHA = 1;
