@@ -18,16 +18,26 @@ public class Bloque implements Serializable{
     DatosContainer datos;
 	private long timeStamp;
 	private  int idCadena;
+	private int estadoOrden;
 
-    //Constructor por defecto. Asignar tal cual
+    public int getEstadoOrden() {
+		return estadoOrden;
+	}
+
+	public void setEstadoOrden(int estadoOrden) {
+		this.estadoOrden = estadoOrden;
+	}
+
+	//Constructor por defecto. Asignar tal cual
     //TODO anton
-    public Bloque(String hashPrevio, int tipoBloque, int numBloque, int codLote, DatosContainer datos, int idCadena){
+    public Bloque(String hashPrevio, int tipoBloque, int numBloque, int codLote, DatosContainer datos, int idCadena, int estadoOrden){
         this.hashPrevio = hashPrevio;
         this.tipoBloque = tipoBloque;
         this.numBloque = numBloque;
         this.codLote = codLote;
         this.datos = datos;
         this.idCadena = idCadena;
+        this.estadoOrden = estadoOrden;
     }
     
     //Getters para todos los campos
