@@ -874,7 +874,7 @@ public class metodosCompany {
 	}
     
 	public static void insertarStockLote(StockLote stockLote) throws Throwable{
-	   	if(stockLote.getFecha_salida()==null) {
+	   	if(stockLote.getFecha_entrada()==null) {
 	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 4:
@@ -904,7 +904,7 @@ public class metodosCompany {
 			    break;
 	   		} 
 	   	}
-	   	else if(stockLote.getFecha_entrada()!=null) {
+	   	else if(stockLote.getFecha_salida()!=null) {
 	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 4:
@@ -938,7 +938,7 @@ public class metodosCompany {
 	    } 	
     }
     public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException{
-    	if(stockMateria.getFecha_salida()==null) {
+    	if(stockMateria.getFecha_entrada()==null) {
 	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 0:
@@ -981,7 +981,7 @@ public class metodosCompany {
 			    break;
 	   		} 
 	   	}
-	   	else if(stockMateria.getFecha_entrada()!=null) {
+	   	else if(stockMateria.getFecha_salida()!=null) {
 	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 0:
