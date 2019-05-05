@@ -162,7 +162,7 @@ public class BlockchainServices{
 		for(Integer id : ids_stock_origen) 
 		{
 			origen = metodosCompany.extraerCadena(id);
-			new_super_block = new Bloque(destino.getHashUltimoBloque(), -1, destino.getNumBloques(), destino.getCodLote(), new DatosContainer(), origen.getCodLote());
+			new_super_block = new Bloque(destino.getHashUltimoBloque(), -1, destino.getNumBloques(), destino.getCodLote(), new DatosContainer(), origen.getCodLote(),-1);
 			destino.incrementarNumBloques();
 			new_utimo_hash = new_super_block.getHashCode();
 			try {

@@ -366,7 +366,7 @@ public class metodosCompany {
 					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
 			pst.close();
 			rs.close();
-			conn.close();
+			//conn.close();
 			return buscado;
 		}
 		//conn.close();
@@ -393,7 +393,7 @@ public class metodosCompany {
 					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
 			pst.close();
 			rs.close();
-			conn.close();
+			//conn.close();
 			return buscado;
 		}
 		//conn.close();

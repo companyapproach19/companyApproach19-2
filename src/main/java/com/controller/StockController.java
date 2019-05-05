@@ -448,7 +448,7 @@ public class StockController {
 	}
 
 	@Scope("request")
-	@RequestMapping("/get_trabilidad_vista")
+	@RequestMapping("/get_trazabilidad_vista")
 	@ResponseBody
 	public String get_trabilidad_vista(@RequestParam(name="id_pedido", required=true) int id_pedido,
 			Model model) throws SQLException 
@@ -478,14 +478,14 @@ public class StockController {
 			}
 			else 
 			{
-				ultimo_lote = ((Lote)(lista_bloques_lotes.get(lista_bloques_lotes.size()-1).getDatos()));
+				ultimo_lote = ((Lote)(lista_bloques_lotes.get(0).getDatos()));
 				json_respuesta.addProperty("Tipo", ultimo_lote.getTipo());
 			}
 
 			insertar_actores(lista_bloques_ordenes,json_respuesta);
-			ultimo_registro = ((Registro)(lista_bloques_registro.get(lista_bloques_registro.size()-1).getDatos()));
+			ultimo_registro = ((Registro)(lista_bloques_registro.get(0).getDatos()));
 			json_respuesta.addProperty("Temperatura maxima", ultimo_registro.getTempMax());
-			json_respuesta.addProperty("Temperatura minima", ultimo_registro.getTempMax());
+			json_respuesta.addProperty("Temperatura minima", ultimo_registro.getTempMin());
 
 			return json_respuesta.toString();
 
