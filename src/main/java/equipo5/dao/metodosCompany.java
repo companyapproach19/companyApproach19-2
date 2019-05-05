@@ -128,7 +128,7 @@ public class metodosCompany {
 				"CREATE TABLE company.productos ( " +
 						"id INT NOT NULL, " +
 						"malta_palida INT NOT NULL, " +
-						"matla_munich INT NOT NULL, " +
+						"malta_munich INT NOT NULL, " +
 						"malta_negra INT NOT NULL, " +
 						"malta_crystal INT NOT NULL, " +
 						"malta_chocolate INT NOT NULL, " +
@@ -426,7 +426,7 @@ public class metodosCompany {
 	             throw new NullException("El producto introducido no es válido.");
 		}
 		conectar();
-		String query = "INSERT INTO company.productos (id, malta_palida, matla_munich, malta_negra, malta_crystal, "
+		String query = "INSERT INTO company.productos (id, malta_palida, malta_munich, malta_negra, malta_crystal, "
 				+ "malta_chocolate , malta_caramelo, cebada, cebada_tostada, lupulo_centenial, cajas_stout ,cajas_bisner)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
