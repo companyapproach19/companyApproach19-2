@@ -88,7 +88,7 @@ public class BlockchainServices{
 		return null;
 	}
 
-	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException,  RuntimeException, NullException 
+	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException, RuntimeException, NullException 
 	{
 		List <StockMP> stock_mp;
 		List <MateriaPrima> list_materia_prima;
@@ -305,55 +305,6 @@ public class BlockchainServices{
 
 	public OrdenTrazabilidad getOrden(int idOrden) throws ClassNotFoundException, SQLException{
 		return	equipo5.dao.metodosCompany.extraerOrdenTrazabilidad(idOrden);
-	}
-	
-	
-	public static String extraer_nombres_materias_primas(Productos productos) throws ClassNotFoundException, SQLException, RuntimeException, NullException 
-	{
-		String list_materia_prima;
-		
-
-
-		list_materia_prima = "";
-		
-		if(productos.getCant_cebada() != 0) 
-		{
-			list_materia_prima += " Cebada";
-		}
-		if(productos.getCant_cebada_tostada() != 0) 
-		{
-			list_materia_prima += " cebadaTostada";
-		}
-		if(productos.getCant_lupulo_centenial() != 0) 
-		{
-			list_materia_prima += " lupuloCentennial";
-		}
-		if(productos.getCant_malta_caramelo() != 0) 
-		{
-			list_materia_prima += " maltaCaramelo";
-		}
-		if(productos.getCant_malta_chocolate() != 0) 
-		{
-			list_materia_prima += " maltaChocolate";
-		}
-		if(productos.getCant_malta_crystal() != 0) 
-		{
-			list_materia_prima += " maltaCrystal";
-		}
-		if(productos.getCant_malta_munich() != 0) 
-		{
-			list_materia_prima += " maltaMunich";
-		}
-		if(productos.getCant_malta_negra() != 0) 
-		{
-			list_materia_prima += " maltaNegra";
-		}
-		if(productos.getCant_malta_palida() != 0)
-		{
-			list_materia_prima += " maltaBasePalida";
-		}
-
-		return list_materia_prima;
 	}
 
 
