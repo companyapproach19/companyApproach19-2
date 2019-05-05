@@ -26,6 +26,8 @@ public class Maneja_Peticiones {
 
 	private 
 	DescodificadorJson desc = new DescodificadorJson (); 
+	   private OrdenTrazabilidad OrdenCreada;
+	   private String jsonOrdenCreada;
 	   private String json;
 	   private int id;  
 	   private Actor emisor;
@@ -53,6 +55,9 @@ public class Maneja_Peticiones {
 	   // Every time runner triggers, it will pass the arguments
 	   // from parameters we defined in primeNumbers() method
 		
+	   public void actualizarjson() {
+		   json= CodificadorJSON.crearJSON(pedido);
+	   }
 	   public Maneja_Peticiones(int id, Actor actorOrigen, Actor actorDestino, boolean necesitaTransportista, 
 				Productos productosPedidos, String  productosAEntregar, int estado, String firmaRecogida,
 				String firmaEntrega, Actor transportista, int idRegistro, int idPedido, String fecha) {
@@ -83,141 +88,143 @@ public class Maneja_Peticiones {
 	    	   * 
 	    	   * Aqui bien
 	    	   */
-	         {-1,new Actor("Retailer","password","ret@gmail.es",4),new Actor("Fabrica","password","fab@gmail.es",3),true,new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),"80,81,82,83" ,-1,"","",new Actor("Fabrica","password","fab@gmail.es",3),2,2,""},//  
+	         {-1,new Actor("9","Retailer","password","ret@gmail.es",4,"Calle Goya","Pilar","Calle Madrid","fg2"),new Actor("8","Fabrica","password","fab@gmail.es",3,"Calle Velázquez","Santiago","Calle Andalucía","fg3"),true,new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),"80,81,82,83" ,-1,"","",new Actor("7","Fabrica","password","fab@gmail.es",3),2,2,""},//  
 	        /* {2,"Cuidado",new Actor("PepitoF","MARIPOSA","pepito@gmail.com",2),new Actor("MariaC","Cuidado con la temperatura","maria@gmail.com",1),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),2,1},//,
 	         {3,"Material organico",new Actor("RebecaR","Atención","rebe@gmail.com",3),new Actor("PepitoF","MARIPOSA","pepito@gmail.com",2),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),3,2},//
 	         {4,"Deben ser puntuales",new Actor("AnaT","Gracias","ana@gmail.com",4),new Actor("RebecaR","Atención","rebe@gmail.com",3),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),4,3},//
 	         {5,"Pedido urgente",new Actor("AnaT","Gracias","ana@gmail.com",1),new Actor("AnaT","Gracias","ana@gmail.com",0),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),1,0},//,
 	         {6,"Dejar en la puerta",new Actor("PepitoF","MARIPOSA","pepito@gmail.com",1),new Actor("JuanT","PUERTA","juan@gmail.com",0),new Productos( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),1,0},//
 	     */ });
-	   }
-	   //1
-	   @Test
-	    public void TestCrearOrden() throws Throwable  {//Verificado
-	       
+	   }  
+	   //1  
+	      @Test
+	    public void TestCrearOrden() throws Throwable  {//Verificado 
 	        String entry = json;//Codificar en un json el id de la peticion
 	        String pingResponse  = configurationController.crearOrden(null,json); 
-	        OrdenTrazabilidad resultado = desc.DescodificadorJson(pingResponse);  
-	        assertNotEquals(id,resultado.getId());//Condicion necesaria para que una orden sea creada 
+	        OrdenTrazabilidad resultado = desc.DescodificadorJson(pingResponse); 
+	        assertNotEquals(id,resultado.getId());//Condicion necesaria para que una orden sea creada  
 	        id=resultado.getId(); 
+	        pedido.setId(id);
+	        actualizarjson(); 
 	        
 	    }
-	   //3
+	      //2
+		   @Test
+	       public void TestObtenerOrden() throws Throwable  {//comprobar formato entrada 
+			   TestCrearOrden();
+	           String jsonid =""+id;//Comprobar
+	           String pingResponse1  = configurationController.obtenerOrden(null,jsonid); 
+	           this.OrdenCreada=desc.DescodificadorJson( json);
+	           assertEquals(OrdenCreada.getId(),pedido.getId());  
+	           assertEquals(OrdenCreada.getActorDestino().toString(),pedido.getActorDestino().toString());  
+	           assertEquals(OrdenCreada.getActorOrigen().toString(),pedido.getActorOrigen().toString());  
+	           //cambiar comprobacion
+	       } 
+	   //3 
+		    
 	    @Test
-	    public void ListaOrdenesporAceptadar() throws Throwable  {//Pregunta : de los 3 constructores cual.
-	       
-	        String entry1 = "";//Codificar en un json el id de la peticion
-	        String entry2 = "";//Codificar en un json el id de la peticion
-	        configurationController.crearOrden(null,json);
-	        //Condicion necesaria para que una orden sea aceptada (como esta comprobada arriba FUERA)
-	        String pingResponse  =(configurationController.ordenesPendientesPorAceptar(null,emisor.getId()));
-	        System.out.println(pingResponse);
-	        
-	        assertTrue(pingResponse.contains(""+id));//Si esta metida se pasa el test.
-	    
-	    }/*
-	   //2
-	   @Test
-       public void TestObtenerOrden() throws Throwable  {//comprobar formato entrada 
-		   TestCrearOrden();
-           String jsonid =""+id;//Comprobar
-           String pingResponse1  = configurationController.obtenerOrden(null,jsonid);  
-           System.out.println(id);
-           assertEquals("ERROR: no existe la orden asociada a este ID",pingResponse1);
-          
-           //descodificar
-           OrdenTrazabilidad resp = desc.DescodificadorJson(pingResponse1);
-           //boolean respuesta =buscarEnJson();
-          // assertTrue(resp.getId()==(id));
-       }
-	   //3
-	    @Test
-	    public void ListaOrdenesporAceptadar() throws Throwable  {//Pregunta : de los 3 constructores cual.
-	       
-	        String entry1 = "";//Codificar en un json el id de la peticion
-	        String entry2 = "";//Codificar en un json el id de la peticion
-	        configurationController.crearOrden(null,json);
-	        //Condicion necesaria para que una orden sea aceptada (como esta comprobada arriba FUERA)
-	        boolean is=BuscarEnArray(configurationController.ordenesPendientesPorAceptar(null,entry2));
-	        System.out.println(configurationController.ordenesPendientesPorAceptar(null,entry2));
-	        System.out.println("\n\nAqui json \n\n"+json);
-	        
-	        assertTrue(is);//Si esta metida se pasa el test.
-	    
+	    public void ListaOrdenesporAceptar() throws Throwable  { 
+	    	TestCrearOrden(); 
+	        String pingResponse2=configurationController.ordenesPendientesPorAceptar(null,""+receptor.getId());
+	        assertTrue(pingResponse2.contains(""+id)); 
 	    }
-	    //4 Falta
-	    
+	    //4
+	    @Test
+	    public void OrdenesQueHeEnviado() throws Throwable  { 
+	    	TestCrearOrden(); 
+	        String pingResponse2=configurationController.ordenesQueHeEnviado(null, this.OrdenCreada.getActorOrigen().getId());
+	        assertTrue(pingResponse2.contains(""+id)); 
+	    }
 	    //5
 	    @Test
-	    public void ListaOrdenesRechazadas() throws Throwable  {//Pregunta : de los 3 constructores cual.
-	       
-	        String entry1 = "";//id de la eticion a rechazar
-	        String entry2 = "";//actor que tiene las ordenes rechazadas
-	        configurationController.crearOrden(null,json);
-	        //Condicion necesaria para que una orden sea aceptada (como esta comprobada arriba FUERA)
-	        configurationController.rechazarOrden(null,entry1);
-	        boolean is=BuscarEnArray(configurationController.ordenesRechazadas(null,entry2));
+	    public void TestOrdenesEnProceso() throws Throwable  {//Pregunta : de los 3 constructores cual.
+	    	TestObtenerOrden();
+	    	String pingResponse  = configurationController.aceptarOrden(null, ""+id); 
+	        this.OrdenCreada=desc.DescodificadorJson(pingResponse); 
+	        pingResponse = configurationController.ordenesEnProceso(null,""+id);
+	        boolean is=BuscarEnArray(pingResponse,""+id);
+	        assertTrue(is);
+	    } 
+	    //6
+	    @Test
+	    public void ordenesListasParaEntregar() throws Throwable  {//Pregunta : de los 3 constructores cual.
+	    	TestCrearOrden(); 
+	        String pingResponse  = configurationController.aceptarOrden(null, ""+id); 
+	        String entry ="";//poner aqui el id y lo que entregamos
+	        configurationController.listaOrden(null, entry);
+	        String pingresponse =configurationController.ordenesListasParaEntregar(null, this.OrdenCreada.getActorDestino().getId());
+	        boolean is=BuscarEnArray(pingresponse,""+id);
 	        assertTrue(is);//Si esta metida se pasa el test.
 	    
 	    }
-	    //6
-	    @Test
-	    public void TestOrdenesProcesadas() throws Throwable  {//Pregunta : de los 3 constructores cual.
-	       
-	        String entry1 = "";//Codificar en un json el id de la peticion
-	        String entry2 = "";//Codificar en un json el id de la peticion
-	        configurationController.crearOrden(null,json); //creamos la orden
-	        configurationController.aceptarOrden(null,entry1);
-	        boolean is=BuscarEnArray(configurationController.ordenesEnProceso(null,entry2));
-	        assertTrue(is);//Si esta metida se pasa el test.
-	    } 
+	   
 	    //7
 	    @Test
-	    public void TestAceptarOrden() throws Throwable  {//Pregunta : de los 3 constructores cual.
-	       
-	        String entry = "";//Codificar en un json el id de la peticion
-	        String pingResponse  = configurationController.crearOrden(null,entry);
-	        assertEquals("OK",pingResponse);//Condicion necesaria para que una orden sea aceptada
+	    public void ListaOrdenesRechazadas() throws Throwable  {//Pregunta : de los 3 constructores cual.
+	    	TestObtenerOrden();
+	    	String pingResponse  = configurationController.rechazarOrden(null, ""+id); 
+	    	 this.OrdenCreada=desc.DescodificadorJson(pingResponse);
+	    	 pingResponse=configurationController.ordenesRechazadas(null,""+OrdenCreada.getActorOrigen().getId());
+	        boolean is=BuscarEnArray(pingResponse,""+id);
+	        assertTrue(is);//Si esta metida se pasa el test.
+	    
 	    }
 	    //8
+	    public void TestOrdenesEnProcesoDeEntrega() throws Throwable  { 
+	    	TestCrearOrden(); 
+	        String pingResponse  = configurationController.aceptarOrden(null, ""+id); 
+	        String entry =""; 
+	        configurationController.listaOrden(null, entry);
+	        entry=""; 
+	        configurationController.recogidaOrden(null, entry);
+	        pingResponse =configurationController.ordenesEnProcesoDeEntrega(null, pedido.getActorOrigen().getId());
+	        boolean is=BuscarEnArray(pingResponse,""+id);
+	        assertTrue(is); 
+	    }
+	    //9
 	    @Test
-	    public void TestRechazarOrden() throws Throwable  {//Pregunta : de los 3 constructores cual.
-	       
-	        String entry1 = "";//id orden a rechazar
-	        configurationController.crearOrden(null,json); //creamos la orden
-	        String pingrensponse =configurationController.rechazarOrden(null,entry1);//rechazamos la orden
-	        assertTrue(pingrensponse.equals("ok"));//comprobar salida
+	    public void TestAceptarOrden() throws Throwable  {
+	    	TestCrearOrden();
+	        String pingResponse  = configurationController.aceptarOrden(null, ""+id); 
+	        this.OrdenCreada=desc.DescodificadorJson(pingResponse); 
+	        assertEquals(OrdenCreada.getEstado(),1);
 	    }
-	    //9Falta
 	    //10
-    @Test
-	    public void TestOrdenesRecogidas() throws Throwable  {//Pregunta : de los 3 constructores cual.
-	       
-	        String entry1 = "";//Codificar en un json el id de la peticion
-	        String entry2 = "";//Codificar en un json el id de la peticion
-	        configurationController.crearOrden(null,json);
-	        configurationController.aceptarOrden(null,entry1);
-	        configurationController.listaOrden(null,entry1);
-	        configurationController.recogidaOrden(null,json);
-	        boolean is=BuscarEnArray(configurationController.ordenesEnProcesoDeEntrega(null,entry2));
-	        assertTrue(is);//Si esta metida se pasa el test.
+	    @Test
+	    public void TestRechazarOrden() throws Throwable  { 
+	    	TestCrearOrden();
+	        String pingResponse  = configurationController.rechazarOrden(null, ""+id); 
+	        this.OrdenCreada=desc.DescodificadorJson(pingResponse); 
+	        assertEquals(OrdenCreada.getEstado(),-1); 
 	    }
-    //11
+	    //11
+	    @Test
+	    public void TestListaOrden() throws Throwable  { 
+	        TestCrearOrden();
+	        String pingResponse  = configurationController.aceptarOrden(null, ""+id); 
+	        String entry="";//id y cosas que damos
+	        pingResponse  = configurationController.listaOrden(null, entry);
+	        this.OrdenCreada=desc.DescodificadorJson(pingResponse); 
+	        assertEquals(OrdenCreada.getEstado(),2); 
+	    }
+	    //12 
+    @Test
+	    public void TestOrdenRecogida() throws Throwable  { 
+    	   TestListaOrden();
+    	   String entry ="";//id orden, firma recogida y datos del transportista
+    	   String pingResponse=configurationController.recogidaOrden(null, entry);
+    	   this.OrdenCreada=desc.DescodificadorJson(pingResponse);
+	        assertEquals(OrdenCreada.getEstado(),3); 
+	    }
+    //13
 		@Test
 	    public void TestEntregadasOrden() throws Throwable  {
-	       
-	        String entry1 = "";//Codificar en un json el id de la peticion
-	        String entry2 = "";//Codificar en un json el id de la peticion
-	        configurationController.crearOrden(null,json);
-	        configurationController.aceptarOrden(null,entry1);
-	        configurationController.listaOrden(null,entry1);
-	        configurationController.recogidaOrden(null,json);
-	        String response =configurationController.entregadaOrden(null,json);
-	        boolean is=BuscarEnArray(configurationController.entregadaOrden(null,entry2));
-	        assertTrue(is);//Si esta metida se pasa el test.
-	    }
-
-*/
+			   TestOrdenRecogida();
+	    	   String entry ="";//id orden, firma recogida y datos del transportista
+	    	   String pingResponse=configurationController.recogidaOrden(null, entry);
+	    	   this.OrdenCreada=desc.DescodificadorJson(pingResponse);
+		        assertEquals(OrdenCreada.getEstado(),4);
+	    } 
 	/*
 	 * 
 	 * 
@@ -226,8 +233,7 @@ public class Maneja_Peticiones {
 	 * 
 	 */
 
-	    private boolean BuscarEnArray(String ordenesEnProcesoDeEntrega) {
-	    	String a=""+id;
-			return ordenesEnProcesoDeEntrega.contains(a);
+	    private boolean BuscarEnArray(String ordenesEnProcesoDeEntrega,String mirar) { 
+			return ordenesEnProcesoDeEntrega.contains(mirar);
 		}
  }
