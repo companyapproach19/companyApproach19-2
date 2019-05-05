@@ -1,46 +1,67 @@
 package equipo8;
 
-import java.sql.SQLException;
-
-import equipo4.model.Lote;
-import equipo6.model.Actor;
-import equipo8.model.Registro;
-import equipo8.model.Sensor;
+import equipo8.model.SensorStatic;
 
 public class TestSensorRegistro {
 
-	
-	//Ejemplo registro temperatura Arduino numero de serie 354325
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		
-		// Objeto Sensor correspondiente
-		int idSensor=354325;
-		Sensor sensor = new Sensor(idSensor);
-		
-
-		Lote lote=new Lote();
-		Actor actor=new Actor();
-	
-		
-		Registro registroCorrecto,registroFicheroIncorrecto,registroLoteIncorrecto,registroActorIncorrecto;
-		
+	//prueba cambio de intervalo
+	private static void prueba1() {
+		SensorStatic.iniciarTransporte(608, 154);
 		try {
-			registroCorrecto = sensor.crearRegistro(lote,actor,"datosSensorMiercoles.txt");
-			System.out.println("\nEJEMPLO TRAYECTO MIERCOLES: \n\n"+registroCorrecto.toString());
-			
-			registroFicheroIncorrecto = sensor.crearRegistro(lote,actor,"datosensor.txt");
-			System.out.println("\nEJEMPLO FICHERO ERROR: \n\n"+registroFicheroIncorrecto.toString());
-			
-			registroLoteIncorrecto = sensor.crearRegistro(null,actor,"datosSensor.txt");
-			System.out.println("\nEJEMPLO LOTE NULL: \n\n"+registroLoteIncorrecto.toString());
-			
-			registroActorIncorrecto = sensor.crearRegistro(lote,null,"datosSensor.txt");
-			System.out.println("\nEJEMPLO ACTOR NULL: \n\n"+registroActorIncorrecto.toString());
-
-
-		} catch (Exception e) {
+			Thread.sleep(100000);//100 segs
+			SensorStatic.cambiarIntervalo(3000, 15000);
+			Thread.sleep(100000);
+			SensorStatic.terminar();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	//prueba fallo de conexion
+	private static void prueba2() {
+		SensorStatic.iniciarTransporte(608, 154);
+		try {
+			Thread.sleep(100000);//100 segs
+			System.out.println("Cambio de Intervalo!");
+			SensorStatic.cambiarIntervalo(3000, 15000);
+			Thread.sleep(100000);
+			SensorStatic.terminar();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	//prueba intervalo corto de tiempo
+	private static void prueba3() {
+		SensorStatic.iniciarTransporte(608, 154);
+		SensorStatic.cambiarIntervalo(3000, 10000);
+		try {
+			Thread.sleep(100000);//100 segs
+			SensorStatic.terminar();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void prueba4() {
+		SensorStatic.iniciarTransporte(608, 154);
+		SensorStatic.cambiarIntervalo((Integer) null, 10000);
+		try {
+			Thread.sleep(100000);//100 segs
+			SensorStatic.terminar();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	//Ejemplo registro temperatura del Lote id 54 en dos trayectos:
+	public static void main(String[] args) {
+
+		prueba1();
+		//prueba2();
+		prueba3();
+		//prueba4();
 
 	}
 
