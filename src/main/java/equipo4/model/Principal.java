@@ -6,7 +6,10 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 
+import com.controller.StockController;
+
 import equipo5.model.NotInDatabaseException;
+import equipo5.model.StockLote;
 import equipo5.dao.metodosCompany;
 import equipo6.model.DatosContainer;
 import equipo8.model.GeneradorQR2;
@@ -29,7 +32,7 @@ public class Principal extends Thread {
 	}
 	
 	
-	public static void actualizarLista(int orden) {
+	public static void actualizarLista(int orden) throws ClassNotFoundException, SQLException, NotInDatabaseException {
 		for(int i=0;i<moliendo.size();i++) {
 			moliendo.remove(i);
 		}
@@ -42,8 +45,8 @@ public class Principal extends Thread {
 		for(int l=0;l<embotellando.size();l++) {
 			moliendo.remove(l);
 		}
-		HashMap<String,Double> lista = getStockPedidoFabrica(orden);
-		for (int i=0; i<lista.size(); i++) {
+		HashMap<String,Double> lista = StockController.getStockPedidoFabrica(orden);
+		/*for (int i=0; i<lista.size(); i++) {
 			StockLote lote1 = lista.get(i);
 				Lote lote2 = lote1.getLote();
 				Date fechaInicial = lote2.getFecha_inicio();
@@ -74,7 +77,7 @@ public class Principal extends Thread {
 				else if(tiempo<2) {
 					moliendo.add(lote2);
 				}
-		}
+		}*/
 	}
 
 
