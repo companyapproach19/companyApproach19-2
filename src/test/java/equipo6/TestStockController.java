@@ -67,10 +67,6 @@ class TestStockController {
 		orden.setIdPedido(1);
 		bcs.guardarOrden(orden);
 		
-		idRegistro = metodosCompany.idRegistro();
-		reg = new Registro(idRegistro, 1, 1, "", "", 20, 0);
-		bcs.guardarOrden(reg);
-		
 		idOrden = metodosCompany.idOrdenTrazabilidad();
 		orden = new OrdenTrazabilidad(idOrden, actor_o,actor_d, productos);
 		orden.setEstado(1);
@@ -78,8 +74,30 @@ class TestStockController {
 		bcs.guardarOrden(orden);
 		
 		idRegistro = metodosCompany.idRegistro();
+		reg = new Registro(idRegistro, 1, 1, "", "", 20, 0);
+		bcs.guardarOrden(reg);
+		
+		idRegistro = metodosCompany.idRegistro();
 		reg = new Registro(idRegistro, 1, 1, "", "", 40, 20);
 		bcs.guardarOrden(reg);
+		
+		idOrden = metodosCompany.idOrdenTrazabilidad();
+		orden = new OrdenTrazabilidad(idOrden, actor_o,actor_d, productos);
+		orden.setEstado(2);
+		orden.setIdPedido(1);
+		bcs.guardarOrden(orden);
+		
+		idOrden = metodosCompany.idOrdenTrazabilidad();
+		orden = new OrdenTrazabilidad(idOrden, actor_o,actor_d, productos);
+		orden.setEstado(3);
+		orden.setIdPedido(1);
+		bcs.guardarOrden(orden);
+		
+		idOrden = metodosCompany.idOrdenTrazabilidad();
+		orden = new OrdenTrazabilidad(idOrden, actor_o,actor_d, productos);
+		orden.setEstado(4);
+		orden.setIdPedido(1);
+		bcs.guardarOrden(orden);
 		
 	}
 	
