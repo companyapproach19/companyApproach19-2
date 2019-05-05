@@ -1,4 +1,4 @@
-// ACTORES:  0 = agricultor, 1 =cooperativa, 2 = transportista, 3 = fábrica, 4 = retailer
+// ACTORES: 10 = agricultor, 6 =cooperativa, 2 = transportista, 8 = fábrica, 9 = retailer
 // ESTADOS:  -1 = Rechazado, 0 = PendienteAceptar, 1 = Preparando, 2 = ListoEntregar, 3 = Transportandose, 4 = Entregado(Aceptado?)
 
 function pedirIds(actor, estado){
@@ -82,10 +82,11 @@ function creaOrden(actor){
 	
 	  console.log("mando orden a /crearOrden");
 
+	  var soyAuxiliar=paraJson(actor);
       var request = $.ajax({
       
 			url : '/crearOrden',    // la URL para la petición
-			data : 'json='paraJson(actor),
+			data : 'json='.concat(soyAuxiliar),
 			type : 'POST',
 			dataType : 'json',  // el tipo de información que se espera de respuesta
  
@@ -112,6 +113,8 @@ function creaOrden(actor){
 
 	
 	if (actor == 1 || actor == 3){ // coope, fabrica
+		if (actor == 1) nuevaOrden.actorOrigen.id= 6;
+		if (actor == 3) nuevaOrden.actorOrigen.id= 8;
 		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value -0;
 		nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
 		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value -0;
@@ -125,6 +128,7 @@ function creaOrden(actor){
 		nuevaOrden.productosPedidos.cant_lupulo_centenial=document.getElementById("lupulo_centinental").value -0;
 	}else if (actor == 4){  // tienda
 		nuevaOrden.idPedido = -1;
+		nuevaOrden.actorOrigen.id= 9;
 		nuevaOrden.actorDestino.id = document.getElementById("idTransportista").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
@@ -134,6 +138,7 @@ function creaOrden(actor){
 	
 	    
 		
+
 		console.log(nuevaOrden);
 		var orden = JSON.stringify(nuevaOrden);
 		console.log(orden);
@@ -210,7 +215,7 @@ function mandarids(urlpar){
 					 
 					 url = "/comienzoProcesoFabricacion";
 					//se han obtenido json del pedido
-					idPedidoAux = JSON.parse(data).idPedido;
+					idPedidoAux = data.idPedido;
 					// ahora ya puedo empezar fabricacion
 					
 					console.log("empiezo fabricacion en /comienzoProcesoFabricacion?peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1]);
@@ -218,13 +223,15 @@ function mandarids(urlpar){
 			
 						url : url,
 						data :"peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1] ,
-						type : 'POST',
+						type : 'GET',
 						dataType : 'json',  // el tipo de información que se espera de respuesta
 						
 						});
 				 
 						request.done(function(data){
-					  
+					  	for (var key of Object.keys(data)) {
+					  		alert(data.key);
+					  	}
 						 
 						 
 						});
@@ -479,6 +486,9 @@ function rellenaPopup(json, actor, i) {
 
     }   
 }
+
+//Para el stock
+
 
 
 
