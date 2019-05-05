@@ -42,7 +42,7 @@ function pedirIds(actor, estado){
     var request = $.ajax({
 	  
 		url : url,            // la URL para la petición
-		data :"idActor="+actor ,
+		data :"idActor="+actor2 ,
 		type : 'GET',
 		dataType : 'json',     // el tipo de información que se espera de respuesta
   
