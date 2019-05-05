@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import equipo5.model.NullException;
+import equipo5.dao.NullException;
 import equipo5.model.StockLote;
 import equipo5.model.StockMP;
 
@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
 import equipo5.model.Cadena;
+import equipo5.model.NotInDatabaseException;
 import equipo6.model.Bloque;
 import equipo6.model.CadenaActores;
 import equipo6.model.DatosContainer;
@@ -300,7 +301,7 @@ public class metodosCompany {
 		return buscado;
 	}
 	
-	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException {
+	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException, NullException {
 		if(geo == null){
 	             throw new NullException("La geolocalización introducida no es válida.");
 		}
@@ -327,7 +328,7 @@ public class metodosCompany {
 		return buscado;
 	}
 	
-	public static void insertarProductosOrden(ArrayList<Integer> pedidos, int idOrden) throws SQLException {
+	public static void insertarProductosOrden(ArrayList<Integer> pedidos, int idOrden) throws SQLException, equipo5.dao.NullException {
 		if(pedidos == null){
 	             throw new NullException("La lista de pedidos introducida no es válida.");
 		}
@@ -371,7 +372,7 @@ public class metodosCompany {
 		return null;	
 	}
 
-	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException {
+	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, NullException {
 		if(orden == null){
 	             throw new NullException("La orden introducida no es válida.");
 		}
@@ -420,7 +421,7 @@ public class metodosCompany {
 		return null;	
 	}
 
-	public static void insertarProductos(Productos producto, int idOrden) throws SQLException, ClassNotFoundException {
+	public static void insertarProductos(Productos producto, int idOrden) throws SQLException, ClassNotFoundException, NullException {
 		if(producto == null){
 	             throw new NullException("El producto introducido no es válido.");
 		}
@@ -461,7 +462,7 @@ public class metodosCompany {
 		return buscado;
 	}
 
-	public static void insertarCadena(Cadena cadena) throws SQLException {
+	public static void insertarCadena(Cadena cadena) throws SQLException, NullException {
 		if(cadena == null){
 	             throw new NullException("La cadena introducida no es válida.");
 		}
@@ -531,7 +532,7 @@ public class metodosCompany {
 		return null;
 	}
 
-	public static void insertarRegistro (Registro registro) throws SQLException{
+	public static void insertarRegistro (Registro registro) throws SQLException, NullException{
 		if(registro == null){
 	             throw new NullException("El registro introducido no es válido.");
 		}
@@ -601,7 +602,7 @@ public class metodosCompany {
 		else return null;
 	}		 
 
-	public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException{
+	public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException, NullException{
 		if(actor == null){
 	             throw new NullException("El actor introducido no es válido.");
 		}
@@ -699,9 +700,6 @@ public class metodosCompany {
 				insertarGeolocalizacion(aInsertar4);
 			}			
 			break;
-		}
-		if(data == null){
-	             throw new NullException("El atributo datosContainer no es válido.");
 		}
 		conectar();
 		String query = "INSERT INTO company.bloque (hashBloque, hashPrevio, tipoBloque, numBloque, codLote, datosContainer, timeStamp, idCadena) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
@@ -973,7 +971,7 @@ public class metodosCompany {
 	   		} 
 	    } 	
     }
-    public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException{
+    public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException, NullException{
     	    if(stockMateria == null){
 	             throw new NullException("El stock de materia prima introducido no es válido.");
 		}
@@ -1183,7 +1181,7 @@ public class metodosCompany {
 		}
 		return null;
     }
-    public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException{
+    public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException, NullException{
 		if(mp == null){
 	             throw new NullException("La materia prima introducida no es válida.");
 		}
