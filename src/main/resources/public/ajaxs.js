@@ -2,25 +2,40 @@
 // ESTADOS:  -1 = Rechazado, 0 = PendienteAceptar, 1 = Preparando, 2 = ListoEntregar, 3 = Transportandose, 4 = Entregado(Aceptado?)
 
 function pedirIds(actor, estado){
-	
+	var actor2;
+	switch (actor){
+		case 0:
+		actor2=10;
+		break;
+		case 1:
+		actor2=6;
+		break;
+		case 3:
+		actor2=8;
+		break;
+		case 4:
+		actor2=9;
+		break;
+		}
+
 	var url;
 	switch (estado) {
 		case 0 :
 		url = "/ordenesPendientesPorAceptar";
 		alert("obteniendo pedidos recibidos (pendientes por aceptar)");
-		console.log("pido /ordenesPendientesPorAceptar?id="+actor);
+		console.log("pido /ordenesPendientesPorAceptar?id="+actor2);
 		break;
 		
 		case 1 :
 		url = "/ordenesEnProceso";
 		alert("obteniendo pedidos por resolver");
-		console.log("pido /ordenesEnProceso?id="+actor);
+		console.log("pido /ordenesEnProceso?id="+actor2);
 		break;
 		
 		case 2 :
 		url = "/ordenesQueHeEnviado";
 		alert("obteniendo pedidos aceptados");
-		console.log("pido /ordenesQueHeEnviado?id="+actor);
+		console.log("pido /ordenesQueHeEnviado?id="+actor2);
 		break;
 	}
 	  
