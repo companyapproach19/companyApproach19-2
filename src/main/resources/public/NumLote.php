@@ -51,7 +51,10 @@
                 <div class="input-group-append">
                   <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                     <li class="nav-item" >
-                       <a class="nav-link" id="home" data-toggle="submit" href="Lote.html?numLoteIntroducido=numLoteIntroducido" role="submit" aria-controls="home" aria-selected="true">Buscar</a>
+                       <a class="nav-link" id="home" data-toggle="submit" href="Lote.php?numLoteIntroducido=$numLoteIntroducido" role="submit" aria-controls="home" aria-selected="true" onclick="function recogidaNumLote() {
+                            window.location = 'Lote.html?numLoteIntroducido=' + document.getElementById('numLote').value;
+                       }
+                       recogidaNumLote()">Buscar</a>
                     </li>
                   </ul>
                 </div>
@@ -86,7 +89,7 @@
               </div>-->
             </div>
           </div>
-			
+      
             <div class="row">
               <div class="col-md-10 offset-md-2">
                 <a class="btn btn-primary" data-toggle="collapseVisualizar" href="fabrica2.html" role="button" aria-expanded="false" aria-controls="collapseVisualizar">
@@ -173,30 +176,30 @@
 
        <script>
        function hacerSeguimientoLote(){
-    	   var request = $.ajax({
-    		   url: '/obtenerNumLote',
-    		   data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
-    		   type : 'POST',
-    		   dataType : 'json',
-    	   });
-    	   request.done(function(data){
-    		      
-    		      //Este metodo redirige a la URL
-    		     if(data.existe){
-    		    	 href = "Lote.html";
-    		   alert(data.num);
-    		   }
-    		   else{
-    		   alert("No existe el lote");
-    		   }
-    		    
-    		     });
-    		 
-    		     request.fail(function(data) {
-    		   
-    		     alert("Error en el servidor");
-    		   
-    		     });
+         var request = $.ajax({
+           url: '/obtenerNumLote',
+           data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+           type : 'POST',
+           dataType : 'json',
+         });
+         request.done(function(data){
+              
+              //Este metodo redirige a la URL
+             if(data.existe){
+               href = "Lote.html";
+           alert(data.num);
+           }
+           else{
+           alert("No existe el lote");
+           }
+            
+             });
+         
+             request.fail(function(data) {
+           
+             alert("Error en el servidor");
+           
+             });
        }
        
        
@@ -241,14 +244,14 @@
         </script>
         function comprobarValor(valor){
           if(!NaN( $("#numeroIntroducido").val())){
-        	  alert("Numero introducido no valido.");
-        		  location.reload();
+            alert("Numero introducido no valido.");
+              location.reload();
           }
           }
           function pasarVariables(pagina, nombres) {
-        	  pagina +="?";
-        	  nomVec=$("#numeroIntroducido").val();
-        	    pagina += nomVec + "=" + escape(eval(nomVec));
-        	  	pagina = pagina.substring(0,pagina.length-1);
-        	  	location.href=pagina;
-        	}
+            pagina +="?";
+            nomVec=$("#numeroIntroducido").val();
+              pagina += nomVec + "=" + escape(eval(nomVec));
+              pagina = pagina.substring(0,pagina.length-1);
+              location.href=pagina;
+          }

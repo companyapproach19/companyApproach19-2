@@ -144,21 +144,21 @@
 
 #bt1 {
     /* Imagen obtenida de https://cdn.icon-icons.com/icons2/53/PNG/256/farmer_10763.png */
-  background-image:url(camion.jpg);
-  background-size: 140px;
-  margin-left: 0px;
+  background-image:url(molienda.png);
+  background-size: 100px;
+  margin-left: 170px;
 }
 
 #bt2 {
     /* Imagen obtenida de https://images.vexels.com/media/users/3/149778/isolated/preview/1f81375bf0c5b07e551aed611ef4bdc1-ilustraci--n-del-edificio-de-la-f--brica-by-vexels.png */
-  background-image:url(molienda.png);
+  background-image:url(coccion.jpg);
   background-size: 100px;
-  margin-left: 100px;
+  margin-left: 270px;
 }
 
 #bt3 {
     /* Imagen obtenida de https://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png */
-  background-image:url(coccion.jpg);
+  background-image:url(fermentacion.jpg);
   background-size: 100px;
   margin-left: 30px;
 }
@@ -171,7 +171,7 @@
 }
 #bt5 {
     /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
-  background-image:url(fermentacion.jpg);
+  background-image:url(embotellado.jpg);
   background-size: 100px;
   margin-left: 30px;
 }
