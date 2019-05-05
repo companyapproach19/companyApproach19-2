@@ -322,7 +322,7 @@ public class BlockchainServices{
 		if(productos.getCant_cebada() != 0) 
 		{
 			cantidad = productos.getCant_cebada();
-			id = metodosCompany.idMateriaPrimaStock();
+			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("Cebada", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
@@ -330,7 +330,7 @@ public class BlockchainServices{
 		if(productos.getCant_cebada_tostada() != 0) 
 		{
 			cantidad = productos.getCant_cebada_tostada();
-			id = metodosCompany.idMateriaPrimaStock();
+			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("cebadaTostada", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
@@ -338,7 +338,7 @@ public class BlockchainServices{
 		if(productos.getCant_lupulo_centenial() != 0) 
 		{
 			cantidad = productos.getCant_lupulo_centenial();
-			id = metodosCompany.idMateriaPrimaStock();
+			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("lupuloCentennial", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
@@ -346,7 +346,7 @@ public class BlockchainServices{
 		if(productos.getCant_malta_caramelo() != 0) 
 		{
 			cantidad = productos.getCant_malta_caramelo();
-			id = metodosCompany.idMateriaPrimaStock();
+			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("maltaCaramelo", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
@@ -354,7 +354,7 @@ public class BlockchainServices{
 		if(productos.getCant_malta_chocolate() != 0) 
 		{
 			cantidad = productos.getCant_malta_chocolate();
-			id = metodosCompany.idMateriaPrimaStock();
+			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("maltaChocolate", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
@@ -362,7 +362,7 @@ public class BlockchainServices{
 		if(productos.getCant_malta_crystal() != 0) 
 		{
 			cantidad = productos.getCant_malta_crystal();
-			id = metodosCompany.idMateriaPrimaStock();
+			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("maltaCrystal", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
@@ -370,7 +370,7 @@ public class BlockchainServices{
 		if(productos.getCant_malta_munich() != 0) 
 		{
 			cantidad = productos.getCant_malta_munich();
-			id = metodosCompany.idMateriaPrimaStock();
+			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("maltaMunich", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
@@ -378,7 +378,7 @@ public class BlockchainServices{
 		if(productos.getCant_malta_negra() != 0) 
 		{
 			cantidad = productos.getCant_malta_negra();
-			id = metodosCompany.idMateriaPrimaStock();
+			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("maltaNegra", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
@@ -386,7 +386,7 @@ public class BlockchainServices{
 		if(productos.getCant_malta_palida() != 0)
 		{
 			cantidad = productos.getCant_malta_palida();
-			id = metodosCompany.idMateriaPrimaStock();
+			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("maltaBasePalida", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);

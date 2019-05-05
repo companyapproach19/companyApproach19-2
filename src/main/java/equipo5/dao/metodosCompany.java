@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
 import equipo5.model.Cadena;
+import equipo5.model.NotInDatabaseException;
 import equipo6.model.Bloque;
 import equipo6.model.CadenaActores;
 import equipo6.model.DatosContainer;
@@ -30,9 +31,8 @@ public class metodosCompany {
 
 	private static Connection conn;
 
-	//private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
-	private static String JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/company?user=gonzalo&password=root";
-	
+	private static String JDBC_DATABASE_URL="jdbc:postgresql://ec2-54-197-232-203.compute-1.amazonaws.com:5432/da8thb0c81jj6n?user=voamftsogizhrl&password=b92c40a06c23bf20ef80f4270ebf62bd464e9432d65e38458e047b7597bd5446&sslmode=require";
+
 	static boolean primerusuario= true;
 
 
@@ -128,7 +128,7 @@ public class metodosCompany {
 				"CREATE TABLE company.productos ( " +
 						"id INT NOT NULL, " +
 						"malta_palida INT NOT NULL, " +
-						"matla_munich INT NOT NULL, " +
+						"malta_munich INT NOT NULL, " +
 						"malta_negra INT NOT NULL, " +
 						"malta_crystal INT NOT NULL, " +
 						"malta_chocolate INT NOT NULL, " +
@@ -174,7 +174,7 @@ public class metodosCompany {
 						"datosContainer INT, " +
 						"timeStamp FLOAT, " +
 						"idCadena INT NOT NULL, " +
-						"estadoOrden INT NOT NULL, "+
+                        "estadoOrden INT NOT NULL, "+
 						"PRIMARY KEY (hashBloque));"
 				);
 		pst15.executeUpdate();
@@ -302,7 +302,7 @@ public class metodosCompany {
 		return buscado;
 	}
 	
-	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException, equipo5.dao.NullException {
+	public static void insertarGeolocalizacion(geolocalizacion geo) throws SQLException, NullException {
 		if(geo == null){
 	             throw new NullException("La geolocalización introducida no es válida.");
 		}
@@ -352,8 +352,6 @@ public class metodosCompany {
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			String firmaRecogida;
-			String firmaEntrega;
 			Actor actorOrigen = extraerActor(rs.getString(2));
 			Actor actorDestino = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
@@ -364,33 +362,8 @@ public class metodosCompany {
 			}
 			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
 					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
-			pst.close();
-			rs.close();
-			//conn.close();
-			return buscado;
-		}
-		//conn.close();
-		return null;	
-	}
-	
-	public static OrdenTrazabilidad extraerOrdenTrazabilidadEstado(int id,int estado) throws SQLException, ClassNotFoundException {
-		conectar();
-		String query = "SELECT * FROM company.ordenTrazabilidad WHERE id = " + id+" AND estado = "+estado;
-		Statement pst = conn.createStatement();
-		ResultSet rs = pst.executeQuery(query);
-		while(rs.next()) {
-			String firmaRecogida;
-			String firmaEntrega;
-			Actor actorOrigen = extraerActor(rs.getString(2));
-			Actor actorDestino = extraerActor(rs.getString(3));
-			Productos productos = extraerProductos(rs.getInt(5));
-			Actor actorTransportista = extraerActor(rs.getString(9));
-			ArrayList<Integer> productosOrden = new ArrayList<Integer>();
-			if(extraerProductosOrden(rs.getInt(1))!=null) {
-				productosOrden = extraerProductosOrden(rs.getInt(1));
-			}
-			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
-					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
+			buscado.setFirmaEntregaBBDD(rs.getBytes(8));
+			buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
 			pst.close();
 			rs.close();
 			//conn.close();
@@ -400,7 +373,7 @@ public class metodosCompany {
 		return null;	
 	}
 
-	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, equipo5.dao.NullException {
+	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, NullException {
 		if(orden == null){
 	             throw new NullException("La orden introducida no es válida.");
 		}
@@ -449,12 +422,12 @@ public class metodosCompany {
 		return null;	
 	}
 
-	public static void insertarProductos(Productos producto, int idOrden) throws SQLException, ClassNotFoundException, equipo5.dao.NullException {
+	public static void insertarProductos(Productos producto, int idOrden) throws SQLException, ClassNotFoundException, NullException {
 		if(producto == null){
 	             throw new NullException("El producto introducido no es válido.");
 		}
 		conectar();
-		String query = "INSERT INTO company.productos (id, malta_palida, matla_munich, malta_negra, malta_crystal, "
+		String query = "INSERT INTO company.productos (id, malta_palida, malta_munich, malta_negra, malta_crystal, "
 				+ "malta_chocolate , malta_caramelo, cebada, cebada_tostada, lupulo_centenial, cajas_stout ,cajas_bisner)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -490,7 +463,7 @@ public class metodosCompany {
 		return buscado;
 	}
 
-	public static void insertarCadena(Cadena cadena) throws SQLException, equipo5.dao.NullException {
+	public static void insertarCadena(Cadena cadena) throws SQLException, NullException {
 		if(cadena == null){
 	             throw new NullException("La cadena introducida no es válida.");
 		}
@@ -560,7 +533,7 @@ public class metodosCompany {
 		return null;
 	}
 
-	public static void insertarRegistro (Registro registro) throws SQLException, equipo5.dao.NullException{
+	public static void insertarRegistro (Registro registro) throws SQLException, NullException{
 		if(registro == null){
 	             throw new NullException("El registro introducido no es válido.");
 		}
@@ -630,7 +603,7 @@ public class metodosCompany {
 		else return null;
 	}		 
 
-	public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException, equipo5.dao.NullException{
+	public static void insertarActor(Actor actor) throws SQLException, ClassNotFoundException, RuntimeException, NullException{
 		if(actor == null){
 	             throw new NullException("El actor introducido no es válido.");
 		}
@@ -666,23 +639,23 @@ public class metodosCompany {
 			int estadoOrden = rs.getInt(9);
 			switch (tipoBloque) {
 			case 0:
-				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerOrdenTrazabilidadEstado(rs.getInt(6), estadoOrden), idCadena,estadoOrden);
+				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerOrdenTrazabilidad(rs.getInt(6)), idCadena, estadoOrden);
 				devolver = buscado;
 				break;
 			case 1:
-				Bloque buscado1 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerRegistro(rs.getInt(6)), idCadena,estadoOrden);;
+				Bloque buscado1 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerRegistro(rs.getInt(6)), idCadena, estadoOrden);
 				devolver = buscado1;
 				break;
 			case 2:
-				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerLote(rs.getInt(6)), idCadena,estadoOrden);;
+				Bloque buscado2 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerLote(rs.getInt(6)), idCadena, estadoOrden);
 				devolver = buscado2;
 				break;
 			case 3:
-				Bloque buscado4 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerGeolocalizacion(rs.getInt(6)), idCadena,estadoOrden);;
+				Bloque buscado4 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerGeolocalizacion(rs.getInt(6)), idCadena, estadoOrden);
 				devolver = buscado4;
 				break;
 			default:
-				Bloque buscado3 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer(), idCadena,estadoOrden);;
+				Bloque buscado3 = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, new DatosContainer(), idCadena, estadoOrden);
 				devolver = buscado3;
 				break;
 			}
@@ -699,12 +672,14 @@ public class metodosCompany {
 		if(bloqAinsertar == null){
 	             throw new NullException("El bloque introducido no es válido.");
 		}
-		int data=-1;
+		int data=0;
 		switch (bloqAinsertar.getTipoBloque()) {
 		case 0:
 			OrdenTrazabilidad aInsertar = (OrdenTrazabilidad) bloqAinsertar.getDatos();
 			data = aInsertar.getId();
-			insertarOrdenTrazabilidad(aInsertar);
+			if(extraerOrdenTrazabilidad(data)==null) {
+				insertarOrdenTrazabilidad(aInsertar);
+			}
 			break;
 		case 1: //Registro
 			Registro aInsertar2 = (Registro) bloqAinsertar.getDatos();
@@ -727,9 +702,6 @@ public class metodosCompany {
 				insertarGeolocalizacion(aInsertar4);
 			}			
 			break;
-		}
-		if(data == -1){
-	             throw new NullException("El atributo datosContainer no es válido.");
 		}
 		conectar();
 		String query = "INSERT INTO company.bloque (hashBloque, hashPrevio, tipoBloque, numBloque, codLote, datosContainer, timeStamp, idCadena, estadoOrden) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -859,10 +831,7 @@ public class metodosCompany {
 	
 	public static LinkedList<StockMP> estaMP(LinkedList<StockMP> lista, StockMP nuevo) {
 		for(int i =0; i<lista.size(); i++) {
-			if(lista.get(i)
-					.getMp()
-					.getId()
-					==nuevo.getMp().getId()) {
+			if(lista.get(i).getMp().getId()==nuevo.getMp().getId()) {
 				if(lista.get(i).getFecha_salida()==null && nuevo.getFecha_salida()!=null) {
 					lista.remove(i);
 					lista.add(nuevo);
@@ -972,12 +941,12 @@ public class metodosCompany {
 			    break;
 	   		} 
 	   	}
-	   	else if(stockLote.getFecha_entrada()!=null) {
+	   	else if(stockLote.getFecha_salida()!=null) {
 	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 4:
 	   			conectar();
-			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?. ?);"; 
+			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			    Date date = new Date(System.currentTimeMillis());
 		        pst.setInt(1, stockLote.getLote().getIdBd());
@@ -1005,11 +974,11 @@ public class metodosCompany {
 	   		} 
 	    } 	
     }
-    public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException, equipo5.dao.NullException{
+    public static void insertarStockMP(StockMP stockMateria) throws SQLException, ClassNotFoundException, NullException{
     	    if(stockMateria == null){
 	             throw new NullException("El stock de materia prima introducido no es válido.");
 		}
-	    if(stockMateria.getFecha_entrada()==null) {
+	    if(stockMateria.getFecha_salida()==null) {
 	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 0:
@@ -1052,8 +1021,7 @@ public class metodosCompany {
 			    break;
 	   		} 
 	   	}
-	   	else if(stockMateria.getFecha_entrada()!=null) {
-	   		System.out.println("pasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	   	else if(stockMateria.getFecha_salida()!=null) {
 	   		Actor actor = extraerActor((""+stockMateria.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 0:
@@ -1140,7 +1108,7 @@ public class metodosCompany {
         }
         pst.close();
         rs.close();
-        conn.close();
+        //conn.close();
         return siguienteId;
     }
     
@@ -1191,20 +1159,6 @@ public class metodosCompany {
     
     public static int idMateriaPrima() throws SQLException, ClassNotFoundException{
         conectar();
-        String query = "SELECT MAX (idstockMMPP) FROM company.stockFabricaMMPP";
-        Statement pst = conn.createStatement();
-        ResultSet rs = pst.executeQuery(query);
-        int siguienteId = 1;
-        if(rs.next()){
-            siguienteId = rs.getInt(1) + 1;
-        }
-        pst.close();
-       rs.close();
-       //conn.close();
-        return siguienteId;
-    }
-    public static int idMateriaPrimaStock() throws SQLException, ClassNotFoundException{
-        conectar();
         String query = "SELECT MAX (idMateriaPrima) FROM company.materiaPrima";
         Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
@@ -1230,7 +1184,7 @@ public class metodosCompany {
 		}
 		return null;
     }
-    public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException, equipo5.dao.NullException{
+    public static void insertarMateriaPrima(MateriaPrima mp) throws SQLException, ClassNotFoundException, RuntimeException, NullException{
 		if(mp == null){
 	             throw new NullException("La materia prima introducida no es válida.");
 		}
@@ -1289,6 +1243,32 @@ public class metodosCompany {
             System.out.println("el actor suministrado no almacena materias primas.");
         }
         return aDevolver;
+    }
+    public static OrdenTrazabilidad extraerOrdenTrazabilidadEstado(int id,int estado) throws SQLException, ClassNotFoundException {
+        conectar();
+        String query = "SELECT * FROM company.ordenTrazabilidad WHERE id = " + id+" AND estado = "+estado;
+        Statement pst = conn.createStatement();
+        ResultSet rs = pst.executeQuery(query);
+        while(rs.next()) {
+            Actor actorOrigen = extraerActor(rs.getString(2));
+            Actor actorDestino = extraerActor(rs.getString(3));
+            Productos productos = extraerProductos(rs.getInt(5));
+            Actor actorTransportista = extraerActor(rs.getString(9));
+            ArrayList<Integer> productosOrden = new ArrayList<Integer>();
+            if(extraerProductosOrden(rs.getInt(1))!=null) {
+                productosOrden = extraerProductosOrden(rs.getInt(1));
+            }
+            OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
+                    productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
+			buscado.setFirmaEntregaBBDD(rs.getBytes(8));
+			buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
+            pst.close();
+            rs.close();
+            conn.close();
+            return buscado;
+        }
+        //conn.close();
+        return null;    
     }
    
 }
