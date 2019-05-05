@@ -3,7 +3,7 @@ package equipo4.model;
 import java.io.Serializable;
 import java.sql.SQLException;
 
-import equipo5.dao.NotInDatabaseException;
+import equipo5.model.NotInDatabaseException;
 
 public class Stout implements Serializable {
 	private static double maltaCaramelo;
