@@ -241,7 +241,7 @@ public class ManejaPeticiones {
 		if(orden!=null) {
 			orden.setEstado(1);
 			bloque.guardarOrden(orden);
-			return "OK";
+			return CodificadorJSON.crearJSON(orden);
 		}
 		else {
 			return "ERROR: no existe la orden asociada a este ID";
@@ -264,7 +264,7 @@ public class ManejaPeticiones {
 		if(orden!=null) {
 			orden.setEstado(-1);
 			bloque.guardarOrden(orden);
-			return "OK";
+			return CodificadorJSON.crearJSON(orden);
 		}
 		else {
 			return "ERROR: no existe la orden asociada a este ID";
