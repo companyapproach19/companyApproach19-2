@@ -88,7 +88,7 @@ public class BlockchainServices{
 		return null;
 	}
 
-	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.dao.NotInDatabaseException, RuntimeException, NullException 
+	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException,  RuntimeException, NullException 
 	{
 		List <StockMP> stock_mp;
 		List <MateriaPrima> list_materia_prima;
