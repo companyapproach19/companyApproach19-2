@@ -327,7 +327,7 @@ public class ManejaPeticiones {
 		
 		if(orden!=null) {
 			//Avisar al equipo8 (equipo del sensor) que empieza un transporte
-			equipo8.model.SensorStatic.iniciarTransporte(idOrden, orden.getIdPedido());
+			//equipo8.model.SensorStatic.iniciarTransporte(idOrden, orden.getIdPedido());
 			
 			//Hay que rellenar los campos que tiene miniOrden en orden y cambiar el estado
 			orden.setFirmaRecogida(miniOrden.getFirmaRecogida());
@@ -365,7 +365,7 @@ public class ManejaPeticiones {
 		
 		if(orden!=null) {
 			//Avisamos al equipo8(equipo del sensor) de que acaba el transporte
-			int idRegistro = equipo8.model.SensorStatic.terminar();
+			int idRegistro = 80;//equipo8.model.SensorStatic.terminar();
 			
 			//Hay que rellenar orden con los campos de miniOrden y el idRegistro
 			orden.setFirmaEntrega(miniOrden.getFirmaEntrega());
