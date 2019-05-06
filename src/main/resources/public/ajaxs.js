@@ -72,6 +72,7 @@ function pedirIds(actor, estado){
 		
      });
  
+ return idsOrdenes;
  }
  
  
@@ -664,5 +665,19 @@ var nuevaOrden = {
   "fecha": ""
 }
 
+var stock = { "stock": {
+    "cant_malta_palida": 0,       
+    "cant_malta_munich": 0,
+    "cant_malta_negra": 0,
+    "cant_malta_crystal": 0,
+    "cant_malta_chocolate": 0,
+    "cant_malta_caramelo": 0,
+    "cant_cebada": 0,
+    "cant_cebada_tostada": 0,
+    "cant_lupulo_centenial": 0,
+    "cant_lotes_stout": 0,
+    "cant_lotes_bisner": 0
+  }
+}
 
 
