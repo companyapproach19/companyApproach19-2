@@ -102,7 +102,7 @@ public class BlockchainServices{
 		try {
 			switch(orden.getEstado()) 
 			{
-			case 1:
+			case 2:
 
 				if(orden.getActorDestino().getTipoActor() == 0){
 					valor_retorno = true;

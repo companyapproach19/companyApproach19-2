@@ -277,6 +277,7 @@ public class StockController {
 		lista_nombre_mp = new HashMap<String, String>();
 		stock = new JsonObject();
 		json_resp = new JsonObject();
+		idActor=id;
 		try {
 				lista_ordenes = metodosCompany.extraerOrdenesActorOrigen(idActor);
 		}catch (Exception e) {
@@ -360,6 +361,7 @@ public class StockController {
 
 			break;
 		case 4:
+			json_resp.add("stock", stock );
 			json_resp.addProperty("Numero de lotes", numLotes);
 
 			break;
