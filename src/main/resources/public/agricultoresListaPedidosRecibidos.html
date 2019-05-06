@@ -49,7 +49,7 @@
                                 <div class="row register-desplazable">
                                     <div class="col-md-8 desplazable">
                                       <script>
-                                           pedirIds(0,0);
+                                          window.onload = pedirIds(0,0);
                         var stri = "'none'";
                         var j = 0;
                             if (idsOrdenes != null){
@@ -85,9 +85,6 @@
                                     j++;
                                 }
                             }
-                                          
-                                           imprimirjson(idsOrdenes);
-                                          
                         </script>
                         
                                                                                                                                
@@ -108,7 +105,7 @@
 <script>
  
 //window.onload = pedirIds(0,0);
-//window.onload = imprimirjson(idsOrdenes);
+window.onload = imprimirjson(idsOrdenes);
 
 </script>
 
