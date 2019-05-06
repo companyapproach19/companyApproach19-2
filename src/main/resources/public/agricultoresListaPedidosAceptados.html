@@ -50,6 +50,7 @@
 					<div class="col-md-8 desplazable">
 					
 						<script>
+							window.onload = pedirIds(0,1);
 						var stri = "'none'";
 						var j = 0;
 							if (idsOrdenes != null){
@@ -85,6 +86,7 @@
 									j++;
 								}
 							}
+							imprimirjson(idsOrdenes);
 						</script>
 						
 																															   
@@ -100,7 +102,8 @@
 	   
 <script>
  
-window.onload = pedirIds(0,1);
+//window.onload = pedirIds(0,1);
+//window.onload = imprimirjson(idsOrdenes);
 
 </script>
 </body>

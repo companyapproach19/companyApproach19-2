@@ -1,6 +1,5 @@
 // ACTORES: 10 = agricultor, 6 =cooperativa, 2 = transportista, 8 = fábrica, 9 = retailer
 // ESTADOS:  -1 = Rechazado, 0 = PendienteAceptar, 1 = Preparando, 2 = ListoEntregar, 3 = Transportandose, 4 = Entregado(Aceptado?)
-
 function pedirIds(actor, estado){
 	var actor2;
 	switch (actor){
@@ -49,12 +48,17 @@ function pedirIds(actor, estado){
     });
  
      request.done(function(data){
-	 
+		 
+		 
+	 	
         //reescribo el array local idsOrdenes
 		idsOrdenes = data.listaIDs;
 		
+		console.log(idsOrdenes);
+	     	
 		//paso por parametro a imprimir
-		imprimirjson(idsOrdenes);
+		
+		//imprimirjsons(idsOrdenes);
     
      });
  
@@ -63,7 +67,7 @@ function pedirIds(actor, estado){
 		alert("Error en el servidor obteniendo ids");
 		
 		//paso por parametro array idsOrdenes local 
-		imprimirjson(idsOrdenes);
+		//imprimirjson(idsOrdenes);
 		
 		
      });
@@ -74,19 +78,26 @@ function pedirIds(actor, estado){
  
  
  
+ 
+ 
+ 
+ 
  //Funcion que imprime cada id ORDEN
  function imprimirjson(ids){
-
-		  if (ids==null){ 
-			alert("No hay pedidos");
-		  } else {
-			var label = 'label';
-            for (var i = 1; i< ids.length + 1; i++) {
-                var x = i.toString(10);
-                document.getElementById(label.concat(x)).innerHTML = ids[i-1];
-			}
-		  }
-	}
+		console.log("Estoy en el ids ordenes CON");
+		console.log(ids);
+		if (idsOrdenes == null || idsOrdenes.length==0){
+				alert("No hay pedidos");
+				return;
+		}
+		
+		var label = 'label';
+            	for (var i = 1; i< ids.length + 1; i++) {
+                	var x = i.toString(10);
+               		document.getElementById(label.concat(x)).innerHTML = ids[i-1];
+		}
+		  
+}
 
 
 
@@ -94,6 +105,21 @@ function pedirIds(actor, estado){
 
 
 function creaOrden(actor){
+	var actor2;
+	switch (actor){
+		case 0:
+		actor2=10;
+		break;
+		case 1:
+		actor2=6;
+		break;
+		case 3:
+		actor2=8;
+		break;
+		case 4:
+		actor2=9;
+		break;
+		}
 	
 	  console.log("mando orden a /crearOrden");
 
@@ -320,15 +346,30 @@ var idsOrdenes = [6,7,5,3,21,43,76,4,6534];
 
 
 function pedirStock(actor,i) {
-	
+
+	var actor2;
+	switch (actor){
+		case 0:
+		actor2=10;
+		break;
+		case 1:
+		actor2=6;
+		break;
+		case 3:
+		actor2=8;
+		break;
+		case 4:
+		actor2=9;
+		break;
+		}
 	$("#popup"+i).show();
 	
-	console.log("pido stock a /dameStockActor?id="+actor);
+	console.log("pido stock a /dameStockActor?id="+actor2);
 	
     var request = $.ajax({
 		
 	  url : '/dameStockActor', // la URL para la petición del stock
-	  data : "id=" + actor,
+	  data : "id=" + actor2,
 	  type : 'GET',
 	  dataType : 'json',  // el tipo de información que se espera de respuesta
 	  
