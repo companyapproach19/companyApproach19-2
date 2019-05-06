@@ -347,7 +347,7 @@ public class metodosCompany {
 
 	public static OrdenTrazabilidad extraerOrdenTrazabilidad(int id) throws SQLException, ClassNotFoundException {
 		conectar();
-		String query = "SELECT * FROM company.ordenTrazabilidad WHERE id = " + id;
+		String query = "SELECT * FROM company.ordenTrazabilidad WHERE fecha = (SELECT MAX(fecha) FROM company.ordenTrazabilidad WHERE id = " + id + " )";
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		OrdenTrazabilidad buscado = null;
@@ -355,18 +355,19 @@ public class metodosCompany {
 			Actor actorOrigen = extraerActor(rs.getString(2));
 			Actor actorDestino = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
-			Actor actorTransportista = extraerActor(rs.getString(9));
+			Actor actorTransportista= null;
+			if ( extraerActor(rs.getString(9)) != null &&  extraerActor(rs.getString(9)).getId() != "") {
+				actorTransportista = extraerActor(rs.getString(9));
+			}
 			ArrayList<Integer> productosOrden = new ArrayList<Integer>();
 			if(extraerProductosOrden(rs.getInt(1))!=null) {
 				productosOrden = extraerProductosOrden(rs.getInt(1));
 			}
-			if (buscado == null || buscado.getFecha().before(rs.getDate(12))) {
-				buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
-						productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
-				buscado.setFirmaEntregaBBDD(rs.getBytes(8));
-				buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
-			}
-		}
+			buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
+					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
+			buscado.setFirmaEntregaBBDD(rs.getBytes(8));
+			buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
+					}
 		pst.close();
 		rs.close();
 		return buscado;	
