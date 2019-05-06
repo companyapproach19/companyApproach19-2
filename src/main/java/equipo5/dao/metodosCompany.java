@@ -366,11 +366,9 @@ public class metodosCompany {
 				buscado.setFirmaEntregaBBDD(rs.getBytes(8));
 				buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
 			}
-			pst.close();
-			rs.close();
-			//conn.close();
 		}
-		//conn.close();
+		pst.close();
+		rs.close();
 		return buscado;	
 	}
 
