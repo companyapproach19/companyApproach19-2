@@ -17,7 +17,6 @@
 		</buildCommand>
 		<buildCommand>
 			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
-			
 			<arguments>
 			</arguments>
 		</buildCommand>

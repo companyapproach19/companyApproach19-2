@@ -677,9 +677,9 @@ public class metodosCompany {
 		case 0:
 			OrdenTrazabilidad aInsertar = (OrdenTrazabilidad) bloqAinsertar.getDatos();
 			data = aInsertar.getId();
-			if(extraerOrdenTrazabilidad(data)==null) {
+			//if(extraerOrdenTrazabilidad(data)==null) {
 				insertarOrdenTrazabilidad(aInsertar);
-			}
+			//}
 			break;
 		case 1: //Registro
 			Registro aInsertar2 = (Registro) bloqAinsertar.getDatos();
