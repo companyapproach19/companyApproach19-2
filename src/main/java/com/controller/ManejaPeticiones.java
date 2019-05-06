@@ -292,10 +292,12 @@ public class ManejaPeticiones {
 		if(orden!=null && miniOrden.getProductosAEntregar()!=null) {
 			//En orden hay que rellenar el campo de los productosAEntregar y cambiar el estado
 			orden.setProductosAEntregar(miniOrden.getProductosAEntregar());
-			orden.setEstado(2);
 			//Hay que activar necesitaTransportista
 			if(orden.getActorOrigen().getTipoActor()!=1) {
+				orden.setEstado(2);
 				orden.setNecesitaTransportista(true);
+			} else {
+				orden.setEstado(4);
 			}
 		
 			//Guardamos la orden actualizada en BBDD
