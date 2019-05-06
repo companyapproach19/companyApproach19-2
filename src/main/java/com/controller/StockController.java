@@ -360,6 +360,7 @@ public class StockController {
 
 			break;
 		case 4:
+			json_resp.add("stock", stock );
 			json_resp.addProperty("Numero de lotes", numLotes);
 
 			break;
