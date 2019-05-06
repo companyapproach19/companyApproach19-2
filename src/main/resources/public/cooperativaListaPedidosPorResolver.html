@@ -2,9 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>CooperativaPedidosRecibidos</title>
-
-
+    <title>CooperativaPedidosPorResolver</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -12,7 +10,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
 
 <!------ TEST SCRIPTSS ---------->
 <script type="text/javascript" src="ajaxs.js"></script>
@@ -44,15 +41,15 @@
                                 </ul>
                             </div>
                             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading titlecenter">PEDIDOS RECIBIDOS</h3>
+                                <h3  class="register-heading titlecenter">PEDIDOS PENDIENTES POR RESOLVER</h3>
 								<br>
                                 <br>
                                 <br>
-                                <div class="row register-desplazable">
+                                  <div class="row register-desplazable">
                                     <div class="col-md-8 desplazable">
-                                        <script>
-						window.onload = pedirIds(1,0);
-						
+                                        <p> </p>
+                                       <script>
+					       window.onload = pedirIds(1,2);
                         var stri = "'none'";
                         var j = 0;
                             if (idsOrdenes != null){
@@ -88,12 +85,11 @@
                                     j++;
                                 }
                             }
-						imprimirjson(idsOrdenes);
+					        imprimirjson(idsOrdenes);
                         </script>
-            
+                                        
                                 </div>
                                 
-                                        <input type="submit" class="btnCompletar"  onClick="mandarids(0)" value="Resolver pedidos"/>
                             </div>
                         </div>
                     </div>
@@ -102,8 +98,8 @@
             </div>
 </body>
 <script>
- //window.onload = imprimirjson(idsOrdenes);
-//window.onload = pedirIds(1,0);
+ 
+//window.onload = imprimirjson(idsOrdenes);
 
 </script>
 </html>

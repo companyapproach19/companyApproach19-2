@@ -1,13 +1,20 @@
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
+<meta charset="UTF-8">
 <link href="style2.css" rel="stylesheet" id="bootstrap-css">
+
+
+<!------ TEST SCRIPTSS ---------->
+<script type="text/javascript" src="ajaxs.js"></script>
+<!------ TEST SCRIPTSS ---------->
+
 
 <div class="container register agricultores">
                 <div class="row">
@@ -20,7 +27,7 @@
                     <div class="col-md-9 register-right largotienda">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-								<a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>                           
+								<a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>                           
 								</li>
                         </ul>
                         <p></p>
@@ -39,13 +46,16 @@
 								<br>
                                 <div class="row register-form">
                                     <div class="col-md-6">
+                                        <!-- <div class="form-group">
+                                          <h6>* Identificador de Pedido:</h6>
+                                            <input type="text" class="form-control" placeholder="* Identificador de Pedido" id="idPedido" value="" />
+                                        </div> -->
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="* Identificador" id="identificador" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="* Transportista" id="transportista" value="" />
+                                          <h6>* Transportista:</h6>
+                                            <input type="text" class="form-control" placeholder="* Transportista" id="idTransportista" value="" required>
                                             <br>
                                              <label for="producto">Las casillas con * son campos obligatorios</label>
+                                             <label for="producto">La cantidad de cajas de cada tipo tiene que ser un numero sin decimales</label>
                                         </div>
                                        
                                         <div class="form-group">
@@ -56,12 +66,14 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Cajas Stoul" id="cajas_stoul" value="" min=0 />
+                                          <h6>Cajas Stout:</h6>
+                                            <input type="number" class="form-control" placeholder="Número de cajas" id="cajas_stout" value="" min=0 />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  placeholder="Cajas Bisner" value="" id="cajas_bisner" min=0 />
+                                          <h6>Cajas Pilsner:</h6>
+                                            <input type="number" class="form-control"  placeholder="Número de cajas" value="" id="cajas_bisner" min=0 />
                                         </div>
-                                        <input type="submit" class="btnRegister" onClick="hacerPeticion();" value="Enviar pedido"/>
+                                        <input type="submit" class="btnRegister" onClick="creaOrden(4); window.location.href='tiendaInicio.html';" value="Enviar pedido"/>
                                     </div>
                                 </div>
                             </div>
@@ -72,87 +84,3 @@
 </div>
 
 
-<script>
-function hacerPeticion(){
-      var request = $.ajax({
-      // la URL para la petición
-      url : '/creaPedido',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos)
-      data : paraJson(),
- 
-      // especifica si será una petición POST o GET
-      type : 'POST',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-      });
- 
-     request.done(function(data){
-      
-      //TODO Este metodo redirige a la URL
-      windows.append('/tiendaInicio.html');
-    
-     });
- 
-     request.fail(function(data) {
-     
-     alert("Error en el servidor");
-     
-     });
- 
- }
- 
- function paraJson() {
-
-    var object = { 
-      id: -1,
-      mensaje : "",
-    actorOrigen: {
-      id: 9,
-      nombreUsuario: "Retailer",
-      tipoActor:  5
-    },
-    "actorDestino": {
-        id: document.getElementById("identificador").value,
-      nombreUsuario: "Fabrica",
-      tipoActor: 4
-    },
-    productos: {
-  cant_malta_palida: 0,
-  cant_malta_munich: 0,
-  cant_malta_negra: 0,
-  cant_malta_crystal:0,
-  cant_malta_chocolate:0,
-  cant_malta_caramelo: 0,
-  cant_cebada: 0, 
-  cant_cebada_tostada: 0,
-  cant_lupulo_centenial:0,
-  cant_cajas_stout:document.getElementById("cajas_stoul").value,
-  cant_cajas_bisner:document.getElementById("cajas_bisner").value,
-    },
-	mensaje: "PeticiĂ³n de prueba.",
-    estado: 0,
-    idPadre: 5196,
-    idHijo: 1952,
-    transportista: {
-      id: 92,
-      nombreUsuario: document.getElementById("transportista").value,
-      email: "dortoc@refranes.com",
-      tipoActor: 2
-    }
-  
-        };
-    
-    var jsonText = JSON.stringify(object);
-    console.log(jsonText);
-    return jsonText;
-
-  }
- 
- 
- //TODO 
- 
-</script>
