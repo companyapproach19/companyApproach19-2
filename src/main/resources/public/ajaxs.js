@@ -107,17 +107,17 @@ function pedirIds(actor, estado){
 function creaOrden(actor){
 	var actor2;
 	switch (actor){
-		case 0:
+		case 0://agricultor
 		actor2=10;
 		break;
-		case 1:
+		case 1://coopperativa
 		actor2=6;
 		break;
 		case 3:
-		actor2=8;
+		actor2=8;//fabrica
 		break;
 		case 4:
-		actor2=9;
+		actor2=9;//tienda
 		break;
 		}
 	
@@ -170,7 +170,7 @@ function creaOrden(actor){
 	}else if (actor == 4){  // tienda
 		nuevaOrden.idPedido = -1;
 		nuevaOrden.actorOrigen.id= 9;
-		nuevaOrden.actorDestino.id = document.getElementById("idTransportista").value -0;
+		nuevaOrden.actorDestino.id = 8;
 		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
 		
