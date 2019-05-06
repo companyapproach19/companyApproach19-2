@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton refresh;
 
     private PedidosAPI servicio;
-    public static final String URL = "";//https:://beer-company2019.herokuapp.com/damePedidosTransportista
+    public static final String URL = "";//https://beer-company2019.herokuapp.com/damePedidosTransportista
 
     final int FICHA_RECOGIDA = 1;
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             5,0,0,0,
                             0,0,0)));
             sp.pedidosSinAsignar.add(0,new Pedido(trasportista,
-                    123, false, false,
+                    1234, false, false,
                     new Productos(1,2,3,4,
                             5,0,0,0,
                             0,0,0)));
@@ -119,13 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void procesarConsulta (JSONArray jsonString) throws JSONException {
         JSONArray jsonArray = null;
-
-        try {
-            jsonArray = new JSONArray(jsonString);
-
-        } catch (JSONException e) {
-            Toast.makeText(this, R.string.errorData, Toast.LENGTH_SHORT).show();
-        }
+        jsonArray = new JSONArray();
 
         for (int i = 0; i < jsonArray.length(); i++) {
             sp.pedidosSinAsignar.add(new Pedido(jsonArray.getJSONObject(i)));

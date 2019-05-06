@@ -47,7 +47,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Firmar aquí:" />
+        android:text="Firmar aquí para entregar el pedido:" />
 
     <software.engineering.upm.es.activities.DrawingView
         android:id="@+id/drawing"

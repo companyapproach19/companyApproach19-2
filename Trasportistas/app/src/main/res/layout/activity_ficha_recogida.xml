@@ -53,7 +53,7 @@
         android:textSize="20sp"
         android:textColor="@android:color/black"
         android:layout_margin="3dp"
-        android:text="Firmar aquí:" />
+        android:text="Firmar aquí para recoger el pedido:" />
 
     <software.engineering.upm.es.activities.DrawingView
         android:id="@+id/drawing"

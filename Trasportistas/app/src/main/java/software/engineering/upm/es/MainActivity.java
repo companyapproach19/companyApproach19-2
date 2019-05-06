@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         5,0,0,0,
                         0,0,0)));
         pedidos.add(0,new Pedido(trasportista,
-                123, false, false,
+                12, false, false,
                 new Productos(1,2,3,4,
                         5,0,0,0,
                         0,0,0)));
@@ -101,9 +105,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-/*
+
         // Se prepara el contenedor de datos para pasarselo a el adaptador
-        datos = new ArrayList();
+        ArrayList<Pedido> datos = new ArrayList();
+        /*
         //int imagenEst, String nombre, String matricula,String grupo,String anio, int imagenFoto
         datos.add(new Pedido("EDUARDO JAVIER ACUñA", "MM001", "android", "2015"));
         datos.add(new Pedido("SERGIO ALCALDE", "MM002", "android", "2015"));
@@ -119,12 +124,21 @@ public class MainActivity extends AppCompatActivity {
         datos.add(new Pedido("DENIS ROLDAN", "MM010", "android", "2015"));
         datos.add(new Pedido("ALVARO SAN JUAN", "MM011", "android", "2015"));
 
-
+        */
+        JSONObject json = new JSONObject();
+        try {
+            json.put("Pedido1",getPeticion());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Gson gson= new Gson();
+        Pedido ped = gson.fromJson(json.toString(),Pedido.class);
+        datos.add(ped);
         // Inicializamos el RecyclerView
         miRecView = (RecyclerView) findViewById(R.id.reciclador);
         // Inicializamos el adaptador
         adaptador = new AdaptadorPedidos(datos);
-        */
+
     }
 
     private class ObtenerResultados implements Callback<JSONArray> {
