@@ -22,7 +22,7 @@ function pedirIds(actor, estado){
 		case 0 :
 		url = "/ordenesPendientesPorAceptar";
 		alert("obteniendo pedidos recibidos (pendientes por aceptar)");
-		console.log("pido /ordenesPendientesPorAceptar?id="+actor2);
+		console.log("pido /ordenesPendientesPorAceptar?idActor="+actor2);
 		break;
 		
 		case 1 :
