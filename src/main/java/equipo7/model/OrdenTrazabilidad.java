@@ -194,7 +194,7 @@ public class OrdenTrazabilidad extends DatosContainer
 
 		public byte[] getFirmaEntregaBBDD() {
 		      byte[] decodedBytes = null;
-		      if(this.firmaRecogida != null) {
+		      if(this.firmaEntrega != null) {
 		        decodedBytes = Base64.getDecoder().decode(this.firmaEntrega.getBytes());
 		    }
 		      return decodedBytes;
