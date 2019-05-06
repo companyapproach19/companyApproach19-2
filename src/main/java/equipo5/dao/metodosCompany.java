@@ -284,7 +284,6 @@ public class metodosCompany {
 			//conn.close();
 			return buscado;
 		}
-		//conn.close();
 		return null;
 	}
 	public static ArrayList<geolocalizacion> extraerGeolocalizaciones (int idOrden) throws SQLException{
@@ -351,6 +350,7 @@ public class metodosCompany {
 		String query = "SELECT * FROM company.ordenTrazabilidad WHERE id = " + id;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
+		OrdenTrazabilidad buscado = null;
 		while(rs.next()) {
 			Actor actorOrigen = extraerActor(rs.getString(2));
 			Actor actorDestino = extraerActor(rs.getString(3));
@@ -360,17 +360,18 @@ public class metodosCompany {
 			if(extraerProductosOrden(rs.getInt(1))!=null) {
 				productosOrden = extraerProductosOrden(rs.getInt(1));
 			}
-			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
-					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
-			buscado.setFirmaEntregaBBDD(rs.getBytes(8));
-			buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
+			if (buscado == null || buscado.getFecha().before(rs.getDate(12))) {
+				buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
+						productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
+				buscado.setFirmaEntregaBBDD(rs.getBytes(8));
+				buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
+			}
 			pst.close();
 			rs.close();
 			//conn.close();
-			return buscado;
 		}
 		//conn.close();
-		return null;	
+		return buscado;	
 	}
 
 	public static void insertarOrdenTrazabilidad(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, NullException {
@@ -397,8 +398,8 @@ public class metodosCompany {
 		if(orden.getTransportista()!=null) {
 			if(extraerActor(orden.getTransportista().getId())!=null) {
 				pst.setString(9, orden.getTransportista().getId());
-			}else pst.setString(9, "0");
-		}else pst.setString(9, "0");
+			}else pst.setString(9, "");
+		}else pst.setString(9, "");
 		pst.setInt(10, orden.getIdRegistro());
 		pst.setInt(11, orden.getIdPedido());
 		pst.executeUpdate();
