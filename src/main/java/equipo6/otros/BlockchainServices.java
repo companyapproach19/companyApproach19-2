@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
-import equipo6.model.Actor;
 import equipo6.model.Bloque;
 import equipo5.dao.NullException;
 import equipo5.dao.metodosCompany;
@@ -45,7 +43,7 @@ public class BlockchainServices{
 	//Recibe un objeto contenedor con la informacion del traspaso, y tenemos que encapsularlo
 	//en DatosContainer, y guardarlo en la cadena con los metodos de la clase Cadena correspondientes
 	//TODO alejandro
-	public void guardarOrden(DatosContainer datos_container) throws Throwable{
+	public boolean guardarOrden(DatosContainer datos_container) throws Throwable{
 		//encapsularlo, sin tener los datos de la clase Traspaso no podemos encapsularlo
 		try {
 			int tipoBlque;
@@ -59,14 +57,17 @@ public class BlockchainServices{
 			{
 				System.out.println(((OrdenTrazabilidad)datos_container).getActorOrigen().getId());
 				System.out.println(((OrdenTrazabilidad)datos_container).getActorDestino().getId());
-				if(!operaciones_stock((OrdenTrazabilidad)datos_container))return; 
+				if(!operaciones_stock((OrdenTrazabilidad)datos_container))return false; 
 			}
 			cadena.incorporarBloque(datos_container, tipoBlque); //Cambiar cuando asignemos cada entero a cada tipo de bloque
 		}catch (Exception ex) {
 			ex.printStackTrace();
+			return false;
 		}
+		
+		return true;
 
-
+		
 	}
 
 	private StockMP get_coincidencia(List <StockMP> stock_mp,String tipo) 
@@ -88,7 +89,7 @@ public class BlockchainServices{
 		return null;
 	}
 
-	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException, RuntimeException, NullException 
+	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException,  RuntimeException, NullException 
 	{
 		List <StockMP> stock_mp;
 		List <MateriaPrima> list_materia_prima;
@@ -102,7 +103,7 @@ public class BlockchainServices{
 		try {
 			switch(orden.getEstado()) 
 			{
-			case 1:
+			case 2:
 
 				if(orden.getActorDestino().getTipoActor() == 0){
 					valor_retorno = true;
@@ -306,6 +307,55 @@ public class BlockchainServices{
 	public OrdenTrazabilidad getOrden(int idOrden) throws ClassNotFoundException, SQLException{
 		return	equipo5.dao.metodosCompany.extraerOrdenTrazabilidad(idOrden);
 	}
+	
+	
+	public static String extraer_nombres_materias_primas(Productos productos) throws ClassNotFoundException, SQLException, RuntimeException, NullException 
+	{
+		String list_materia_prima;
+		
+
+
+		list_materia_prima = "";
+		
+		if(productos.getCant_cebada() != 0) 
+		{
+			list_materia_prima += " Cebada";
+		}
+		if(productos.getCant_cebada_tostada() != 0) 
+		{
+			list_materia_prima += " cebadaTostada";
+		}
+		if(productos.getCant_lupulo_centenial() != 0) 
+		{
+			list_materia_prima += " lupuloCentennial";
+		}
+		if(productos.getCant_malta_caramelo() != 0) 
+		{
+			list_materia_prima += " maltaCaramelo";
+		}
+		if(productos.getCant_malta_chocolate() != 0) 
+		{
+			list_materia_prima += " maltaChocolate";
+		}
+		if(productos.getCant_malta_crystal() != 0) 
+		{
+			list_materia_prima += " maltaCrystal";
+		}
+		if(productos.getCant_malta_munich() != 0) 
+		{
+			list_materia_prima += " maltaMunich";
+		}
+		if(productos.getCant_malta_negra() != 0) 
+		{
+			list_materia_prima += " maltaNegra";
+		}
+		if(productos.getCant_malta_palida() != 0)
+		{
+			list_materia_prima += " maltaBasePalida";
+		}
+
+		return list_materia_prima;
+	}
 
 
 	private List <MateriaPrima> get_materia_prima(Productos productos) throws ClassNotFoundException, SQLException, RuntimeException, NullException 
@@ -394,53 +444,6 @@ public class BlockchainServices{
 
 		return list_materia_prima;
 	}
-	public static String extraer_nombres_materias_primas(Productos productos) throws ClassNotFoundException, SQLException, RuntimeException, NullException
-    {
-        String list_materia_prima;
-        
-
-
-        list_materia_prima = "";
-        
-        if(productos.getCant_cebada() != 0)
-        {
-            list_materia_prima += " Cebada";
-        }
-        if(productos.getCant_cebada_tostada() != 0)
-        {
-            list_materia_prima += " cebadaTostada";
-        }
-        if(productos.getCant_lupulo_centenial() != 0)
-        {
-            list_materia_prima += " lupuloCentennial";
-        }
-        if(productos.getCant_malta_caramelo() != 0)
-        {
-            list_materia_prima += " maltaCaramelo";
-        }
-        if(productos.getCant_malta_chocolate() != 0)
-        {
-            list_materia_prima += " maltaChocolate";
-        }
-        if(productos.getCant_malta_crystal() != 0)
-        {
-            list_materia_prima += " maltaCrystal";
-        }
-        if(productos.getCant_malta_munich() != 0)
-        {
-            list_materia_prima += " maltaMunich";
-        }
-        if(productos.getCant_malta_negra() != 0)
-        {
-            list_materia_prima += " maltaNegra";
-        }
-        if(productos.getCant_malta_palida() != 0)
-        {
-            list_materia_prima += " maltaBasePalida";
-        }
-
-        return list_materia_prima;
-    }
 
 
 
