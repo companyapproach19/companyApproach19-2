@@ -113,7 +113,7 @@ function pedirStock(actorString) {
 	}
 	else {
 	    while (jsonObj[op + i] != null) {
-		print(jsonObj[op+i]);
+		//print(jsonObj[op+i]);
 		arrayJson.push(jsonObj[op + i]);
 		i++;
 	    }
