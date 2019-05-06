@@ -28,13 +28,13 @@ function pedirIds(actor, estado){
 		case 1 :
 		url = "/ordenesEnProceso";
 		alert("obteniendo pedidos por resolver");
-		console.log("pido /ordenesEnProceso?id="+actor2);
+		console.log("pido /ordenesEnProceso?idActor="+actor2);
 		break;
 		
 		case 2 :
 		url = "/ordenesQueHeEnviado";
 		alert("obteniendo pedidos aceptados");
-		console.log("pido /ordenesQueHeEnviado?id="+actor2);
+		console.log("pido /ordenesQueHeEnviado?idActor="+actor2);
 		break;
 	}
 	  
