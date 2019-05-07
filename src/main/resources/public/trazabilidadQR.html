@@ -71,7 +71,7 @@
 			  return window.location.hash;
 			}
 			<!--Esta linea imprime por pantalla idLote, hay que quitarla y pasar el idLote a  SCRIPT PETICION A BLOCKCHAIN-->  
-			document.getElementById('idLote').innerHTML = window.getID().substr(1);
+			//document.getElementById('idLote').innerHTML = window.getID().substr(1); 
 		</script>
 		
 		
@@ -84,14 +84,24 @@
 		      var request = $.ajax({
 		      // la URL para la petición
 		      url : 'get_trazabilidad_vista', //esta es la url de la peticion
-		      data :"id_pedido=window.getID().substr(1)" , //idPedido real que capturamos con el otro script
+		      data :"id_pedido=" + window.getID().substr(1), //idPedido real que capturamos con el otro script
 		      // empleamos GET porque estamos obteniendo datos del servidor
 		      type : 'GET',
 		      // el tipo de información que se espera de respuesta
 		      dataType : 'json',
 		      });
 		     request.done(function(data){
-		           alert("Quitar esta linea y llamar a SCRIPT TO TABLE");
+			 // Por si acaso lo lanzamos tambien por consola
+		    	 console.log(data);
+		    	 var items=[];
+			 for(var ele of [data]){
+	    		  items.push("<tr>");
+			    	$.each(ele,function(key,val){
+						  items.push("<td id=''"+key+"''>"+val+"</td>");
+						  });
+					  items.push("<tr/>");
+			 }
+						  $("<tbody/>",{html:items.join("")}).appendTo("table");
 		     });
 		     request.fail(function(data) {
 		     alert("Error al recuperar campos trazabilidad");
@@ -99,26 +109,7 @@
 		 }  
 		</script>
 		
-		
-	    <!--SCRIPT TO TABLE -->
-	    <!--Este script rellena la tabla con los campos de get_trazabilidad_vista.json -->  
-	    <script>
-	    $.getJSON("ajax/get_trazabilidad_vista.json",function(data){
-	    	var items=[];
-	    	$.each(data,function(key,val){
-	    		  items.push("<tr>");
-				  items.push("<td id=''"+key+"''>"+val.Tipo+"</td>");
-				  items.push("<td id=''"+key+"''>"+val.Agricultor+"</td>");
-				  items.push("<td id=''"+key+"''>"+val.Fabrica+"</td>");
-				  items.push("<td id=''"+key+"''>"+val.TemperaturaMax+"</td>");
-				  items.push("<td id=''"+key+"''>"+val.TemperaturaMin+"</td>");
-				  items.push("<t/r>");
-				  });
-				  $("<tbody/>",{html:items.join("")}).appendTo("table");
-	    });
-	    </script>
-	    
-	    
+
 		<!--FIN ZONA SCRIPTS -->
 		
 		
