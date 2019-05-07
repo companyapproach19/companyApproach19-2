@@ -596,6 +596,8 @@ function rellenaPopup(json, actor, i) {
 function imprimeStock(json, i){
 	
 	console.log("STOCK ES: "+json.stock);
+	console.log("LO QUE HAY ES: "+JSON.stringify(json));
+	
 	var stock = '<br><br>Stock';
 	//json es el json
 	for(var key of Object.keys(json.stock)){
