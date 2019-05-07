@@ -21,19 +21,19 @@ function pedirIds(actor, estado){
 	switch (estado) {
 		case 0 :
 		url = "/ordenesPendientesPorAceptar";
-		alert("obteniendo pedidos recibidos (pendientes por aceptar)");
+		//alert("obteniendo pedidos recibidos (pendientes por aceptar)");
 		console.log("pido /ordenesPendientesPorAceptar?idActor="+actor2);
 		break;
 		
 		case 1 :
 		url = "/ordenesEnProceso";
-		alert("obteniendo pedidos por resolver");
+		//alert("obteniendo pedidos por resolver");
 		console.log("pido /ordenesEnProceso?idActor="+actor2);
 		break;
 		
 		case 2 :
 		url = "/ordenesQueHeEnviado";
-		alert("obteniendo pedidos aceptados");
+		//alert("obteniendo pedidos aceptados");
 		console.log("pido /ordenesQueHeEnviado?idActor="+actor2);
 		break;
 	}
