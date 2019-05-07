@@ -55,8 +55,11 @@ public class BlockchainServices{
 			}
 			else if(tipoBlque == 0)
 			{
-				System.out.println(((OrdenTrazabilidad)datos_container).getActorOrigen().getId());
-				System.out.println(((OrdenTrazabilidad)datos_container).getActorDestino().getId());
+				
+				if(((OrdenTrazabilidad)datos_container).getIdPedido() == -1) 
+				{
+					((OrdenTrazabilidad)datos_container).setId(metodosCompany.idPedido());
+				}
 				if(!operaciones_stock((OrdenTrazabilidad)datos_container))return false; 
 			}
 			cadena.incorporarBloque(datos_container, tipoBlque); //Cambiar cuando asignemos cada entero a cada tipo de bloque
