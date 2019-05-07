@@ -104,54 +104,62 @@ import equipo6.model.Actor;
             int idPedido = Integer.parseInt(pedido);
             int idOrden = Integer.parseInt(orden);
             
-            HashMap<String, Double> lista = com.controller.StockController.getStockPedidoFabrica(idPedido);
+            HashMap<String, Double> lista = com.controller.StockController.getStockPedidoFabrica(idOrden);
             //System.out.println("La cantidad de malta negra en lista es "+lista.get("maltaNegra"));
             Actor actor = new Actor(null,null,null,3);
             String tipo;
             int kilosPedidos;
-            JsonObject objOK = new JsonObject();
-            JsonObject objNOOK = new JsonObject();
+            JsonObject obj = new JsonObject();
             
             tipo = com.controller.StockController.buscarTipoCerveza(idPedido);
             kilosPedidos = com.controller.StockController.buscarCantidadCerveza(idPedido);
+            
+            String res="";
+            String mensaje="";
+            boolean bien=true;
+            
+            
+            
             
             //LAS CANTIDADES ESTAN EN GRAMOS
             if(tipo=="stout") {
                 if(lista.get("maltaBasePalida") >= (261*kilosPedidos) && lista.get("maltaMunich") >= (61*kilosPedidos) && lista.get("cebadaTostada") >= 21*kilosPedidos &&
                         lista.get("maltaNegra") >= 10*kilosPedidos && lista.get("maltaCrystal") >=6*kilosPedidos && lista.get("maltaChocolate") >= 5*kilosPedidos &&
                         lista.get("maltaCaramelo") >= 4*kilosPedidos && lista.get("lupuloCentennial") >= 3*kilosPedidos && lista.get("levaduraAle") >= 1*kilosPedidos ) {
-                    objOK.addProperty("mensajeOK", "Hay stock suficiente");
+                
                    Lote lote=Principal.crearLote("stout");
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                     
-                    return objOK.toString();
                 }
                 else {
-                    objNOOK.addProperty("mensajeNOOK", "No hay stock suficiente");
-                    return objNOOK.toString();
+                    bien=false;
                 }
                 
             }
             else if(tipo=="pilsner") {
                 if(lista.get("maltaPilsner") >= 173*kilosPedidos && lista.get("maltaCaramelo") >= 21*kilosPedidos && lista.get("lupuloPerle") >= 1*kilosPedidos &&
                         lista.get("lupuloTettnanger") >= 2*kilosPedidos && lista.get("levaduraLager") >= 1*kilosPedidos) {
-                    objOK.addProperty("mensajeOK", "Hay stock suficiente");
                     Lote lote=Principal.crearLote("pilsner");
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
-                    return objOK.toString();
                 }
                 else {
-                    objNOOK.addProperty("mensajeNOOK", "No hay stock suficiente");
-                    return objNOOK.toString();
+                    bien=false;
                 }
-                
             }
             else {
-                objNOOK.addProperty("mensajeNOOK", "Ese tipo no es válido");
-                return objNOOK.toString();
+            	bien=false;
             }
             
-            
+            if(bien) {
+            	mensaje="mensajeOK";
+            	res="Hay stock suficiente";
+            }
+            else {
+            	mensaje="mensajeNOOK";
+            	res="No hay stock suficiente";
+            }
+            obj.addProperty(mensaje, res.toString());
+            return obj.toString();
         }
         
 		
@@ -180,7 +188,7 @@ import equipo6.model.Actor;
 					i=lista.size();
 				}
 			}
-			if(!esta) fecha="El lote "+introducido+" no está en el almacen";
+			if(!esta) fecha="El lote "+introducido+" no esta en el almacen";
 			obj.addProperty("fechaInicio", fecha.toString());
 			return obj.toString();
 		}
@@ -239,7 +247,7 @@ import equipo6.model.Actor;
 					}
 				}
 			}
-			if(!esta) fechaFin="Este lote aun no se ha molido";
+			if(!esta) fechaFin="Este lote aun no se ha cocinado";
 			obj.addProperty("fechaInicio", fechaFin.toString());
 			return obj.toString();
 		}
@@ -270,7 +278,7 @@ import equipo6.model.Actor;
 					}
 				}				
 			}
-			if(!esta) fechaFin="Este lote aun no se ha molido";
+			if(!esta) fechaFin="Este lote aun no se ha fermentado";
 			obj.addProperty("fechaInicio", fechaFin.toString());
 			return obj.toString();
 		}
@@ -302,7 +310,7 @@ import equipo6.model.Actor;
 					}
 				}				
 			}
-			if(!esta) fechaFin="Este lote aun no se ha molido";
+			if(!esta) fechaFin="Este lote aun no se ha embotellado";
 
 			obj.addProperty("fechaInicio", fechaFin.toString());
 			return obj.toString();
