@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Trasportistas</string>
+
+    <string-array name="empresas">
+        <item>Empresa Paco</item>
+        <item>Empresa Pepito</item>
+        <item>Autónomo</item>
+    </string-array>
+
+    <string name="sin_datos">Lista sin datos</string>
+    <string name="title_activity_lista_en_actividad">Actividad Lista de 4</string>
+    <string name="title_activity_lista_en_actividad_4items">Lista en Actividad 4 items</string>
+    <string name="nombre_trasportista">Nombre</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_nombre">Nombre del Alumno</string>
+    <string name="hint_telefono">Teléfono</string>
+    <string name="hint_correo">Correo</string>
+    <string name="accion_cancelar">Cancelar</string>
+    <string name="accion_aceptar">Aceptar</string>
+    <string name="fecha_de_recogida">Recogida</string>
+    <string name="fecha_de_entrega">Entrega</string>
+    <string name="nombre_ficha">Nombre</string>
+    <string name="identificador">Identificador</string>
+    <string name="seleccionar_fecha">Seleccionar Fecha</string>
+    <string name="trasportista">Trasportista</string>
+
+    <string name="start_new">New</string>
+    <string name="brush">Brush</string>
+    <string name="erase">Erase</string>
+    <string name="save">Save</string>
+    <string name="paint">Paint</string>
+
+    <string name="errorData">Error al procesar los datos</string>
+    <string name="errorAPI">Error en el acceso al API</string>
+    <string name="sinRegistros">La consulta no devuelve ningún registro</string>
+    <string name="empresa">Empresa</string>
+
+    <string name="resume">Resume</string>
+    <string name="pause">Pause</string>
+
+</resources>
