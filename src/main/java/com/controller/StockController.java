@@ -394,7 +394,7 @@ public class StockController {
 		return bcs.get_trazabilidad(id_pedido);
 	}
 
-	@Scope("request")
+		@Scope("request")
 	@RequestMapping("/damePedidosTransportista")
 	@ResponseBody
 	public String get_pedidos_transportista(Model model) throws SQLException, ClassNotFoundException 
@@ -407,12 +407,12 @@ public class StockController {
 			int index;
 			JsonParser parse;
 
-
 			index = 0;
 			json_resp = new JsonObject();
 			cadena = metodosCompany.extraerCadenaActores();
 			gson = new Gson();
-			parse = new JsonParser();
+			parse = new JsonParser();	
+			JsonArray lista = new JsonArray() ; 
 
 			for(Actor actor : cadena.getlista_actores()) 
 			{
@@ -420,14 +420,15 @@ public class StockController {
 				{
 					if(or.isNecesitaTransportista()) 
 					{
-						json_resp.add(or.getId()+"", parse.parse(gson.toJson(or)).getAsJsonObject());
-						index++;
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
+						//json_resp.add(or.getId()+"", parse.parse(gson.toJson(or)).getAsJsonObject());
+						//index++;
 					}
 				}
 			}
 
-			return json_resp.toString();
-
+			//return json_resp.toString();
+			return lista.toString();
 
 		} catch (Exception e) {
 			e.printStackTrace();
