@@ -111,8 +111,8 @@ import equipo6.model.Actor;
             int kilosPedidos;
             JsonObject obj = new JsonObject();
             
-            tipo = com.controller.StockController.buscarTipoCerveza(idPedido);
-            kilosPedidos = com.controller.StockController.buscarCantidadCerveza(idPedido);
+            tipo = com.controller.StockController.buscarTipoCerveza(idOrden);
+            kilosPedidos = com.controller.StockController.buscarCantidadCerveza(idOrden);
             
             String res="";
             String mensaje="";
