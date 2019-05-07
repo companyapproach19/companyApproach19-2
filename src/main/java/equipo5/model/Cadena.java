@@ -35,6 +35,8 @@ public class Cadena{
     	List<Bloque> lista = new LinkedList<Bloque>();
     	try {
 			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
+			System.out.println(anadir);
+			System.out.println(anadir.getTipoBloque());
 			for (int j = 0; j < numBloques; j++) {
 				if (anadir.getTipoBloque() == tipoBloque) {
 					lista.add(anadir);
