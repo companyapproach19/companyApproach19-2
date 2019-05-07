@@ -234,9 +234,9 @@ import equipo6.model.Actor;
 						fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
 						obj.addProperty("fechaInicio", fechaFin);
 					}
-					else{
-						fechaFin="Este lote aun no se ha cocinado";
-					}
+				}
+				else{
+					fechaFin="Este lote aun no se ha cocinado";
 				}
 			}
 			obj.addProperty("fechaInicio", fechaFin.toString());
@@ -265,10 +265,11 @@ import equipo6.model.Actor;
 						fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear() + "\n Densidad = "+Principal.calcularDensidad() + " , no hace falta segunda fermentacion";
 						obj.addProperty("fechaInicio", fechaFin);
 					}
-					else{
-						fechaFin="Este lote aun no se ha fermentado";
-					}
 				}
+				else{
+					fechaFin="Este lote aun no se ha fermentado";
+				}
+				
 			}
 			obj.addProperty("fechaInicio", fechaFin.toString());
 			return obj.toString();
@@ -298,10 +299,11 @@ import equipo6.model.Actor;
 						fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
 						obj.addProperty("fechaInicio", fechaFin);
 					}
-					else{
-						fechaFin="Este lote aun no se ha embotellado";
-					}
 				}
+				else{
+					fechaFin="Este lote aun no se ha embotellado";
+				}
+				
 			}
 			obj.addProperty("fechaInicio", fechaFin.toString());
 			return obj.toString();
