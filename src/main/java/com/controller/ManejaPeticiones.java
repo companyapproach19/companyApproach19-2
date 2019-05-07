@@ -240,7 +240,9 @@ public class ManejaPeticiones {
 		
 		if(orden!=null) {
 			orden.setEstado(1);
-			bloque.guardarOrden(orden);
+			boolean guardado;
+			guardado=bloque.guardarOrden(orden);
+			if(!guardado) return "ERROR: no se pudo guardar la orden, stock insuficiente";
 			return CodificadorJSON.crearJSON(orden);
 		}
 		else {
