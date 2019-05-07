@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -398,6 +399,7 @@ public class StockController {
 		return bcs.get_trazabilidad(id_pedido);
 	}
 
+
 	@Scope("request")
 	@RequestMapping("/damePedidosTransportista")
 	@ResponseBody
@@ -406,14 +408,12 @@ public class StockController {
 		try {
 
 			CadenaActores cadena;
-			JsonObject json_resp;
 			Gson gson;
-			int index;
 			JsonParser parse;
+			JsonArray lista;
 
+			lista = new JsonArray();
 
-			index = 0;
-			json_resp = new JsonObject();
 			cadena = metodosCompany.extraerCadenaActores();
 			gson = new Gson();
 			parse = new JsonParser();
@@ -424,13 +424,12 @@ public class StockController {
 				{
 					if(or.isNecesitaTransportista()) 
 					{
-						json_resp.add(or.getId()+"", parse.parse(gson.toJson(or)).getAsJsonObject());
-						index++;
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
 					}
 				}
 			}
 
-			return json_resp.toString();
+			return lista.toString();
 
 
 		} catch (Exception e) {
