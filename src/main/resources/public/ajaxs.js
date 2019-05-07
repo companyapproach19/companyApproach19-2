@@ -319,7 +319,7 @@ function mandarids(urlpar){
 				 
 						request.done(function(data){
 					  	for (var key of Object.keys(data)) {
-					  		alert(data.key);
+					  	//	alert(data.key);
 					  	}
 						 
 						 
