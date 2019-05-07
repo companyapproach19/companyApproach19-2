@@ -68,7 +68,7 @@ public class StockController {
 	public static LinkedList<StockLote> getListaLotes(Actor actor)
 			throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		LinkedList<StockLote> lista = new LinkedList<StockLote>();
-		ArrayList<OrdenTrazabilidad> listaOrdenes = metodosCompany.extraerOrdenesActorOrigen(actor.getId());
+		ArrayList<OrdenTrazabilidad> listaOrdenes = metodosCompany.extraerOrdenesActorDestino(actor.getId());
 		for(OrdenTrazabilidad orden: listaOrdenes) {
 			LinkedList<StockLote> listaStockLote = metodosCompany.extraerStockLote(actor, orden.getId());
 			for(StockLote sLote: listaStockLote) {
