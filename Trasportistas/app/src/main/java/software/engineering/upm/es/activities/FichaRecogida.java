@@ -17,6 +17,7 @@ import java.util.Calendar;
 import software.engineering.upm.es.R;
 import software.engineering.upm.es.objetos.SingletonPedidos;
 import software.engineering.upm.es.objetos.parceables.Trasportista;
+import software.engineering.upm.es.retrofit.PedidosAPI;
 
 public class FichaRecogida extends AppCompatActivity {
 
@@ -37,6 +38,9 @@ public class FichaRecogida extends AppCompatActivity {
     // Recuperar la información que nos pasan
     private Trasportista trasportista;
     private int posicion;
+
+    private PedidosAPI servicio;
+    public static final String URL = "https://beer-company2019.herokuapp.com/recogidaOrden/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

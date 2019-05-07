@@ -16,6 +16,7 @@ import java.util.Calendar;
 import software.engineering.upm.es.R;
 import software.engineering.upm.es.objetos.SingletonPedidos;
 import software.engineering.upm.es.objetos.parceables.Trasportista;
+import software.engineering.upm.es.retrofit.PedidosAPI;
 
 public class FichaEntrega extends AppCompatActivity {
 
@@ -36,6 +37,9 @@ public class FichaEntrega extends AppCompatActivity {
     // Recuperar la información que nos pasan
     private Trasportista trasportista;
     private int posicion;
+
+    private PedidosAPI servicio;
+    public static final String URL = "https://beer-company2019.herokuapp.com/entregadaOrden/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,7 @@ public class FichaEntrega extends AppCompatActivity {
             // Editamos los valores fecha y firma y cambiamos el pedido de lista
             trasportista.setFecha_entrega(fechE.getText().toString());
             sp.historialPedidos.add(sp.pedidosRecogidos.remove(posicion));
+
         }
 
         setResult(RESULT_OK, intent);
@@ -117,4 +122,6 @@ public class FichaEntrega extends AppCompatActivity {
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
     }
+
+
 }

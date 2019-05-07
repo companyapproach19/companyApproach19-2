@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.internal.LinkedTreeMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -131,31 +132,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void procesarConsulta (Object jsonString) throws JSONException {
-        //ArrayList j = (ArrayList) jsonString;
+       // Toast.makeText(this, jsonString.getClass().toString(), Toast.LENGTH_LONG).show();
+        System.out.println(jsonString.toString());
         Gson g = new Gson ();
         JsonParser p = new JsonParser();
         List listaJson = (List)jsonString;
         for(Object e: listaJson){
+
             JsonObject elem = p.parse(g.toJson(e)).getAsJsonObject();
             int id = elem.get("id").getAsInt();
             int estado = elem.get("estado").getAsInt();
+
             //System.out.println(elem.get("id"));
             if(estado == 1){
             Pedido ped = new Pedido(id);
             sp.pedidosSinAsignar.add(ped);
             }
+
         }
-        //JsonObject j = p.parse(g.toJson(((List)jsonString).get(0))).getAsJsonObject();
-        //System.out.println(j.get("id"));
 
-       // JsonObject j = ((List)jsonString).get(0);
-       // Toast.makeText(this, jsonString.getClass().toString(), Toast.LENGTH_LONG).show();
-        //Toast.makeText(this, jsonString.toString(), Toast.LENGTH_LONG).show();
-        //for (int i = 0; i < j.size(); i++) {
-            //Toast.makeText(this, j.toString(), Toast.LENGTH_LONG).show();
-            //sp.pedidosSinAsignar.add(new Pedido(j.get(i)));
-
-        //}
 
     }
 
