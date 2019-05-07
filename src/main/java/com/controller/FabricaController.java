@@ -105,7 +105,8 @@ import equipo6.model.Actor;
             int idOrden = Integer.parseInt(orden);
             
             HashMap<String, Double> lista = com.controller.StockController.getStockPedidoFabrica(idOrden);
-            //System.out.println("La cantidad de malta negra en lista es "+lista.get("maltaNegra"));
+            System.out.println(lista.toString());
+            System.out.println("La cantidad de malta negra en lista es "+lista.get("maltaNegra"));
             Actor actor = new Actor(null,null,null,3);
             String tipo;
             int kilosPedidos;
