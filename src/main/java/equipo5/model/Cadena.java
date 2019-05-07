@@ -1,4 +1,5 @@
 package equipo5.model;
+import static org.hamcrest.CoreMatchers.instanceOf;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -65,6 +66,7 @@ public class Cadena{
 			for (int j = 0; j < numBloques; j++) {
 				System.out.println(anadir.getHashCode());
 				lista.add(anadir);
+				if(anadir.getHashPrevio().equals("INICIO"))break;
 				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
 			}
 			return lista;
