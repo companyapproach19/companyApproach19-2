@@ -194,7 +194,7 @@ public class OrdenTrazabilidad extends DatosContainer
 
 		public byte[] getFirmaEntregaBBDD() {
 		      byte[] decodedBytes = null;
-		      if(this.firmaRecogida != null) {
+		      if(this.firmaEntrega != null) {
 		        decodedBytes = Base64.getDecoder().decode(this.firmaEntrega.getBytes());
 		    }
 		      return decodedBytes;
@@ -202,7 +202,7 @@ public class OrdenTrazabilidad extends DatosContainer
 
 		public void setFirmaEntregaBBDD(byte[] firmaEntrega) {
 			byte[] encodedBytes = Base64.getEncoder().encode(firmaEntrega);
-			this.firmaRecogida = new String(encodedBytes);
+			this.firmaEntrega = new String(encodedBytes);
 		}
 
 		public Actor getTransportista() {
