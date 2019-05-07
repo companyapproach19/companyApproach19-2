@@ -48,45 +48,9 @@
                                   <div class="row register-desplazable">
                                     <div class="col-md-8 desplazable">
                                         <p> </p>
-                                       <script>
-					       window.onload = pedirIds(1,2);
-                        var stri = "'none'";
-                        var j = 0;
-                            if (idsOrdenes != null){
-                                for ( var i = 1; i <=idsOrdenes.length; i++) {
-                                    //CADA LINEA DE CHECKBOX
-                                    document.write('<div class="form-group">');
-                                    document.write('<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">');
-                                    document.write('<label for="producto'+i+'" id="label'+i+'">Pedido noPedido</label>');
-                                    document.write('<a href="" data-toggle="modal" onclick="pedirPedido('+(i-1)+',1,'+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>');
-                                    document.write('</div>');                                                          
-                                    
-                                    
-                                    //////////MODAAAAAAAAAL
-                                    <!-- MODAL -->                                                
-                                    document.write('<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">');
-                                    document.write('<div class="modal-dialog modal-dialog-scrollable" role="document">');
-                                    document.write('<div class="modal-content">');
-                                    document.write('<div class="modal-header">');
-                                    document.write('<button type="button" class="close" data-dismiss="modal" aria-label="Close">');
-                                    document.write('<span aria-hidden="true">&times;</span>');
-                                    document.write('</button>');
-                                    document.write('<div id="popup'+i+'" style="display: none;">');  
-                                    document.write('<div class="inner">');                      
-                                    document.write('<h1>PEDIDO</h1>');                     
-                                    document.write('<popup'+i+'></popup'+i+'>');
-                                    document.write('</div>');
-                                    document.write('</div>');
-                                    document.write('</div>');
-                                    document.write('</div>');
-                                    document.write('</div>'); 
-                                    document.write('</div>');
-                                    <!-- MODAL -->
-                                    j++;
-                                }
-                            }
-					        imprimirjson(idsOrdenes);
-                        </script>
+                                                                    
+                                           
+                        
                                         
                                 </div>
                                 
@@ -99,7 +63,7 @@
 </body>
 <script>
  
-//window.onload = imprimirjson(idsOrdenes);
+pedirIds(1,2);
 
 </script>
 </html>
