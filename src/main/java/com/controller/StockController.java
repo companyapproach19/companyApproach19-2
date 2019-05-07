@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -66,17 +67,20 @@ public class StockController {
 	 */
 
 	public static LinkedList<StockLote> getListaLotes(Actor actor)
-			throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
-		LinkedList<StockLote> lista = new LinkedList<StockLote>();
-		ArrayList<OrdenTrazabilidad> listaOrdenes = metodosCompany.extraerOrdenesActorOrigen(actor.getId());
-		for(OrdenTrazabilidad orden: listaOrdenes) {
-			LinkedList<StockLote> listaStockLote = metodosCompany.extraerStockLote(actor, orden.getId());
-			for(StockLote sLote: listaStockLote) {
-				lista.add(sLote);
-			}			
-		}
-		return lista;
-	}
+            throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
+        LinkedList<StockLote> lista = new LinkedList<StockLote>();
+        ArrayList<OrdenTrazabilidad> listaOrdenes = metodosCompany.extraerOrdenesActorDestino(actor.getId());
+        System.out.println(" tamano "+listaOrdenes.size());
+        for(OrdenTrazabilidad orden: listaOrdenes) {
+            System.out.println("id de la orden "+orden.getId());
+            LinkedList<StockLote> listaStockLote = metodosCompany.extraerStockLote(actor, orden.getId());
+            System.out.println(" tamano2 "+listaStockLote.size());
+            for(StockLote sLote: listaStockLote) {
+                lista.add(sLote);
+            }            
+        }
+        return lista;
+    }
 
 
 	/*
@@ -245,10 +249,11 @@ public class StockController {
 	private void init_map_nombres_bbdd_vistas(Map<String,String> mapeo_nombres) 
 	{
 
+		
 		mapeo_nombres.put("maltaBasePalida","malta_palida");
 		mapeo_nombres.put("maltaTostada","malta_tostada");
 		mapeo_nombres.put("maltaNegra","malta_negra");
-		mapeo_nombres.put("maltacrystal","malta_crystal");
+		mapeo_nombres.put("maltaCrystal","malta_crystal");
 		mapeo_nombres.put("maltaChocolate","malta_chocolate");
 		mapeo_nombres.put("maltaCaramelo","malta_caramelo");
 		mapeo_nombres.put("maltaPilsner","malta_pilsner");
@@ -257,7 +262,7 @@ public class StockController {
 		mapeo_nombres.put("lupuloTettnanger","lupulo_tettnanger");
 		mapeo_nombres.put("lupuloCentennial","lupulo_centennial");
 		mapeo_nombres.put("levaduraAle","levadura_ale");
-		mapeo_nombres.put("levaduraLagger","levadura_lagger");
+		mapeo_nombres.put("levaduraLager","levadura_lagger");
 
 	}
 
@@ -267,9 +272,13 @@ public class StockController {
 	@ResponseBody
 	public String getStockActor(HttpServletRequest request, @RequestParam(name = "id") String id,Model model) throws Exception {
 
-		if(id == null)
-		idActor = get_id_actor_cookie(request.getCookies());
-		idActor = (idActor == null) ? (id) : (idActor);
+		if(id==null) {
+			idActor = get_id_actor_cookie(request.getCookies());
+		}
+		else {
+			idActor=id;
+		}
+		System.out.println(idActor);
 		return get_stock_actor(idActor).toString();
 	}
 
@@ -285,6 +294,8 @@ public class StockController {
 		lista_nombre_mp = new HashMap<String, String>();
 		stock = new JsonObject();
 		json_resp = new JsonObject();
+		idActor=id;
+
 		try {
 				lista_ordenes = metodosCompany.extraerOrdenesActorOrigen(idActor);
 		}catch (Exception e) {
@@ -371,6 +382,7 @@ public class StockController {
 
 			break;
 		case 4:
+			json_resp.add("stock", stock );
 			json_resp.addProperty("Numero de lotes", numLotes);
 
 			break;
@@ -395,6 +407,7 @@ public class StockController {
 		return bcs.get_trazabilidad(id_pedido);
 	}
 
+
 	@Scope("request")
 	@RequestMapping("/damePedidosTransportista")
 	@ResponseBody
@@ -403,14 +416,12 @@ public class StockController {
 		try {
 
 			CadenaActores cadena;
-			JsonObject json_resp;
 			Gson gson;
-			int index;
 			JsonParser parse;
+			JsonArray lista;
 
+			lista = new JsonArray();
 
-			index = 0;
-			json_resp = new JsonObject();
 			cadena = metodosCompany.extraerCadenaActores();
 			gson = new Gson();
 			parse = new JsonParser();
@@ -421,13 +432,12 @@ public class StockController {
 				{
 					if(or.isNecesitaTransportista()) 
 					{
-						json_resp.add(or.getId()+"", parse.parse(gson.toJson(or)).getAsJsonObject());
-						index++;
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
 					}
 				}
 			}
 
-			return json_resp.toString();
+			return lista.toString();
 
 
 		} catch (Exception e) {
