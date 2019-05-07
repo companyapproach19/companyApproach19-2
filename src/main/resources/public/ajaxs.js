@@ -1,3 +1,4 @@
+
 // ACTORES: 10 = agricultor, 6 =cooperativa, 2 = transportista, 8 = fábrica, 9 = retailer
 // ESTADOS:  -1 = Rechazado, 0 = PendienteAceptar, 1 = Preparando, 2 = ListoEntregar, 3 = Transportandose, 4 = Entregado(Aceptado?)
 function pedirIds(actor, estado){
@@ -53,12 +54,13 @@ function pedirIds(actor, estado){
 	 	
         //reescribo el array local idsOrdenes
 		idsOrdenes = data.listaIDs;
+		cargar_popups();
 		
 		console.log(idsOrdenes);
 	     	
 		//paso por parametro a imprimir
 		
-		//imprimirjsons(idsOrdenes);
+		imprimirjson(idsOrdenes);
     
      });
  
@@ -72,8 +74,52 @@ function pedirIds(actor, estado){
 		
      });
  
- return idsOrdenes;
  }
+
+
+
+function cargar_popups()
+{
+	
+	 var stri = "'none'";
+     var j = 0;
+     var contenedor_modales;
+     
+     contenedor_modales = document.getElementById("contenedor_modales");
+	if (idsOrdenes != null){
+        for ( var i = 1; i <=idsOrdenes.length; i++) {
+        	var modalN = 
+                '<div class="form-group">'+
+                '<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">'+
+                '<label for="producto'+i+'" id="label'+i+'">Pedido '+idsOrdenes[i-1]+'</label>'+
+                '<a href="" data-toggle="modal" onclick="pedirPedido('+(i-1)+',4,'+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>'+
+                '</div>'+                                                          
+                '<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">'+
+                '<div class="modal-dialog modal-dialog-scrollable" role="document">'+
+                '<div class="modal-content">'+
+                '<div class="modal-header">'+
+                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                '<span aria-hidden="true">&times;</span>'+
+                '</button>'+
+                '<div id="popup'+i+'" style="display: none;">'+  
+                '<div class="inner">'+                      
+                '<h1>PEDIDO</h1>'+                     
+                '<popup'+i+'></popup'+i+'>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+ 
+                '</div>';
+                
+                contenedor_modales.innerHTML += modalN;
+                
+          <!-- MODAL -->
+          j++;
+        }
+      }
+	
+}
  
  
  
@@ -108,17 +154,17 @@ function pedirIds(actor, estado){
 function creaOrden(actor){
 	var actor2;
 	switch (actor){
-		case 0://agricultor
+		case 0:
 		actor2=10;
 		break;
-		case 1://coopperativa
+		case 1:
 		actor2=6;
 		break;
 		case 3:
-		actor2=8;//fabrica
+		actor2=8;
 		break;
 		case 4:
-		actor2=9;//tienda
+		actor2=9;
 		break;
 		}
 	
@@ -171,7 +217,7 @@ function creaOrden(actor){
 	}else if (actor == 4){  // tienda
 		nuevaOrden.idPedido = -1;
 		nuevaOrden.actorOrigen.id= 9;
-		nuevaOrden.actorDestino.id = 8;
+		nuevaOrden.actorDestino.id =  8;
 		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
 		
@@ -519,20 +565,18 @@ function rellenaPopup(json, actor, i) {
 
 
 	  case 0:
-	  alert("still agri");
-	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado +"<br><br>Datos Cooperativa<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial);
+	    alert("still agri");
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial+" kg<br>");
 	  break;
-	  
-	  
-	  
+	
 	  case 1:
-	  alert("still cope");
-	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado  +"<br><br>Datos Fabrica<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial);
+	    alert("still cope");
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado  +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial+" kg<br>");
 	  break;
 
 		case 3:
 		alert("still fab");
-			   $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido +"<br>Estado:"+ estado  +"<br><br>Datos Retailer<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial +" kg<br>10.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " kg<br>11. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido +"<br>Estado:"+ estado  +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial +" kg<br>10.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " 11. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
 
 		case 4:
@@ -665,19 +709,5 @@ var nuevaOrden = {
   "fecha": ""
 }
 
-var stock = { "stock": {
-    "cant_malta_palida": 0,       
-    "cant_malta_munich": 0,
-    "cant_malta_negra": 0,
-    "cant_malta_crystal": 0,
-    "cant_malta_chocolate": 0,
-    "cant_malta_caramelo": 0,
-    "cant_cebada": 0,
-    "cant_cebada_tostada": 0,
-    "cant_lupulo_centenial": 0,
-    "cant_lotes_stout": 0,
-    "cant_lotes_bisner": 0
-  }
-}
 
 
