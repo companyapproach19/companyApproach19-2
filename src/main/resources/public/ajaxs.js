@@ -307,11 +307,11 @@ function mandarids(urlpar){
 					ordenAux = data.id;
 					// ahora ya puedo empezar fabricacion
 					
-					console.log("empiezo fabricacion en /comienzaProcesoFabricacion?peticion="+idPedidoAux+"&orden="+ordenAux);
+					console.log("empiezo fabricacion en /comienzaProcesoFabricacion?pedido="+idPedidoAux+"&orden="+ordenAux);
 					var request = $.ajax({
 			
 						url : url,
-						data :"peticion="+idPedidoAux+"&orden="+ordenAux ,
+						data :"pedido="+idPedidoAux+"&orden="+ordenAux ,
 						type : 'GET',
 						dataType : 'json',  // el tipo de información que se espera de respuesta
 						
