@@ -2,7 +2,6 @@ package equipo7.model;
 
 import equipo6.model.DatosContainer;
 import equipo6.model.Actor;
-import equipo7.model.Productos;
 import java.util.Base64;
 
 import java.sql.Date;
@@ -119,9 +118,13 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.id = id;
 		}
 
-		public Actor getActorOrigen() { return actorOrigen; }
+		public Actor getActorOrigen() {
+			return actorOrigen;
+		}
 
-		public void setActorOrigen(Actor actorOrigen) { this.actorOrigen = actorOrigen; }
+		public void setActorOrigen(Actor actorOrigen) {
+			this.actorOrigen = actorOrigen;
+		}
 
 		public Actor getActorDestino() {
 			return actorDestino;
@@ -180,29 +183,27 @@ public class OrdenTrazabilidad extends DatosContainer
 		}
 
 		public byte[] getFirmaRecogidaBBDD() {
-		      byte[] decodedBytes = null;
-		      if(this.firmaRecogida != null) {
-		          decodedBytes = Base64.getDecoder().decode(this.firmaRecogida.getBytes());
-		      }
-		      return decodedBytes;
+			byte[] decodedBytes = Base64.getDecoder().decode(this.firmaRecogida.getBytes());
+			return decodedBytes;
 		}
 
 		public void setFirmaRecogidaBBDD(byte[] firmaRecogida) {
-			byte[] encodedBytes = Base64.getEncoder().encode(firmaRecogida);
-			this.firmaRecogida = new String(encodedBytes);
+			if (firmaRecogida != null) {
+				byte[] encodedBytes = Base64.getEncoder().encode(firmaRecogida);
+				this.firmaRecogida = new String(encodedBytes);
+			}
 		}
 
 		public byte[] getFirmaEntregaBBDD() {
-		      byte[] decodedBytes = null;
-		      if(this.firmaEntrega != null) {
-		        decodedBytes = Base64.getDecoder().decode(this.firmaEntrega.getBytes());
-		    }
-		      return decodedBytes;
+			byte[] decodedBytes = Base64.getDecoder().decode(this.firmaRecogida.getBytes());
+			return decodedBytes;
 		}
 
 		public void setFirmaEntregaBBDD(byte[] firmaEntrega) {
-			byte[] encodedBytes = Base64.getEncoder().encode(firmaEntrega);
-			this.firmaEntrega = new String(encodedBytes);
+			if (firmaRecogida != null) {
+				byte[] encodedBytes = Base64.getEncoder().encode(firmaEntrega);
+				this.firmaRecogida = new String(encodedBytes);
+			}
 		}
 
 		public Actor getTransportista() {
