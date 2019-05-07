@@ -21,20 +21,20 @@ function pedirIds(actor, estado){
 	switch (estado) {
 		case 0 :
 		url = "/ordenesPendientesPorAceptar";
-		alert("obteniendo pedidos recibidos (pendientes por aceptar)");
-		console.log("pido /ordenesPendientesPorAceptar?id="+actor2);
+		//alert("obteniendo pedidos recibidos (pendientes por aceptar)");
+		console.log("pido /ordenesPendientesPorAceptar?idActor="+actor2);
 		break;
 		
 		case 1 :
 		url = "/ordenesEnProceso";
-		alert("obteniendo pedidos por resolver");
-		console.log("pido /ordenesEnProceso?id="+actor2);
+		//alert("obteniendo pedidos por resolver");
+		console.log("pido /ordenesEnProceso?idActor="+actor2);
 		break;
 		
 		case 2 :
 		url = "/ordenesQueHeEnviado";
-		alert("obteniendo pedidos aceptados");
-		console.log("pido /ordenesQueHeEnviado?id="+actor2);
+		//alert("obteniendo pedidos aceptados");
+		console.log("pido /ordenesQueHeEnviado?idActor="+actor2);
 		break;
 	}
 	  
@@ -53,12 +53,13 @@ function pedirIds(actor, estado){
 	 	
         //reescribo el array local idsOrdenes
 		idsOrdenes = data.listaIDs;
+		cargar_popups();
 		
 		console.log(idsOrdenes);
 	     	
 		//paso por parametro a imprimir
 		
-		//imprimirjsons(idsOrdenes);
+		imprimirjson(idsOrdenes);
     
      });
  
@@ -73,6 +74,51 @@ function pedirIds(actor, estado){
      });
  
  }
+
+
+
+function cargar_popups()
+{
+	
+	 var stri = "'none'";
+     var j = 0;
+     var contenedor_modales;
+     
+     contenedor_modales = document.getElementById("contenedor_modales");
+	if (idsOrdenes != null){
+        for ( var i = 1; i <=idsOrdenes.length; i++) {
+        	var modalN = 
+                '<div class="form-group">'+
+                '<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">'+
+                '<label for="producto'+i+'" id="label'+i+'">Pedido '+idsOrdenes[i-1]+'</label>'+
+                '<a href="" data-toggle="modal" onclick="pedirPedido('+(i-1)+',4,'+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>'+
+                '</div>'+                                                          
+                '<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">'+
+                '<div class="modal-dialog modal-dialog-scrollable" role="document">'+
+                '<div class="modal-content">'+
+                '<div class="modal-header">'+
+                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                '<span aria-hidden="true">&times;</span>'+
+                '</button>'+
+                '<div id="popup'+i+'" style="display: none;">'+  
+                '<div class="inner">'+                      
+                '<h1>PEDIDO</h1>'+                     
+                '<popup'+i+'></popup'+i+'>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+ 
+                '</div>';
+                
+                contenedor_modales.innerHTML += modalN;
+                
+          <!-- MODAL -->
+          j++;
+        }
+      }
+	
+}
  
  
  
@@ -170,7 +216,7 @@ function creaOrden(actor){
 	}else if (actor == 4){  // tienda
 		nuevaOrden.idPedido = -1;
 		nuevaOrden.actorOrigen.id= 9;
-		nuevaOrden.actorDestino.id = document.getElementById("idTransportista").value -0;
+		nuevaOrden.actorDestino.id =  8;
 		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
 		
@@ -242,6 +288,7 @@ function mandarids(urlpar){
 		  if (urlpar==2){ // necesito obtener el id del pedido
 				
 				var idPedidoAux;
+			  	var ordenAux;
 				console.log("pido idPedido en /obtenerOrden?id="+idsOrdenes[i-1]);
 				var requestIdPedido = $.ajax({
 				  
@@ -254,16 +301,17 @@ function mandarids(urlpar){
 				 
 				requestIdPedido.done(function(data){
 					 
-					 url = "/comienzoProcesoFabricacion";
+					 url = "/comienzaProcesoFabricacion";
 					//se han obtenido json del pedido
 					idPedidoAux = data.idPedido;
+					ordenAux = data.id;
 					// ahora ya puedo empezar fabricacion
 					
-					console.log("empiezo fabricacion en /comienzoProcesoFabricacion?peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1]);
+					console.log("empiezo fabricacion en /comienzaProcesoFabricacion?pedido="+idPedidoAux+"&orden="+ordenAux);
 					var request = $.ajax({
 			
 						url : url,
-						data :"peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1] ,
+						data :"pedido="+idPedidoAux+"&orden="+ordenAux ,
 						type : 'GET',
 						dataType : 'json',  // el tipo de información que se espera de respuesta
 						
@@ -271,7 +319,7 @@ function mandarids(urlpar){
 				 
 						request.done(function(data){
 					  	for (var key of Object.keys(data)) {
-					  		alert(data.key);
+					  	//	alert(data.key);
 					  	}
 						 
 						 
@@ -377,6 +425,8 @@ function pedirStock(actor,i) {
     
     // la respuesta es pasada como argumento a la función
     request.done(function(data){
+	    
+	    
   
 		//se han obtenido json del STOCK
 		//pedido = data;
@@ -439,13 +489,13 @@ function muestraFallo(actor, i){
 	
 	switch(actor) {
 			  case 0:
-			  alert("HOLA Agricultoraa");
+			  //alert("HOLA Agricultoraa");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
 				  rellenaPopup(pedido, actor,i);  
 				  break;
 				  
 			  case 1:
-			  alert("HOLA Cooperativa");
+			  //alert("HOLA Cooperativa");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
 				  rellenaPopup(pedido, actor,i);  
 				  break;
@@ -453,13 +503,13 @@ function muestraFallo(actor, i){
 			  //case 2: Transportista
 			  
 			  case 3:
-			  alert("HOLA Fabrica");
+			  //alert("HOLA Fabrica");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
 				  rellenaPopup(pedido, actor,i);
 				  break;
 				  
 			  case 4:
-			  alert("HOLA Tienda");
+			  //alert("HOLA Tienda");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
 				  rellenaPopup(pedido, actor,i);
 				  break;
@@ -518,24 +568,22 @@ function rellenaPopup(json, actor, i) {
 
 
 	  case 0:
-	  alert("still agri");
-	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado +"<br><br>Datos Cooperativa<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial);
+	    //alert("still agri");
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial+" kg<br>");
 	  break;
-	  
-	  
-	  
+	
 	  case 1:
-	  alert("still cope");
-	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado  +"<br><br>Datos Fabrica<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial);
+	    //alert("still cope");
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado  +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial+" kg<br>");
 	  break;
 
 		case 3:
-		alert("still fab");
-			   $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido +"<br>Estado:"+ estado  +"<br><br>Datos Retailer<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4. Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5. Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8. Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial +" kg<br>10.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " kg<br>11. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
+		//alert("still fab");
+	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido +"<br>Estado:"+ estado  +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial +" kg<br>10.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " 11. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
 
 		case 4:
-		alert("still tienda");
+		//alert("still tienda");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido  +"<br>Estado:"+ estado +"<br><br>Cantidades: <br>1.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " kg<br>2. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
 
@@ -548,6 +596,10 @@ function rellenaPopup(json, actor, i) {
 
 //Para el stock
 function imprimeStock(json, i){
+	
+	console.log("STOCK ES: "+json.stock);
+	console.log("LO QUE HAY ES: "+JSON.stringify(json));
+	
 	var stock = '<br><br>Stock';
 	//json es el json
 	for(var key of Object.keys(json.stock)){
