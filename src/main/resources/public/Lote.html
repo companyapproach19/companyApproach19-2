@@ -20,8 +20,7 @@
           var url = new URL(url_string);
           numLoteIntroducido = url.searchParams.get("a");
           console.log(numLoteIntroducido);
-			comprobar();
-          //document.getElementById("numLote").innerHTML = numLoteIntroducido + "";
+          document.getElementById("numLote").innerHTML = numLoteIntroducido + "";
       }
       
       
@@ -37,7 +36,7 @@
     		request.done(function(response){
     			var fecha = response["fechaInicio"];
     			$('#Llegada').text(fecha);
-    			//alert("la fecha que he recogido del servicio es:" + fecha);
+    			alert("la fecha que he recogido del servicio es:" + fecha);
     	  
     	   });
     	   request.fail(function(response) {
