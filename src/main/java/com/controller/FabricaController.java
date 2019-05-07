@@ -119,7 +119,9 @@ import equipo6.model.Actor;
             String mensaje="";
             boolean bien=true;
             
-            
+            if(lista.get("maltaBasePalida")!=null && lista.get("maltaMunich")!= null && lista.get("cebadaTostada")!=null && lista.get("maltaNegra")!=null &&
+            		lista.get("maltaCrystal")!=null && lista.get("maltaChocolate")!=null && lista.get("maltaCaramelo")!=null && lista.get("lupuloCentennial")!=null &&lista.get("levaduraAle")!=null
+            		&& lista.get("maltaPilsner")!=null &&lista.get("lupuloPerle")!=null && lista.get("lupuloTettnanger")!=null &&lista.get("levaduraLager")!=null) {
             
             
             //LAS CANTIDADES ESTAN EN GRAMOS
@@ -150,7 +152,7 @@ import equipo6.model.Actor;
             else {
             	bien=false;
             }
-            
+            }
             if(bien) {
             	mensaje="mensajeOK";
             	res="Hay stock suficiente";
