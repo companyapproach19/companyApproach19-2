@@ -1,11 +1,16 @@
 package equipo7.otros;
 
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
-import equipo7.model.ListaPedidos;
 import equipo7.model.OrdenTrazabilidad;
+import equipo7.otros.ListaIDs;
+
 public class CodificadorJSON {
 
     /* Esta clase se encarga de pasar de objetos en Java
@@ -18,12 +23,11 @@ public class CodificadorJSON {
         return gson.toJson(ordenTrazabilidad);
     }
     
-    //Pasar una lista de pedidos a json
-    public static String crearJSONlista(ListaPedidos pedidos) {
+    //Pasar una lista de ids de ordenes a json
+    public static String crearJSONlista(ListaIDs ordenes) {
     	GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.setPrettyPrinting().create();
-        return gson.toJson(pedidos);
+        return gson.toJson(ordenes);
     }
-   
 
 }

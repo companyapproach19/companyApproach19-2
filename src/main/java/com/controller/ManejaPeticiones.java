@@ -1,12 +1,17 @@
 package com.controller;
 
+import java.lang.reflect.Array;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
-import equipo7.model.ListaPedidos;
-import equipo7.model.OrdenTrazabilidad;
+import javax.servlet.http.HttpServletResponse;
 
+import equipo7.model.OrdenTrazabilidad;
+import equipo7.model.Productos;
+import equipo7.otros.DescodificadorJson;
+import equipo7.otros.ListaIDs;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import equipo6.model.Actor;
 //NECESARIOS PARA TRAZABILIDAD:
 import equipo6.otros.BlockchainServices;
 import equipo7.otros.CodificadorJSON;
-import equipo7.otros.Main_pedidos;
-import equipo7.otros.Orden;
+import equipo7.otros.OrdenInicial;
 
 @Controller
 @SpringBootApplication
@@ -26,267 +31,357 @@ public class ManejaPeticiones {
 
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/creaPedido")
+	@RequestMapping("/crearOrden")
 	@ResponseBody
-	//Devuelve y recibe un json
-	public String creaOrden(
-			@RequestParam(name="json", required=true) String json) {
+	public String crearOrden(HttpServletResponse response,
+			@RequestParam(name="json", required=true) String json) throws Throwable {
 		
-		Main_pedidos pedido = new Main_pedidos(json);
-        BlockchainServices bloque = new BlockchainServices();
-        Orden origen = pedido.crear_pedido();
-        pedido.OrdenTrazabilidad.setOrigenOrdenes(origen);
-        
-		//TODO: verificar pedido
-		//if(pedido.verificar_pedido()) {
-			int id = 0;
-			boolean yaExiste = true;
-			id = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
-			/*//TODO: sobra la condicion de id==0 no??
-			while (id == 0 && yaExiste) {
-				// Obtiene un numero aleatorio entre 1 y 999999,
-				// que sera el ID del pedido a la hora de crearse
-				id = ThreadLocalRandom.current().nextInt(1, 1000000);
-				yaExiste = equipo5.dao.metodosCompany.existeIdOrdenTrazabilidad(id);
-			}*/
-			pedido.OrdenTrazabilidad.setId(id);
+		DescodificadorJson decodificador = new DescodificadorJson();
+		OrdenInicial inicial = decodificador.DescodificadorJSONinicial(json);
+		
+		//Pedimos id de la orden
+		int idOrden = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
+		int idPedido = inicial.getIdPedido();
+		if(inicial.getActorOrigen().getTipoActor()==4) {
+			//Si se trata de Retailer, hay que pedir el idPedido a BBDD
+			idPedido = equipo5.dao.metodosCompany.idPedido();
+		}
+		
+		if(inicial.getActorOrigen()!=null && inicial.getActorDestino()!=null && inicial.getProductosPedidos()!=null) {
+			//Creamos el objeto orden
+			OrdenTrazabilidad orden = new OrdenTrazabilidad(idOrden, inicial.getActorOrigen(),
+					inicial.getActorDestino(), inicial.getProductosPedidos());
+			orden.setIdPedido(idPedido);
 			
-			//Rellenar listas de pedidos padre y pedidos hijo
-			ListaPedidos pendientes = this.pedidosPendientes(pedido.OrdenTrazabilidad.getActorOrigen().getId());
-			
-			if(pendientes!=null && pendientes.getListaIDs().length==1){
-				//Si el origen de este pedido tiene algun pedido pendiente,
-				//entendemos que usara este pedido para corresponder al anterior
-				
-				pedido.OrdenTrazabilidad.setPadres(pendientes.getListaIDs()[0]);
-				//Ahora hay que insertar en la lista de hijos del padre a esta orden
-				//Obtenemos el objeto del padre
-				bloque.getTraspaso(pendientes.getListaIDs()[0]).setHijos(id);
-			}
-			
-			//NECESARIO PARA TRAZABILIDAD:
-			//La orden se guardara en la base de datos
-	        bloque.guardarOrden(pedido.OrdenTrazabilidad);
-	        
-			return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
-		//}
-		//else return "ERROR";
+			//Guardamos en la cadena la orden
+			BlockchainServices bloque = new BlockchainServices();
+		    bloque.guardarOrden(orden);
+		        
+			return CodificadorJSON.crearJSON(orden);
+		}
+		else {
+			return "ERROR: no se pudo crear la orden";
+		}
+		
 	}
 
+	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/obtenerPedido")
+	@RequestMapping("/obtenerOrden")
 	@ResponseBody
-	// Recibe el ID de un pedido y devuelve su JSON asociado
-	public String obtenerOrden(
-			@RequestParam(name="id", required=true) int id) {
+	public String obtenerOrden(HttpServletResponse response,
+			@RequestParam(name="id", required=true) String id) throws ClassNotFoundException, SQLException{
 
-		// Obtenemos el pedido de trazabilidad
+		int idInt = Integer.parseInt(id);
+
+		//Obtenemos el pedido de trazabilidad
 		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad pedido = bloque.getTraspaso(id);
-		if (pedido != null)
-			return CodificadorJSON.crearJSON(pedido);
+		OrdenTrazabilidad orden = bloque.getOrden(idInt);
+		
+		if (orden != null)
+			return CodificadorJSON.crearJSON(orden);
 		else
-			return "ERROR: No se pudo obtener el pedido";
+			return "ERROR: No se pudo obtener la orden";
 	}
 	
-	//PARA EQUIPO 2: VISTAS
-		@Scope("request")
-		@RequestMapping("/pedidosNoAceptados")
-		@ResponseBody
-		// Recibe el ID de un actor y devuelve un JSON con los pedidos no aceptados de ese actor
-		public String pedidosNoAceptados(
-				@RequestParam(name="idActor", required=true) String idActor) {
+	
+	private String ordenesPendientes(String idActor, int estado) throws ClassNotFoundException, SQLException{
+		//Obtenemos los pedidos de trazabilidad
+		BlockchainServices bloque = new BlockchainServices();
 			
-			//Obtenemos los pedidos de trazabilidad
-			BlockchainServices bloque = new BlockchainServices();
-			ArrayList<OrdenTrazabilidad> pedidos = bloque.extraerPedido(idActor);
-			
-			if(pedidos!=null && pedidos.size()>0) {
-				ListaPedidos pedidosNoAceptados = new ListaPedidos();
-				//Se necesitan aquellos pedidos pendientes por aceptar una persona
-				Iterator<OrdenTrazabilidad> it = pedidos.iterator();
-				while(it.hasNext()) {
-					//Hay que mirar que el actor sea destino
-					OrdenTrazabilidad actual = it.next();
-					if(actual.getActorDestino().getId().compareTo(idActor)==0) {
-						//El estado del pedido cuando no ha sido aceptado
-						if(actual.getEstado()==0) {
-							pedidosNoAceptados.anyadePedido(actual.getId());
-						}
+		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesDestino(idActor);
+		ArrayList<Integer> ordenesPendientes = new ArrayList<Integer>();
+		ListaIDs listaIDs = new ListaIDs();
+				
+		if(ordenes!=null && ordenes.size()>0) {
+					
+			Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+			while(it.hasNext()) {
+				//Hay que asegurarse que el actor sea destino
+				OrdenTrazabilidad actual = it.next();
+				if(actual.getActorDestino().getId().compareTo(idActor)==0) {
+					//El estado del pedido cuando no ha sido aceptado es 0
+					if(actual.getEstado()==estado) {
+						ordenesPendientes.add(actual.getId());
 					}
 				}
-				
-				//Devolver lista de identificadores
-				return CodificadorJSON.crearJSONlista(pedidosNoAceptados);
-				
 			}
-			else return "ERROR: No tiene pedidos pendientes por aceptar";
-			
+						
+			//Devolver lista de identificadores
+			listaIDs.setListaIDs(ordenesPendientes);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		} else {
+			listaIDs.setListaIDs(null);
+			return CodificadorJSON.crearJSONlista(listaIDs);
 		}
-	
-	private ListaPedidos pedidosPendientes(String idActor){
-			//Obtenemos los pedidos de trazabilidad
-			BlockchainServices bloque = new BlockchainServices();
-			ArrayList<OrdenTrazabilidad> pedidos = bloque.extraerPedido(idActor);
-			
-			if(pedidos!=null && pedidos.size()>0) {
-				ListaPedidos pedidosEnProceso = new ListaPedidos();
-				//Se necesitan aquellos pedidos pendientes por aceptar una persona
-				Iterator<OrdenTrazabilidad> it = pedidos.iterator();
-				while(it.hasNext()) {
-					//Hay que mirar que el actor sea destino
-					OrdenTrazabilidad actual = it.next();
-					if(actual.getActorDestino().getId().compareTo(idActor)==0) {
-						//El estado del pedido debe ser en proceso
-						if(actual.getEstado()==1) {
-							pedidosEnProceso.anyadePedido(actual.getId());
-						}
-					}
-				}
-				return pedidosEnProceso;
-			}
-			return null;
-		}
-	
+	}
 	//PARA EQUIPO 2: VISTAS
-		@Scope("request")
-		@RequestMapping("/pedidosEnProceso")
-		@ResponseBody
-		// Recibe el ID de un actor y devuelve un JSON con los pedidos en proceso de ese actor
-		public String pedidosEnProceso(
-				@RequestParam(name="idActor", required=true) String idActor) {
-			
-			ListaPedidos pedidosEnProceso=this.pedidosPendientes(idActor);
-			if(pedidosEnProceso!=null){
-			
-				//Devolver lista de identificadores
-				return CodificadorJSON.crearJSONlista(pedidosEnProceso);
-				
-			}
-			else return "ERROR: No tiene pedidos en proceso";
+	@Scope("request")
+	@RequestMapping("/ordenesPendientesPorAceptar")
+	@ResponseBody
+	public String ordenesPendientesPorAceptar(HttpServletResponse response,
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
+		return this.ordenesPendientes(idActor, 0);
+			
+	}
+	
+	//PARA EQUIPO2: VISTAS
+	@Scope("request")
+	@RequestMapping("/ordenesQueHeEnviado")
+	@ResponseBody
+	public String ordenesQueHeEnviado(HttpServletResponse response,
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+
+		BlockchainServices bloque = new BlockchainServices();
+		//Obtenemos las ordenes
+		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
+		ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+		ListaIDs listaIDs = new ListaIDs();
+		
+		if(ordenes!=null && ordenes.size()>0) {
+						
+			Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+			while(it.hasNext()) {
+				//Hay que asegurarse que el actor sea origen y no sean ordenes rechazadas
+				OrdenTrazabilidad actual = it.next();
+				if(actual.getActorOrigen().getId().compareTo(idActor)==0 && actual.getEstado()!=-1) {
+						ordenesIds.add(actual.getId());
+				}
+			}
+			listaIDs.setListaIDs(ordenesIds);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		} else {
+			listaIDs.setListaIDs(null);
+			return CodificadorJSON.crearJSONlista(listaIDs);
 		}
+	}
+	
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/aceptarPedido")
+	@RequestMapping("/ordenesEnProceso")
 	@ResponseBody
-	public String aceptarPedido(
-			@RequestParam(name="id", required=true) int id) {
+	public String ordenesEnProceso(HttpServletResponse response,
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
 		
-		//NECESARIO PARA TRAZABILIDAD:
-        BlockchainServices bloque = new BlockchainServices();
-        OrdenTrazabilidad pedido = bloque.getTraspaso(id);
-		
-		//Main_pedidos pedido = new Main_pedidos(json);
-        int estado;
-		//Para cambiar el estado del pedido
-        if(pedido.getOrigenOrdenes()!=null) {
-        	estado = pedido.getOrigenOrdenes().aceptarPedido(pedido.getEstado());
-        }
-        else {
-        	Orden origenOrden = new Orden();
-        	pedido.setOrigenOrdenes(origenOrden);
-        	estado = origenOrden.aceptarPedido(pedido.getEstado());
-        }
-        pedido.setEstado(estado);
-        bloque.guardarOrden(pedido);
-        
-        return CodificadorJSON.crearJSON(pedido);
+		return this.ordenesPendientes(idActor, 1);					
 	}
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-	@RequestMapping("/listoPedido")
+	@RequestMapping("/ordenesListasParaEntregar")
 	@ResponseBody
-	public String listoPedido(
-			@RequestParam(name="id", required=true) int id) {
+	public String ordenesListasParaEntregar(HttpServletResponse response,
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+			
+		return this.ordenesPendientes(idActor, 2);
+						
+	}
+	
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/ordenesRechazadas")
+	@ResponseBody
+	public String ordenesRechazadas(HttpServletResponse response,
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+				
+		BlockchainServices bloque = new BlockchainServices();
+		//Obtenemos las ordenes
+		ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
+		ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+		ListaIDs listaIDs = new ListaIDs();
 		
-		//NECESARIO PARA TRAZABILIDAD:
-        BlockchainServices bloque = new BlockchainServices();
-        OrdenTrazabilidad pedido = bloque.getTraspaso(id);
-		//Main_pedidos pedido = new Main_pedidos(json);
-		//Hay que comparar los identificadores de los ordentrazabilidad
-		//Dichos ordenTrazabilidad son: el del json y el de los arrays
-		//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
-		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
+		if(ordenes!=null && ordenes.size()>0) {
+						
+			Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+			while(it.hasNext()) {
+				//Hay que asegurarse que el actor sea origen
+				OrdenTrazabilidad actual = it.next();
+				if(actual.getActorOrigen().getId().compareTo(idActor)==0) {
+					if(actual.getEstado()==-1) {
+						ordenesIds.add(actual.getId());			
+					}
+				}
+			}
+
+			listaIDs.setListaIDs(ordenesIds);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		} else {
+			listaIDs.setListaIDs(null);
+			return CodificadorJSON.crearJSONlista(listaIDs);
+		}
+	}
 		
-        
-		//Para cambiar el estado del pedido
-        if(pedido.getOrigenOrdenes()!=null) {
-        	pedido.getOrigenOrdenes().listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
-        }
-        else {
-        	Orden origenOrden = new Orden();
-        	pedido.setOrigenOrdenes(origenOrden);
-        	origenOrden.listoParaEntregar(pedido.getEstado(),pedido.getActorOrigen(),pedido.getActorDestino());
-        }
-		pedido.setEstado(2);
-        bloque.guardarOrden(pedido);
-        
-        return CodificadorJSON.crearJSON(pedido);
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/ordenesEnProcesoDeEntrega")
+	@ResponseBody
+	public String ordenesEnProcesoDeEntrega(HttpServletResponse response,
+			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+						
+		return this.ordenesPendientes(idActor, 3);
+									
+	}
+	
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/aceptarOrden")
+	@ResponseBody
+	public String aceptarOrden(HttpServletResponse response,
+			@RequestParam(name="id", required=true) String id) throws Throwable{
+		
+		int idInt = Integer.parseInt(id);
+
+		//Recuperamos la orden para cambiar el estado
+		BlockchainServices bloque = new BlockchainServices();
+		OrdenTrazabilidad orden = bloque.getOrden(idInt);
+		
+		if(orden!=null) {
+			orden.setEstado(1);
+			bloque.guardarOrden(orden);
+			return CodificadorJSON.crearJSON(orden);
+		}
+		else {
+			return "ERROR: no existe la orden asociada a este ID";
+		}
+
+	}
+	
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/rechazarOrden")
+	@ResponseBody
+	public String rechazarOrden(HttpServletResponse response,
+			@RequestParam(name="id", required=true) String id) throws Throwable{
+		
+		int idInt = Integer.parseInt(id);
+			//Recuperamos la orden para cambiar el estado
+		BlockchainServices bloque = new BlockchainServices();
+		OrdenTrazabilidad orden = bloque.getOrden(idInt);
+		
+		if(orden!=null) {
+			orden.setEstado(-1);
+			bloque.guardarOrden(orden);
+			return CodificadorJSON.crearJSON(orden);
+		}
+		else {
+			return "ERROR: no existe la orden asociada a este ID";
+		}
+
+	}
+	
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/listaOrden")
+	@ResponseBody
+	public String listaOrden(HttpServletResponse response,
+			@RequestParam(name="id", required=true) String id) throws Throwable{
+
+		DescodificadorJson decoder = new DescodificadorJson();
+		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(id);
+		//miniOrden contiene el id de la orden y los porductosAEntregar
+		int idOrden = miniOrden.getId();
+		
+		//Con el idOrden sacamos la orden de BBDD
+		BlockchainServices bloque = new BlockchainServices();
+		OrdenTrazabilidad orden = bloque.getOrden(idOrden);
+		
+		
+		if(orden!=null && miniOrden.getProductosAEntregar()!=null) {
+			//En orden hay que rellenar el campo de los productosAEntregar y cambiar el estado
+			orden.setProductosAEntregar(miniOrden.getProductosAEntregar());
+			orden.setEstado(2);
+			//Hay que activar necesitaTransportista
+			if(orden.getActorOrigen().getTipoActor()!=1) {
+				orden.setNecesitaTransportista(true);
+			}
+		
+			//Guardamos la orden actualizada en BBDD
+			bloque.guardarOrden(orden);
+			return CodificadorJSON.crearJSON(orden);
+		}
+		else {
+			return "ERROR: no existe la orden asociada a este ID";
+		}
+		
 	}
 	
 	
 	//PARA EQUIPO 3: TRANSPORTISTAS
 	@Scope("request")
-	@RequestMapping("/recogidoPedido")
+	@RequestMapping("/recogidaOrden")
 	@ResponseBody
-	public String recogidoPedido(
-			@RequestParam(name="json", required=true) String json) {
+	public String recogidaOrden(HttpServletResponse response,
+			@RequestParam(name="json", required=true) String json) throws Throwable{
+
+		DescodificadorJson decoder = new DescodificadorJson();
+		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(json);
+		//Esta miniOrden tiene el id, firmaRecogida, transportista relleno
+		int idOrden = miniOrden.getId();
 		
-		Main_pedidos pedido = new Main_pedidos(json);
-		//Hay que compara los identificadores de los ordentrazabilidad
-		//Dichos ordenTrazabilidad son: el del json y el de los arrays
-		int estado;
-		//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
-		//Para cambiar el estado del pedido
-		if(pedido.OrdenTrazabilidad.getOrigenOrdenes()!=null) {
-			estado = pedido.OrdenTrazabilidad.getOrigenOrdenes().firmadoRecogida(pedido.OrdenTrazabilidad.getEstado());
+		//Obtenemos la orden de BBDD
+		BlockchainServices bloque = new BlockchainServices();
+		OrdenTrazabilidad orden = bloque.getOrden(idOrden);
+		
+		if(orden!=null) {
+			//Avisar al equipo8 (equipo del sensor) que empieza un transporte
+			equipo8.model.SensorStatic.iniciarTransporte(idOrden, orden.getIdPedido());
+			
+			//Hay que rellenar los campos que tiene miniOrden en orden y cambiar el estado
+			orden.setFirmaRecogida(miniOrden.getFirmaRecogida());
+			orden.setTransportista(miniOrden.getTransportista());
+			//Cambiamos el estado a en proceso de entrega(3)
+			orden.setEstado(3);
+			
+			//Ahora hay que guardar todos los cambios en BBDD
+			bloque.guardarOrden(orden);
+			
+			return CodificadorJSON.crearJSON(orden);
 		}
 		else {
-			Orden origenOrden = new Orden();
-			pedido.OrdenTrazabilidad.setOrigenOrdenes(origenOrden);
-			estado = origenOrden.firmadoRecogida(pedido.OrdenTrazabilidad.getEstado());
+			return "ERROR: no existe la orden asociada a este ID";
 		}
 		
-		pedido.OrdenTrazabilidad.setEstado(estado);
-		//NECESARIO PARA TRAZABILIDAD:
-        BlockchainServices bloque = new BlockchainServices();
-        bloque.guardarOrden(pedido.OrdenTrazabilidad);
-        
-        return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
 	}
 	
 	//PARA EQUIPO 3: TRANSPORTISTAS
 	@Scope("request")
-	@RequestMapping("/entregadoPedido")
+	@RequestMapping("/entregadaOrden")
 	@ResponseBody
-	public String entregadoPedido(
-			@RequestParam(name="json", required=true) String json) {
+	public String entregadaOrden(HttpServletResponse response,
+			@RequestParam(name="json", required=true) String json) throws Throwable{
 		
-		Main_pedidos pedido = new Main_pedidos(json);
-		//Hay que compara los identificadores de los ordentrazabilidad
-		//Dichos ordenTrazabilidad son: el del json y el de los arrays
-		int estado;
-		//Orden origen = pedido.OrdenTrazabilidad.getOrigenOrdenes();
-		//Orden origen = this.peticiones.get(pedido.OrdenTrazabilidad.getId());
-		//Para cambiar el estado del pedido
-		if(pedido.OrdenTrazabilidad.getOrigenOrdenes()!=null) {
-			estado = pedido.OrdenTrazabilidad.getOrigenOrdenes().firmadoEntrega(pedido.OrdenTrazabilidad.getEstado());
+		DescodificadorJson decoder = new DescodificadorJson();
+		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(json);
+		//miniOrden tiene los campos id, firmaEntrega y idRegistro
+		int idOrden = miniOrden.getId();
+		
+		//Obtenemos la orden de BBDD
+		BlockchainServices bloque = new BlockchainServices();
+		OrdenTrazabilidad orden = bloque.getOrden(idOrden);
+	
+		
+		if(orden!=null) {
+			//Avisamos al equipo8(equipo del sensor) de que acaba el transporte
+			int idRegistro = equipo8.model.SensorStatic.terminar();
+			
+			//Hay que rellenar orden con los campos de miniOrden y el idRegistro
+			orden.setFirmaEntrega(miniOrden.getFirmaEntrega());
+			orden.setIdRegistro(idRegistro);
+			
+			//Hay que cambiar el estado
+			orden.setEstado(4);
+			
+			//Ahora hay que guardar todos los cambios en BBDD
+			bloque.guardarOrden(orden);
+			
+			return CodificadorJSON.crearJSON(orden);
 		}
 		else {
-			Orden origenOrden = new Orden();
-			pedido.OrdenTrazabilidad.setOrigenOrdenes(origenOrden);
-			estado = origenOrden.firmadoEntrega(pedido.OrdenTrazabilidad.getEstado());
+			return "ERROR: no existe la orden asociada a este ID";
 		}
-		pedido.OrdenTrazabilidad.setEstado(estado);
-		//NECESARIO PARA TRAZABILIDAD:
-        BlockchainServices bloque = new BlockchainServices();
-        bloque.guardarOrden(pedido.OrdenTrazabilidad);
-        
-        return CodificadorJSON.crearJSON(pedido.OrdenTrazabilidad);
 	} 
 		
 }
