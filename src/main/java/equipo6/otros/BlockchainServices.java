@@ -92,7 +92,7 @@ public class BlockchainServices{
 		return null;
 	}
 
-	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException,  RuntimeException, NullException 
+	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.dao.NotInDatabaseException, RuntimeException, NullException 
 	{
 		List <StockMP> stock_mp;
 		List <MateriaPrima> list_materia_prima;
@@ -115,20 +115,21 @@ public class BlockchainServices{
 
 				stock_mp = metodosCompany.extraerStockMpPorPedido(orden.getActorDestino(),orden);
 
-				/*
-				 * if(stock_mp.size() == 0 && false ) { valor_retorno = false; break; }
-				 */
-				if (stock_mp.size() != 0) {
-					for (MateriaPrima materia_prima : list_materia_prima) {
+				if(stock_mp.size() == 0) {
+					valor_retorno = false;
+					break;
+				}
 
-						coincidencia = get_coincidencia(stock_mp, materia_prima.getTipo());
+				for(MateriaPrima materia_prima : list_materia_prima) {
 
-						if (coincidencia != null) {
-							metodosCompany.insertarStockMP(coincidencia);
-							valor_retorno = true;
-						}
+					coincidencia = get_coincidencia(stock_mp, materia_prima.getTipo());
 
+					if(coincidencia != null)
+					{
+						metodosCompany.insertarStockMP(coincidencia);
+						valor_retorno = true;
 					}
+
 				}
 
 				break;

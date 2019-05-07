@@ -1,4 +1,5 @@
 package equipo5.model;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,16 +36,16 @@ public class Cadena{
     	List<Bloque> lista = new LinkedList<Bloque>();
     	try {
 			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
-			System.out.println(anadir);
-			System.out.println(anadir.getTipoBloque());
-			System.out.println("numero de bloques "+numBloques);
 			for (int j = 0; j < numBloques; j++) {
-				System.out.println("iteracion j: "+ j);
+				System.out.println(anadir.getTipoBloque());
+				System.out.println(anadir.getHashPrevio());
+				System.out.println(anadir.getIdCadena());
 				if (anadir.getTipoBloque() == tipoBloque) {
 					lista.add(anadir);
 				}
+				if(anadir.getHashPrevio().equals("INICIO"))break;
 				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
-				System.out.println(anadir);
+				
 			}
 			return lista;
     	}catch(Exception ex) {
@@ -59,10 +60,12 @@ public class Cadena{
     public List<Bloque> getCadena(){
 		try {
 			List<Bloque> lista = new LinkedList<Bloque>();
+			System.out.println(hashUltimoBloque);
 			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
 			for (int j = 0; j < numBloques; j++) {
-				System.out.println(j);
+				System.out.println(anadir.getHashCode());
 				lista.add(anadir);
+				if(anadir.getHashPrevio().equals("INICIO"))break;
 				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
 			}
 			return lista;
@@ -110,38 +113,39 @@ public class Cadena{
     //a�ade el bloque a la cadena, haciendo todas las funciones criptogr�ficas correspondientes.
     //TODO jorge
     public void incorporarBloque(DatosContainer dc, int tipoBloque) throws Throwable{
-      /*
-      1. Obtener la info que se tiene que poner de cabecera en el nuevo bloque:
-          -hashPrevio a partir de la variable hashUltimoBloque
-          -codLote
-          -tipoBloque
-          -numBloque a partir de numBloques++
+        /*
+        1. Obtener la info que se tiene que poner de cabecera en el nuevo bloque: 
+            -hashPrevio a partir de la variable hashUltimoBloque
+            -codLote
+            -tipoBloque
+            -numBloque a partir de numBloques++
+        
+        2. Instanciar objeto Bloque con estos datos
+        3. Obtener hash del bloque nuevo
+        4. Llamar a BBDD para almacenar bloque
+        5. Actualizar tabla de referencia de hash+
+        6. LLamar a BBDD para almacenar la tabla de referencia
+        */
+    	int estadoOrden;
+    	
+    	estadoOrden = -1;
+    	if(dc instanceof OrdenTrazabilidad) 
+		{
+    		estadoOrden = ((OrdenTrazabilidad)dc).getEstado();
+		}
+        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques, this.codLote, dc, -1, estadoOrden);
+        nuevoBloque.setTimeStamp();
+        String hashNuevo = nuevoBloque.getHashCode();
+		try {
+				metodosCompany.insertarBloque(nuevoBloque);
+				this.hashUltimoBloque = hashNuevo;
+				this.numBloques++;
+				metodosCompany.insertarCadena(this);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 
-      2. Instanciar objeto Bloque con estos datos
-      3. Obtener hash del bloque nuevo
-      4. Llamar a BBDD para almacenar bloque
-      5. Actualizar tabla de referencia de hash+
-      6. LLamar a BBDD para almacenar la tabla de referencia
-      */
-      int estadoOrden;
-      
-      estadoOrden = -1;
-      if(dc instanceof OrdenTrazabilidad)
-       {
-          estadoOrden = ((OrdenTrazabilidad)dc).getEstado();
-       }
-      Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc, -1, estadoOrden);
-      nuevoBloque.setTimeStamp();
-      String hashNuevo = nuevoBloque.getHashCode();
-       try {
-               metodosCompany.insertarBloque(nuevoBloque);
-               this.hashUltimoBloque = hashNuevo;
-               metodosCompany.insertarCadena(this);
-       } catch (Exception ex) {
-           ex.printStackTrace();
-       }
-
-  }
+    }
 
     public Cadena(int codLote, String hashUltimoBloque, int numBloques){
         this.codLote=codLote;
