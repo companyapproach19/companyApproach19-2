@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         if (URL != "") {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(URL)
-                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
             servicio = retrofit.create(PedidosAPI.class);

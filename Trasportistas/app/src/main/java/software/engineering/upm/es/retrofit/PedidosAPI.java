@@ -1,6 +1,12 @@
 package software.engineering.upm.es.retrofit;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,8 +18,8 @@ import retrofit2.http.Path;
 import software.engineering.upm.es.objetos.parceables.Pedido;
 
 public interface PedidosAPI {
-    @GET("https://beer-company2019.herokuapp.com/damePedidosTtansportista/")
-    Call<JSONArray> getPedidos();
+    @POST("https://beer-company2019.herokuapp.com/damePedidosTransportista/")
+    Call<Object> getPedidos();
 
     @GET("{id}")
     Call<JSONArray> getPedidos(@Path("id") String id);

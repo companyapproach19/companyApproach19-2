@@ -7,11 +7,22 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton refresh;
 
     private PedidosAPI servicio;
-    public static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTtansportista/";//https://beer-company2019.herokuapp.com/damePedidosTransportista
+    public static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTransportista/";//https://beer-company2019.herokuapp.com/damePedidosTransportista
 
     final int FICHA_RECOGIDA = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
             servicio = retrofit.create(PedidosAPI.class);
 
-            Call<JSONArray> peticion = servicio.getPedidos();
-
+            Call<Object> peticion = servicio.getPedidos();
+           // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
             peticion.enqueue(new ObtenerResultados());
 
             }
@@ -101,10 +113,9 @@ public class MainActivity extends AppCompatActivity {
         fijaAdaptador();
     }
 
-    private class ObtenerResultados implements Callback<JSONArray> {
+    private class ObtenerResultados implements Callback<Object> {
         @Override
-        public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
-
+        public void onResponse(Call<Object> call, Response <Object> response) {
             try {
                 procesarConsulta(response.body());
             } catch (JSONException e) {
@@ -113,24 +124,43 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFailure(Call<JSONArray> call, Throwable t) {
+        public void onFailure(Call<Object> call, Throwable t) {
 
             procesarError(t.getMessage());
         }
     }
 
-    private void procesarConsulta (JSONArray jsonString) throws JSONException {
-        JSONArray jsonArray = null;
-        jsonArray = new JSONArray();
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            sp.pedidosSinAsignar.add(new Pedido(jsonArray.getJSONObject(i)));
+    private void procesarConsulta (Object jsonString) throws JSONException {
+        //ArrayList j = (ArrayList) jsonString;
+        Gson g = new Gson ();
+        JsonParser p = new JsonParser();
+        List listaJson = (List)jsonString;
+        for(Object e: listaJson){
+            JsonObject elem = p.parse(g.toJson(e)).getAsJsonObject();
+            int id = elem.get("id").getAsInt();
+            int estado = elem.get("estado").getAsInt();
+            //System.out.println(elem.get("id"));
+            if(estado == 1){
+            Pedido ped = new Pedido(id);
+            sp.pedidosSinAsignar.add(ped);
+            }
         }
+        //JsonObject j = p.parse(g.toJson(((List)jsonString).get(0))).getAsJsonObject();
+        //System.out.println(j.get("id"));
+
+       // JsonObject j = ((List)jsonString).get(0);
+       // Toast.makeText(this, jsonString.getClass().toString(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, jsonString.toString(), Toast.LENGTH_LONG).show();
+        //for (int i = 0; i < j.size(); i++) {
+            //Toast.makeText(this, j.toString(), Toast.LENGTH_LONG).show();
+            //sp.pedidosSinAsignar.add(new Pedido(j.get(i)));
+
+        //}
 
     }
 
     private void procesarError(String mensaje){
-        Toast.makeText(this, R.string.errorData, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
     }
 
     private void fijaAdaptador() {

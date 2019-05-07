@@ -31,6 +31,14 @@ public class Pedido implements Parcelable {
         this.productos = productos;
     }
 
+    public Pedido (int id){
+        this.id = id;
+        this.trasportista = new Trasportista("Pepito", "Software", "","");
+        this.firmadoEntrega = false;
+        this.firmadoRecogida = false;
+        this.productos = new Productos(3,3,3,3,3,3,3,3,3,3,4);
+    }
+
     public Pedido (JSONObject pedidos) throws JSONException {
 
         this.id = pedidos.getInt("id");
