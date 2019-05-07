@@ -65,10 +65,21 @@ public class StockController {
 	 * devuelve una lista de stocklotes dado un actor
 	 */
 
-	public static LinkedList<StockLote> getListaLotes(Actor actor, int idOrden)
-			throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
-		return metodosCompany.extraerStockLote(actor, idOrden);
-	}
+	public static LinkedList<StockLote> getListaLotes(Actor actor)
+            throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
+        LinkedList<StockLote> lista = new LinkedList<StockLote>();
+        ArrayList<OrdenTrazabilidad> listaOrdenes = metodosCompany.extraerOrdenesActorDestino(actor.getId());
+        System.out.println(" tamano "+listaOrdenes.size());
+        for(OrdenTrazabilidad orden: listaOrdenes) {
+            System.out.println("id de la orden "+orden.getId());
+            LinkedList<StockLote> listaStockLote = metodosCompany.extraerStockLote(actor, orden.getId());
+            System.out.println(" tamano2 "+listaStockLote.size());
+            for(StockLote sLote: listaStockLote) {
+                lista.add(sLote);
+            }            
+        }
+        return lista;
+    }
 
 
 	/*
