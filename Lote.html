@@ -1,0 +1,255 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Lote</title>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<link href="prueba.css" rel="stylesheet" id="bootstrap-css">
+
+</head>
+  <script type="text/javascript">
+  var numLoteIntroducido;
+      function get_params() {
+          var url_string = window.location.href;
+          console.log(url_string);
+          var url = new URL(url_string);
+          numLoteIntroducido = url.searchParams.get("a");
+          console.log(numLoteIntroducido);
+          document.getElementById("numLote").innerHTML = numLoteIntroducido + "";
+      }
+      
+      
+      
+      function llegadaALaFabrica(){
+    	    var request = $.ajax({
+    	    url : '/llegadaALaFabrica',
+    	    data : "numLoteIntroducido=" + numLoteIntroducido,
+    	    type : 'POST',
+    	    dataType : 'json',
+    	    });
+    	   // alert("entra");
+    		request.done(function(response){
+    			var fecha = response["fechaInicio"];
+    			$('#Llegada').text(fecha);
+    			alert("la fecha que he recogido del servicio es:" + fecha);
+    	  
+    	   });
+    	   request.fail(function(response) {
+    			alert("Error en el servidor");
+    	 
+    	   });
+    	}
+      
+      function molienda(){
+    		//alert("moliendo");
+    		var request = $.ajax({
+    			url:'/molienda',
+    			data : "numLoteIntroducido=" +numLoteIntroducido,
+    			type : 'POST',
+    			dataType : 'json',
+    		});
+    		request.done(function(response){
+    			var fecha = response["fechaInicio"];
+    			$('#Molienda').text(fecha);
+    			//alert("la fecha que se ha recogido del servicio es: " + fecha);
+    		});
+    		request.fail(function(response){
+    			alert("Error en el servidor");
+    		});
+    		
+    	}
+    	function coccion(){
+    		//alert("cociendo");
+    		var request = $.ajax({
+    			url:'/coccion',
+    			data : "numLoteIntroducido=" + numLoteIntroducido,
+    			type : 'POST',
+    			dataType : 'json',
+    		});
+    		request.done(function(response){
+    			var fecha = response["fechaInicio"];
+    			$('#Coccion').text(fecha);
+
+    			//alert("la fecha que se ha recogido del servicio es: " + fecha);
+    		});
+    		request.fail(function(response){
+    			alert("Error en el servidor");
+    		});
+    		
+    	}
+    	function fermentacion(){
+    	//	alert("fermentando");
+    		var request = $.ajax({
+    			url:'/fermentacion',
+    			data : "numLoteIntroducido=" + numLoteIntroducido,
+    			type : 'POST',
+    			dataType : 'json',
+    		});
+    		request.done(function(response){
+    			var fecha = response["fechaInicio"];
+    			$('#Fermentacion').text(fecha);
+
+    		});
+    		request.fail(function(response){
+    			alert("Error en el servidor");
+    		});
+    		
+    	}
+    	function embotellado(){
+    		//alert("embotellando");
+    		var request = $.ajax({
+    			url:'/embotellado',
+    			data : "numLoteIntroducido=" + numLoteIntroducido,
+    			type : 'POST',
+    			dataType : 'json',
+    		});
+    		request.done(function(response){
+    			var fecha = response["fechaInicio"];
+    			$('#Embotellado').text(fecha);
+    			//alert("la fecha que se ha recogido del servicio es: " + fecha);
+    		});
+    		request.fail(function(response){
+    			alert("Error en el servidor");
+    		});
+    		
+    	}
+    	function salidaDeLaFabrica(){
+    	//	alert("salida de la fabrica");
+    		var request = $.ajax({
+    			url:'/salidaDeLaFabrica',
+    			data : "numLoteIntroducido=" + numLoteIntroducido,
+    			type : 'POST',
+    			dataType : 'json',
+    		});
+    		request.done(function(response){
+    			//alert("llama funcion ajax correcta");
+    			var fecha = response["fechaInicio"];
+    			$('#Salida').text(fecha);
+
+    			//alert("la fecha que se ha recogido del servicio es: " + fecha);
+    		});
+    		request.fail(function(response){
+    			alert("Error en el servidor");
+    		});
+    		
+    	}
+  </script>
+<body onload="get_params()" style="display: block; height: 100vh; !important">
+
+    
+
+<div class="container-fluid register">
+    <div class="row"> 
+        <div class="col-md-3 register-left">
+             <img src="https://image.flaticon.com/icons/png/512/25/25007.png" alt=""/>
+             <h3>Fábrica</h3>
+                        <!--<p>Pedidos recibidos</p>-->
+                    <!--<input type="submit" name="" value="Log out"/><br/>-->
+        </div>
+        <div class="col-md-9 register-right">
+            <div class="row">
+                <div class="col-md-5 offset-md-2">
+                 <h3 class="register-heading">Proceso de fabricación</h3>
+            </div>
+
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="home" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+              </li>
+            </ul>
+          </div>
+          <br/><br/><br/><br/><br/>
+            <div class="row">
+                <div class="col-md-10 offset-md-2">
+                   <p><h3><strong>Lote:</strong> <div style="display: inline" id="numLote"> 1</p></h3>
+                    
+                      </br>
+
+                    </p>
+                    <p><strong>1. Llegada a la fábrica</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" role="submit" href="#" aria-controls="home" aria-selected="true" onclick="llegadaALaFabrica()">+ info</a>
+                      </div>
+                      <p id="Llegada">
+                      </p>
+                      
+                    </p>     
+                    <p><strong>2. Molienda</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="#" role="submit" aria-controls="home" aria-selected="true" onclick="molienda()">+ info</a>
+                      </div>
+                      <p id="Molienda">
+                      </p>
+                      
+                    </p>   
+                    <p><strong>3. Cocción</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="#" role="submit" aria-controls="home" aria-selected="true" onclick="coccion()">+ info</a>
+                      </div>
+                      <p id="Coccion">
+                      </p>
+                      
+                    </p>   
+                    <p><strong>4. Fermentación</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="#" role="submit" aria-controls="home" aria-selected="true" onclick="fermentacion()">+ info</a>
+                      </div>
+                      <p id="Fermentacion">
+                      </p>
+                      
+                    </p>   
+                    <p><strong>5. Embotellado</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="#" role="submit" aria-controls="home" aria-selected="true" onclick="embotellado()">+ info</a>
+                      </div>
+                      <p id="Embotellado">
+                      </p>
+                      
+                    </p>   
+                    <!--   <p><strong>6. Salida de la fábrica</strong>
+                      <br>
+                      <div class="col-md-5 offset-md-2">
+                        <a class="nav-link" id="home" data-toggle="submit" href="#" role="submit" aria-controls="home" aria-selected="true" onclick="salidaDeLaFabrica()">+ info</a>
+                      </div>
+                      <p id="Salida">
+                      </p>
+                      
+                    </p>  -->
+                    
+                    <br/><br/><br/>
+                    <div class="row">
+                        <div class="col-md-10 offset-md-2">
+                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item" >
+                                <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">volver</a>
+                            </li>
+                            </ul>
+                        </div>
+            
+                    </div>
+
+                    <br/><br/><br/>
+
+                </div>
+            </div>
+        </div>
+        <br/><br/><br/><br/><br/><br/>
+    </div> 
+</div>
+<script type="text/javascript">
+
+
+</script>
+</body>
