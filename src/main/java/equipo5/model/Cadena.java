@@ -37,11 +37,14 @@ public class Cadena{
 			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
 			System.out.println(anadir);
 			System.out.println(anadir.getTipoBloque());
+			System.out.println("numero de bloques "+numBloques);
 			for (int j = 0; j < numBloques; j++) {
+				System.out.println("iteracion i: ");
 				if (anadir.getTipoBloque() == tipoBloque) {
 					lista.add(anadir);
 				}
 				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
+				System.out.println(anadir);
 			}
 			return lista;
     	}catch(Exception ex) {
