@@ -288,6 +288,7 @@ function mandarids(urlpar){
 		  if (urlpar==2){ // necesito obtener el id del pedido
 				
 				var idPedidoAux;
+			  	var ordenAux;
 				console.log("pido idPedido en /obtenerOrden?id="+idsOrdenes[i-1]);
 				var requestIdPedido = $.ajax({
 				  
@@ -303,13 +304,14 @@ function mandarids(urlpar){
 					 url = "/comienzoProcesoFabricacion";
 					//se han obtenido json del pedido
 					idPedidoAux = data.idPedido;
+					ordenAux = data.id;
 					// ahora ya puedo empezar fabricacion
 					
-					console.log("empiezo fabricacion en /comienzoProcesoFabricacion?peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1]);
+					console.log("empiezo fabricacion en /comienzoProcesoFabricacion?peticion="+idPedidoAux+"&orden="+ordenAux);
 					var request = $.ajax({
 			
 						url : url,
-						data :"peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1] ,
+						data :"peticion="+idPedidoAux+"&orden="+ordenAux ,
 						type : 'GET',
 						dataType : 'json',  // el tipo de información que se espera de respuesta
 						
