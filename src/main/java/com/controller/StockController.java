@@ -270,9 +270,13 @@ public class StockController {
 	@ResponseBody
 	public String getStockActor(HttpServletRequest request, @RequestParam(name = "id") String id,Model model) throws Exception {
 
-		if(id == null)
-		idActor = get_id_actor_cookie(request.getCookies());
-		idActor = (idActor == null) ? (id) : (idActor);
+		if(id==null) {
+			idActor = get_id_actor_cookie(request.getCookies());
+		}
+		else {
+			idActor=id;
+		}
+		System.out.println(idActor);
 		return get_stock_actor(idActor).toString();
 	}
 
