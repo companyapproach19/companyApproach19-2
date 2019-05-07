@@ -24,41 +24,7 @@
           //document.getElementById("numLote").innerHTML = numLoteIntroducido + "";
       }
       
-      function comprobar(){
-
-          var request = $.ajax({
-          url : '/comprobar',
-          // la información a enviar
-          // (también es posible utilizar una cadena de datos)
-          data : "numLoteIntroducido=" + numLoteIntroducido,
-          type : 'POST',
-     
-          // el tipo de información que se espera de respuesta
-          dataType : 'json',
-     
-          });
-         request.done(function(data){
-        	 var existe = response["existe"];
-    		 alert("entra en el done");
-
-        	 if(existe==1){
-        		 alert("entra en no existe");
-        		 document.getElementById("numLote").innerHTML = "No existe el lote introducido";
-        	 }
-        	 else{
-        		 alert("entra en el else");
-        		 document.getElementById("numLote").innerHTML = numLoteIntroducido + "";
-        	 }
-        
-         });
-     
-         request.fail(function(data) {
-       
-         alert("Error en el servidor");
-       
-         });
-     
-     }
+      
       
       function llegadaALaFabrica(){
     	    var request = $.ajax({
