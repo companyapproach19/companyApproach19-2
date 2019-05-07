@@ -39,7 +39,7 @@ public class Cadena{
 			System.out.println(anadir.getTipoBloque());
 			System.out.println("numero de bloques "+numBloques);
 			for (int j = 0; j < numBloques; j++) {
-				System.out.println("iteracion i: ");
+				System.out.println("iteracion j: "+ j);
 				if (anadir.getTipoBloque() == tipoBloque) {
 					lista.add(anadir);
 				}
