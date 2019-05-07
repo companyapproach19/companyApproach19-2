@@ -304,6 +304,7 @@ public class StockController {
 			actor = new Actor(idActor, "Agricultor", "asdasd", "rmj@g.cm", 0, "41.5N 2.0W", "Agricultor A",
 					"c/mevoyamorir", "1234567C");
 		}
+		System.out.println(actor.getNombre());
 
 		json_resp.addProperty("nomUsuario", actor.getNombreUsuario());
 		json_resp.addProperty("email", actor.getEmail());
