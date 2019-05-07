@@ -53,12 +53,13 @@ function pedirIds(actor, estado){
 	 	
         //reescribo el array local idsOrdenes
 		idsOrdenes = data.listaIDs;
+		cargar_popups();
 		
 		console.log(idsOrdenes);
 	     	
 		//paso por parametro a imprimir
 		
-		//imprimirjsons(idsOrdenes);
+		imprimirjson(idsOrdenes);
     
      });
  
@@ -73,6 +74,51 @@ function pedirIds(actor, estado){
      });
  
  }
+
+
+
+function cargar_popups()
+{
+	
+	 var stri = "'none'";
+     var j = 0;
+     var contenedor_modales;
+     
+     contenedor_modales = document.getElementById("contenedor_modales");
+	if (idsOrdenes != null){
+        for ( var i = 1; i <=idsOrdenes.length; i++) {
+        	var modalN = 
+                '<div class="form-group">'+
+                '<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">'+
+                '<label for="producto'+i+'" id="label'+i+'">Pedido '+idsOrdenes[i-1]+'</label>'+
+                '<a href="" data-toggle="modal" onclick="pedirPedido('+(i-1)+',4,'+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>'+
+                '</div>'+                                                          
+                '<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">'+
+                '<div class="modal-dialog modal-dialog-scrollable" role="document">'+
+                '<div class="modal-content">'+
+                '<div class="modal-header">'+
+                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                '<span aria-hidden="true">&times;</span>'+
+                '</button>'+
+                '<div id="popup'+i+'" style="display: none;">'+  
+                '<div class="inner">'+                      
+                '<h1>PEDIDO</h1>'+                     
+                '<popup'+i+'></popup'+i+'>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+ 
+                '</div>';
+                
+                contenedor_modales.innerHTML += modalN;
+                
+          <!-- MODAL -->
+          j++;
+        }
+      }
+	
+}
  
  
  
@@ -170,7 +216,7 @@ function creaOrden(actor){
 	}else if (actor == 4){  // tienda
 		nuevaOrden.idPedido = -1;
 		nuevaOrden.actorOrigen.id= 9;
-		nuevaOrden.actorDestino.id = document.getElementById("idTransportista").value -0;
+		nuevaOrden.actorDestino.id =  8;
 		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
 		
