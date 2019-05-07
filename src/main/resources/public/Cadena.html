@@ -85,22 +85,7 @@ function embotellandoCadena(){
  
    });
 }
-function segundaFermentandoCadena(){
-    var request = $.ajax({
-    url : '/segundaFermentandoCadena',
-    type : 'POST',
-    dataType : 'json',
-    });
-	request.done(function(response){
-		var info = response["info"];
-		$('#segundaFermentacion').text(info);
-  
-   });
-   request.fail(function(response) {
-		alert("Error en el servidor");
- 
-   });
-}
+
 </script>
 
   
@@ -158,12 +143,24 @@ function segundaFermentandoCadena(){
                   </div>
                 </div>
 	      </div>
-			
+		
+		<div class="row">
+                <div class="col">
+                  <div class="collapse multi-collapse" id="multiCollapseExample2">
+		    <div class="card card-body">
+		      2. Cocción
+		      <p id="coccion">
+             </p>
+		    </div>
+                  </div>
+                </div>
+	      </div>
+	      
 	      <div class="row">
                 <div class="col">
                   <div class="collapse multi-collapse" id="multiCollapseExample3">
 		    <div class="card card-body">
-		      3. Primera fermentación
+		      3. Fermentación
 		      <p id="fermentacion">
              </p>
 		    </div>
@@ -175,7 +172,7 @@ function segundaFermentandoCadena(){
                 <div class="col">
                   <div class="collapse multi-collapse" id="multiCollapseExample5">
 		    <div class="card card-body">
-		      5. Embotellado
+		      4. Embotellado
 		      <p id="embotellado">
              </p>
 		    </div>
@@ -195,28 +192,8 @@ function segundaFermentandoCadena(){
 	      </div>
 	      
 
-	      <div class="row">
-                <div class="col">
-                  <div class="collapse multi-collapse" id="multiCollapseExample2">
-		    <div class="card card-body">
-		      2. Cocción
-		      <p id="coccion">
-             </p>
-		    </div>
-                  </div>
-                </div>
-	      </div>
-	      <div class="row">
-                <div class="col">
-                  <div class="collapse multi-collapse" id="multiCollapseExample4">
-		    <div class="card card-body">
-		      4. Segunda fermentación
-		      <p id="segundaFermentacion">
-             </p>
-		    </div>
-                  </div>
-                </div>
-	      </div>
+	      
+	      
 	      
 	      <ul id="mapa" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                 <li class="nav-item">
