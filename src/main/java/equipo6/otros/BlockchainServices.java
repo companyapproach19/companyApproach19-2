@@ -115,21 +115,20 @@ public class BlockchainServices{
 
 				stock_mp = metodosCompany.extraerStockMpPorPedido(orden.getActorDestino(),orden);
 
-				if(stock_mp.size() == 0) {
-					valor_retorno = false;
-					break;
-				}
+				/*
+				 * if(stock_mp.size() == 0 && false ) { valor_retorno = false; break; }
+				 */
+				if (stock_mp.size() != 0) {
+					for (MateriaPrima materia_prima : list_materia_prima) {
 
-				for(MateriaPrima materia_prima : list_materia_prima) {
+						coincidencia = get_coincidencia(stock_mp, materia_prima.getTipo());
 
-					coincidencia = get_coincidencia(stock_mp, materia_prima.getTipo());
+						if (coincidencia != null) {
+							metodosCompany.insertarStockMP(coincidencia);
+							valor_retorno = true;
+						}
 
-					if(coincidencia != null)
-					{
-						metodosCompany.insertarStockMP(coincidencia);
-						valor_retorno = true;
 					}
-
 				}
 
 				break;
