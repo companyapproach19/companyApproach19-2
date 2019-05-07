@@ -259,7 +259,7 @@ public class StockController {
 	@ResponseBody
 	public String getStockActor(HttpServletRequest request, @RequestParam(name = "id") String id,Model model) throws Exception {
 
-
+		if(id == null)
 		idActor = get_id_actor_cookie(request.getCookies());
 		idActor = (idActor == null) ? (id) : (idActor);
 		return get_stock_actor(idActor).toString();
@@ -277,7 +277,6 @@ public class StockController {
 		lista_nombre_mp = new HashMap<String, String>();
 		stock = new JsonObject();
 		json_resp = new JsonObject();
-		idActor=id;
 		try {
 				lista_ordenes = metodosCompany.extraerOrdenesActorOrigen(idActor);
 		}catch (Exception e) {
@@ -295,6 +294,9 @@ public class StockController {
 			actor = new Actor(idActor, "Agricultor", "asdasd", "rmj@g.cm", 0, "41.5N 2.0W", "Agricultor A",
 					"c/mevoyamorir", "1234567C");
 		}
+		
+		System.out.println(actor.getId());
+		System.out.println(actor.getNombreUsuario());
 
 		json_resp.addProperty("nomUsuario", actor.getNombreUsuario());
 		json_resp.addProperty("email", actor.getEmail());
@@ -361,7 +363,6 @@ public class StockController {
 
 			break;
 		case 4:
-			json_resp.add("stock", stock );
 			json_resp.addProperty("Numero de lotes", numLotes);
 
 			break;
@@ -468,6 +469,8 @@ public class StockController {
 			lista_bloques_registro = bcs.get_cadena(id_pedido).getBloque(1);
 			lista_bloques_lotes = bcs.get_cadena(id_pedido).getBloque(2);
 			json_respuesta = new JsonObject();
+			
+			
 
 			if(lista_bloques_ordenes == null || lista_bloques_ordenes.size() == 0) throw new Exception();
 			if(lista_bloques_registro == null || lista_bloques_registro.size() == 0) throw new Exception();
@@ -481,11 +484,14 @@ public class StockController {
 				ultimo_lote = ((Lote)(lista_bloques_lotes.get(0).getDatos()));
 				json_respuesta.addProperty("Tipo", ultimo_lote.getTipo());
 			}
+			
+			json_respuesta.addProperty("Agricultor", "Sin resultados");
+			json_respuesta.addProperty("Fabrica", "Sin resultados");
 
 			insertar_actores(lista_bloques_ordenes,json_respuesta);
 			ultimo_registro = ((Registro)(lista_bloques_registro.get(0).getDatos()));
-			json_respuesta.addProperty("Temperatura maxima", ultimo_registro.getTempMax());
-			json_respuesta.addProperty("Temperatura minima", ultimo_registro.getTempMin());
+			json_respuesta.addProperty("TemperaturaMax", ultimo_registro.getTempMax());
+			json_respuesta.addProperty("TemperaturaMin", ultimo_registro.getTempMin());
 
 			return json_respuesta.toString();
 
