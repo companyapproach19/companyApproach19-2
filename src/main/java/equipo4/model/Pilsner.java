@@ -23,15 +23,10 @@ public class Pilsner implements Serializable {
 	public Pilsner() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		agua = 11956521.7391;
 		maltaPilsner = 1739130434.78;
-		AlmacenMMPP.setMaltaPilsner(AlmacenMMPP.getMaltaPilsner() - 1739130434.78);
 		maltaCaramelo = 217391304.348;
-		AlmacenMMPP.setMaltaCaramelo(AlmacenMMPP.getMaltaCaramelo() - 217391304.348);
 		lupuloPerle = 8695652.17391;
-		AlmacenMMPP.setLupuloPerle(AlmacenMMPP.getLupuloPerle() - 8695652.17391);
 		lupuloTettnanger = 17391304.3478;
-		AlmacenMMPP.setLupuloTettnanger(AlmacenMMPP.getLupuloTettnanger() - 17391304.3478);
 		levaduraLager = 287.5;
-		AlmacenMMPP.setLevaduraLager(AlmacenMMPP.getLevaduraLager() - 287.5);
 	}
 
 	public static double getMaltaPilsner() {

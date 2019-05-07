@@ -113,39 +113,39 @@ public class Cadena{
     //a�ade el bloque a la cadena, haciendo todas las funciones criptogr�ficas correspondientes.
     //TODO jorge
     public void incorporarBloque(DatosContainer dc, int tipoBloque) throws Throwable{
-        /*
-        1. Obtener la info que se tiene que poner de cabecera en el nuevo bloque: 
-            -hashPrevio a partir de la variable hashUltimoBloque
-            -codLote
-            -tipoBloque
-            -numBloque a partir de numBloques++
-        
-        2. Instanciar objeto Bloque con estos datos
-        3. Obtener hash del bloque nuevo
-        4. Llamar a BBDD para almacenar bloque
-        5. Actualizar tabla de referencia de hash+
-        6. LLamar a BBDD para almacenar la tabla de referencia
-        */
-    	int estadoOrden;
-    	
-    	estadoOrden = -1;
-    	if(dc instanceof OrdenTrazabilidad) 
-		{
-    		estadoOrden = ((OrdenTrazabilidad)dc).getEstado();
-		}
-        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques, this.codLote, dc, -1, estadoOrden);
-        nuevoBloque.setTimeStamp();
-        String hashNuevo = nuevoBloque.getHashCode();
-		try {
-				metodosCompany.insertarBloque(nuevoBloque);
-				this.hashUltimoBloque = hashNuevo;
-				this.numBloques++;
-				metodosCompany.insertarCadena(this);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
 
-    }
+      /*
+      1. Obtener la info que se tiene que poner de cabecera en el nuevo bloque:
+          -hashPrevio a partir de la variable hashUltimoBloque
+          -codLote
+          -tipoBloque
+          -numBloque a partir de numBloques++
+
+      2. Instanciar objeto Bloque con estos datos
+      3. Obtener hash del bloque nuevo
+      4. Llamar a BBDD para almacenar bloque
+      5. Actualizar tabla de referencia de hash+
+      6. LLamar a BBDD para almacenar la tabla de referencia
+      */
+      int estadoOrden;
+      
+      estadoOrden = -1;
+      if(dc instanceof OrdenTrazabilidad)
+       {
+          estadoOrden = ((OrdenTrazabilidad)dc).getEstado();
+       }
+      Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc, -1, estadoOrden);
+      nuevoBloque.setTimeStamp();
+      String hashNuevo = nuevoBloque.getHashCode();
+       try {
+               metodosCompany.insertarBloque(nuevoBloque);
+               this.hashUltimoBloque = hashNuevo;
+               metodosCompany.insertarCadena(this);
+       } catch (Exception ex) {
+           ex.printStackTrace();
+       }
+
+  }
 
     public Cadena(int codLote, String hashUltimoBloque, int numBloques){
         this.codLote=codLote;

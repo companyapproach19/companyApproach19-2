@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CooperativaPedidosRecibidos</title>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+
+<!------ TEST SCRIPTSS ---------->
+<script type="text/javascript" src="ajaxs.js"></script>
+<!------ TEST SCRIPTSS ---------->
+
+<link href="style2.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<body>
+<div class="container register agricultores">
+                <div class="row">
+             
+                    <div class="col-md-3 register-left">
+                        <img src="icono-cooperativa.png" alt=""/>
+                        <h1>Cooperativa</h1>
+                        <!--<p>Pedidos recibidos</p>-->
+                    </div>
+                    <div class="col-md-9 register-right pedidosaceptados">
+                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>
+                            </li>
+                            </ul>
+                            <p></p>
+                            <div class="col-3 borde">
+                                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
+                                </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <h3  class="register-heading titlecenter">PEDIDOS RECIBIDOS</h3>
+								<br>
+                                <br>
+                                <br>
+                                <div class="row register-desplazable">
+                                    <div class="col-md-8 desplazable">
+                                        <script>
+						window.onload = pedirIds(1,0);
+						
+                        var stri = "'none'";
+                        var j = 0;
+                            if (idsOrdenes != null){
+                                for ( var i = 1; i <=idsOrdenes.length; i++) {
+                                    //CADA LINEA DE CHECKBOX
+                                    document.write('<div class="form-group">');
+                                    document.write('<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">');
+                                    document.write('<label for="producto'+i+'" id="label'+i+'">Pedido noPedido</label>');
+                                    document.write('<a href="" data-toggle="modal" onclick="pedirPedido('+(i-1)+',1,'+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>');
+                                    document.write('</div>');                                                          
+                                    
+                                    
+                                    //////////MODAAAAAAAAAL
+                                    <!-- MODAL -->                                                
+                                    document.write('<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">');
+                                    document.write('<div class="modal-dialog modal-dialog-scrollable" role="document">');
+                                    document.write('<div class="modal-content">');
+                                    document.write('<div class="modal-header">');
+                                    document.write('<button type="button" class="close" data-dismiss="modal" aria-label="Close">');
+                                    document.write('<span aria-hidden="true">&times;</span>');
+                                    document.write('</button>');
+                                    document.write('<div id="popup'+i+'" style="display: none;">');  
+                                    document.write('<div class="inner">');                      
+                                    document.write('<h1>PEDIDO</h1>');                     
+                                    document.write('<popup'+i+'></popup'+i+'>');
+                                    document.write('</div>');
+                                    document.write('</div>');
+                                    document.write('</div>');
+                                    document.write('</div>');
+                                    document.write('</div>'); 
+                                    document.write('</div>');
+                                    <!-- MODAL -->
+                                    j++;
+                                }
+                            }
+                        </script>
+            
+                                </div>
+                                
+                                        <input type="submit" class="btnCompletar"  onClick="mandarids(0)" value="Resolver pedidos"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+</body>
+<script>
+ window.onload = imprimirjson(idsOrdenes);
+//window.onload = pedirIds(1,0);
+
+</script>
+</html>
