@@ -1,5 +1,4 @@
 package equipo5.model;
-import static org.hamcrest.CoreMatchers.instanceOf;
 
 import java.util.LinkedList;
 import java.util.List;
