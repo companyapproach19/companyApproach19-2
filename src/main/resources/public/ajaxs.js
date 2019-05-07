@@ -423,6 +423,8 @@ function pedirStock(actor,i) {
     
     // la respuesta es pasada como argumento a la función
     request.done(function(data){
+	    
+	    
   
 		//se han obtenido json del STOCK
 		//pedido = data;
@@ -592,6 +594,8 @@ function rellenaPopup(json, actor, i) {
 
 //Para el stock
 function imprimeStock(json, i){
+	
+	console.log("STOCK ES: "+json;
 	var stock = '<br><br>Stock';
 	//json es el json
 	for(var key of Object.keys(json.stock)){
