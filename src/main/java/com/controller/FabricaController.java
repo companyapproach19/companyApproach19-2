@@ -203,12 +203,13 @@ import equipo6.model.Actor;
 						fechaInicio = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
 						obj.addProperty(fechaInicio, fechaInicio.toString());
 					}
-					else{
-						fechaInicio="Este lote aun no se ha molido";
-					}
+				}
+				else{
+					fechaInicio="Este lote aun no se ha molido";
 				}
 			}
-			obj.addProperty(fechaInicio, fechaInicio.toString());
+			
+			obj.addProperty("fechaInicio", fechaInicio.toString());
 			return obj.toString();
 		}
 		@Scope("request")
