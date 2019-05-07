@@ -55,7 +55,7 @@ public class BlockchainServices{
 			}
 			else if(tipoBlque == 0)
 			{
-				
+
 				if(((OrdenTrazabilidad)datos_container).getIdPedido() == -1) 
 				{
 					((OrdenTrazabilidad)datos_container).setId(metodosCompany.idPedido());
@@ -67,10 +67,10 @@ public class BlockchainServices{
 			ex.printStackTrace();
 			return false;
 		}
-		
+
 		return true;
 
-		
+
 	}
 
 	private StockMP get_coincidencia(List <StockMP> stock_mp,String tipo) 
@@ -115,21 +115,19 @@ public class BlockchainServices{
 
 				stock_mp = metodosCompany.extraerStockMpPorPedido(orden.getActorDestino(),orden);
 
-				if(stock_mp.size() == 0) {
-					valor_retorno = false;
-					break;
-				}
+				if(stock_mp.size() != 0) {
 
-				for(MateriaPrima materia_prima : list_materia_prima) {
+					for(MateriaPrima materia_prima : list_materia_prima) {
 
-					coincidencia = get_coincidencia(stock_mp, materia_prima.getTipo());
+						coincidencia = get_coincidencia(stock_mp, materia_prima.getTipo());
 
-					if(coincidencia != null)
-					{
-						metodosCompany.insertarStockMP(coincidencia);
-						valor_retorno = true;
+						if(coincidencia != null)
+						{
+							metodosCompany.insertarStockMP(coincidencia);
+							valor_retorno = true;
+						}
+
 					}
-
 				}
 
 				break;
@@ -285,22 +283,22 @@ public class BlockchainServices{
 	}
 
 
-	
-	
-	
+
+
+
 	public Cadena get_cadena(int id_pedido) 
 	{
 		Cadena cadena;
 		try {
 
 			cadena = metodosCompany.extraerCadena(id_pedido);
-				
+
 			return cadena;
-			
+
 		}catch (Exception ex) {
-			
+
 			ex.printStackTrace();
-			
+
 			return null;
 		}
 	}
@@ -310,16 +308,16 @@ public class BlockchainServices{
 	public OrdenTrazabilidad getOrden(int idOrden) throws ClassNotFoundException, SQLException{
 		return	equipo5.dao.metodosCompany.extraerOrdenTrazabilidad(idOrden);
 	}
-	
-	
+
+
 	public static String extraer_nombres_materias_primas(Productos productos) throws ClassNotFoundException, SQLException, RuntimeException, NullException 
 	{
 		String list_materia_prima;
-		
+
 
 
 		list_materia_prima = "";
-		
+
 		if(productos.getCant_cebada() != 0) 
 		{
 			list_materia_prima += " Cebada";
@@ -367,7 +365,7 @@ public class BlockchainServices{
 		MateriaPrima materiaPrima;
 		int id;
 		int cantidad;
-		
+
 
 
 		list_materia_prima = new ArrayList<MateriaPrima>();
