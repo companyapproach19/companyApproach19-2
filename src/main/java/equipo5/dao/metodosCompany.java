@@ -271,6 +271,22 @@ public class metodosCompany {
 		System.out.println("�Base de datos Creada!");
 
 	}
+	
+	public static Registro extraerUltimoRegistro(int idOrden) throws SQLException {
+		conectar();
+		String query = "SELECT * FROM company.registro WHERE registro.idOrden = " +  idOrden + " AND registro.fechaFin = (SELECT MAX (registro.fechaFin) FROM company.registro WHERE registro.idOrden = "+idOrden+");";
+		Statement pst = conn.createStatement();
+		ResultSet rs = pst.executeQuery(query);
+		while(rs.next()){
+			Registro buscado = new Registro(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
+			pst.close();
+			rs.close();
+			//conn.close();
+			return buscado;
+		}
+		//conn.close();
+		return null;
+	}
 	//Ver como se saca geolocalizacion
 	public static geolocalizacion extraerGeolocalizacion (int id) throws SQLException{
 		conectar();
@@ -347,7 +363,7 @@ public class metodosCompany {
 
 	public static OrdenTrazabilidad extraerOrdenTrazabilidad(int id) throws SQLException, ClassNotFoundException {
 		conectar();
-		String query = "SELECT * FROM company.ordenTrazabilidad WHERE fecha = (SELECT MAX(fecha) FROM company.ordenTrazabilidad WHERE id = " + id + " )";
+		String query = "SELECT * FROM company.ordenTrazabilidad WHERE id = "+id+" AND fecha = (SELECT MAX(fecha) FROM company.ordenTrazabilidad WHERE id = " + id + " )";
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		OrdenTrazabilidad buscado = null;
@@ -356,7 +372,7 @@ public class metodosCompany {
 			Actor actorDestino = extraerActor(rs.getString(3));
 			Productos productos = extraerProductos(rs.getInt(5));
 			Actor actorTransportista= null;
-			if ( extraerActor(rs.getString(9)) != null &&  extraerActor(rs.getString(9)).getId() != "") {
+			if ( extraerActor(rs.getString(9)) != null &&  extraerActor(rs.getString(9)).getId() != "-1") {
 				actorTransportista = extraerActor(rs.getString(9));
 			}
 			ArrayList<Integer> productosOrden = new ArrayList<Integer>();
@@ -397,8 +413,8 @@ public class metodosCompany {
 		if(orden.getTransportista()!=null) {
 			if(extraerActor(orden.getTransportista().getId())!=null) {
 				pst.setString(9, orden.getTransportista().getId());
-			}else pst.setString(9, "");
-		}else pst.setString(9, "");
+			}pst.setInt(9, -1);
+		}pst.setInt(9, -1);
 		pst.setInt(10, orden.getIdRegistro());
 		pst.setInt(11, orden.getIdPedido());
 		pst.executeUpdate();
@@ -678,7 +694,7 @@ public class metodosCompany {
 			OrdenTrazabilidad aInsertar = (OrdenTrazabilidad) bloqAinsertar.getDatos();
 			data = aInsertar.getId();
 			//if(extraerOrdenTrazabilidad(data)==null) {
-				insertarOrdenTrazabilidad(aInsertar);
+			insertarOrdenTrazabilidad(aInsertar);
 			//}
 			break;
 		case 1: //Registro
@@ -720,62 +736,42 @@ public class metodosCompany {
 		//conn.close();
 	}
 	
+	public static boolean estaOrden(int id, ArrayList<OrdenTrazabilidad> lista) {
+		for (int i =0; i< lista.size(); i++) {
+			if (lista.get(i).getId()==id) return true;
+		}
+		return false;
+		
+	}
+	
 	public static ArrayList<OrdenTrazabilidad> extraerOrdenesActorOrigen(String idActor) throws SQLException, ClassNotFoundException{
 		conectar();
 		ArrayList<OrdenTrazabilidad> lista = new ArrayList<OrdenTrazabilidad>();
-		String query = "SELECT * FROM company.ordenTrazabilidad";
+		String query = "SELECT id FROM company.ordenTrazabilidad WHERE idActorOrigen = '"+ idActor +"';";
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			String firmaRecogida;
-			String firmaEntrega;
-			Actor actorOrigen = extraerActor(rs.getString(2));
-			Actor actorDestino = extraerActor(rs.getString(3));
-			Productos productos = extraerProductos(rs.getInt(5));
-			Actor actorTransportista = extraerActor(rs.getString(9));
-			ArrayList<Integer> productosOrden = new ArrayList<Integer>();
-			if(extraerProductosOrden(rs.getInt(1))!=null) {
-				productosOrden = extraerProductosOrden(rs.getInt(1));
-			}
-			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
-					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
-			if(actorOrigen != null && actorOrigen.getId()!= null && idActor!=null && actorOrigen.getId().compareTo(idActor)==0) {
-				lista.add(buscado);
+			if(!estaOrden(rs.getInt(1), lista)) {
+				lista.add(extraerOrdenTrazabilidad(rs.getInt(1)));
 			}
 		}		
 		pst.close();
 		rs.close();
-		//conn.close();
-
-		return lista;	
+		return lista;
 	}
 	public static ArrayList<OrdenTrazabilidad> extraerOrdenesActorDestino(String idActor) throws SQLException, ClassNotFoundException{
 		conectar();
 		ArrayList<OrdenTrazabilidad> lista = new ArrayList<OrdenTrazabilidad>();
-		String query = "SELECT * FROM company.ordenTrazabilidad";
+		String query = "SELECT id FROM company.ordenTrazabilidad WHERE idActorDestino = '"+ idActor +"';";
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
-			String firmaRecogida;
-			String firmaEntrega;
-			Actor actorOrigen = extraerActor(rs.getString(2));
-			Actor actorDestino = extraerActor(rs.getString(3));
-			Productos productos = extraerProductos(rs.getInt(5));
-			Actor actorTransportista = extraerActor(rs.getString(9));
-			ArrayList<Integer> productosOrden = new ArrayList<Integer>();
-			if(extraerProductosOrden(rs.getInt(1))!=null) {
-				productosOrden = extraerProductosOrden(rs.getInt(1));
-			}
-			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
-					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
-			if(actorDestino != null && actorDestino.getId()!= null && idActor!=null && actorDestino.getId().compareTo(idActor)==0) {
-				lista.add(buscado);
+			if(!estaOrden(rs.getInt(1), lista)) {
+				lista.add(extraerOrdenTrazabilidad(rs.getInt(1)));
 			}
 		}		
 		pst.close();
 		rs.close();
-		//conn.close();
-
 		return lista;	
 	}
 	
