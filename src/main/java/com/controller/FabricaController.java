@@ -105,6 +105,7 @@ import equipo6.model.Actor;
             int idOrden = Integer.parseInt(orden);
             
             HashMap<String, Double> lista = com.controller.StockController.getStockPedidoFabrica(idPedido);
+            //System.out.println("La cantidad de malta negra en lista es "+lista.get("maltaNegra"));
             Actor actor = new Actor(null,null,null,3);
             String tipo;
             int kilosPedidos;
@@ -116,7 +117,7 @@ import equipo6.model.Actor;
             
             //LAS CANTIDADES ESTAN EN GRAMOS
             if(tipo=="stout") {
-                if(lista.get("maltaBasePalida") >= 261*kilosPedidos && lista.get("maltaMunich") >= 61*kilosPedidos && lista.get("cebadaTostada") >= 21*kilosPedidos &&
+                if(lista.get("maltaBasePalida") >= (261*kilosPedidos) && lista.get("maltaMunich") >= (61*kilosPedidos) && lista.get("cebadaTostada") >= 21*kilosPedidos &&
                         lista.get("maltaNegra") >= 10*kilosPedidos && lista.get("maltaCrystal") >=6*kilosPedidos && lista.get("maltaChocolate") >= 5*kilosPedidos &&
                         lista.get("maltaCaramelo") >= 4*kilosPedidos && lista.get("lupuloCentennial") >= 3*kilosPedidos && lista.get("levaduraAle") >= 1*kilosPedidos ) {
                     objOK.addProperty("mensajeOK", "Hay stock suficiente");
@@ -359,7 +360,7 @@ import equipo6.model.Actor;
 		@Scope("request")
 		@RequestMapping("/cocinandoCadena")
 		@ResponseBody
-		public static String cocinandoCadena(HttpServletResponse response,@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, Model model) 
+		public static String cocinandoCadena(HttpServletResponse response, Model model) 
 						throws Exception, NotInDatabaseException {
 			JsonObject obj = new JsonObject();
 			String info="";
@@ -379,7 +380,7 @@ import equipo6.model.Actor;
 		@Scope("request")
 		@RequestMapping("/fermentandoCadena")
 		@ResponseBody
-		public static String fermentandoCadena(HttpServletResponse response,@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, Model model) 
+		public static String fermentandoCadena(HttpServletResponse response, Model model) 
 						throws Exception, NotInDatabaseException {
 			JsonObject obj = new JsonObject();
 			String info="";
@@ -413,7 +414,7 @@ import equipo6.model.Actor;
 		@Scope("request")
 		@RequestMapping("/embotellandoCadena")
 		@ResponseBody
-		public static String embotellandoCadena(HttpServletResponse response,@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, Model model) 
+		public static String embotellandoCadena(HttpServletResponse response, Model model) 
 						throws Exception, NotInDatabaseException {
 			JsonObject obj = new JsonObject();
 			String info="";
