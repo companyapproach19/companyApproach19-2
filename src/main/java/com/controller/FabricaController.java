@@ -167,16 +167,19 @@ import equipo6.model.Actor;
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 			String fecha="";
+			boolean esta=false;
 			for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				
 				if (lote1.getIdPedido()==introducido) {
+					esta=true;
 					Lote lote2=lote1.getLote();
 					Date fechaLlegada = lote2.getFecha_inicio();
 					fecha = fechaLlegada.getDate() + "/" + fechaLlegada.getMonth() + "/" + fechaLlegada.getYear();
 					i=lista.size();
 				}
 			}
+			if(!esta) fecha="El lote "+introducido+" no está en el almacen";
 			obj.addProperty("fechaInicio", fecha.toString());
 			return obj.toString();
 		}
@@ -191,24 +194,22 @@ import equipo6.model.Actor;
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
 			JsonObject obj = new JsonObject();
+			boolean esta=false;
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 			String fechaInicio="";
 			for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==introducido) {
+					esta=true;
 					Lote lote2 = lote1.getLote();
 					if(lote2.isMolido()){
 						Date fecha = lote2.getFecha_molido();
 						fechaInicio = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
-						obj.addProperty(fechaInicio, fechaInicio.toString());
 					}
 				}
-				else{
-					fechaInicio="Este lote aun no se ha molido";
-				}
 			}
-			
+			if(!esta) fechaInicio="Este lote aun no se ha molido";
 			obj.addProperty("fechaInicio", fechaInicio.toString());
 			return obj.toString();
 		}
@@ -222,23 +223,22 @@ import equipo6.model.Actor;
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
 			JsonObject obj = new JsonObject();
+			boolean esta=false;
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 			String fechaFin="";
 			for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==introducido) {
+					esta=true;
 					Lote lote2 = lote1.getLote();
 					if(lote2.isCocido()){
 						Date fecha = lote2.getFecha_cocido();
 						fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
-						obj.addProperty("fechaInicio", fechaFin);
 					}
 				}
-				else{
-					fechaFin="Este lote aun no se ha cocinado";
-				}
 			}
+			if(!esta) fechaFin="Este lote aun no se ha molido";
 			obj.addProperty("fechaInicio", fechaFin.toString());
 			return obj.toString();
 		}
@@ -256,21 +256,20 @@ import equipo6.model.Actor;
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 			String fechaFin="";
+			boolean esta=false;
 			for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==introducido) {
+					esta=true;
 					Lote lote2 = lote1.getLote();
 					if(lote2.isFermentado()){
 						Date fecha = lote2.getFecha_fermentado();
 						fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear() + "\n Densidad = "+Principal.calcularDensidad() + " , no hace falta segunda fermentacion";
-						obj.addProperty("fechaInicio", fechaFin);
+						
 					}
-				}
-				else{
-					fechaFin="Este lote aun no se ha fermentado";
-				}
-				
+				}				
 			}
+			if(!esta) fechaFin="Este lote aun no se ha molido";
 			obj.addProperty("fechaInicio", fechaFin.toString());
 			return obj.toString();
 		}
@@ -287,24 +286,23 @@ import equipo6.model.Actor;
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
 			JsonObject obj = new JsonObject();
+			boolean esta=false;
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 			String fechaFin="";
 			for (int i=0; i<lista.size(); i++) {
 				StockLote lote1 = lista.get(i);
 				if (lote1.getIdPedido()==introducido) {
+					esta=true;
 					Lote lote2 = lote1.getLote();
 					if(lote2.isEmbotellado()){
 						Date fecha = lote2.getFecha_embotellado();
 						fechaFin = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
-						obj.addProperty("fechaInicio", fechaFin);
 					}
-				}
-				else{
-					fechaFin="Este lote aun no se ha embotellado";
-				}
-				
+				}				
 			}
+			if(!esta) fechaFin="Este lote aun no se ha molido";
+
 			obj.addProperty("fechaInicio", fechaFin.toString());
 			return obj.toString();
 		}
@@ -353,8 +351,8 @@ import equipo6.model.Actor;
 			else {
 				Lote l = Principal.getMoliendo().get(0);
 				info= "Lote moliendo numero: "+l.getIdBd()+"\n Fecha de llegada a fabrica: "+l.getFecha_inicio();
-				obj.addProperty("info", info.toString());
 			}
+			obj.addProperty("info", info.toString());
 			return obj.toString();
 		}
 		
@@ -373,8 +371,8 @@ import equipo6.model.Actor;
 			else {
 				Lote l = Principal.getCociendo().get(0);
 				info= "Lote cocinando numero: "+l.getIdBd()+"\n Fecha de llegada a fabrica: "+l.getFecha_inicio();
-				obj.addProperty("info", info.toString());
 			}
+			obj.addProperty("info", info.toString());
 			return obj.toString();
 		}
 		
@@ -393,8 +391,9 @@ import equipo6.model.Actor;
 			else {
 				Lote l = Principal.getFermentando().get(0);
 				info= "Lote fermentando numero: "+l.getIdBd()+"\n Fecha de llegada a fabrica: "+l.getFecha_inicio();
-				obj.addProperty("info", info.toString());
 			}
+			obj.addProperty("info", info.toString());
+
 			return obj.toString();
 		}
 		
@@ -426,8 +425,9 @@ import equipo6.model.Actor;
 			else {
 				Lote l = Principal.getEmbotellando().get(0);
 				info= "Lote embotellando numero: "+l.getIdBd()+"\n Fecha de llegada a fabrica: "+l.getFecha_inicio();
-				obj.addProperty("info", info.toString());
 			}
+			obj.addProperty("info", info.toString());
+
 			return obj.toString();
 		}
 		

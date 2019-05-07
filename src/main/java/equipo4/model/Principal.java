@@ -39,13 +39,13 @@ public class Principal extends Thread {
 			moliendo.remove(i);
 		}
 		for(int j=0;j<cociendo.size();j++) {
-			moliendo.remove(j);
+			cociendo.remove(j);
 		}
 		for(int k=0;k<fermentando.size();k++) {
-			moliendo.remove(k);
+			fermentando.remove(k);
 		}
 		for(int l=0;l<embotellando.size();l++) {
-			moliendo.remove(l);
+			embotellando.remove(l);
 		}
         Actor actor = new Actor(null,null,null,3);
 		LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
@@ -54,7 +54,7 @@ public class Principal extends Thread {
 				Lote lote2 = lote1.getLote();
 				Date fechaInicial = (Date) lote2.getFecha_inicio();
 				Date fechaActual = new Date(System.currentTimeMillis());
-				int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
+				int tiempo= fechaActual.getMinutes()-fechaInicial.getMinutes();
 			
 				if(tiempo>=13) {
 					lote2.setMolido(true);
