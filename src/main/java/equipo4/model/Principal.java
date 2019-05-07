@@ -54,7 +54,7 @@ public class Principal extends Thread {
 				Lote lote2 = lote1.getLote();
 				Date fechaInicial = (Date) lote2.getFecha_inicio();
 				Date fechaActual = new Date(System.currentTimeMillis());
-				int tiempo= fechaActual.getMinutes()-fechaInicial.getMinutes();
+				int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
 			
 				if(tiempo>=13) {
 					lote2.setMolido(true);
