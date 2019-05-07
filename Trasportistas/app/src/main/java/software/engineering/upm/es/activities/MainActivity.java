@@ -16,6 +16,7 @@ import org.json.JSONException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import retrofit2.Retrofit;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton refresh;
 
     private PedidosAPI servicio;
-    public static final String URL = "";//https://beer-company2019.herokuapp.com/damePedidosTransportista
+    public static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTtansportista/";//https://beer-company2019.herokuapp.com/damePedidosTransportista
 
     final int FICHA_RECOGIDA = 1;
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         if (URL != "") {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(URL)
-                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
             servicio = retrofit.create(PedidosAPI.class);
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
             Call<JSONArray> peticion = servicio.getPedidos();
 
             peticion.enqueue(new ObtenerResultados());
-        }
+
+            }
         else if (sp.contador == 0){
             // Añado uno por defecto
             Trasportista trasportista = new Trasportista("PePiTo", "Autónomo", "-/-/-", "-/-/-");
