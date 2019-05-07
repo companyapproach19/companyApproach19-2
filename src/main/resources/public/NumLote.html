@@ -9,41 +9,7 @@
     
   </head>
   <script type="text/javascript">
-  function comprobar(){
-
-      var request = $.ajax({
-      url : '/comprobar',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos)
-      data : "numLoteIntroducido=" + numLoteIntroducido,
-      type : 'POST',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-      });
-     request.done(function(data){
-    	 var existe = response["existe"];
-		 alert("entra en el done");
-
-    	 if(existe==1){
-    		 alert("entra en no existe");
-    	 }
-    	 else{
-    		 alert("entra en el else");
-    		 windows.append(Lote.html.redirect);
-    	 }
-    
-     });
- 
-     request.fail(function(data) {
-   
-     alert("Error en el servidor");
-   
-     });
- 
- }
+  
   </script>
   
   
