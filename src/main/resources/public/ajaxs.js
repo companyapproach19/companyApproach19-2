@@ -21,19 +21,19 @@ function pedirIds(actor, estado){
 	switch (estado) {
 		case 0 :
 		url = "/ordenesPendientesPorAceptar";
-		alert("obteniendo pedidos recibidos (pendientes por aceptar)");
+		//alert("obteniendo pedidos recibidos (pendientes por aceptar)");
 		console.log("pido /ordenesPendientesPorAceptar?idActor="+actor2);
 		break;
 		
 		case 1 :
 		url = "/ordenesEnProceso";
-		alert("obteniendo pedidos por resolver");
+		//alert("obteniendo pedidos por resolver");
 		console.log("pido /ordenesEnProceso?idActor="+actor2);
 		break;
 		
 		case 2 :
 		url = "/ordenesQueHeEnviado";
-		alert("obteniendo pedidos aceptados");
+		//alert("obteniendo pedidos aceptados");
 		console.log("pido /ordenesQueHeEnviado?idActor="+actor2);
 		break;
 	}
@@ -217,8 +217,6 @@ function creaOrden(actor){
 		nuevaOrden.idPedido = -1;
 		nuevaOrden.actorOrigen.id= 9;
 		nuevaOrden.actorDestino.id =  8;
-		nuevaOrden.actorOrigen.tipoActor= 4;
-		nuevaOrden.actorDestino.tipoActor =  3;
 		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
 		
@@ -321,7 +319,7 @@ function mandarids(urlpar){
 				 
 						request.done(function(data){
 					  	for (var key of Object.keys(data)) {
-					  		alert(data.key);
+					  	//	alert(data.key);
 					  	}
 						 
 						 
