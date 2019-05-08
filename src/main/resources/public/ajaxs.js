@@ -200,8 +200,14 @@ function creaOrden(actor){
 
 	
 	if (actor == 1 || actor == 3){ // coope, fabrica
-		if (actor == 1) nuevaOrden.actorOrigen.id= 6;
-		if (actor == 3) nuevaOrden.actorOrigen.id= 8;
+		if (actor == 1) {
+			nuevaOrden.actorOrigen.id= 6;
+			nuevaOrden.actorOrigen.tipoActor= 1;
+		}
+		if (actor == 3) {
+			nuevaOrden.actorOrigen.id= 8;
+			nuevaOrden.actorOrigen.tipoActor= 3;
+		}
 		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value -0;
 		nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
 		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value -0;
@@ -217,6 +223,8 @@ function creaOrden(actor){
 		nuevaOrden.idPedido = -1;
 		nuevaOrden.actorOrigen.id= 9;
 		nuevaOrden.actorDestino.id =  8;
+		nuevaOrden.actorOrigen.tipoActor = 4;
+		nuevaOrden.actorDestino.tipoActor = 3;
 		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
 		
