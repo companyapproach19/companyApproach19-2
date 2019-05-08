@@ -217,6 +217,8 @@ function creaOrden(actor){
 		nuevaOrden.idPedido = -1;
 		nuevaOrden.actorOrigen.id= 9;
 		nuevaOrden.actorDestino.id =  8;
+		nuevaOrden.actorOrigen.tipoActor= 4;
+		nuevaOrden.actorDestino.tipoActor =  3;
 		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
 		
