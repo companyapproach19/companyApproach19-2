@@ -58,7 +58,7 @@ public class BlockchainServices{
 
 				if(((OrdenTrazabilidad)datos_container).getIdPedido() == -1) 
 				{
-					((OrdenTrazabilidad)datos_container).setId(metodosCompany.idPedido());
+					((OrdenTrazabilidad)datos_container).setIdPedido(metodosCompany.idPedido());
 				}
 				if(!operaciones_stock((OrdenTrazabilidad)datos_container))return false; 
 			}
