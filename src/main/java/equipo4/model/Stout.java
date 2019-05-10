@@ -1,6 +1,9 @@
 package equipo4.model;
 
 import java.io.Serializable;
+import java.sql.SQLException;
+
+import equipo5.dao.NotInDatabaseException;
 
 public class Stout implements Serializable {
 	private static double maltaCaramelo;
@@ -20,26 +23,17 @@ public class Stout implements Serializable {
 	private static boolean fermentacion2;
 	private static boolean embotellado;
 
-	public Stout() {
+	public Stout() throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		agua = 11428571.4286;
 		maltaBasePalida = 2619047619.05;
-		AlmacenMMPP.setMaltaBasePalida(AlmacenMMPP.getMaltaBasePalida() - 2619047619.05);
 		maltaMunich = 619047619.048;
-		AlmacenMMPP.setMaltaMunich(AlmacenMMPP.getMaltaMunich() - 619047619.048);
 		cebadaTostada = 214285714.286;
-		AlmacenMMPP.setCebadaTostada(AlmacenMMPP.getCebadaTostada() - 214285714.286);
 		maltaNegra = 107142857.143;
-		AlmacenMMPP.setMaltaNegra(AlmacenMMPP.getMaltaNegra() - 107142857.143);
 		maltaCrystal = 66666666.6667;
-		AlmacenMMPP.setMaltaCrystal(AlmacenMMPP.getMaltaCrystal() - 66666666.6667);
 		maltaChocolate = 57142857.1429;
-		AlmacenMMPP.setMaltaChocolate(AlmacenMMPP.getMaltaChocolate() - 57142857.1429);
 		maltaCaramelo = 42857142.8571;
-		AlmacenMMPP.setMaltaCaramelo(AlmacenMMPP.getMaltaCaramelo() - 42857142.8571);
 		lupuloCentennial = 33333333.3333;
-		AlmacenMMPP.setLupuloCentennial(AlmacenMMPP.getLupuloCentennial() - 33333333.3333);
 		levaduraAle=287.5;
-		AlmacenMMPP.setLevaduraAle(AlmacenMMPP.getLevaduraAle()-287.5);
 	}
 
 

@@ -1,103 +1,182 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>NumLote</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="NumLote.css" rel="stylesheet">
-
-  <!-- Custom fonts for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-  <!-- Custom styles for this template -->
-  <link href="NumLote.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-  <div class="overlay"></div>
+<html lang="es">
+  <head>
+    <title>NumLote</title>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    
+  </head>
+  <script type="text/javascript">
   
+  </script>
+  
+  
+  
+  <body style="display: block; height: 100vh; !important">
+  <body>
 
-  <div class="masthead">
-    <div class="masthead-bg"></div>
-      <div class="container h-100">
-        <div class="row h-100">
-          <div class="col-12 my-auto">
-            <div class="masthead-content text-white py-5 py-md-0">
-              <div class="article">
-                <h1 class="mb-3">Proceso de Fabricación</h1>
-                  <p class="mb-3">Si desea ver el seguimiento de un lote, </p>
+    <div class="container-fluid register">
+      <div class="row">
+        <div class="col-md-3 register-left">
+          <img src="https://image.flaticon.com/icons/png/512/25/25007.png" alt="" />
+          <h1>Fábrica</h1>
+                        <!--<p>Pedidos recibidos</p>
+                        <input type="submit" name="" value="Log out"/><br/>
+                            -->
+        </div>
 
-                  <p class="mb-3">introduzca el número de <strong>lote</strong>:</p>
-                <div class="input-group input-group-newsletter">
-                  <input type="número" class="form-control" placeholder="123..." aria-label="123..." aria-describedby="basic-addon">
-                  <div class="input-group-append">
-                    <button class="btn btn-secondary" type="button">Buscar</button>
-                  </div>
+        <div class="col-md-9 register-right">
+          <div class="row">
+            <div class="col-md-4 offset-md-2">
+              <h3 class="register-heading">¿Qué desea realizar?</h3>
+            </div>
+
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="home" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+              </li>
+            </ul>
+          </div>
+          <br/><br/><br/><br/>
+
+          <div class="row">
+            <div class="col-md-10 offset-md-2">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapseSeguimiento" role="button" aria-expanded="false" aria-controls="collapseSeguimiento">
+              Producciones
+            </a>
+            
+            <div class="collapse" id="collapseSeguimiento">
+              Introduzca el número de una <strong>producción:</strong>
+              <br/></br>
+                        <div>
+                            <span class="fa fa-user"></span>
+                            <input type="text" name="lote" Placeholder="1234..." required id="numLote">
+
+                            <div class="input-group-append">
+                                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="home" data-toggle="submit"
+                                           role="submit" aria-controls="home" aria-selected="true" onclick="function recogidaNumLote() {
+                            window.location = 'Lote.html?a=' + document.getElementById('numLote').value;
+                       }
+                       recogidaNumLote()">Buscar</a>
+                    </li>
+                  </ul>
                 </div>
-              </div>
-              <div class="input-group-append">
-                  <button class="btn volver" type="button">volver</button>
-              </div>
-              <div class="aside">
-                
-                <button type="button" class="btn boton1">Seleccione el tipo de cerveza que desea generar</p>
-
-                 <select>
-                   <option>Seleccionar</option>
-                   <option>Pilsner</option>
-                   <option>Stout</option>
-                 </select>
-                </button>
-              </div>
-
+              </div> <!-- JS because of IE support; better: placeholder="Username" -->
+              <br/>
+            </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
- 
-  
+          <div class="row">
+            <div class="col-md-10 offset-md-2">
+              <a class="btn btn-primary" data-toggle="submit" href="Cadena.html" role="button" aria-expanded="false" aria-controls="collapseCreacion">
+                Seguimiento de cadena
+              </a>
 
-  <div class="social-icons">
-    <ul class="list-unstyled text-center mb-0">
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
+            <!--  <div class="collapse" id="collapseCreacion">
+                <span class="row">Selecciona la producción de cerveza que deseea crear:</span>
+                <div class="row">
+                  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item" >
+                       <a class="nav-link" id="home" data-toggle="submit" href="Pilsner.html" role="submit" aria-controls="home" aria-selected="true">Crear producción Pilsner</a>
+                    </li>
+                  </ul>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                  <ul class="nav nav-tabs nav-justified ml-2" id="myTab" role="tablist">
+                    <li class="nav-item">
+                       <a class="nav-link" id="home" data-toggle="submit" href="Stout.html" role="submit" aria-controls="home" aria-selected="true">Crear produción Stout</a>
+                    </li>
+                  </ul>
 
-  <!-- Custom scripts for this template -->
-  <script src="js/coming-soon.min.js"></script>
+                </div>
+                <br/>            
+              </div>-->
+            </div>
+          </div>
+			
+            <div class="row">
+              <div class="col-md-10 offset-md-2">
+                <a class="btn btn-primary" data-toggle="collapseVisualizar" href="fabrica2.html" role="button" aria-expanded="false" aria-controls="collapseVisualizar">
+                  Cuadro de mandos
+                </a>
+              </div>
+           </div>
+           <div class="row">
+            <div class="col-md-10 offset-md-2">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapseCreacion">
+                Pedidos
+              </a>
 
-</body>
+              <div class="collapse" id="collapse3">
+                
+                <div class="row">
+                  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item" >
+                       <a class="nav-link" id="home" data-toggle="submit" href="fabricaListaPedidosAceptados.html" role="submit" aria-controls="home" aria-selected="true">Pedidos aceptados</a>
+                    </li>
+                  </ul>
+                
+                  <ul class="nav nav-tabs nav-justified ml-2" id="myTab" role="tablist">
+                    <li class="nav-item" >
+                       <a class="nav-link" id="home" data-toggle="submit" href="fabricaListaPedidosPorResolver.html" role="submit" aria-controls="home" aria-selected="true">Pedidos por resolver</a>
+                    </li>
+                  </ul>
+                  </div>
 
+                  <div class="row">
+                  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                       <a class="nav-link" id="home" data-toggle="submit" href="fabricaListaPedidosRecibidos.html" role="submit" aria-controls="home" aria-selected="true">Pedidos recibidos</a>
+                    </li>
+                  </ul>
+                  <br>
+                  <ul class="nav nav-tabs nav-justified ml-2" id="myTab" role="tablist">
+                    <li class="nav-item">
+                       <a class="nav-link" id="home" data-toggle="submit" href="fabricaSolicitarPedido.html" role="submit" aria-controls="home" aria-selected="true">Solicitar pedidos</a>
+                    </li>
+                  </ul>
+
+                </div>
+                <br/>            
+              </div>
+            </div>
+          </div>
+           <br/><br/><br/><br/><br/><br/>
+           </div>
+         </div>
+       </div>
+  </body>
 </html>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<!-- <div class="clearfix">
+  <a class="nav-link" href="Pilsner.html"  style= 'text-decoration: none;color:white'>
+                  <input type="button" class="btnRegister" value="Crear lote Pilsner">
+                </a>
+                <a class="nav-link" href="Stout.html"  style= 'text-decoration: none;color:white'>
+                  <input type="button" class="btnRegister" value="Crear lote Stout">
+                </a>
+<div class="row register-form">
+                        <div class="col-md-9">
+                        <div class="container">
+                            <div class="row">
+                            <a class="nav-link" href="Lote.html"  style="text-decoration: none;color:white">
+                  <input type="button" class="btnRegister" value="Buscar">
+                </a> 
+              <div class="row">
+                                
+                                <p>
+                                  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+                                    Crear un Lote
+                                  </a>
+                                </p>
+                                
+                            </div>-->

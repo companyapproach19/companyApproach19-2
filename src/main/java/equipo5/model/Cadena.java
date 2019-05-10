@@ -1,10 +1,12 @@
 package equipo5.model;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import equipo5.dao.metodosCompany;
 import equipo6.model.Bloque;
 import equipo6.model.DatosContainer;
+import equipo7.model.OrdenTrazabilidad;
 
 
 public class Cadena{
@@ -35,10 +37,15 @@ public class Cadena{
     	try {
 			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
 			for (int j = 0; j < numBloques; j++) {
+				System.out.println(anadir.getTipoBloque());
+				System.out.println(anadir.getHashPrevio());
+				System.out.println(anadir.getIdCadena());
 				if (anadir.getTipoBloque() == tipoBloque) {
 					lista.add(anadir);
 				}
+				if(anadir.getHashPrevio().equals("INICIO"))break;
 				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
+				
 			}
 			return lista;
     	}catch(Exception ex) {
@@ -53,10 +60,12 @@ public class Cadena{
     public List<Bloque> getCadena(){
 		try {
 			List<Bloque> lista = new LinkedList<Bloque>();
+			System.out.println(hashUltimoBloque);
 			Bloque anadir = metodosCompany.extraerBloque(hashUltimoBloque);
 			for (int j = 0; j < numBloques; j++) {
-				System.out.println(j);
+				System.out.println(anadir.getHashCode());
 				lista.add(anadir);
+				if(anadir.getHashPrevio().equals("INICIO"))break;
 				anadir = metodosCompany.extraerBloque(anadir.getHashPrevio());
 			}
 			return lista;
@@ -103,7 +112,7 @@ public class Cadena{
     // (clase generica que encapsula todo lo que nos quieran pasar los grupos) y el tipo de informacion
     //a�ade el bloque a la cadena, haciendo todas las funciones criptogr�ficas correspondientes.
     //TODO jorge
-    public void incorporarBloque(DatosContainer dc, int tipoBloque){
+    public void incorporarBloque(DatosContainer dc, int tipoBloque) throws Throwable{
         /*
         1. Obtener la info que se tiene que poner de cabecera en el nuevo bloque: 
             -hashPrevio a partir de la variable hashUltimoBloque
@@ -117,13 +126,20 @@ public class Cadena{
         5. Actualizar tabla de referencia de hash+
         6. LLamar a BBDD para almacenar la tabla de referencia
         */
-
-        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques++, this.codLote, dc, -1);
+    	int estadoOrden;
+    	
+    	estadoOrden = -1;
+    	if(dc instanceof OrdenTrazabilidad) 
+		{
+    		estadoOrden = ((OrdenTrazabilidad)dc).getEstado();
+		}
+        Bloque nuevoBloque = new Bloque(this.hashUltimoBloque,tipoBloque, this.numBloques, this.codLote, dc, -1, estadoOrden);
         nuevoBloque.setTimeStamp();
         String hashNuevo = nuevoBloque.getHashCode();
 		try {
 				metodosCompany.insertarBloque(nuevoBloque);
 				this.hashUltimoBloque = hashNuevo;
+				this.numBloques++;
 				metodosCompany.insertarCadena(this);
 		} catch (Exception ex) {
 			ex.printStackTrace();

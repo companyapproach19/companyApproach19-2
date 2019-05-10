@@ -1,13 +1,14 @@
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <html lang="es">
   <head>
+    <meta charset="utf-8">
     <title>Llegada</title>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
 
 </head>
@@ -31,14 +32,15 @@
 
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link" id="home" data-toggle="submit" href="login.html" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+                <a class="nav-link" id="home" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">Log out</a>
               </li>
             </ul>
           </div>
           <br/><br/><br/><br/><br/>
             <div class="row">
                 <div class="col-md-10 offset-md-2">
-                   <p><strong>Fecha de llegada:</strong> [...]
+                   <p><strong>Fecha de llegada:</strong> 05-04-2019
+                   <p class = "lead" id = Llegada />
                       </br><br>
                     </p>
                     
@@ -63,7 +65,26 @@
     </div> 
 </div>
 
+<script type="text/javascript">
+function llegadaALaFabrica(){
+    var request = $.ajax({
+    url : '/llegadaALaFabrica',
+    type : 'POST',
+    dataType : 'json',
+    });
+	  request.done(function(response)){
+  var fecha = response.fechaInicio;
+  $('#Llegada').text(fecha);
+  alert("la fecha que he recogido del servicio es:" + fecha);
+  
+   });
+   request.fail(function(response)) {
+ 
+   alert("Error en el servidor");
+ 
+   });
+}
+</script>
+
+
 </body>
-
-
-                           
