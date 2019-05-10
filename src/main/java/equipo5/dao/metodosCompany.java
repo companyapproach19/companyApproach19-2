@@ -423,8 +423,8 @@ public class metodosCompany {
 		for(int i =0; i<pedidos.size(); i++) {
 			String query = "INSERT INTO company.productosOrden (idOrden, idMPoLote) VALUES (?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-			pst.setInt(1, pedidos.get(i));
-			pst.setInt(2,idOrden);
+			pst.setInt(2, pedidos.get(i));
+			pst.setInt(1,idOrden);
 			pst.executeUpdate();
 			pst.close();
 		}
@@ -490,7 +490,7 @@ public class metodosCompany {
 		pst.setInt(11, orden.getIdPedido());
 		pst.executeUpdate();
 		pst.close();
-		insertarProductosOrden(orden.getProductosAEntregar(), orden.getIdPedido());
+		if(extraerProductosOrden(orden.getId())==null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
 	}
 
 	public static Productos extraerProductos(int id) throws SQLException {
