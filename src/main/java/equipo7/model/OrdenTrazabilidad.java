@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package equipo7.model;
 
 import equipo6.model.DatosContainer;
@@ -242,6 +243,8 @@ public class OrdenTrazabilidad extends DatosContainer
  
 }
 =======
+=======
+>>>>>>> eea1f73266c432f850a77fd9deaed311e6e011b7
 package equipo7.model;
 
 import equipo6.model.DatosContainer;
@@ -484,5 +487,9 @@ public class OrdenTrazabilidad extends DatosContainer
 		
 		
  
+<<<<<<< HEAD
 }
 >>>>>>> c2c9f65c2cd22dee03b8db227de0266dbb4214cb
+=======
+}
+>>>>>>> eea1f73266c432f850a77fd9deaed311e6e011b7
