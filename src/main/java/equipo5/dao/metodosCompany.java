@@ -61,7 +61,9 @@ public class metodosCompany {
 	            		"idMateriaPrima INT NOT NULL ," +
 	                    "tipo VARCHAR(45) NOT NULL ," +
 	            		"cantidad FLOAT NOT NULL ," +
-	                    "PRIMARY KEY (idMateriaPrima));"
+	                    "PRIMARY KEY (idMateriaPrima)"+
+						");"
+
 	    );
 	    pst16.executeUpdate();
 		
@@ -82,7 +84,9 @@ public class metodosCompany {
 						"fecha_fermentado2 TIMESTAMP, " +
 						"fecha_embotellado TIMESTAMP, " +
 						"tipo VARCHAR(45) NOT NULL ," +
-						"PRIMARY KEY (idLote));"
+						"PRIMARY KEY (idLote)"+
+						");"
+
 				);
 		pst3.executeUpdate();
 		
@@ -97,16 +101,20 @@ public class metodosCompany {
 						"nombre VARCHAR(45) NOT NULL, " +
 						"direccion VARCHAR(250) NOT NULL ," +
 						"cifCooperativa VARCHAR(45), " +
-						"PRIMARY KEY (cif))"
+						"PRIMARY KEY (cif)"+
+						");"
+
 				);
 		pst10.executeUpdate();
 		
 		PreparedStatement pst11 = conn.prepareStatement(
 				"CREATE TABLE company.cadena ( " +
-						"idPedido INT NOT NULL, " +
+						"idCadena INT NOT NULL, " +
 						"hashInicio VARCHAR(45) NULL, " +
 						"numBloques INT NOT NULL, " +
-						"PRIMARY KEY (idPedido))"
+						"PRIMARY KEY (idCadena)"+
+						");"
+
 				);
 		pst11.executeUpdate();
 		
@@ -114,12 +122,16 @@ public class metodosCompany {
 				" CREATE TABLE company.registro (" +
 						"id INT NOT NULL, " +
 						"idOrden INT NOT NULL, " +
-						"idPedido INT NOT NULL, " +
+						"idCadena INT NOT NULL, " +
 						"fechaInicio VARCHAR(45), " +
 						"fechaFin VARCHAR(45), " +
 						"tempMax VARCHAR(45), " +
 						"tempMin VARCHAR(45), " +
-						"PRIMARY KEY (id)" +
+						"PRIMARY KEY (id)," +
+						"FOREIGN KEY (idOrden) "+
+						"REFERENCES ordenTrazabilidad (id),"+
+						"FOREIGN KEY (idCadena) "+
+						"REFERENCES cadena (idCadena)"+
 						");"
 				);
 		pst14.executeUpdate();
@@ -138,7 +150,9 @@ public class metodosCompany {
 						"lupulo_centenial INT NOT NULL, " +
 						"cajas_stout INT NOT NULL, " +
 						"cajas_bisner INT NOT NULL, " +
-						"PRIMARY KEY (id))"
+						"PRIMARY KEY (id)"+
+						");"
+
 				);
 		pst12.executeUpdate();
 
@@ -155,10 +169,18 @@ public class metodosCompany {
 						"firmaEntrega BYTEA, " +
 						"idTransportista VARCHAR(45), " +
 						"idRegistro INT, " +
-						"idPedido INT NOT NULL, " +
+						"idCadena INT NOT NULL, " +
 						"fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
 						"PRIMARY KEY (id, fecha)" +
-						"); "
+						"FOREIGN KEY (idActorOrigen, idActorDestino, idTransportista) "+
+						"REFERENCES actor (cif),"+
+						"FOREIGN KEY (idProductos) "+
+						"REFERENCES productos (id),"+
+						"FOREIGN KEY (idRegistro) "+
+						"REFERENCES registro (id),"+
+						"FOREIGN KEY (idCadena) "+
+						"REFERENCES cadena (idCadena)"+
+						");"
 						
 				);
 		pst13.executeUpdate();
@@ -175,7 +197,11 @@ public class metodosCompany {
 						"timeStamp FLOAT, " +
 						"idCadena INT NOT NULL, " +
                         "estadoOrden INT NOT NULL, "+
-						"PRIMARY KEY (hashBloque));"
+						"PRIMARY KEY (hashBloque))" +
+						"FOREIGN KEY (idCadena) "+
+						"REFERENCES cadena (idCadena)"+
+						");"
+
 				);
 		pst15.executeUpdate();
 		
@@ -187,8 +213,15 @@ public class metodosCompany {
 						"fecha_entrada TIMESTAMP, " +
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
-	                    "idPedido INT NOT NULL ," +
-						"PRIMARY KEY (idStockFabricaLotes)); "
+	                    "idCadena INT NOT NULL ," +
+						"PRIMARY KEY (idStockFabricaLotes), "+
+						"FOREIGN KEY (idLote) "+
+						"REFERENCES lote (idLote),"+
+						"FOREIGN KEY (idOrden) "+
+						"REFERENCES ordentrazabilidad (id),"+
+						"FOREIGN KEY (idCadena) "+
+						"REFERENCES cadena (idCadena)"+
+						");"
 				);
 		pst4.executeUpdate();
 	
@@ -200,9 +233,17 @@ public class metodosCompany {
 						"fecha_entrada TIMESTAMP, " +
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
-	                    "idPedido INT NOT NULL ," +
+	                    "idCadena INT NOT NULL ," +
 	            		"idActor VARCHAR(45) NOT NULL," +
-	                    "PRIMARY KEY (idStockCooperativa)" +
+	                    "PRIMARY KEY (idStockCooperativa)," +
+	                    "FOREIGN KEY (idMateriaPrima) "+
+						"REFERENCES materiaprima (idMateriaPrima),"+
+						"FOREIGN KEY (idOrden) "+
+						"REFERENCES ordentrazabilidad (id),"+
+						"FOREIGN KEY (idCadena) "+
+						"REFERENCES cadena (idCadena),"+
+						"FOREIGN KEY (idActor) "+
+						"REFERENCES actor (cif)"+
 	                    ");"  
 	    );
 	    pst17.executeUpdate();
@@ -214,9 +255,17 @@ public class metodosCompany {
 						"fecha_entrada TIMESTAMP, " +
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
-	                    "idPedido INT NOT NULL ," +
+	                    "idCadena INT NOT NULL ," +
 	                    "idActor VARCHAR(45) NOT NULL ," +
-	                    "PRIMARY KEY (idStockRetailer)" +
+	                    "PRIMARY KEY (idStockRetailer), " +
+	                    "FOREIGN KEY (idLote) "+
+						"REFERENCES lote (idLote),"+
+						"FOREIGN KEY (idOrden) "+
+						"REFERENCES ordentrazabilidad (id),"+
+						"FOREIGN KEY (idCadena) "+
+						"REFERENCES cadena (idCadena),"+
+						"FOREIGN KEY (idActor) "+
+						"REFERENCES actor (cif)"+
 	                    ");"
 	    );
 	    pst18.executeUpdate();
@@ -227,9 +276,17 @@ public class metodosCompany {
 						"fecha_entrada TIMESTAMP, " +
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
-	                    "idPedido INT NOT NULL ," +
+	                    "idCadena INT NOT NULL ," +
 	            		"idActor VARCHAR(45) NOT NULL," +
-	                    "PRIMARY KEY (idStockAgricultor)" + 
+	                    "PRIMARY KEY (idStockAgricultor), " + 
+	                    "FOREIGN KEY (idMateriaPrima) "+
+						"REFERENCES materiaprima (idMateriaPrima),"+
+						"FOREIGN KEY (idOrden) "+
+						"REFERENCES ordentrazabilidad (id),"+
+						"FOREIGN KEY (idCadena) "+
+						"REFERENCES cadena (idCadena),"+
+						"FOREIGN KEY (idActor) "+
+						"REFERENCES actor (cif)"+
 	                    ");"
 	    );
 	    pst19.executeUpdate();
@@ -241,8 +298,14 @@ public class metodosCompany {
 						"fecha_entrada TIMESTAMP, " +
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
-	                    "idPedido INT NOT NULL ," +
-	                    "PRIMARY KEY (idStockMMPP)" + 
+	                    "idCadena INT NOT NULL ," +
+	                    "PRIMARY KEY (idStockMMPP), " + 
+	                    "FOREIGN KEY (idMateriaPrima) "+
+						"REFERENCES materiaprima (idMateriaPrima),"+
+						"FOREIGN KEY (idOrden) "+
+						"REFERENCES ordentrazabilidad (id),"+
+						"FOREIGN KEY (idCadena) "+
+						"REFERENCES cadena (idCadena)"+
 	                    ");"
 	    );
 	    pst20.executeUpdate();
@@ -251,7 +314,11 @@ public class metodosCompany {
 	            "CREATE TABLE company.productosOrden (" +
 	            		"idOrden INT NOT NULL," +
 	                    "idMPoLote INT NOT NULL ," +
-	                    "PRIMARY KEY (idOrden, idMPoLote)" + 
+	                    "PRIMARY KEY (idOrden, idMPoLote)," + 
+	                    "FOREIGN KEY (idMateriaPrima) "+
+						"REFERENCES materiaprima (idMateriaPrima) OR lote (idLote),"+
+						"FOREIGN KEY (idOrden) "+
+						"REFERENCES ordentrazabilidad (id)"+
 	                    ");"
 	    );
 	    pst21.executeUpdate();
@@ -260,10 +327,14 @@ public class metodosCompany {
 	            "CREATE TABLE company.geolocalizacion (" +
 	            		"id INT NOT NULL," +
 	            		"idOrden INT NOT NULL," +
-	            		"idPedido INT NOT NULL," +
+	            		"idCadena INT NOT NULL," +
 	            		"coordenadas VARCHAR(45)," +
 	                    "fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP ," +
-	                    "PRIMARY KEY (id)" + 
+	                    "PRIMARY KEY (id), " + 
+	                    "FOREIGN KEY (idOrden) "+
+						"REFERENCES ordentrazabilidad (id),"+
+	                    "FOREIGN KEY (idCadena) "+
+						"REFERENCES cadena (idCadena)"+
 	                    ");"
 	    );
 	    pst22.executeUpdate();
@@ -322,7 +393,7 @@ public class metodosCompany {
 	             throw new NullException("La geolocalización introducida no es válida.");
 		}
 		conectar();
-		String query = "INSERT INTO company.geolocalizacion (id, idOrden, idPedido, coordenadas) VALUES (?, ?, ?, ?);";
+		String query = "INSERT INTO company.geolocalizacion (id, idOrden, idCadena, coordenadas) VALUES (?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, geo.getId());
 		pst.setInt(2, geo.getIdOrden());
@@ -398,7 +469,7 @@ public class metodosCompany {
 		}
 		conectar();
 		//comprobar que los productos no pueden ser null
-		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, estado, firmaRecogida, firmaEntrega, idTransportista, idRegistro, idPedido)"
+		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, estado, firmaRecogida, firmaEntrega, idTransportista, idRegistro, idCadena)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, orden.getId());
@@ -464,14 +535,14 @@ public class metodosCompany {
 		//conn.close();
 	}
 
-	public static Cadena extraerCadena(int idPedido) throws SQLException {
+	public static Cadena extraerCadena(int idCadena) throws SQLException {
 		conectar();
-		String query = "SELECT * FROM company.cadena WHERE cadena.idPedido = "+idPedido;
+		String query = "SELECT * FROM company.cadena WHERE cadena.idCadena = "+idCadena;
 		Statement pst = conn.createStatement();
 		ResultSet rs = pst.executeQuery(query);
 		Cadena buscado = null;
 		while(rs.next()) {
-			buscado = new Cadena(idPedido, rs.getString(2), rs.getInt(3));
+			buscado = new Cadena(idCadena, rs.getString(2), rs.getInt(3));
 		}
 		pst.close();
 		rs.close();
@@ -483,22 +554,22 @@ public class metodosCompany {
 		if(cadena == null){
 	             throw new NullException("La cadena introducida no es válida.");
 		}
-		int idPedido = cadena.getCodLote();
-		if(extraerCadena(idPedido)!= null) {
+		int idCadena = cadena.getCodLote();
+		if(extraerCadena(idCadena)!= null) {
 			conectar();
-			String query = "UPDATE company.cadena SET hashInicio = ? , numBloques = ?  WHERE idPedido= ?";
+			String query = "UPDATE company.cadena SET hashInicio = ? , numBloques = ?  WHERE idCadena= ?";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			pst.setString(1, cadena.getHashUltimoBloque());
 			pst.setInt(2, cadena.getNumBloques());
-			pst.setInt(3, idPedido);
+			pst.setInt(3, idCadena);
 			pst.executeUpdate();
 			pst.close();
 			//conn.close();
 		}else {
 			conectar();
-			String query = "INSERT INTO company.cadena (idPedido, hashInicio, numBloques) VALUES (?, ?, ?);";
+			String query = "INSERT INTO company.cadena (idCadena, hashInicio, numBloques) VALUES (?, ?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-			pst.setInt(1, idPedido);
+			pst.setInt(1, idCadena);
 			pst.setString(2, cadena.getHashUltimoBloque());
 			pst.setInt(3, cadena.getNumBloques());
 			pst.executeUpdate();
@@ -554,7 +625,7 @@ public class metodosCompany {
 	             throw new NullException("El registro introducido no es válido.");
 		}
 		conectar();
-		String query = "INSERT INTO company.registro (id, idOrden, idPedido, fechaInicio, fechaFin, tempMax, tempMin) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO company.registro (id, idOrden, idCadena, fechaInicio, fechaFin, tempMax, tempMin) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, registro.getId());
 		pst.setInt(2, registro.getIdOrdenTrazabilidad());
@@ -912,7 +983,7 @@ public class metodosCompany {
 	   		switch(actor.getTipoActor()){
 	   		case 4:
 	   			conectar();
-			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?);"; 
+			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, idOrden, idCadena, idActor) VALUES ( ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			    Date date = new Date(System.currentTimeMillis());
 		        pst.setInt(1, stockLote.getLote().getIdBd());
@@ -925,7 +996,7 @@ public class metodosCompany {
 			    break;
 	   		case 3:
 	   			conectar();
-			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, fecha_entrada, idOrden, idPedido) VALUES (?, ?, ?, ?);"; 
+			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, fecha_entrada, idOrden, idCadena) VALUES (?, ?, ?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
 			    Date date2 = new Date(System.currentTimeMillis());
 		        pst2.setInt(1, stockLote.getLote().getIdBd());
@@ -942,7 +1013,7 @@ public class metodosCompany {
 	   		switch(actor.getTipoActor()){
 	   		case 4:
 	   			conectar();
-			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?, ?);"; 
+			    String query = "INSERT INTO company.stockRetailer (idLote, fecha_entrada, fecha_salida, idOrden, idCadena, idActor) VALUES ( ?, ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			    Date date = new Date(System.currentTimeMillis());
 		        pst.setInt(1, stockLote.getLote().getIdBd());
@@ -956,7 +1027,7 @@ public class metodosCompany {
 			    break;
 	   		case 3:
 	   			conectar();
-			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, fecha_entrada, fecha_salida, idOrden, idPedido) VALUES (?, ?, ?, ?, ?);"; 
+			    String query2 = "INSERT INTO company.stockFabricaLotes (idLote, fecha_entrada, fecha_salida, idOrden, idCadena) VALUES (?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
 			    Date date2 = new Date(System.currentTimeMillis());
 		        pst2.setInt(1, stockLote.getLote().getIdBd());
@@ -979,7 +1050,7 @@ public class metodosCompany {
 	   		switch(actor.getTipoActor()){
 	   		case 0:
 	   			conectar();
-			    String query = "INSERT INTO company.stockAgricultor (idMateriaPrima, fecha_entrada, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?);"; 
+			    String query = "INSERT INTO company.stockAgricultor (idMateriaPrima, fecha_entrada, idOrden, idCadena, idActor) VALUES ( ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			    Date date = new Date(System.currentTimeMillis());
 		        pst.setInt(1, stockMateria.getMp().getId());
@@ -992,7 +1063,7 @@ public class metodosCompany {
 			    break;
 	   		case 1:
 	   			conectar();
-			    String query3 = "INSERT INTO company.stockCooperativa (idMateriaPrima, fecha_entrada, idOrden, idPedido, idActor) VALUES ( ?, ?, ?, ?, ?);"; 
+			    String query3 = "INSERT INTO company.stockCooperativa (idMateriaPrima, fecha_entrada, idOrden, idCadena, idActor) VALUES ( ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst3 = (PreparedStatement) conn.prepareStatement(query3);
 			    Date date3 = new Date(System.currentTimeMillis());
 		        pst3.setInt(1, stockMateria.getMp().getId());
@@ -1005,7 +1076,7 @@ public class metodosCompany {
 			    break;
 	   		case 3:
 	   			conectar();
-			    String query2 = "INSERT INTO company.stockFabricaMMPP (idMateriaPrima, fecha_entrada, idOrden, idPedido) VALUES (?, ?, ?, ?);"; 
+			    String query2 = "INSERT INTO company.stockFabricaMMPP (idMateriaPrima, fecha_entrada, idOrden, idCadena) VALUES (?, ?, ?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
 			    Date date2 = new Date(System.currentTimeMillis());
 		        pst2.setInt(1, stockMateria.getMp().getId());
@@ -1022,7 +1093,7 @@ public class metodosCompany {
 	   		switch(actor.getTipoActor()){
 	   		case 0:
 	   			conectar();
-			    String query = "INSERT INTO company.stockAgricultor (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES (?, ?, ?, ?, ?, ?);"; 
+			    String query = "INSERT INTO company.stockAgricultor (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idCadena, idActor) VALUES (?, ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			    Date date = new Date(System.currentTimeMillis());
 		        pst.setInt(1, stockMateria.getMp().getId());
@@ -1036,7 +1107,7 @@ public class metodosCompany {
 			    break;
 	   		case 1:
 	   			conectar();
-			    String query3 = "INSERT INTO company.stockCooperativa (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idPedido, idActor) VALUES (?, ?, ?, ?, ?, ?);"; 
+			    String query3 = "INSERT INTO company.stockCooperativa (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idCadena, idActor) VALUES (?, ?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst3 = (PreparedStatement) conn.prepareStatement(query3);
 			    Date date3 = new Date(System.currentTimeMillis());
 		        pst3.setInt(1, stockMateria.getMp().getId());
@@ -1050,7 +1121,7 @@ public class metodosCompany {
 			    break;
 	   		case 3:
 	   			conectar();
-			    String query2 = "INSERT INTO company.stockFabricaMMPP (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idPedido) VALUES (?, ?, ?, ?, ?);"; 
+			    String query2 = "INSERT INTO company.stockFabricaMMPP (idMateriaPrima, fecha_entrada, fecha_salida, idOrden, idCadena) VALUES (?, ?, ?, ?, ?);"; 
 			    PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement(query2);
 			    Date date2 = new Date(System.currentTimeMillis());
 		        pst2.setInt(1, stockMateria.getMp().getId());
@@ -1095,7 +1166,7 @@ public class metodosCompany {
     }
     public static int idPedido() throws SQLException, ClassNotFoundException{
         conectar();
-        String query = "SELECT MAX (idPedido) FROM company.cadena";
+        String query = "SELECT MAX (idCadena) FROM company.cadena";
         Statement pst = conn.createStatement();
         ResultSet rs = pst.executeQuery(query);
         int siguienteId = 1;
@@ -1198,7 +1269,7 @@ public class metodosCompany {
         switch(actor.getTipoActor()){
         case 0:
             conectar();
-            String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockAgricultor WHERE fecha_salida <> NULL)";
+            String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idCadena = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockAgricultor WHERE fecha_salida <> NULL)";
             Statement pst = conn.createStatement();
             ResultSet rs = pst.executeQuery(query);
             while(rs.next()) {
@@ -1211,7 +1282,7 @@ public class metodosCompany {
             break;
         case 1:
             conectar();
-            String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockCooperativa WHERE fecha_salida <> NULL)";
+            String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idCadena = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockCooperativa WHERE fecha_salida <> NULL)";
             Statement pst2 = conn.createStatement();
             ResultSet rs2 = pst2.executeQuery(query2);
             while(rs2.next()) {
@@ -1224,7 +1295,7 @@ public class metodosCompany {
             break;
         case 3:
             conectar();
-            String query3 = "SELECT * FROM company.stockfabricalotes WHERE idPedido = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockfabricalotes WHERE fecha_salida <> NULL)";
+            String query3 = "SELECT * FROM company.stockfabricalotes WHERE idCadena = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockfabricalotes WHERE fecha_salida <> NULL)";
             Statement pst3 = conn.createStatement();
             ResultSet rs3 = pst3.executeQuery(query3);
             while(rs3.next()) {
