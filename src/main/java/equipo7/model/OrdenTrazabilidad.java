@@ -45,9 +45,9 @@ public class OrdenTrazabilidad extends DatosContainer
 		//Datos del transportista
 		private Actor transportista;
 		//idRegistro del transporte -> Lo rellena el transportista en firmaEntrega
-		private int idRegistro;
+		private Integer idRegistro;
 		//id de la cadena, del pedido total
-		private int idPedido;
+		private Integer idPedido;
 		//fecha para BBDD
 		private Date fecha;
 		
@@ -84,8 +84,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.firmaRecogida = "";
 			this.firmaEntrega = "";
 			this.transportista=null;
-			this.idPedido=-1;
-			this.idRegistro=-1;
+
 			
 			
 		}
@@ -104,9 +103,6 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.firmaRecogida=firmaRecogida;
 			this.firmaEntrega= "";
 			this.transportista=transportista;
-			this.estado=-1;
-			this.idRegistro=-1;
-			this.idPedido=-1;
 			
 		}
 
@@ -214,7 +210,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.transportista = transportista;
 		}
 
-		public int getIdRegistro() {
+		public Integer getIdRegistro() {
 			return idRegistro;
 		}
 
@@ -222,7 +218,7 @@ public class OrdenTrazabilidad extends DatosContainer
 			this.idRegistro = idRegistro;
 		}
 
-		public int getIdPedido() {
+		public Integer getIdPedido() {
 			return idPedido;
 		}
 
