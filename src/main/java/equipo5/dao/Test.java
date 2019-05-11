@@ -240,8 +240,7 @@ public class Test extends metodosCompany {
 			// PRUEBAS BASICAS, NINGUNA DEBE LANZAR ERROR.
 
 			// Pruebas Actor
-			Actor vacio = new Actor();
-			vacio.setId("-1");
+			
 			Actor prueba = new Actor("10", "Agricultor", "password", "agri@gmail.es", 1, "Calle Ribera", "juan",
 					"Calle Goicoechea", "fg3");
 			Actor emisor1 = new Actor("15", "alberto", "password", "alberto@gmail.es", 1, "Calle Ribera", "alberto",
@@ -258,7 +257,6 @@ public class Test extends metodosCompany {
 					+ "kkkk"
 					+ "", "password", "rick@gmail.es", 4, "Calle Gaseta", "rick",
 					"Avenida Argentina", "fg0");
-			insertarActor(vacio);
 			insertarActor(prueba);
 			insertarActor(emisor1);
 			insertarActor(emisor2);
@@ -615,7 +613,7 @@ public class Test extends metodosCompany {
 				System.out.println("Registro con Orden 2:" + aux.getId() + "Fecha ini:" + aux.getFechaInicio()
 						+ "Fecha fin:" + aux.getFechaFin());
 			}
-
+			System.out.println(extraerTodasLasOrdenes().size());
 			System.out.print("Pasados todos los test correctamente");
 
 		} catch (Exception e) {

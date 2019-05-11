@@ -127,11 +127,11 @@ public class metodosCompany {
 						"fechaFin VARCHAR(45), " +
 						"tempMax VARCHAR(45), " +
 						"tempMin VARCHAR(45), " +
-						"PRIMARY KEY (id)," +
+						"PRIMARY KEY (id)" +
 //						"FOREIGN KEY (idOrden) "+
 //						"REFERENCES ordenTrazabilidad (id),"+
-						"FOREIGN KEY (idCadena) "+
-						"REFERENCES company.cadena (idCadena)"+
+//						"FOREIGN KEY (idCadena) "+
+//						"REFERENCES company.cadena (idCadena)"+
 						");"
 				);
 		pst14.executeUpdate();
@@ -171,19 +171,19 @@ public class metodosCompany {
 						"idRegistro INT, " +
 						"idCadena INT NOT NULL, " +
 						"fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
-						"PRIMARY KEY (id, fecha)," +
-						"FOREIGN KEY (idActorOrigen) "+
-						"REFERENCES company.actor (cif),"+
-						"FOREIGN KEY (idActorDestino) "+
-						"REFERENCES company.actor (cif),"+
-						"FOREIGN KEY (idTransportista) "+
-						"REFERENCES company.actor (cif),"+
-						"FOREIGN KEY (idProductos) "+
-						"REFERENCES company.productos (id),"+
-						"FOREIGN KEY (idRegistro) "+
-						"REFERENCES company.registro (id),"+
-						"FOREIGN KEY (idCadena) "+
-						"REFERENCES company.cadena (idCadena)"+
+						"PRIMARY KEY (id, fecha)" +
+//						"FOREIGN KEY (idActorOrigen) "+
+//						"REFERENCES company.actor (cif),"+
+//						"FOREIGN KEY (idActorDestino) "+
+//						"REFERENCES company.actor (cif),"+
+//						"FOREIGN KEY (idTransportista) "+
+//						"REFERENCES company.actor (cif),"+
+//						"FOREIGN KEY (idProductos) "+
+//						"REFERENCES company.productos (id),"+
+//						"FOREIGN KEY (idRegistro) "+
+//						"REFERENCES company.registro (id),"+
+//						"FOREIGN KEY (idCadena) "+
+//						"REFERENCES company.cadena (idCadena)"+
 						");"
 						
 				);
@@ -201,9 +201,9 @@ public class metodosCompany {
 						"timeStamp FLOAT, " +
 						"idCadena INT NOT NULL, " +
                         "estadoOrden INT NOT NULL, "+
-						"PRIMARY KEY (hashBloque)," +
-						"FOREIGN KEY (idCadena) "+
-						"REFERENCES company.cadena (idCadena)"+
+						"PRIMARY KEY (hashBloque)" +
+//						"FOREIGN KEY (idCadena) "+
+//						"REFERENCES company.cadena (idCadena)"+
 						");"
 
 				);
@@ -218,13 +218,13 @@ public class metodosCompany {
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
 	                    "idCadena INT NOT NULL ," +
-						"PRIMARY KEY (idStockFabricaLotes), "+
-						"FOREIGN KEY (idLote) "+
-						"REFERENCES company.lote (idLote),"+
+						"PRIMARY KEY (idStockFabricaLotes) "+
+//						"FOREIGN KEY (idLote) "+
+//						"REFERENCES company.lote (idLote),"+
 //						"FOREIGN KEY (idOrden) "+
 //						"REFERENCES company.ordentrazabilidad (id),"+
-						"FOREIGN KEY (idCadena) "+
-						"REFERENCES company.cadena (idCadena)"+
+//						"FOREIGN KEY (idCadena) "+
+//						"REFERENCES company.cadena (idCadena)"+
 						");"
 				);
 		pst4.executeUpdate();
@@ -239,15 +239,15 @@ public class metodosCompany {
 	                    "idOrden INT NOT NULL ," +
 	                    "idCadena INT NOT NULL ," +
 	            		"idActor VARCHAR(45) NOT NULL," +
-	                    "PRIMARY KEY (idStockCooperativa)," +
-	                    "FOREIGN KEY (idMateriaPrima) "+
-						"REFERENCES company.materiaprima (idMateriaPrima),"+
+	                    "PRIMARY KEY (idStockCooperativa)" +
+//	                    "FOREIGN KEY (idMateriaPrima) "+
+//						"REFERENCES company.materiaprima (idMateriaPrima),"+
 //						"FOREIGN KEY (idOrden) "+
 //						"REFERENCES company.ordentrazabilidad (id),"+
-						"FOREIGN KEY (idCadena) "+
-						"REFERENCES company.cadena (idCadena),"+
-						"FOREIGN KEY (idActor) "+
-						"REFERENCES company.actor (cif)"+
+//						"FOREIGN KEY (idCadena) "+
+//						"REFERENCES company.cadena (idCadena),"+
+//						"FOREIGN KEY (idActor) "+
+//						"REFERENCES company.actor (cif)"+
 	                    ");"  
 	    );
 	    pst17.executeUpdate();
@@ -261,15 +261,15 @@ public class metodosCompany {
 	                    "idOrden INT NOT NULL ," +
 	                    "idCadena INT NOT NULL ," +
 	                    "idActor VARCHAR(45) NOT NULL ," +
-	                    "PRIMARY KEY (idStockRetailer), " +
-	                    "FOREIGN KEY (idLote) "+
-						"REFERENCES company.lote (idLote),"+
+	                    "PRIMARY KEY (idStockRetailer) " +
+//	                    "FOREIGN KEY (idLote) "+
+//						"REFERENCES company.lote (idLote),"+
 //						"FOREIGN KEY (idOrden) "+
 //						"REFERENCES company.ordentrazabilidad (id),"+
-						"FOREIGN KEY (idCadena) "+
-						"REFERENCES company.cadena (idCadena),"+
-						"FOREIGN KEY (idActor) "+
-						"REFERENCES company.actor (cif)"+
+//						"FOREIGN KEY (idCadena) "+
+//						"REFERENCES company.cadena (idCadena),"+
+//						"FOREIGN KEY (idActor) "+
+//						"REFERENCES company.actor (cif)"+
 	                    ");"
 	    );
 	    pst18.executeUpdate();
@@ -282,15 +282,15 @@ public class metodosCompany {
 	                    "idOrden INT NOT NULL ," +
 	                    "idCadena INT NOT NULL ," +
 	            		"idActor VARCHAR(45) NOT NULL," +
-	                    "PRIMARY KEY (idStockAgricultor), " + 
-	                    "FOREIGN KEY (idMateriaPrima) "+
-						"REFERENCES company.materiaprima (idMateriaPrima),"+
+	                    "PRIMARY KEY (idStockAgricultor) " + 
+//	                    "FOREIGN KEY (idMateriaPrima) "+
+//						"REFERENCES company.materiaprima (idMateriaPrima),"+
 //						"FOREIGN KEY (idOrden) "+
 //						"REFERENCES company.ordentrazabilidad (id),"+
-						"FOREIGN KEY (idCadena) "+
-						"REFERENCES company.cadena (idCadena),"+
-						"FOREIGN KEY (idActor) "+
-						"REFERENCES company.actor (cif)"+
+//						"FOREIGN KEY (idCadena) "+
+//						"REFERENCES company.cadena (idCadena),"+
+//						"FOREIGN KEY (idActor) "+
+//						"REFERENCES company.actor (cif)"+
 	                    ");"
 	    );
 	    pst19.executeUpdate();
@@ -303,13 +303,13 @@ public class metodosCompany {
 						"fecha_salida TIMESTAMP, " +
 	                    "idOrden INT NOT NULL ," +
 	                    "idCadena INT NOT NULL ," +
-	                    "PRIMARY KEY (idStockMMPP), " + 
-	                    "FOREIGN KEY (idMateriaPrima) "+
-						"REFERENCES company.materiaprima (idMateriaPrima),"+
+	                    "PRIMARY KEY (idStockMMPP) " + 
+//	                    "FOREIGN KEY (idMateriaPrima) "+
+//						"REFERENCES company.materiaprima (idMateriaPrima),"+
 //						"FOREIGN KEY (idOrden) "+
 //						"REFERENCES company.ordentrazabilidad (id),"+
-						"FOREIGN KEY (idCadena) "+
-						"REFERENCES company.cadena (idCadena)"+
+//						"FOREIGN KEY (idCadena) "+
+//						"REFERENCES company.cadena (idCadena)"+
 	                    ");"
 	    );
 	    pst20.executeUpdate();
@@ -334,11 +334,11 @@ public class metodosCompany {
 	            		"idCadena INT NOT NULL," +
 	            		"coordenadas VARCHAR(45)," +
 	                    "fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP ," +
-	                    "PRIMARY KEY (id), " + 
+	                    "PRIMARY KEY (id) " + 
 //	                    "FOREIGN KEY (idOrden) "+
 //						"REFERENCES company.ordentrazabilidad (id),"+
-	                    "FOREIGN KEY (idCadena) "+
-						"REFERENCES company.cadena (idCadena)"+
+//	                    "FOREIGN KEY (idCadena) "+
+//						"REFERENCES company.cadena (idCadena)"+
 	                    ");"
 	    );
 	    pst22.executeUpdate();
@@ -1362,5 +1362,33 @@ public class metodosCompany {
         //conn.close();
         return null;    
     }
+    	public static ArrayList<OrdenTrazabilidad> extraerTodasLasOrdenes() throws SQLException, ClassNotFoundException{
+    		conectar();
+    		ArrayList<OrdenTrazabilidad> lista = new ArrayList<OrdenTrazabilidad>();
+    		String query = "SELECT * FROM company.ordenTrazabilidad;";
+    		Statement pst = conn.createStatement();
+    		ResultSet rs = pst.executeQuery(query);
+    		while(rs.next()) {
+    			Actor actorOrigen = extraerActor(rs.getString(2));
+    			Actor actorDestino = extraerActor(rs.getString(3));
+    			Productos productos = extraerProductos(rs.getInt(5));
+    			Actor actorTransportista= null;
+    			if ( extraerActor(rs.getString(9)) != null &&  extraerActor(rs.getString(9)).getId() != "-1") {
+    				actorTransportista = extraerActor(rs.getString(9));
+    			}
+    			ArrayList<Integer> productosOrden = new ArrayList<Integer>();
+    			if(extraerProductosOrden(rs.getInt(1))!=null) {
+    				productosOrden = extraerProductosOrden(rs.getInt(1));
+    			}
+    			OrdenTrazabilidad buscado = new OrdenTrazabilidad(rs.getInt(1), actorOrigen, actorDestino, rs.getBoolean(4), productos,
+    					productosOrden, rs.getInt(6), null, null, actorTransportista, rs.getInt(10), rs.getInt(11), rs.getDate(12));
+    			buscado.setFirmaEntregaBBDD(rs.getBytes(8));
+    			buscado.setFirmaRecogidaBBDD(rs.getBytes(7));
+    			lista.add(buscado);
+    		}		
+    		pst.close();
+    		rs.close();
+    		return lista;	
+    	}
    
 }
