@@ -329,7 +329,7 @@ public class StockController {
 				lista = metodosCompany.extraerStockMP(actor, orden.getId());
 				for (StockMP var : lista) {
 						stock.addProperty(
-											lista_nombre_mp.get(var.getMp().getTipo()), 
+											var.getMp().getTipo(), 
 											var.getMp().getCantidad()
 											);
 				}
