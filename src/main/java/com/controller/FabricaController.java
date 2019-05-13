@@ -33,19 +33,19 @@ import equipo6.model.Actor;
 		
 
 
-		//va a dar error hasta que equipo5 suba el código de este sprint a máster
+		//va a dar error hasta que equipo5 suba el cÃ³digo de este sprint a mÃ¡ster
 //		LinkedList<StockLote> lista = StockController.getStockListas();
 		
 		/*
-		 * Comprueba si en la lista se encuentra el lote con el número de lote introducido
-		 * para devolver información acerca de él
+		 * Comprueba si en la lista se encuentra el lote con el nÃºmero de lote introducido
+		 * para devolver informaciÃ³n acerca de Ã©l
 		 */
 		/*@Scope("request")
 		@RequestMapping("/numLote")
 		@ResponseBody
 		public JsonObject obtenerNumLote(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nÃºmero de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
@@ -169,7 +169,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String llegadaALaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nÃºmero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
             Actor actor = new Actor(null,null,null,3);
@@ -199,7 +199,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String molienda(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nÃºmero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -228,7 +228,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String coccion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nÃºmero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -258,7 +258,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String fermentacion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nÃºmero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -291,7 +291,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String embotellado(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nÃºmero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -322,7 +322,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String salidaDeLaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nÃºmero de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
@@ -439,6 +439,23 @@ import equipo6.model.Actor;
 			obj.addProperty("info", info.toString());
 
 			return obj.toString();
+		}
+		
+		
+		@Scope("request")
+		@RequestMapping("/ponerTabla")
+		@ResponseBody
+		public static String ponerTabla(HttpServletResponse response, Model model) 
+						throws Exception {
+			String s = "";
+			Actor actor = new Actor(null,null,null,3);
+			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
+			
+			for(int i = 0; i<lista.length(); i++) {
+				s+="Lote: "+lista.getLote().getIdBd()+"  Fase: "+comprobarFase(lista[i].getLote().getIdBd()+"\n");
+			}
+			return s;
+			
 		}
 		
 	
