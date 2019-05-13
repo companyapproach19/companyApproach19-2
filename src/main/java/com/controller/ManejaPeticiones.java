@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo7.otros.DescodificadorJson;
+import equipo7.otros.IDsOrdenes;
 import equipo7.otros.ListaIDs;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
@@ -434,18 +435,21 @@ public class ManejaPeticiones {
 	@RequestMapping("/listaOrden")
 	@ResponseBody
 	public String listaOrden(HttpServletResponse response,
-			@RequestParam(name="ids", required=true) String id) throws Throwable{
+			@RequestParam(name="ids", required=true) String ids) throws Throwable{
 
 		DescodificadorJson decoder = new DescodificadorJson();
 		IDsOrdenes ordenes = decoder.DescodificadorJSONrespuestas(ids);
 
 		BlockchainServices bloque = new BlockchainServices();
 		OrdenTrazabilidad ordenAResponder = bloque.getOrden(ordenes.getIdOrdenAResponder());
+		//ordenRespuesta es la orden que se utiliza para responder a ordenAResponder
 		OrdenTrazabilidad ordenRespuesta = bloque.getOrden(ordenes.getIdOrdenRespuesta());
 
 		if(ordenAResponder != null && ordenRespuesta != null &&
-				ordenRespuesta.getEstado == 4) {
+				ordenRespuesta.getEstado() == 4) {
 			//En orden hay que rellenar el campo de los productosAEntregar y cambiar el estado
+			if(ordenAResponder.getActorOrigen().getTipoActor()==3){
+			ordenAResponder.setProductosAEntregar(ordenRespuesta.getProductosAEntregar());
 			//Hay que activar necesitaTransportista
 			ordenAResponder.setEstado(2);
 			ordenAResponder.setNecesitaTransportista(true);
@@ -453,10 +457,12 @@ public class ManejaPeticiones {
 			//Guardamos la orden actualizada en BBDD
 			bloque.guardarOrden(ordenAResponder);
 			return CodificadorJSON.crearJSON(ordenAResponder);
+			}
 		}
 		else {
 			return "ERROR: no existe alguna de las ordenes asociadas a estos IDs";
 		}
+		
 		
 	}
 	
