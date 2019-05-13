@@ -213,6 +213,74 @@ public class ManejaPeticiones {
 			return CodificadorJSON.crearJSONlista(listaIDs);
 		}
 	}
+	
+	//PARA EQUIPO 2: VISTAS
+		@Scope("request")
+		@RequestMapping("/ordenesCompletadas")
+		@ResponseBody
+		public String ordenesCompletadas(HttpServletResponse response,
+				@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+					
+			BlockchainServices bloque = new BlockchainServices();
+			//Obtenemos las ordenes
+			ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
+			ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+			ListaIDs listaIDs = new ListaIDs();
+			
+			if(ordenes!=null && ordenes.size()>0) {
+							
+				Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+				while(it.hasNext()) {
+					//Hay que asegurarse que el actor sea origen
+					OrdenTrazabilidad actual = it.next();
+					if(actual.getActorOrigen().getId().compareTo(idActor)==0) {
+						if(actual.getEstado()==4) {
+							ordenesIds.add(actual.getId());			
+						}
+					}
+				}
+
+				listaIDs.setListaIDs(ordenesIds);
+				return CodificadorJSON.crearJSONlista(listaIDs);
+			} else {
+				listaIDs.setListaIDs(null);
+				return CodificadorJSON.crearJSONlista(listaIDs);
+			}
+		}
+		
+		//PARA EQUIPO 2: VISTAS
+				@Scope("request")
+				@RequestMapping("/ordenesQueMeHanAceptado")
+				@ResponseBody
+				public String ordenesAceptadas(HttpServletResponse response,
+						@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+							
+					BlockchainServices bloque = new BlockchainServices();
+					//Obtenemos las ordenes
+					ArrayList<OrdenTrazabilidad> ordenes = bloque.extraerOrdenesOrigen(idActor);
+					ArrayList<Integer> ordenesIds = new ArrayList<Integer>();
+					ListaIDs listaIDs = new ListaIDs();
+					
+					if(ordenes!=null && ordenes.size()>0) {
+									
+						Iterator<OrdenTrazabilidad> it = ordenes.iterator();
+						while(it.hasNext()) {
+							//Hay que asegurarse que el actor sea origen
+							OrdenTrazabilidad actual = it.next();
+							if(actual.getActorOrigen().getId().compareTo(idActor)==0) {
+								if(actual.getEstado()==1 && actual.getEstado()<4) {
+									ordenesIds.add(actual.getId());			
+								}
+							}
+						}
+
+						listaIDs.setListaIDs(ordenesIds);
+						return CodificadorJSON.crearJSONlista(listaIDs);
+					} else {
+						listaIDs.setListaIDs(null);
+						return CodificadorJSON.crearJSONlista(listaIDs);
+					}
+				}	
 		
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
