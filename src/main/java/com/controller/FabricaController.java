@@ -1,19 +1,19 @@
 package com.controller;
 
-	import java.util.Date;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-	import javax.servlet.http.Cookie;
-	import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
-	import org.springframework.boot.autoconfigure.SpringBootApplication;
-	import org.springframework.context.annotation.Scope;
-	import org.springframework.stereotype.Controller;
-	import org.springframework.ui.Model;
-	import org.springframework.web.bind.annotation.RequestMapping;
-	import org.springframework.web.bind.annotation.RequestParam;
-	import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 	//import com.controller.Lote;
 	import com.google.gson.JsonObject;
@@ -33,19 +33,19 @@ import equipo6.model.Actor;
 		
 
 
-		//va a dar error hasta que equipo5 suba el código de este sprint a máster
+		//va a dar error hasta que equipo5 suba el cï¿½digo de este sprint a mï¿½ster
 //		LinkedList<StockLote> lista = StockController.getStockListas();
 		
 		/*
-		 * Comprueba si en la lista se encuentra el lote con el número de lote introducido
-		 * para devolver información acerca de él
+		 * Comprueba si en la lista se encuentra el lote con el nï¿½mero de lote introducido
+		 * para devolver informaciï¿½n acerca de ï¿½l
 		 */
 		/*@Scope("request")
 		@RequestMapping("/numLote")
 		@ResponseBody
 		public JsonObject obtenerNumLote(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
@@ -91,6 +91,23 @@ import equipo6.model.Actor;
 			obj.addProperty("existe", existe);
 			return obj.toString();
 		}
+        
+        @Scope("request")
+        @RequestMapping("/fabricaComenzarProduccion")
+        @ResponseBody
+        public void fabricaComenzarProduccion(HttpServletResponse response,
+                                              @RequestParam(name="idOrden", required=true) String idOrden,
+                                              Model model) throws Throwable {
+            try{
+                int idOrden = Integer.parseInt(idOrden);
+            } catch (Exception e) {
+                e.printStackTrace();
+			}
+			
+			OrdenTrazabilidad ot = BlockchainServices.getOrden(idOrden); //devuelve un objeto de tipo OrdenTrazabilidad
+			Productos prod = ot.getProductosPedidos(); //aquÃ­ tienes las cantidades de materias primas
+			
+        }
             
 		
         @Scope("request")
@@ -169,7 +186,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String llegadaALaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
             Actor actor = new Actor(null,null,null,3);
@@ -199,7 +216,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String molienda(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -228,7 +245,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String coccion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -258,7 +275,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String fermentacion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -291,7 +308,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String embotellado(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -322,7 +339,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String salidaDeLaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
