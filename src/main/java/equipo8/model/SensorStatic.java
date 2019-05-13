@@ -177,6 +177,15 @@ public class SensorStatic{
 		serialPort.closePort();
 	}
 
+	public static int idUltimoRegistro(int idOrden) {
+		try {
+			return equipo5.dao.metodosCompany.extraerUltimoRegistro(idOrden).getId();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public static void cambiarIntervalo(int millisleer,int milliscrear) {
 		if(millisleer <1500 || milliscrear < millisleer) {
 			System.err.print("Intervalos no posibles");

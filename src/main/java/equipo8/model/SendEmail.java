@@ -9,7 +9,7 @@ package equipo8.model;
 	 private final String emailSMTPserver = "smtp.gmail.com"; 
 	 private final String emailServerPort = "465"; 
 	 private String receiverEmailID = null; 
-	 private static String emailSubject = "Alerta exceso de temperaturas durante el transporte"; 
+	 private static String emailSubject = "Alerta Exceso de Temperaturas durante el Transporte"; 
 	 private static String emailBody; 
 	 
 	 public SendEmail(String receiverEmailID,String Subject, String Body,int idPedido){ 
