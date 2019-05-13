@@ -435,7 +435,7 @@ public class ManejaPeticiones {
 		
 		if(orden!=null) {
 			//Avisamos al equipo8(equipo del sensor) de que acaba el transporte
-			int idRegistro = 80;//equipo8.model.SensorStatic.terminar();
+			int idRegistro = equipo8.model.SensorStatic.idUltimoRegistro();
 			
 			//Hay que rellenar orden con los campos de miniOrden y el idRegistro
 			orden.setFirmaEntrega(miniOrden.getFirmaEntrega());
