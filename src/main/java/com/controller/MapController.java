@@ -160,12 +160,20 @@ public class MapController {
 	
 	private String getLat(String localizacion) {
 		String[] p = localizacion.split(";");
-		return p[0];
+		if(p.length==2) {
+			return p[1];
+		}else {
+			return "40.4130076";
+		}
 	}
 	
 	private String getLon(String localizacion) {
 		String[] p = localizacion.split(";");
-		return p[1];
+		if(p.length==2) {
+			return p[1];
+		}else {
+			return "-3.8243319";
+		}
 	}
 
 }
