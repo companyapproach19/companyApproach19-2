@@ -42,17 +42,13 @@ public class ManejaPeticiones {
 		
 		//Pedimos id de la orden
 		int idOrden = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
-		int idPedido = inicial.getIdPedido();
-		if(inicial.getActorOrigen().getTipoActor()==4) {
-			//Si se trata de Retailer, hay que pedir el idPedido a BBDD
-			idPedido = equipo5.dao.metodosCompany.idPedido();
-		}
 		
 		if(inicial.getActorOrigen()!=null && inicial.getActorDestino()!=null && inicial.getProductosPedidos()!=null) {
 			//Creamos el objeto orden
 			OrdenTrazabilidad orden = new OrdenTrazabilidad(idOrden, inicial.getActorOrigen(),
 					inicial.getActorDestino(), inicial.getProductosPedidos());
-			orden.setIdPedido(idPedido);
+			// idPedido ya no se usa, aunque lo conservamos para otros equipos
+			orden.setIdPedido(idOrden);
 			
 			//Guardamos en la cadena la orden
 			BlockchainServices bloque = new BlockchainServices();
@@ -302,84 +298,71 @@ public class ManejaPeticiones {
 	@RequestMapping("/aceptarOrden")
 	@ResponseBody
 	public String aceptarOrden(HttpServletResponse response,
-			@RequestParam(name="id", required=true) String id) throws Throwable{
-		
+			@RequestParam(name="id", required=true) String id) throws Throwable {
+
 		int idInt = Integer.parseInt(id);
 
 		//Recuperamos la orden para cambiar el estado
 		BlockchainServices bloque = new BlockchainServices();
 		OrdenTrazabilidad orden = bloque.getOrden(idInt);
 		int idProd;
-		if(orden!=null) {
-			if(orden.getActorOrigen().getTipoActor()==0){
+		if (orden != null) {
+			if (orden.getActorOrigen().getTipoActor() == 0) {
 				//AGRICULTOR:
 				//Hay que recorrer los productos pedidos y por cada producto se genera un objeto
 				Productos productos = orden.getProductosPedidos();
-				if(productos.getCant_malta_base_palida()>0){
+				if (productos.getCant_malta_base_palida() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima maltaPalida = new MateriaPrima("MaltaBasePalida",idProd,productos.getCant_malta_base_palida());
-				}
-				else if(productos.getCant_malta_munich()>0){
+					MateriaPrima maltaPalida = new MateriaPrima("MaltaBasePalida", idProd, productos.getCant_malta_base_palida());
+				} else if (productos.getCant_malta_munich() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima maltaMunich = new MateriaPrima("MaltaMunich",idProd,productos.getCant_malta_munich());
-				}
-				else if(productos.getCant_malta_negra()>0){
+					MateriaPrima maltaMunich = new MateriaPrima("MaltaMunich", idProd, productos.getCant_malta_munich());
+				} else if (productos.getCant_malta_negra() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima maltaNegra = new MateriaPrima("MaltaNegra",idProd,productos.getCant_malta_negra());
-				}
-				else if(productos.getCant_malta_crystal()>0){
+					MateriaPrima maltaNegra = new MateriaPrima("MaltaNegra", idProd, productos.getCant_malta_negra());
+				} else if (productos.getCant_malta_crystal() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima maltaCrystal = new MateriaPrima("MaltaCrystal",idProd,productos.getCant_malta_crystal());
-				}
-				else if(productos.getCant_malta_chocolate()>0){
+					MateriaPrima maltaCrystal = new MateriaPrima("MaltaCrystal", idProd, productos.getCant_malta_crystal());
+				} else if (productos.getCant_malta_chocolate() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima maltaChocolate = new MateriaPrima("MaltaChocolate",idProd,productos.getCant_malta_chocolate());
-				}
-				else if(productos.getCant_malta_caramelo()>0){
+					MateriaPrima maltaChocolate = new MateriaPrima("MaltaChocolate", idProd, productos.getCant_malta_chocolate());
+				} else if (productos.getCant_malta_caramelo() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima maltaCaramelo = new MateriaPrima("MaltaCaramelo",idProd,productos.getCant_malta_caramelo());
-				}
-				else if(productos.getCant_malta_pilsner()>0){
+					MateriaPrima maltaCaramelo = new MateriaPrima("MaltaCaramelo", idProd, productos.getCant_malta_caramelo());
+				} else if (productos.getCant_malta_pilsner() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima maltaPilsner = new MateriaPrima("MaltaPilsner",idProd,productos.getCant_malta_pilsner());
-				}
-				else if(productos.getCant_cebada_tostada()>0){
+					MateriaPrima maltaPilsner = new MateriaPrima("MaltaPilsner", idProd, productos.getCant_malta_pilsner());
+				} else if (productos.getCant_cebada_tostada() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima cebadaTostada = new MateriaPrima("CebadaTostada",idProd,productos.getCant_cebada_tostada());
-				}
-				else if(productos.getCant_lupulo_centennial()>0){
+					MateriaPrima cebadaTostada = new MateriaPrima("CebadaTostada", idProd, productos.getCant_cebada_tostada());
+				} else if (productos.getCant_lupulo_centennial() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima lupuloCentennial = new MateriaPrima("LupuloCentennial",idProd,productos.getCant_lupulo_centennial());
-				}
-				else if(productos.getCant_lupulo_perle()>0){
+					MateriaPrima lupuloCentennial = new MateriaPrima("LupuloCentennial", idProd, productos.getCant_lupulo_centennial());
+				} else if (productos.getCant_lupulo_perle() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima lupuloPerle = new MateriaPrima("LupuloPerle",idProd,productos.getCant_lupulo_perle());
-				}
-				else if(productos.getCant_lupulo_tettnanger()>0){
+					MateriaPrima lupuloPerle = new MateriaPrima("LupuloPerle", idProd, productos.getCant_lupulo_perle());
+				} else if (productos.getCant_lupulo_tettnanger() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima lupuloTettnanger = new MateriaPrima("LupuloTettnanger",idProd,productos.getCant_lupulo_tettnanger());
-				}
-				else if(productos.getCant_levadura_lager()>0){
+					MateriaPrima lupuloTettnanger = new MateriaPrima("LupuloTettnanger", idProd, productos.getCant_lupulo_tettnanger());
+				} else if (productos.getCant_levadura_lager() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima levaduraLager = new MateriaPrima("LevaduraLager",idProd,productos.getCant_levadura_lager());
-				}
-				else if(productos.getCant_levadura_ale()>0){
+					MateriaPrima levaduraLager = new MateriaPrima("LevaduraLager", idProd, productos.getCant_levadura_lager());
+				} else if (productos.getCant_levadura_ale() > 0) {
 					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
-					MateriaPrima levaduraAle = new MateriaPrima("LevaduraAle",idProd,productos.getCant_levadura_ale());
+					MateriaPrima levaduraAle = new MateriaPrima("LevaduraAle", idProd, productos.getCant_levadura_ale());
 				}
 				orden.setEstado(4);
 				bloque.guardarOrden(orden);
 				return CodificadorJSON.crearJSON(orden);
-			}
-			else{
+			} else {
 				orden.setEstado(1);
 				bloque.guardarOrden(orden);
 				return CodificadorJSON.crearJSON(orden);
 			}
-		}
-		else {
+		} else {
 			return "ERROR: no existe la orden asociada a este ID";
 		}
+	}
 
 	
 	//PARA EQUIPO 2: VISTAS
@@ -410,35 +393,28 @@ public class ManejaPeticiones {
 	@RequestMapping("/listaOrden")
 	@ResponseBody
 	public String listaOrden(HttpServletResponse response,
-			@RequestParam(name="id", required=true) String id) throws Throwable{
+			@RequestParam(name="ids", required=true) String id) throws Throwable{
 
 		DescodificadorJson decoder = new DescodificadorJson();
-		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(id);
-		//miniOrden contiene el id de la orden y los porductosAEntregar
-		int idOrden = miniOrden.getId();
-		
-		//Con el idOrden sacamos la orden de BBDD
+		IDsOrdenes ordenes = decoder.DescodificadorJSONrespuestas(ids);
+
 		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad orden = bloque.getOrden(idOrden);
-		
-		
-		if(orden!=null && miniOrden.getProductosAEntregar()!=null) {
+		OrdenTrazabilidad ordenAResponder = bloque.getOrden(ordenes.getIdOrdenAResponder());
+		OrdenTrazabilidad ordenRespuesta = bloque.getOrden(ordenes.getIdOrdenRespuesta());
+
+		if(ordenAResponder != null && ordenRespuesta != null &&
+				ordenRespuesta.getEstado == 4) {
 			//En orden hay que rellenar el campo de los productosAEntregar y cambiar el estado
-			orden.setProductosAEntregar(miniOrden.getProductosAEntregar());
 			//Hay que activar necesitaTransportista
-			if(orden.getActorOrigen().getTipoActor()!=1) {
-				orden.setEstado(2);
-				orden.setNecesitaTransportista(true);
-			} else {
-				orden.setEstado(4);
-			}
+			ordenAResponder.setEstado(2);
+			ordenAResponder.setNecesitaTransportista(true);
 		
 			//Guardamos la orden actualizada en BBDD
-			bloque.guardarOrden(orden);
-			return CodificadorJSON.crearJSON(orden);
+			bloque.guardarOrden(ordenAResponder);
+			return CodificadorJSON.crearJSON(ordenAResponder);
 		}
 		else {
-			return "ERROR: no existe la orden asociada a este ID";
+			return "ERROR: no existe alguna de las ordenes asociadas a estos IDs";
 		}
 		
 	}
