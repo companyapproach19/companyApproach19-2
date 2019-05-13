@@ -402,8 +402,9 @@ public class ManejaPeticiones {
 			//Hay que rellenar los campos que tiene miniOrden en orden y cambiar el estado
 			orden.setFirmaRecogida(miniOrden.getFirmaRecogida());
 			orden.setTransportista(miniOrden.getTransportista());
-			//Cambiamos el estado a en proceso de entrega(3)
+			//Cambiamos el estado a en proceso de entrega(3) e indicamos que ya no necesita transportista
 			orden.setEstado(3);
+			orden.setNecesitaTransportista(false);
 			
 			//Ahora hay que guardar todos los cambios en BBDD
 			bloque.guardarOrden(orden);
@@ -435,7 +436,7 @@ public class ManejaPeticiones {
 		
 		if(orden!=null) {
 			//Avisamos al equipo8(equipo del sensor) de que acaba el transporte
-			int idRegistro = 80;//equipo8.model.SensorStatic.terminar();
+			int idRegistro = equipo8.model.SensorStatic.idUltimoRegistro();
 			
 			//Hay que rellenar orden con los campos de miniOrden y el idRegistro
 			orden.setFirmaEntrega(miniOrden.getFirmaEntrega());
