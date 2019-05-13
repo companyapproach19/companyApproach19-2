@@ -2,15 +2,17 @@ package equipo8.model;
  import javax.mail.*; 
  import javax.mail.internet.*; 
  import java.util.*; 
+ 
  public class SendEmail { 
-	 final String senderEmailID = "beercompany.abogados@gmail.com"; 
-	 final String senderPassword = "contrasena1"; 
-	 final String emailSMTPserver = "smtp.gmail.com"; 
-	 final String emailServerPort = "465"; 
-	 String receiverEmailID = null; 
-	 static String emailSubject = "Alerta exceso de temperaturas durante el transporte"; 
-	 static String emailBody = "El pedido con id 666 ha excedido los 31ºC"; 
-	 public SendEmail(String receiverEmailID,String Subject, String Body){ 
+	 private final String senderEmailID = "beercompany.abogados@gmail.com"; 
+	 private final String senderPassword = "contrasena1"; 
+	 private final String emailSMTPserver = "smtp.gmail.com"; 
+	 private final String emailServerPort = "465"; 
+	 private String receiverEmailID = null; 
+	 private static String emailSubject = "Alerta exceso de temperaturas durante el transporte"; 
+	 private static String emailBody; 
+	 
+	 public SendEmail(String receiverEmailID,String Subject, String Body,int idPedido){ 
 		 // Receiver Email Address this.receiverEmailID=receiverEmailID;  
 		 Properties props = new Properties(); 
 		 props.put("mail.smtp.user",
@@ -22,6 +24,7 @@ package equipo8.model;
 		 props.put("mail.smtp.socketFactory.port", emailServerPort); 
 		 props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); 
 		 props.put("mail.smtp.socketFactory.fallback", "false"); 
+		 emailBody = "El pedido con id " + idPedido + " ha excedido los 31ºC";
 		 try{ 
 			 Authenticator auth = new SMTPAuthenticator(); 
 			 Session session = Session.getInstance(props, auth); 
@@ -43,13 +46,13 @@ package equipo8.model;
 			 }
 		 }
 	 
-	 public static void main(String [] args) {
-		 SendEmail email;
-		 int temperaturaMax=40;
-		 
-		 if(temperaturaMax>31)
-			 email=new SendEmail("beercompany.abogados@gmail.com","Alerta","Temperaturas");
-	 }
+//	 public static void main(String [] args) {
+//		 SendEmail email;
+//		 int temperaturaMax=40;
+//		 
+//		 if(temperaturaMax>31)
+//			 email=new SendEmail("beercompany.abogados@gmail.com","Alerta","Temperaturas");
+//	 }
  }
 	 
  
