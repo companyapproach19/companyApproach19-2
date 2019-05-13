@@ -9,7 +9,7 @@ public class TestSensorRegistro {
 		SensorStatic.iniciarTransporte(608, 154);
 		try {
 			Thread.sleep(100000);//100 segs
-			SensorStatic.cambiarIntervalo(3000, 15000);
+			SensorStatic.cambiarIntervalo(3000, 10000);
 			Thread.sleep(100000);
 			SensorStatic.terminar();
 		} catch (InterruptedException e) {
@@ -34,6 +34,12 @@ public class TestSensorRegistro {
 	//prueba intervalo corto de tiempo
 	private static void prueba3() {
 		SensorStatic.iniciarTransporte(608, 154);
+		try {
+			Thread.sleep(2000);//100 segs
+			SensorStatic.terminar();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		SensorStatic.cambiarIntervalo(3000, 10000);
 		try {
 			Thread.sleep(100000);//100 segs
@@ -43,16 +49,6 @@ public class TestSensorRegistro {
 		}
 	}
 
-	private static void prueba4() {
-		SensorStatic.iniciarTransporte(608, 154);
-		SensorStatic.cambiarIntervalo((Integer) null, 10000);
-		try {
-			Thread.sleep(100000);//100 segs
-			SensorStatic.terminar();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 
 
 	//Ejemplo registro temperatura del Lote id 54 en dos trayectos:
@@ -60,8 +56,7 @@ public class TestSensorRegistro {
 
 		prueba1();
 		//prueba2();
-		prueba3();
-		//prueba4();
+		//prueba3();
 
 	}
 

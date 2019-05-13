@@ -14,7 +14,7 @@ public class Registro extends DatosContainer{
 	private String fechaFin;
 	private int tempMax;
 	private int tempMin;
-	//private static int contId = 1; //tests sin servidor
+	private static int contId = 1; //tests sin servidor
 	
 	public Registro(int id,int idOrdenTrazabilidad, int idPedido, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
 		this.id = id;
@@ -27,18 +27,18 @@ public class Registro extends DatosContainer{
 	}
 	
 	public Registro(int idPedido,int idOrdenTrazabilidad,String fechaInicio, String fechaFin, int tempMax, int tempMin) {
-		try {
-			this.id = equipo5.dao.metodosCompany.idRegistro();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+//		try {
+//			this.id = equipo5.dao.metodosCompany.idRegistro();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
 		//tests sin servidors
-//		this.id = contId;
-//		contId++;
+		this.id = contId;
+		contId++;
 		this.idOrdenTrazabilidad=idOrdenTrazabilidad;
 		this.idPedido = idPedido;
 		this.fechaInicio = fechaInicio;
