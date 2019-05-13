@@ -38,13 +38,6 @@
     animation: mover 1s infinite  alternate;
 }
 
-@-webkit-keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
-}
-@keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
 }
 .register-left p{
      
@@ -178,6 +171,7 @@
   /*background-position: right center;*/
 }
 
+
 .panel{
   margin-left: 100px;
   font-weight: 500;
@@ -228,56 +222,13 @@ body{
   margin-bottom: 0px;
 }
 
-#mapa {
-  margin-top: 7%;
 
-}
 #volver {
-  margin-right: 30px;
+  margin-left: 600px;
 
 }
 nav-item{
    margin-right: 30px;
 }
 
- .linea1 {
-    position: absolute;
-    left: 130px;
-    top: 280px;
-    height: 10px;
-    width: 700px;
-    z-index: 0;
-    }
- .linea2 {
-    position: absolute;
-    left: 500px;
-    top: 205px;
-    height: 10px;
-    width: 200px;
-    z-index: 0;
-    }
-
-  .linea2bis {
-    position: absolute;
-    left: 512px;
-    top: 212px;
-    height: 12px;
-    width: 205px;
-    z-index: 2;
-    }
-
- .linea3 {
-    position: absolute;
-    left: 520px;
-    top: 200px;
-    height: 10px;
-    width: 200px;
-    z-index: 0;
-    }
-    [data-linea2] {
-        border-top: black dashed 3px;
-    }
-    [data-linea3] {
-        border: #f8f9fa solid 20px;
-    }
-
+ 
