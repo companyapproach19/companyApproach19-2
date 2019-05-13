@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.otros.ListaIDs;
+import equipo7.otros.IDsOrdenes;
 
 public class CodificadorJSON {
 
@@ -21,6 +22,12 @@ public class CodificadorJSON {
     //Pasar una lista de ids de ordenes a json
     public static String crearJSONlista(ListaIDs ordenes) {
     	GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        return gson.toJson(ordenes);
+    }
+
+    public static String crearJSONrespuestas(IDsOrdenes ordenes) {
+        GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.setPrettyPrinting().create();
         return gson.toJson(ordenes);
     }

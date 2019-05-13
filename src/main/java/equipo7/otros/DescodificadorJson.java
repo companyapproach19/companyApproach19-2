@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.otros.ListaIDs;
+import equipo7.otros.IDsOrdenes;
 
 
 public class DescodificadorJson {
@@ -28,5 +29,10 @@ public class DescodificadorJson {
 		return gson.fromJson(jsonInicial, tipoObjeto);	
 	}
 
+	public IDsOrdenes DescodificadorJSONrespuestas(String ordenes) {
+		Gson gson=new Gson();
+		Type tipoObjeto = new TypeToken<IDsOrdenes>(){}.getType();
+		return gson.fromJson(ordenes, tipoObjeto);
+	}
 	
 }
