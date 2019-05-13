@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import equipo4.model.MateriaPrima;
 import equipo6.model.Actor;
 //NECESARIOS PARA TRAZABILIDAD:
 import equipo6.otros.BlockchainServices;
@@ -293,6 +294,9 @@ public class ManejaPeticiones {
 									
 	}
 	
+
+
+	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
 	@RequestMapping("/aceptarOrden")
@@ -305,17 +309,78 @@ public class ManejaPeticiones {
 		//Recuperamos la orden para cambiar el estado
 		BlockchainServices bloque = new BlockchainServices();
 		OrdenTrazabilidad orden = bloque.getOrden(idInt);
-		
+		int idProd;
 		if(orden!=null) {
-			orden.setEstado(1);
-			bloque.guardarOrden(orden);
-			return CodificadorJSON.crearJSON(orden);
+			if(orden.getActorOrigen().getTipoActor()==0){
+				//AGRICULTOR:
+				//Hay que recorrer los productos pedidos y por cada producto se genera un objeto
+				Productos productos = orden.getProductosPedidos();
+				if(productos.getCant_malta_base_palida()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima maltaPalida = new MateriaPrima("MaltaBasePalida",idProd,productos.getCant_malta_base_palida());
+				}
+				else if(productos.getCant_malta_munich()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima maltaMunich = new MateriaPrima("MaltaMunich",idProd,productos.getCant_malta_munich());
+				}
+				else if(productos.getCant_malta_negra()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima maltaNegra = new MateriaPrima("MaltaNegra",idProd,productos.getCant_malta_negra());
+				}
+				else if(productos.getCant_malta_crystal()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima maltaCrystal = new MateriaPrima("MaltaCrystal",idProd,productos.getCant_malta_crystal());
+				}
+				else if(productos.getCant_malta_chocolate()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima maltaChocolate = new MateriaPrima("MaltaChocolate",idProd,productos.getCant_malta_chocolate());
+				}
+				else if(productos.getCant_malta_caramelo()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima maltaCaramelo = new MateriaPrima("MaltaCaramelo",idProd,productos.getCant_malta_caramelo());
+				}
+				else if(productos.getCant_malta_pilsner()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima maltaPilsner = new MateriaPrima("MaltaPilsner",idProd,productos.getCant_malta_pilsner());
+				}
+				else if(productos.getCant_cebada_tostada()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima cebadaTostada = new MateriaPrima("CebadaTostada",idProd,productos.getCant_cebada_tostada());
+				}
+				else if(productos.getCant_lupulo_centennial()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima lupuloCentennial = new MateriaPrima("LupuloCentennial",idProd,productos.getCant_lupulo_centennial());
+				}
+				else if(productos.getCant_lupulo_perle()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima lupuloPerle = new MateriaPrima("LupuloPerle",idProd,productos.getCant_lupulo_perle());
+				}
+				else if(productos.getCant_lupulo_tettnanger()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima lupuloTettnanger = new MateriaPrima("LupuloTettnanger",idProd,productos.getCant_lupulo_tettnanger());
+				}
+				else if(productos.getCant_levadura_lager()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima levaduraLager = new MateriaPrima("LevaduraLager",idProd,productos.getCant_levadura_lager());
+				}
+				else if(productos.getCant_levadura_ale()>0){
+					idProd = equipo5.dao.metodosCompany.idMateriaPrima();
+					MateriaPrima levaduraAle = new MateriaPrima("LevaduraAle",idProd,productos.getCant_levadura_ale());
+				}
+				orden.setEstado(4);
+				bloque.guardarOrden(orden);
+				return CodificadorJSON.crearJSON(orden);
+			}
+			else{
+				orden.setEstado(1);
+				bloque.guardarOrden(orden);
+				return CodificadorJSON.crearJSON(orden);
+			}
 		}
 		else {
 			return "ERROR: no existe la orden asociada a este ID";
 		}
 
-	}
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
