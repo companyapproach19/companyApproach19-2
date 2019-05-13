@@ -42,11 +42,26 @@ public class Test extends metodosCompany {
 			crearBD();
 
 			// PETICIONES GRUPOS QUE DEBEN ESTAR EN LA BBDD.
+			// Pruebas Actor
+			
+			Actor agricultor = new Actor("0", "Productor", "password", "prod@gmail.es", 0, "40.4026076;-3.8363219", "Marta",
+					"Calle Valladolid", "3");
+			Actor cooperativa = new Actor("1", "Cooperativa", "password", "coop@gmail.es", 1, "40.4022076;-3.8369319", "Maria",
+					"Calle Murcia", null);
+			Actor transportista = new Actor("2", "Transportista", "password", "transp@gmail.es", 2, "40.4029076;-3.8369319",
+					"Luis", "Calle Cartagena", null);
+			Actor fabrica = new Actor("3", "Fabrica", "password", "fab@gmail.es", 3, "40.4025976;-3.8393319", "Fabrica",
+					"Calle AndalucÃ­a", null);
+			Actor retailer = new Actor("4", "Retailer", "password", "ret@gmail.es", 4, "40.4025079;-3.8369319", "Pilar",
+					"Calle Madrid", null);
 
+			insertarActor(agricultor);
+			insertarActor(cooperativa);
+			insertarActor(transportista);
+			insertarActor(fabrica);
+			insertarActor(retailer);
+			
 			// Un actor y una localizacion pedido por el grupo6 (Blockchain)
-			Actor G6 = new Actor("33", "G6", "password", "G6@gmail.es", 2, "Calle Jueves", "Luis", "Calle Olivares",
-					"fg7");
-			insertarActor(G6);
 
 			Date dategeo1 = new Date(11, 04, 2018);
 			Date dategeo2 = new Date(15, 04, 2018);
@@ -58,15 +73,8 @@ public class Test extends metodosCompany {
 			insertarGeolocalizacion(geo2);
 
 			// Transportistas y pedidos (Orden trazabilidad) pedidos por el Grupo 3
-			Actor tranpG3_1 = new Actor("11", "TranspG3_1", "password", "tranpG3_1@gmail.es", 2, "Calle Diaz", "Maria",
-					"Calle Renacimiento", "fg4");
-			Actor tranpG3_2 = new Actor("12", "TranspG3_2", "password", "tranpG3_2@gmail.es", 2, "Calle Santa Elena",
-					"Jose", "Calle IlustraciÃ³n", "fg5");
 
-			insertarActor(tranpG3_1);
-			insertarActor(tranpG3_2);
-
-			Productos productosG3_1 = new Productos(11, 2, 9, 2, 1, 7, 8, 0, 11, 4, 7);
+			Productos productosG3_1 = new Productos(11, 2, 9, 2, 1, 7, 8, 0, 11, 4, 7,5,6,7,8);
 
 			insertarProductos(productosG3_1, 11);
 
@@ -94,8 +102,8 @@ public class Test extends metodosCompany {
 
 			ArrayList<Integer> list = new ArrayList<Integer>();
 			list.add(11);
-			OrdenTrazabilidad ordenG3_1 = new OrdenTrazabilidad(11, tranpG3_1, tranpG3_2, true, productosG3_1,
-					list, 1, firmarecG3_1, firmaentG3_2, tranpG3_1, 11, 1, dateiniG3_1);
+			OrdenTrazabilidad ordenG3_1 = new OrdenTrazabilidad(11, retailer, fabrica, true, productosG3_1,
+					list, 1, firmarecG3_1, firmaentG3_2, transportista, 11, 1, dateiniG3_1);
 			//insertarOrdenTrazabilidad(ordenG3_1);
 
 			// MateriaPrima pedida Grupo 4
@@ -128,32 +136,18 @@ public class Test extends metodosCompany {
 
 			// Actores Pedidos Grupo 2
 
-			Actor agricultorG2 = new Actor("0", "agricultorG2", "password", "agricultorG2@gmail.es", 0, "Calle Enero",
-					"Marta", "Calle Girona", "fg3");
-			Actor cooperativaG2 = new Actor("1", "cooperativaG2", "password", "cooperativaG2@gmail.es", 1,
-					"Calle Febrero", "Maria", "Calle Tarragona", "fg2");
-			Actor fabricaG3 = new Actor("2", "fabricaG3", "password", "fabricaG3@gmail.es", 3, "Calle Marzo", "Luis",
-					"Calle Lerida", "fg1");
-			Actor retailerG2 = new Actor("3", "retailerG2", "password", "retailerG2@gmail.es", 4, "Calle Abril",
-					"Santiago", "Calle Barcelona", "fg3");
+			Productos prodG2_1 = new Productos(1, 12, 2, 4, 3, 1, 8, 10, 1, 9, 2,3,4,5,6);
+			Productos prodG2_2 = new Productos(18, 12, 3, 3, 2, 1, 8, 11, 11, 2, 0,5,6,7,8);
+			Productos prodG2_3 = new Productos(11, 1, 5, 23, 2, 12, 5, 2, 11, 3, 1,6,7,8,9);
+			Productos prodG2_4 = new Productos(19, 12, 5, 0, 3, 1, 3, 10, 11, 9, 21,6,56,56,6);
 
-			insertarActor(agricultorG2);
-			insertarActor(cooperativaG2);
-			insertarActor(fabricaG3);
-			insertarActor(retailerG2);
-
-			Productos prodG2_1 = new Productos(1, 12, 2, 4, 3, 1, 8, 10, 1, 9, 2);
-			Productos prodG2_2 = new Productos(18, 12, 3, 3, 2, 1, 8, 11, 11, 2, 0);
-			Productos prodG2_3 = new Productos(11, 1, 5, 23, 2, 12, 5, 2, 11, 3, 1);
-			Productos prodG2_4 = new Productos(19, 12, 5, 0, 3, 1, 3, 10, 11, 9, 21);
-
-			OrdenTrazabilidad ordenG2_1 = new OrdenTrazabilidad(50, agricultorG2, agricultorG2, prodG2_1);
+			OrdenTrazabilidad ordenG2_1 = new OrdenTrazabilidad(50, cooperativa, agricultor, prodG2_1);
 			insertarOrdenTrazabilidad(ordenG2_1);
-			OrdenTrazabilidad ordenG2_2 = new OrdenTrazabilidad(51, agricultorG2, cooperativaG2, prodG2_2);
+			OrdenTrazabilidad ordenG2_2 = new OrdenTrazabilidad(51, fabrica, cooperativa, prodG2_2);
 			insertarOrdenTrazabilidad(ordenG2_2);
-			OrdenTrazabilidad ordenG2_3 = new OrdenTrazabilidad(52, cooperativaG2, fabricaG3, prodG2_3);
+			OrdenTrazabilidad ordenG2_3 = new OrdenTrazabilidad(52, retailer, fabrica, prodG2_3);
 			insertarOrdenTrazabilidad(ordenG2_3);
-			OrdenTrazabilidad ordenG2_4 = new OrdenTrazabilidad(53, fabricaG3, retailerG2, prodG2_4);
+			OrdenTrazabilidad ordenG2_4 = new OrdenTrazabilidad(53, fabrica, cooperativa, prodG2_4);
 			insertarOrdenTrazabilidad(ordenG2_4);
 
 			Date dateiniG2_1 = new Date(6, 11, 2018);
@@ -190,87 +184,39 @@ public class Test extends metodosCompany {
 			//insertarStockMP(stockmal);
 
 			// Actores pedidos equipo 7
-			// 0->4 para Productor, Cooperativa, Transportista, Fabrica y Retailer
-			Actor productor = new Actor("5", "Productor", "password", "prod@gmail.es", 0, "Calle Ribadeo", "Marta",
-					"Calle Valladolid", "fg3");
-			Actor cooperativa = new Actor("6", "Cooperativa", "password", "coop@gmail.es", 1, "Calle Luarca", "Maria",
-					"Calle Murcia", "fg2");
-			Actor transportista = new Actor("7", "Transportista", "password", "transp@gmail.es", 2, "Calle Lugo",
-					"Luis", "Calle Cartagena", "fg1");
-			Actor fabrica = new Actor("8", "Fabrica", "password", "fab@gmail.es", 3, "Calle VelÃ¡zquez", "Santiago",
-					"Calle AndalucÃ­a", "fg3");
-			Actor retailer = new Actor("9", "Retailer", "password", "ret@gmail.es", 4, "Calle Goya", "Pilar",
-					"Calle Madrid", "fg2");
-
-			insertarActor(productor);
-			insertarActor(cooperativa);
-			insertarActor(transportista);
-			insertarActor(fabrica);
-			insertarActor(retailer);
 			
 			//Caso error (insertar dos veces)
 			//insertarActor(retailer);
 			
 			//Ordenes en todos los estados posibles 
 			//-1=Rechazado
-			OrdenTrazabilidad ordenG7_1 = new OrdenTrazabilidad(100, agricultorG2, agricultorG2, prodG2_1);
+			OrdenTrazabilidad ordenG7_1 = new OrdenTrazabilidad(100, cooperativa, agricultor, prodG2_1);
 			ordenG7_1.setEstado(-1);
 			insertarOrdenTrazabilidad(ordenG7_1);
 			//0=Pendiente por aceptar
-			OrdenTrazabilidad ordenG7_2 = new OrdenTrazabilidad(101, agricultorG2, cooperativaG2, prodG2_2);
+			OrdenTrazabilidad ordenG7_2 = new OrdenTrazabilidad(101, cooperativa, agricultor, prodG2_2);
 			ordenG7_2.setEstado(0);
 			insertarOrdenTrazabilidad(ordenG7_2);
 			//1=En proceso de preparación
-			OrdenTrazabilidad ordenG7_3 = new OrdenTrazabilidad(102, cooperativaG2, fabricaG3, prodG2_3);
+			OrdenTrazabilidad ordenG7_3 = new OrdenTrazabilidad(102, cooperativa, agricultor, prodG2_3);
 			ordenG7_3.setEstado(1);
 			insertarOrdenTrazabilidad(ordenG7_3);
 			//2=Listo para entregar (aún no se ha enviado)
-			OrdenTrazabilidad ordenG7_4 = new OrdenTrazabilidad(103, fabricaG3, retailerG2, prodG2_4);
+			OrdenTrazabilidad ordenG7_4 = new OrdenTrazabilidad(103, retailer, fabrica, prodG2_4);
 			ordenG7_4.setEstado(2);
 			insertarOrdenTrazabilidad(ordenG7_4);
 			//3=En proceso de entrega (transportándose)
-			OrdenTrazabilidad ordenG7_5 = new OrdenTrazabilidad(104, agricultorG2, cooperativaG2, prodG2_4);
+			OrdenTrazabilidad ordenG7_5 = new OrdenTrazabilidad(104, fabrica, cooperativa, prodG2_4);
 			ordenG7_5.setEstado(3);
 			insertarOrdenTrazabilidad(ordenG7_5);
 			//4=Entregado
-			OrdenTrazabilidad ordenG7_6 = new OrdenTrazabilidad(105, agricultorG2, cooperativaG2, prodG2_4);
+			OrdenTrazabilidad ordenG7_6 = new OrdenTrazabilidad(105, fabrica, cooperativa, prodG2_4);
 			ordenG7_6.setEstado(4);
 			insertarOrdenTrazabilidad(ordenG7_6);
 
 			// PRUEBAS BASICAS, NINGUNA DEBE LANZAR ERROR.
 
-			// Pruebas Actor
 			
-			Actor prueba = new Actor("10", "Agricultor", "password", "agri@gmail.es", 1, "Calle Ribera", "juan",
-					"Calle Goicoechea", "fg3");
-			Actor emisor1 = new Actor("15", "alberto", "password", "alberto@gmail.es", 1, "Calle Ribera", "alberto",
-					"Avenida Jarales", "fg3");
-			Actor receptor1 = new Actor("16", "maria", "password", "maria@gmail.es", 3, "Calle Gonzalez", "maria",
-					"Avenida Europa", "fg2");
-			Actor emisor2 = new Actor("17", "felipe", "password", "felipe@gmail.es", 2, "Calle Sauces", "felipe",
-					"Avenida IlustraciÃ³n", "fg1");
-			Actor receptor2 = new Actor("18", "rick", "password", "rick@gmail.es", 4, "Calle Gaseta", "rick",
-					"Avenida Argentina", "fg0");
-			Actor error = new Actor("200", "rickkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
-					+ "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
-					+ "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
-					+ "kkkk"
-					+ "", "password", "rick@gmail.es", 4, "Calle Gaseta", "rick",
-					"Avenida Argentina", "fg0");
-			insertarActor(prueba);
-			insertarActor(emisor1);
-			insertarActor(emisor2);
-			insertarActor(receptor1);
-			insertarActor(receptor2);
-			System.out.println("Actores Introducidos");
-			extraerActor("Agricultor");
-			extraerActor("alberto");
-			extraerActor("maria");
-			extraerActor("felipe");
-			extraerActor("rick");
-			
-			Actor noexiste = extraerActor("noexiste");
-			System.out.println(noexiste);
 			
 			//SQL INJECTION
 			//System.out.println(extraerActor("rick; DROP TABLE actor").getId());
@@ -337,8 +283,8 @@ public class Test extends metodosCompany {
 
 
 			// Pruebas Productos
-			Productos productos1 = new Productos(1, 12, 5, 0, 4, 7, 8, 10, 11, 0, 1);
-			Productos productos2 = new Productos(2, 9, 5, 0, 4, 0, 4, 0, 6, 0, 1);
+			Productos productos1 = new Productos(1, 12, 5, 0, 4, 7, 8, 10, 11, 0, 1,5,6,7,8);
+			Productos productos2 = new Productos(2, 9, 5, 0, 4, 0, 4, 0, 6, 0, 1,6,7,2,0);
 
 			insertarProductos(productos1, 1);
 			insertarProductos(productos2, 2);
@@ -355,19 +301,19 @@ public class Test extends metodosCompany {
 
 			// Pruebas OrdenTrazabilidad
 
-			Productos productosord1 = new Productos(4, 2, 9, 2, 4, 7, 8, 6, 11, 4, 7);
-			Productos productosord2 = new Productos(5, 1, 5, 0, 4, 7, 81, 10, 11, 9, 1);
+			Productos productosord1 = new Productos(4, 2, 9, 2, 4, 7, 8, 6, 11, 4, 7,6,7,8,9);
+			Productos productosord2 = new Productos(5, 1, 5, 0, 4, 7, 81, 10, 11, 9, 1,7,8,4,5);
 
 			byte[] firmarec = null;
 			byte[] firmaent = null;
 
-			OrdenTrazabilidad orden1 = new OrdenTrazabilidad(1, emisor1, emisor2, productosord1);
+			OrdenTrazabilidad orden1 = new OrdenTrazabilidad(1, fabrica, cooperativa, productosord1);
 			//PEDIDO POR EL GRUPO 1 
 			orden1.setNecesitaTransportista(true);
 			insertarOrdenTrazabilidad(orden1);
 			extraerOrdenTrazabilidad(1);
 
-			OrdenTrazabilidad orden2 = new OrdenTrazabilidad(2, emisor2, emisor1, productosord2);
+			OrdenTrazabilidad orden2 = new OrdenTrazabilidad(2, cooperativa, agricultor, productosord2);
 			insertarOrdenTrazabilidad(orden2);
 			orden2.setEstado(1);
 			extraerOrdenTrazabilidad(2);
@@ -441,14 +387,14 @@ public class Test extends metodosCompany {
 			Date dateinistock4 = new Date(21, 11, 2020);
 			Date datefinstock4 = new Date(27, 11, 2020);
 
-			StockMP stockMp1 = new StockMP(cebadaTostada, dateinistock1, datefinstock1, 1, 1, "10");
-			StockMP stockMp2 = new StockMP(lupuloPerle, dateinistock2, datefinstock2, 2, 2, "16");
-			StockMP stockMp3 = new StockMP(levaduraAle, dateinistock2, datefinstock2, 1, 1, "33");
-			StockMP stockMp4 = new StockMP(cebadaTostada, dateinistock3, datefinstock3, 2, 2, "0");
+			StockMP stockMp1 = new StockMP(cebadaTostada, dateinistock1, datefinstock1, 1, 1, "0");
+			StockMP stockMp2 = new StockMP(lupuloPerle, dateinistock2, datefinstock2, 2, 2, "1");
+			StockMP stockMp3 = new StockMP(levaduraAle, dateinistock2, datefinstock2, 1, 1, "3");
+			StockMP stockMp4 = new StockMP(cebadaTostada, dateinistock3, datefinstock3, 2, 2, "4");
 			StockMP stockMp5 = new StockMP(maltaChocolate, dateinistock2, datefinstock2, 1, 1, "1");
-			StockMP stockMp6 = new StockMP(levaduraAle, dateinistock4, datefinstock4, 2, 2, "5");
-			StockMP stockMp7 = new StockMP(cebadaTostada, dateinistock3, datefinstock3, 1, 1, "6");
-			StockMP stockMp8 = new StockMP(levaduraLager, dateinistock4, datefinstock4, 1, 1, "15");
+			StockMP stockMp6 = new StockMP(levaduraAle, dateinistock4, datefinstock4, 2, 2, "3");
+			StockMP stockMp7 = new StockMP(cebadaTostada, dateinistock3, datefinstock3, 1, 1, "2");
+			StockMP stockMp8 = new StockMP(levaduraLager, dateinistock4, datefinstock4, 1, 1, "0");
 
 			insertarStockMP(stockMp1);
 			insertarStockMP(stockMp2);
@@ -502,14 +448,14 @@ public class Test extends metodosCompany {
 
 			// Prueba extraerStockLote, extraerStockMP
 
-			extraerStockLote(receptor1, 1);
-			extraerStockLote(receptor2, 2);
+			extraerStockLote(retailer, 1);
+			extraerStockLote(retailer, 2);
 			
 			//Actor (todos los atributos a null) y lotes inexistentes
 			//System.out.println(extraerStockLote(noexiste, 1));
-			System.out.println(extraerStockLote(receptor1, 189283));
+			System.out.println(extraerStockLote(retailer, 189283));
 			
-			LinkedList<StockLote> recibido = extraerStockLote(emisor1, 1);
+			LinkedList<StockLote> recibido = extraerStockLote(fabrica, 1);
 			System.out.println("Stock emisor1");
 			for (int i = 0; i < recibido.size(); i++) {
 				System.out.print("Identificador actor: ");
@@ -521,10 +467,8 @@ public class Test extends metodosCompany {
 			}
 			System.out.println("Lotes Stock extraidos");
 
-			extraerStockMP(prueba, 1);
-			extraerStockMP(receptor1, 2);
 			
-			LinkedList<StockMP> recibido1 = extraerStockMP(prueba, 1);
+			LinkedList<StockMP> recibido1 = extraerStockMP(fabrica, 1);
 			System.out.println("Stock prueba (es un agricultor)");
 			for(int i=0; i<recibido1.size(); i++ ) {
 				System.out.print("Identificador actor: ");

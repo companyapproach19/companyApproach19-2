@@ -139,17 +139,21 @@ public class metodosCompany {
 		PreparedStatement pst12 = conn.prepareStatement(
 				"CREATE TABLE company.productos ( " +
 						"id INT NOT NULL, " +
-						"malta_palida INT NOT NULL, " +
+						"malta_base_palida INT NOT NULL, " +
 						"malta_munich INT NOT NULL, " +
 						"malta_negra INT NOT NULL, " +
 						"malta_crystal INT NOT NULL, " +
 						"malta_chocolate INT NOT NULL, " +
 						"malta_caramelo INT NOT NULL, " +
-						"cebada INT NOT NULL, " +
+						"malta_pilsner INT NOT NULL, " +
 						"cebada_tostada INT NOT NULL, " +
 						"lupulo_centenial INT NOT NULL, " +
-						"cajas_stout INT NOT NULL, " +
-						"cajas_bisner INT NOT NULL, " +
+						"lupulo_perle INT NOT NULL, " +
+						"lupulo_tettnanger INT NOT NULL, " +
+						"levadura_lager INT NOT NULL, " +
+						"levadura_ale INT NOT NULL, " +
+						"lotes_stout INT NOT NULL, " +
+						"lotes_pilsner INT NOT NULL, " +
 						"PRIMARY KEY (id)"+
 						");"
 
@@ -356,10 +360,8 @@ public class metodosCompany {
 			Registro buscado = new Registro(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
 			pst.close();
 			rs.close();
-			//conn.close();
 			return buscado;
 		}
-		//conn.close();
 		return null;
 	}
 	//Ver como se saca geolocalizacion
@@ -524,7 +526,7 @@ public class metodosCompany {
 		ResultSet rs = pst.executeQuery(query);
 		while(rs.next()) {
 			Productos buscado = new Productos(rs.getInt(2),  rs.getInt(3), rs.getInt(4),rs.getInt(5),
-					rs.getInt(6),rs.getInt(7),rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11),rs.getInt(12));
+					rs.getInt(6),rs.getInt(7),rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11),rs.getInt(12), rs.getInt(13), rs.getInt(14),rs.getInt(15), rs.getInt(16));
 			pst.close();
 			rs.close();
 			//conn.close();
@@ -538,22 +540,26 @@ public class metodosCompany {
 	             throw new NullException("El producto introducido no es válido.");
 		}
 		conectar();
-		String query = "INSERT INTO company.productos (id, malta_palida, malta_munich, malta_negra, malta_crystal, "
-				+ "malta_chocolate , malta_caramelo, cebada, cebada_tostada, lupulo_centenial, cajas_stout ,cajas_bisner)"
-				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO company.productos (id, malta_base_palida, malta_munich, malta_negra, malta_crystal, "
+				+ "malta_chocolate, malta_caramelo, malta_pilsner, cebada_tostada, lupulo_centenial, lupulo_perle, lupulo_tettnanger, levadura_lager, levadura_ale, lotes_stout ,lotes_pilsner)"
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 		pst.setInt(1, idOrden);
-		pst.setInt(2, producto.getCant_malta_palida());
+		pst.setInt(2, producto.getCant_malta_base_palida());
 		pst.setInt(3, producto.getCant_malta_munich());
 		pst.setInt(4, producto.getCant_malta_negra());
 		pst.setInt(5, producto.getCant_malta_crystal());
 		pst.setInt(6, producto.getCant_malta_chocolate());
 		pst.setInt(7, producto.getCant_malta_caramelo());
-		pst.setInt(8, producto.getCant_cebada());
+		pst.setInt(8, producto.getCant_malta_pilsner());
 		pst.setInt(9, producto.getCant_cebada_tostada());
-		pst.setInt(10, producto.getCant_lupulo_centenial());
-		pst.setInt(11, producto.getCant_lotes_stout());
-		pst.setInt(12, producto.getCant_lotes_bisner());
+		pst.setInt(10, producto.getCant_lupulo_centennial());
+		pst.setInt(11, producto.getCant_lupulo_perle());
+		pst.setInt(12, producto.getCant_lupulo_tettnanger());
+		pst.setInt(13, producto.getCant_levadura_lager());
+		pst.setInt(14, producto.getCant_levadura_ale());
+		pst.setInt(15, producto.getCant_lotes_stout());
+		pst.setInt(16, producto.getCant_lotes_pilsner());
 		pst.executeUpdate();
 		pst.close();
 		//conn.close();
