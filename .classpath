@@ -23,5 +23,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="gson-2.8.5.jar"/>
 	<classpathentry kind="lib" path="junit-4.13-beta-2.jar"/>
+	<classpathentry kind="lib" path="lib/activation.jar"/>
+	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
