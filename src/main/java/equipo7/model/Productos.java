@@ -118,6 +118,17 @@ public class Productos implements Serializable {
 	public int getCant_lotes_pilsner() {
 		return cant_lotes_pilsner;
 	}
+	
+	public int[] getCantMateriasPrimas() {
+		return new int[] {this.cant_malta_base_palida,this.cant_malta_munich,this.cant_malta_negra,
+				this.cant_malta_crystal,this.cant_malta_chocolate,this.cant_malta_caramelo,
+				this.cant_malta_pilsner,this.cant_cebada_tostada,this.cant_lupulo_centennial,
+				this.cant_lupulo_perle,this.cant_lupulo_tettnanger,this.cant_levadura_lager,this.cant_levadura_ale};
+	}
+	
+	public int[] getCantLotes() {
+		return new int[] {this.cant_lotes_stout,this.cant_lotes_pilsner};
+	}
 
    
 }
