@@ -143,7 +143,7 @@ public class StockController {
 
 		bcs = new BlockchainServices();
 		OrdenTrazabilidad orden=bcs.getOrden(idOrden);
-		if(orden.getProductosPedidos().getCant_lotes_bisner()!=0) {
+		if(orden.getProductosPedidos().getCant_lotes_pilsner()!=0) {
 			return "pilsner";
 		}
 		if (orden.getProductosPedidos().getCant_lotes_stout()!=0) {
@@ -157,8 +157,8 @@ public class StockController {
 
 		bcs = new BlockchainServices();
 		OrdenTrazabilidad orden=bcs.getOrden(idOrden);
-		if(orden.getProductosPedidos().getCant_lotes_bisner()!=0) {
-			return orden.getProductosPedidos().getCant_lotes_bisner();
+		if(orden.getProductosPedidos().getCant_lotes_pilsner()!=0) {
+			return orden.getProductosPedidos().getCant_lotes_pilsner();
 		}
 		if (orden.getProductosPedidos().getCant_lotes_stout()!=0) {
 			return orden.getProductosPedidos().getCant_lotes_stout();
