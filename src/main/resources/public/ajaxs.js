@@ -1,59 +1,46 @@
 // ACTORES: 10 = agricultor, 6 =cooperativa, 2 = transportista, 8 = fábrica, 9 = retailer
 // ESTADOS:  -1 = Rechazado, 0 = PendienteAceptar, 1 = Preparando, 2 = ListoEntregar, 3 = Transportandose, 4 = Entregado(Aceptado?)
 function pedirIds(actor, estado){
-	var actor2;
-	switch (actor){
-		case 0:
-		actor2=10;
-		break;
-		case 1:
-		actor2=6;
-		break;
-		case 3:
-		actor2=8;
-		break;
-		case 4:
-		actor2=9;
-		break;
-		}
 
 	var url;
 	switch (estado) {
 		case 0 :
 		url = "/ordenesPendientesPorAceptar";
-		alert("obteniendo pedidos recibidos (pendientes por aceptar)");
-		console.log("pido /ordenesPendientesPorAceptar?idActor="+actor2);
+		//alert("obteniendo pedidos recibidos (pendientes por aceptar)");
+		console.log("pido /ordenesPendientesPorAceptar?idActor="+actor);
 		break;
 		
-		case 1 :
+		case 1 :pedirPe
 		url = "/ordenesEnProceso";
-		alert("obteniendo pedidos por resolver");
-		console.log("pido /ordenesEnProceso?idActor="+actor2);
+		//alert("obteniendo pedidos por resolver");
+		console.log("pido /ordenesEnProceso?idActor="+actor);
 		break;
 		
 		case 2 :
 		url = "/ordenesQueHeEnviado";
-		alert("obteniendo pedidos aceptados");
-		console.log("pido /ordenesQueHeEnviado?idActor="+actor2);
+		//alert("obteniendo pedidos aceptados");
+		console.log("pido /ordenesQueHeEnviado?idActor="+actor);
 		break;
+		case 3:
+		url = "/ordenesCompletadas";	
+		console.log("pido /ordenesCompletadas?idActor="+actor);
+		break;
+
 	}
 	  
     var request = $.ajax({
 	  
 		url : url,            // la URL para la petición
-		data :"idActor="+actor2 ,
+		data :"idActor="+actor ,
 		type : 'GET',
 		dataType : 'json',     // el tipo de información que se espera de respuesta
   
     });
  
-     request.done(function(data){
-		 
-		 
-	 	
+     request.done(function(data){ 	
         //reescribo el array local idsOrdenes
 		idsOrdenes = data.listaIDs;
-		cargar_popups();
+		cargar_popups(actor);
 		
 		console.log(idsOrdenes);
 	     	
@@ -63,7 +50,7 @@ function pedirIds(actor, estado){
     
      });
  
-     request.fail(function(data) {
+     	request.fail(function(data) {
      
 		alert("Error en el servidor obteniendo ids");
 		
@@ -77,7 +64,7 @@ function pedirIds(actor, estado){
 
 
 
-function cargar_popups()
+function cargar_popups(actor)
 {
 	
 	 var stri = "'none'";
@@ -87,11 +74,12 @@ function cargar_popups()
      contenedor_modales = document.getElementById("contenedor_modales");
 	if (idsOrdenes != null){
         for ( var i = 1; i <=idsOrdenes.length; i++) {
+        	//antes en pedirPedido, en actor habia un 4
         	var modalN = 
                 '<div class="form-group">'+
                 '<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">'+
                 '<label for="producto'+i+'" id="label'+i+'">Pedido '+idsOrdenes[i-1]+'</label>'+
-                '<a href="" data-toggle="modal" onclick="pedirPedido('+(i-1)+',4,'+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>'+
+                '<a href="" data-toggle="modal" onclick="pedirPedido('+(i-1)+','+actor+','+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>'+
                 '</div>'+                                                          
                 '<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">'+
                 '<div class="modal-dialog modal-dialog-scrollable" role="document">'+
@@ -127,6 +115,18 @@ function cargar_popups()
  
  
  
+
+
+
+
+
+
+
+
+
+
+
+
  
  //Funcion que imprime cada id ORDEN
  function imprimirjson(ids){
@@ -200,8 +200,14 @@ function creaOrden(actor){
 
 	
 	if (actor == 1 || actor == 3){ // coope, fabrica
-		if (actor == 1) nuevaOrden.actorOrigen.id= 6;
-		if (actor == 3) nuevaOrden.actorOrigen.id= 8;
+		if (actor == 1) {
+			nuevaOrden.actorOrigen.id= 6;
+			nuevaOrden.actorOrigen.tipoActor= 1;
+		}
+		if (actor == 3) {
+			nuevaOrden.actorOrigen.id= 8;
+			nuevaOrden.actorOrigen.tipoActor= 3;
+		}
 		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value -0;
 		nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
 		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value -0;
@@ -210,13 +216,22 @@ function creaOrden(actor){
 		nuevaOrden.productosPedidos.cant_malta_crystal= document.getElementById("malta_crystal").value -0;
 		nuevaOrden.productosPedidos.cant_malta_chocolate= document.getElementById("malta_chocolate").value -0;
 		nuevaOrden.productosPedidos.cant_malta_caramelo= document.getElementById("malta_caramelo").value -0;
-		nuevaOrden.productosPedidos.cant_cebada= document.getElementById("cebada").value -0;
+		nuevaOrden.productosPedidos.cant_malta_pilsner= document.getElementById("malta_pilsner").value -0;
+		//nuevaOrden.productosPedidos.cant_cebada= document.getElementById("cebada").value -0;
 		nuevaOrden.productosPedidos.cant_cebada_tostada= document.getElementById("cebada_tostada").value -0;
-		nuevaOrden.productosPedidos.cant_lupulo_centenial=document.getElementById("lupulo_centinental").value -0;
+		nuevaOrden.productosPedidos.cant_lupulo_centennial=document.getElementById("lupulo_centinental").value -0;
+		nuevaOrden.productosPedidos.cant_lupulo_perle=document.getElementById("lupulo_perle").value -0;
+		nuevaOrden.productosPedidos.cant_lupulo_tettnanger=document.getElementById("lupulo_tettnanger").value -0;
+		nuevaOrden.productosPedidos.cant_levadura_lager=document.getElementById("levadura_lager").value -0;
+		nuevaOrden.productosPedidos.cant_levadura_ale=document.getElementById("levadura_ale").value -0;
+
+
 	}else if (actor == 4){  // tienda
 		nuevaOrden.idPedido = -1;
 		nuevaOrden.actorOrigen.id= 9;
 		nuevaOrden.actorDestino.id =  8;
+		nuevaOrden.actorOrigen.tipoActor = 4;
+		nuevaOrden.actorDestino.tipoActor = 3;
 		nuevaOrden.productosPedidos.cant_lotes_stout =  document.getElementById("cajas_stout").value -0;
 		nuevaOrden.productosPedidos.cant_lotes_bisner = document.getElementById("cajas_bisner").value -0;
 		
@@ -288,6 +303,7 @@ function mandarids(urlpar){
 		  if (urlpar==2){ // necesito obtener el id del pedido
 				
 				var idPedidoAux;
+			  	var ordenAux;
 				console.log("pido idPedido en /obtenerOrden?id="+idsOrdenes[i-1]);
 				var requestIdPedido = $.ajax({
 				  
@@ -300,16 +316,17 @@ function mandarids(urlpar){
 				 
 				requestIdPedido.done(function(data){
 					 
-					 url = "/comienzoProcesoFabricacion";
+					 url = "/comienzaProcesoFabricacion";
 					//se han obtenido json del pedido
 					idPedidoAux = data.idPedido;
+					ordenAux = data.id;
 					// ahora ya puedo empezar fabricacion
 					
-					console.log("empiezo fabricacion en /comienzoProcesoFabricacion?peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1]);
+					console.log("empiezo fabricacion en /comienzaProcesoFabricacion?pedido="+idPedidoAux+"&orden="+ordenAux);
 					var request = $.ajax({
 			
 						url : url,
-						data :"peticion="+idPedidoAux+"&orden="+idsOrdenes[i-1] ,
+						data :"pedido="+idPedidoAux+"&orden="+ordenAux ,
 						type : 'GET',
 						dataType : 'json',  // el tipo de información que se espera de respuesta
 						
@@ -317,7 +334,7 @@ function mandarids(urlpar){
 				 
 						request.done(function(data){
 					  	for (var key of Object.keys(data)) {
-					  		alert(data.key);
+					  	//	alert(data.key);
 					  	}
 						 
 						 
@@ -423,6 +440,8 @@ function pedirStock(actor,i) {
     
     // la respuesta es pasada como argumento a la función
     request.done(function(data){
+	    
+	    
   
 		//se han obtenido json del STOCK
 		//pedido = data;
@@ -485,13 +504,13 @@ function muestraFallo(actor, i){
 	
 	switch(actor) {
 			  case 0:
-			  alert("HOLA Agricultoraa");
+			  //alert("HOLA Agricultoraa");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
 				  rellenaPopup(pedido, actor,i);  
 				  break;
 				  
 			  case 1:
-			  alert("HOLA Cooperativa");
+			  //alert("HOLA Cooperativa");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
 				  rellenaPopup(pedido, actor,i);  
 				  break;
@@ -499,13 +518,13 @@ function muestraFallo(actor, i){
 			  //case 2: Transportista
 			  
 			  case 3:
-			  alert("HOLA Fabrica");
+			  //alert("HOLA Fabrica");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
 				  rellenaPopup(pedido, actor,i);
 				  break;
 				  
 			  case 4:
-			  alert("HOLA Tienda");
+			  //alert("HOLA Tienda");
 					  $("popup"+i).text("Petición al servidor fallida. Se utilizarán datos locales");
 				  rellenaPopup(pedido, actor,i);
 				  break;
@@ -529,6 +548,7 @@ function rellenaPopup(json, actor, i) {
     }
 
     var estado = "";
+    	console.log("El estado (numero) es"  + json.estado);
 		switch(json.estado){
 		case "-1":
 		estado="rechazado";
@@ -537,68 +557,103 @@ function rellenaPopup(json, actor, i) {
 		estado="Pendiente por aceptar";
 		break;
 		case "1":
-		estado="Preparando";
+		estado="En proceso de preaparacion";
 		break;
 		case "2":
 		estado="listo para entregar";
 		break;
 		case "3":
-		estado="transportandose";
+		estado="en proceso de entrega";
 		break;
 		case "4":
 		estado="entregado";
 		break;
 		}
-    
-    switch(actor) {
 
-		// ESTOS METODOS ESTAN ECHOS PARA EL JSON VIEJO, HAY QUE ACTUALIZARLOS
+		    	console.log("El estado (nombre) es" + json.estado);
+
+    
+  		// ESTOS METODOS ESTAN ECHOS PARA EL JSON VIEJO, HAY QUE ACTUALIZARLOS
 		
 		//           por ejemplo lo que antes era stock.nomUsuario, ahora sera stock.actorOrigen
 		//                                          ^del json viejo                 ^del json nuevo
 	  
+		var pedido = "<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades:";
 		
+		for(var key of Object.keys(json.productosPedidos)){
+			
 
 
+		if(jason.productosPedidos[key]>0){
+		var res = key.split("_");
+		var aux = res[1].concat(" ".concat(res[2]));
+		pedido = pedido.concat("<br>".concat(aux).concat(":"));
+		//donde key es el nombre de la materia prima
+		var valor_mat = json.productosPedidos[key];
+		pedido = pedido.concat(valor_mat);
+		//unidades	
+		if(res[1]== "lotes")
+			pedido.concat("lotes");
+		else{
+			pedido.concat("kg");
+		}
 
+			}
+		}
 
+		 $("popup"+i).append(pedido);
 
+/*
 	  case 0:
-	    alert("still agri");
+	    //alert("still agri");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial+" kg<br>");
 	  break;
 	
 	  case 1:
-	    alert("still cope");
+	    //alert("still cope");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado  +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial+" kg<br>");
 	  break;
 
 		case 3:
-		alert("still fab");
+		//alert("still fab");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido +"<br>Estado:"+ estado  +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial +" kg<br>10.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " 11. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
 
 		case 4:
-		alert("still tienda");
+		//alert("still tienda");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido  +"<br>Estado:"+ estado +"<br><br>Cantidades: <br>1.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " kg<br>2. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
 
 		default :
 	  $("popup"+i).append("<br><br>Respuesta del servidor o datos locales erróneos. No hay stock para mostrar");
 	  break;
-
-    }   
+*/
+      
 }
 
 //Para el stock
 function imprimeStock(json, i){
+	
+	console.log("STOCK ES: "+json.stock);
+	console.log("LO QUE HAY ES: "+JSON.stringify(json));
+	
 	var stock = '<br><br>Stock';
 	//json es el json
 	for(var key of Object.keys(json.stock)){
-		stock = stock.concat("<br>".concat(key).concat(":"));
+		var res = key.split("_");
+ 	 	var aux = res[1].concat(" ".concat(res[2]));
+		stock = stock.concat("<br>".concat(aux).concat(":"));
 		//donde key es el nombre de la materia prima
 		var valor_mat = json.stock[key];
-		stock = stock.concat(valor_mat)
+		stock = stock.concat(valor_mat);
+		//unidades
+		if(res[1]== "lotes")
+			pedido.concat("lotes");
+		else{
+			pedido.concat("kg");
+		}
+
+
 	}
 	$("popup"+i).append(stock);
 }
@@ -612,101 +667,70 @@ function imprimeStock(json, i){
 ////////////////////JSON NUEVO//////////////////////
 
 var pedido = {
-  "id": 10,
+  "id": 30,
   "actorOrigen": {
-    "id": 42,
-    "nombreUsuario": "Retailer",
+    "id": "5",
+    "nombreUsuario": "Cooperativa",
     "passwordPlana": "password",
-    "email": "ret@gmail.es",
-    "tipoActor": 4
+    "email": "coop@gmail.es",
+    "tipoActor": 1,
+    "localizacion": "Calle Luarca",
+    "nombre": "Maria",
+    "direccion": "Calle Murcia",
+    "cifcooperativa": "fg2"
   },
   "actorDestino": {
-    "id": 43,
+    "id": "8",
     "nombreUsuario": "Fabrica",
     "passwordPlana": "password",
     "email": "fab@gmail.es",
-    "tipoActor": 3
+    "tipoActor": 3,
+    "localizacion": "Calle Velazquez",
+    "nombre": "Santiago",
+    "direccion": "Calle Andalucia",
+    "cifcooperativa": "fg3"
   },
-  "necesitaTransportista": true,
+  "necesitaTransportista": false,
   "productosPedidos": {
-    "cant_malta_palida": 0,       
-    "cant_malta_munich": 0,
-    "cant_malta_negra": 0,
-    "cant_malta_crystal": 0,
+    "cant_malta_base_palida": 0,
+    "cant_malta_munich": 10,
+    "cant_malta_negra": 5,
+    "cant_malta_crystal": 30,
     "cant_malta_chocolate": 0,
     "cant_malta_caramelo": 0,
-    "cant_cebada": 0,
-    "cant_cebada_tostada": 0,
-    "cant_lupulo_centenial": 0,
-    "cant_lotes_stout": 4,
-    "cant_lotes_bisner": 0
+    "cant_malta_pilsner": 0,
+    "cant_cebada_tostada": 10,
+    "cant_lupulo_centennial": 0,
+    "cant_lupulo_perle": 0,
+    "cant_lupulo_tettnanger": 0,
+    "cant_levadura_lager": 0,
+    "cant_levadura_ale": 0,
+    "cant_lotes_stout": 0,
+    "cant_lotes_pilsner": 0
   },
   "productosAEntregar": [
-    80,81,82,83
+    100,
+    101,
+    102,
+    103
   ],
   "estado": 4,
-  "firmaRecogida": "SEFIQSBTTklDSEU=",
+  "firmaRecogida": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs",
   "firmaEntrega": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs",
   "transportista": {
     "id": "7",
     "nombreUsuario": "Transportista",
     "passwordPlana": "password",
-    "email": "trans@gmail.com",
-    "tipoActor": 2
+    "email": "transp@gmail.es",
+    "tipoActor": 2,
+    "localizacion": "Calle Lugo",
+    "nombre": "Luis",
+    "direccion": "Calle Cartagena",
+    "cifcooperativa": "fg1"
   },
-  "idRegistro": 300,
-  "idPedido": 1,
-  "fecha": "may 26, 3919"
+  "idRegistro": 2,
+  "idPedido": 30,
+  "fecha": "ago 12, 1911"
 }
-
-
-var nuevaOrden = {
-  "id": 0,
-  "actorOrigen": {
-    "id": 0,
-    "nombreUsuario": "",
-    "passwordPlana": "",
-    "email": "",
-    "tipoActor": 0
-  },
-  "actorDestino": {
-    "id": 0,
-    "nombreUsuario": "",
-    "passwordPlana": "",
-    "email": "",
-    "tipoActor": 0
-  },
-  "necesitaTransportista": true,
-  "productosPedidos": {
-    "cant_malta_palida": 0,       
-    "cant_malta_munich": 0,
-    "cant_malta_negra": 0,
-    "cant_malta_crystal": 0,
-    "cant_malta_chocolate": 0,
-    "cant_malta_caramelo": 0,
-    "cant_cebada": 0,
-    "cant_cebada_tostada": 0,
-    "cant_lupulo_centenial": 0,
-    "cant_lotes_stout": 0,
-    "cant_lotes_bisner": 0
-  },
-  "productosAEntregar": [
-    
-  ],
-  "estado": 0,
-  "firmaRecogida": "",
-  "firmaEntrega": "",
-  "transportista": {
-    "id": "",
-    "nombreUsuario": "",
-    "passwordPlana": "",
-    "email": "",
-    "tipoActor": 0
-  },
-  "idRegistro": 0,
-  "idPedido": 0,
-  "fecha": ""
-}
-
 
 
