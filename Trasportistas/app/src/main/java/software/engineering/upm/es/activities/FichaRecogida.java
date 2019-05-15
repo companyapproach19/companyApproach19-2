@@ -12,8 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 import java.util.Calendar;
 
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import software.engineering.upm.es.R;
 import software.engineering.upm.es.objetos.SingletonPedidos;
 import software.engineering.upm.es.objetos.parceables.Trasportista;
@@ -51,8 +56,8 @@ public class FichaRecogida extends AppCompatActivity {
         sp = SingletonPedidos.getInstance();
 
         // Recuperamos los datos que nos han pasado
-        posicion = getIntent().getExtras().getInt("posicion");
-        trasportista = sp.pedidosSinAsignar.get(posicion).getTrasportista();
+        //posicion = getIntent().getExtras().getInt("posicion");
+        //trasportista = sp.pedidosSinAsignar.get(posicion).getTrasportista();
 
         // Inicializamos nuestras views
         fechR = (EditText) findViewById(R.id.campo_date_recogida);
@@ -99,8 +104,23 @@ public class FichaRecogida extends AppCompatActivity {
 
         else {
             // Editamos los valores fecha y firma y cambiamos el pedido de lista
-            trasportista.setFecha_recogida(fechR.getText().toString());
-            sp.pedidosRecogidos.add(sp.pedidosSinAsignar.remove(posicion));
+            //trasportista.setFecha_recogida(fechR.getText().toString());
+            if (URL != "") {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                servicio = retrofit.create(PedidosAPI.class);
+
+                Call<Object> peticion = servicio.updatePedidoR(new JsonObject());
+
+                System.out.println("PUTTTT");
+                // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
+
+
+            }
+            sp.pedidosSinAsignar.remove(posicion);
         }
 
         setResult(RESULT_OK, intent);

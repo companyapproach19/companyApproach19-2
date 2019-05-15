@@ -18,8 +18,14 @@ import retrofit2.http.Path;
 import software.engineering.upm.es.objetos.parceables.Pedido;
 
 public interface PedidosAPI {
-    @POST("https://beer-company2019.herokuapp.com/damePedidosTransportista/")
-    Call<Object> getPedidos();
+    @POST("https://beer-company2019.herokuapp.com/damePedidosTransportistaListo/")
+    Call<Object> getPedidosL();
+
+    @POST("https://beer-company2019.herokuapp.com/damePedidosTransportistaRecogido/")
+    Call<Object> getPedidosR();
+
+    @POST("https://beer-company2019.herokuapp.com/damePedidosTransportistaEntregado/")
+    Call<Object> getPedidosE();
 
     @GET("{id}")
     Call<JSONArray> getPedidos(@Path("id") String id);
@@ -28,8 +34,11 @@ public interface PedidosAPI {
     @POST("ejemplo")
     Call<JSONArray> insertPedido(@Body Pedido pedido);
 
-    @PUT("ejemplo")
-    Call<JSONArray> updatePedido(@Body Pedido pedido);
+    @PUT("https://beer-company2019.herokuapp.com/recogidaOrden")
+    Call<Object> updatePedidoR(@Body JsonObject JsonObject);
+
+    @PUT("https://beer-company2019.herokuapp.com/entregadaOrden")
+    Call<Object> updatePedidoE(@Body JsonObject JsonObject);
 
     @DELETE("ejemplo/{id}")
     Call<JSONArray> deletePedido(@Path("id") String id);

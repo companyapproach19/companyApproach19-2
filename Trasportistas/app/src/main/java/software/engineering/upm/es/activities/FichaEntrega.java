@@ -11,10 +11,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 import java.util.Calendar;
 
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import software.engineering.upm.es.R;
 import software.engineering.upm.es.objetos.SingletonPedidos;
+import software.engineering.upm.es.objetos.parceables.Pedido;
 import software.engineering.upm.es.objetos.parceables.Trasportista;
 import software.engineering.upm.es.retrofit.PedidosAPI;
 
@@ -51,7 +57,7 @@ public class FichaEntrega extends AppCompatActivity {
 
         // Recuperamos los datos que nos han pasado
         posicion = getIntent().getExtras().getInt("posicion");
-        trasportista = sp.pedidosRecogidos.get(posicion).getTrasportista();
+        //trasportista = sp.pedidosRecogidos.get(posicion).getTrasportista();
 
         // Inicializamos nuestras views
         fechE = (EditText) findViewById(R.id.campo_date_entrega);
@@ -98,14 +104,26 @@ public class FichaEntrega extends AppCompatActivity {
 
         else {
             // Editamos los valores fecha y firma y cambiamos el pedido de lista
-            trasportista.setFecha_entrega(fechE.getText().toString());
-            sp.historialPedidos.add(sp.pedidosRecogidos.remove(posicion));
+            //trasportista.setFecha_entrega(fechE.getText().toString());
+            if (URL != "") {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                servicio = retrofit.create(PedidosAPI.class);
+
+                Call<Object> peticion = servicio.updatePedidoE(new JsonObject());
+
+                System.out.println("PUTTTT");
+                // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
+
 
         }
-
+            sp.pedidosRecogidos.remove(posicion);
+        }
         setResult(RESULT_OK, intent);
         finish();
-
     }
 
     public void calendarDialog (int i) {

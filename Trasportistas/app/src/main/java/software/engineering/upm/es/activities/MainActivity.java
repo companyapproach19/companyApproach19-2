@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton refresh;
 
     private PedidosAPI servicio;
-    public static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTransportista/";//https://beer-company2019.herokuapp.com/damePedidosTransportista
+    public static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTransportistaListo/";//https://beer-company2019.herokuapp.com/damePedidosTransportista
 
     final int FICHA_RECOGIDA = 1;
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
             servicio = retrofit.create(PedidosAPI.class);
 
-            Call<Object> peticion = servicio.getPedidos();
+            Call<Object> peticion = servicio.getPedidosL();
            // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
             peticion.enqueue(new ObtenerResultados());
 
@@ -144,16 +144,28 @@ public class MainActivity extends AppCompatActivity {
             int estado = elem.get("estado").getAsInt();
 
             //System.out.println(elem.get("id"));
-            if(estado == 1){
+
             Pedido ped = new Pedido(id);
+            boolean b = comprobar(id);
+            if(!b){
             sp.pedidosSinAsignar.add(ped);
             }
 
         }
+        sp.pedidosSinAsignar.add(new Pedido(1));
+
 
 
     }
-
+    private boolean comprobar(int id){
+        boolean b = false;
+        int i;
+        for (i=0;i<sp.pedidosSinAsignar.size();i++){
+            Pedido ped = sp.pedidosSinAsignar.get(i);
+            if(ped.getId()==id) return true;
+        }
+        return b;
+    }
     private void procesarError(String mensaje){
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
     }
