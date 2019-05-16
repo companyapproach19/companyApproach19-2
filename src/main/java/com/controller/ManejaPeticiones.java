@@ -309,7 +309,7 @@ public class ManejaPeticiones {
 			
 			int idProd;
 			if(orden!=null) {
-				if(orden.getActorOrigen().getTipoActor()==0){
+				if(orden.getActorDestino().getTipoActor()==0 && orden.getActorOrigen().getTipoActor() == 1){
 					//AGRICULTOR:
 					//Hay que recorrer los productos pedidos y por cada producto se genera un objeto
 					Productos productos = orden.getProductosPedidos();
