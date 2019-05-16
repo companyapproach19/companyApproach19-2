@@ -147,9 +147,9 @@ public class MapController {
 			return "Agricultor";
 		case 1:
 			return "Cooperativa";
-		case 2:
-			return "Fabrica";
 		case 3:
+			return "Fabrica";
+		case 2:
 			return "Transportista";
 		case 4:
 			return "Retailer";
