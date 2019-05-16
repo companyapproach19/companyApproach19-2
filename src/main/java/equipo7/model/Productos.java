@@ -5,11 +5,7 @@ import java.io.Serializable;
 
 public class Productos implements Serializable {
 	
-<<<<<<< HEAD
-    private int cant_malta_palida;
-=======
     private int cant_malta_base_palida;
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
     private int cant_malta_munich;
     private int cant_malta_negra;
     private int cant_malta_crystal;
@@ -17,35 +13,6 @@ public class Productos implements Serializable {
     private int cant_malta_caramelo;
     private int cant_malta_pilsner;
     private int cant_cebada_tostada;
-<<<<<<< HEAD
-    private int cant_lupulo_centenial;
-    private int cant_lotes_stout;
-    private int cant_lotes_bisner;
-    
-
-    public Productos(int cant_malta_palida, int cant_malta_munich,
-                     int cant_malta_negra, int cant_malta_crystal,
-                     int cant_malta_chocolate, int cant_malta_caramelo,
-                     int cant_cebada, int cant_cebada_tostada, int cant_lupulo_centenial,
-                     int cant_lotes_stout, int cant_lotes_bisner) {
-    	
-        this.cant_malta_palida = cant_malta_palida;
-        this.cant_malta_munich = cant_malta_munich;
-        this.cant_malta_negra = cant_malta_negra;
-        this.cant_malta_crystal = cant_malta_crystal;
-        this.cant_malta_chocolate = cant_malta_chocolate;
-        this.cant_malta_caramelo = cant_malta_caramelo;
-        this.cant_cebada = cant_cebada;
-        this.cant_cebada_tostada = cant_cebada_tostada;
-        this.cant_lupulo_centenial = cant_lupulo_centenial;
-        this.cant_lotes_stout = cant_lotes_stout;
-        this.cant_lotes_bisner = cant_lotes_bisner;
-    }
-
-    public int getCant_malta_palida() {
-        return cant_malta_palida;
-    }
-=======
     private int cant_lupulo_centennial;
     private int cant_lupulo_perle;
 	private int cant_lupulo_tettnanger;
@@ -54,7 +21,6 @@ public class Productos implements Serializable {
     private int cant_lotes_stout;
     private int cant_lotes_pilsner;
     
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
     public Productos(int cant_malta_base_palida,int cant_malta_munich,int cant_malta_negra,int cant_malta_crystal,
     		int cant_malta_chocolate,int cant_malta_caramelo,int cant_malta_pilsner,int cant_cebada_tostada,
@@ -94,16 +60,6 @@ public class Productos implements Serializable {
 	}
 
 
-<<<<<<< HEAD
-    public int getCant_lotes_stout() {
-        return cant_lotes_stout;
-    }
-
-    public int getCant_lotes_bisner() {
-        return cant_lotes_bisner;
-    }
-}
-=======
 	public int getCant_malta_crystal() {
 		return cant_malta_crystal;
 	}
@@ -173,7 +129,6 @@ public class Productos implements Serializable {
 	public int[] getCantLotes() {
 		return new int[] {this.cant_lotes_stout,this.cant_lotes_pilsner};
 	}
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
    
 }

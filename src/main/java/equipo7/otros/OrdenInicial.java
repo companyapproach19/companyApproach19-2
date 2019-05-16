@@ -38,8 +38,4 @@ public class OrdenInicial {
 		return productosPedidos;
 	}
 	
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e

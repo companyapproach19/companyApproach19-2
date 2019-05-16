@@ -1,16 +1,12 @@
 package equipo7.otros;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.otros.ListaIDs;
-<<<<<<< HEAD
-=======
 import equipo7.otros.IDsOrdenes;
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 
 public class DescodificadorJson {
@@ -33,13 +29,10 @@ public class DescodificadorJson {
 		return gson.fromJson(jsonInicial, tipoObjeto);	
 	}
 
-<<<<<<< HEAD
-=======
 	public IDsOrdenes DescodificadorJSONrespuestas(String ordenes) {
 		Gson gson=new Gson();
 		Type tipoObjeto = new TypeToken<IDsOrdenes>(){}.getType();
 		return gson.fromJson(ordenes, tipoObjeto);
 	}
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	
 }
