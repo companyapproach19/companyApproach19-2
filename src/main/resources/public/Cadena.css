@@ -158,37 +158,16 @@
 
 #bt3 {
     /* Imagen obtenida de https://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png */
-  background-image:url(fermentacion.jpg);
+  background-image: url(coccion.jpg);
   background-size: 100px;
   margin-left: 30px;
+}
+#bt4{
+	background-image : url(embotellado.jpg);
+	background-size: 100px;
+	margin-left: 30px;
 }
 
-#bt4 {
-    /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
-  background-image:url(fermentacion.jpg);
-  background-size: 100px;
-  margin-left: 30px;
-}
-#bt5 {
-    /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
-  background-image:url(embotellado.jpg);
-  background-size: 100px;
-  margin-left: 30px;
-}
-#bt6 {
-    /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
-  background-image:url(embotellado.jpg);
-  background-size: 100px;
-  margin-left: 30px;
-
-}
-#bt7 {
-    /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
-  background-image:url(camion.jpg);
-  background-size: 140px;
-  margin-left: 30px;
-
-}
 .btn:hover {
 
   color: #fff;

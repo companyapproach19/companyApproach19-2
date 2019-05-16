@@ -143,7 +143,7 @@ public class StockController {
 
 		bcs = new BlockchainServices();
 		OrdenTrazabilidad orden=bcs.getOrden(idOrden);
-		if(orden.getProductosPedidos().getCant_lotes_bisner()!=0) {
+		if(orden.getProductosPedidos().getCant_lotes_pilsner()!=0) {
 			return "pilsner";
 		}
 		if (orden.getProductosPedidos().getCant_lotes_stout()!=0) {
@@ -157,8 +157,8 @@ public class StockController {
 
 		bcs = new BlockchainServices();
 		OrdenTrazabilidad orden=bcs.getOrden(idOrden);
-		if(orden.getProductosPedidos().getCant_lotes_bisner()!=0) {
-			return orden.getProductosPedidos().getCant_lotes_bisner();
+		if(orden.getProductosPedidos().getCant_lotes_pilsner()!=0) {
+			return orden.getProductosPedidos().getCant_lotes_pilsner();
 		}
 		if (orden.getProductosPedidos().getCant_lotes_stout()!=0) {
 			return orden.getProductosPedidos().getCant_lotes_stout();
@@ -249,7 +249,7 @@ public class StockController {
 	private void init_map_nombres_bbdd_vistas(Map<String,String> mapeo_nombres) 
 	{
 
-		
+		mapeo_nombres.put("cebadaTostada","cebada_tostada");
 		mapeo_nombres.put("maltaBasePalida","malta_palida");
 		mapeo_nombres.put("maltaTostada","malta_tostada");
 		mapeo_nombres.put("maltaNegra","malta_negra");
@@ -329,7 +329,7 @@ public class StockController {
 				lista = metodosCompany.extraerStockMP(actor, orden.getId());
 				for (StockMP var : lista) {
 						stock.addProperty(
-											lista_nombre_mp.get(var.getMp().getTipo()), 
+											var.getMp().getTipo(), 
 											var.getMp().getCantidad()
 											);
 				}
@@ -410,6 +410,12 @@ public class StockController {
 
 	@Scope("request")
 	@RequestMapping("/damePedidosTransportista")
+	/*Descomponemos en varias URL para darle los pedidos a transportista ya filtrado.
+	 * 
+	 *damePedidosTransportistaListo
+	 *damePedidosTransportistaRecogido
+	 *damePedidosTransportistaEntregado 
+	 */
 	@ResponseBody
 	public String get_pedidos_transportista(Model model) throws SQLException, ClassNotFoundException 
 	{
@@ -446,6 +452,119 @@ public class StockController {
 		}
 
 
+	}
+	
+	@Scope("request")
+	@RequestMapping("/damePedidosTransportistaListo")
+	@ResponseBody
+	public String getPedidosTransportistaListo(Model m) throws SQLException, ClassNotFoundException
+	{
+		try {
+			CadenaActores cadena;
+			Gson gson;
+			JsonParser parse;
+			JsonArray lista;
+
+			lista = new JsonArray();
+
+			cadena = metodosCompany.extraerCadenaActores();
+			gson = new Gson();
+			parse = new JsonParser();
+
+			for(Actor actor : cadena.getlista_actores()) 
+			{
+				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
+				{
+					if(or.isNecesitaTransportista() && or.getEstado()==2) 
+					{
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
+					}
+				}
+			}
+
+			return lista.toString();
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"respuesta\":\"Error\"}";
+		}
+	}
+	
+	
+	@Scope("request")
+	@RequestMapping("/damePedidosTransportistaRecogido")
+	@ResponseBody
+	public String getPedidosTransportistaRecogido(Model m) throws SQLException, ClassNotFoundException
+	{
+		try {
+			CadenaActores cadena;
+			Gson gson;
+			JsonParser parse;
+			JsonArray lista;
+
+			lista = new JsonArray();
+
+			cadena = metodosCompany.extraerCadenaActores();
+			gson = new Gson();
+			parse = new JsonParser();
+
+			for(Actor actor : cadena.getlista_actores()) 
+			{
+				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
+				{
+        if(or.getEstado()==3 && !(or.getActorOrigen().getId().equals("1") && or.getActorDestino().getId().equals("0")))
+					{
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
+					}
+				}
+			}
+
+			return lista.toString();
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"respuesta\":\"Error\"}";
+		}
+	}
+	
+	
+	@Scope("request")
+	@RequestMapping("/damePedidosTransportistaEntregado")
+	@ResponseBody
+	public String getPedidosTransportistaEntregado(Model m) throws SQLException, ClassNotFoundException
+	{
+		try {
+			CadenaActores cadena;
+			Gson gson;
+			JsonParser parse;
+			JsonArray lista;
+
+			lista = new JsonArray();
+
+			cadena = metodosCompany.extraerCadenaActores();
+			gson = new Gson();
+			parse = new JsonParser();
+
+			for(Actor actor : cadena.getlista_actores()) 
+			{
+				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
+				{
+					if(or.getEstado()==4 && !(or.getActorOrigen().getId().equals("1") && or.getActorDestino().getId().equals("0"))) 
+					{
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
+					}
+				}
+			}
+
+			return lista.toString();
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"respuesta\":\"Error\"}";
+		}
 	}
 
 	@Scope("request")
