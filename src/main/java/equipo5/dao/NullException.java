@@ -6,8 +6,4 @@ public class NullException extends Exception {
 		// TODO Auto-generated constructor stub
 	}
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
