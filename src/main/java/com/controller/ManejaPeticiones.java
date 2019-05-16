@@ -319,73 +319,73 @@ public class ManejaPeticiones {
 						equipo5.dao.metodosCompany.insertarMateriaPrima(maltaPalida);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_malta_munich()>0){
+					if(productos.getCant_malta_munich()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima maltaMunich = new MateriaPrima("MaltaMunich",idProd,productos.getCant_malta_munich());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(maltaMunich);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_malta_negra()>0){
+					if(productos.getCant_malta_negra()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima maltaNegra = new MateriaPrima("MaltaNegra",idProd,productos.getCant_malta_negra());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(maltaNegra);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_malta_crystal()>0){
+					if(productos.getCant_malta_crystal()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima maltaCrystal = new MateriaPrima("MaltaCrystal",idProd,productos.getCant_malta_crystal());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(maltaCrystal);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_malta_chocolate()>0){
+					if(productos.getCant_malta_chocolate()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima maltaChocolate = new MateriaPrima("MaltaChocolate",idProd,productos.getCant_malta_chocolate());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(maltaChocolate);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_malta_caramelo()>0){
+					if(productos.getCant_malta_caramelo()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima maltaCaramelo = new MateriaPrima("MaltaCaramelo",idProd,productos.getCant_malta_caramelo());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(maltaCaramelo);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_malta_pilsner()>0){
+					if(productos.getCant_malta_pilsner()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima maltaPilsner = new MateriaPrima("MaltaPilsner",idProd,productos.getCant_malta_pilsner());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(maltaPilsner);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_cebada_tostada()>0){
+					if(productos.getCant_cebada_tostada()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima cebadaTostada = new MateriaPrima("CebadaTostada",idProd,productos.getCant_cebada_tostada());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(cebadaTostada);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_lupulo_centennial()>0){
+					if(productos.getCant_lupulo_centennial()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima lupuloCentennial = new MateriaPrima("LupuloCentennial",idProd,productos.getCant_lupulo_centennial());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(lupuloCentennial);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_lupulo_perle()>0){
+					if(productos.getCant_lupulo_perle()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima lupuloPerle = new MateriaPrima("LupuloPerle",idProd,productos.getCant_lupulo_perle());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(lupuloPerle);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_lupulo_tettnanger()>0){
+					if(productos.getCant_lupulo_tettnanger()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima lupuloTettnanger = new MateriaPrima("LupuloTettnanger",idProd,productos.getCant_lupulo_tettnanger());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(lupuloTettnanger);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_levadura_lager()>0){
+					if(productos.getCant_levadura_lager()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima levaduraLager = new MateriaPrima("LevaduraLager",idProd,productos.getCant_levadura_lager());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(levaduraLager);
 						orden.getProductosAEntregar().add(idProd);
 					}
-					else if(productos.getCant_levadura_ale()>0){
+					if(productos.getCant_levadura_ale()>0){
 						idProd = equipo5.dao.metodosCompany.idMateriaPrima();
 						MateriaPrima levaduraAle = new MateriaPrima("LevaduraAle",idProd,productos.getCant_levadura_ale());
 						equipo5.dao.metodosCompany.insertarMateriaPrima(levaduraAle);
