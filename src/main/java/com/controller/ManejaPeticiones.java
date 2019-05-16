@@ -447,17 +447,17 @@ public class ManejaPeticiones {
 
 		if(ordenAResponder != null && ordenRespuesta != null &&
 				ordenRespuesta.getEstado() == 4) {
+			bloque.guardarRespuestaPedido(ordenAResponder.getId(), ordenRespuesta.getId());
 			//En orden hay que rellenar el campo de los productosAEntregar y cambiar el estado
 			if(ordenAResponder.getActorOrigen().getTipoActor()==3){
-			ordenAResponder.setProductosAEntregar(ordenRespuesta.getProductosAEntregar());
-			//Hay que activar necesitaTransportista
-			ordenAResponder.setEstado(2);
-			ordenAResponder.setNecesitaTransportista(true);
-		
+				ordenAResponder.setProductosAEntregar(ordenRespuesta.getProductosAEntregar());
+				//Hay que activar necesitaTransportista
+				ordenAResponder.setEstado(2);
+				ordenAResponder.setNecesitaTransportista(true);
+			}
 			//Guardamos la orden actualizada en BBDD
 			bloque.guardarOrden(ordenAResponder);
 			return CodificadorJSON.crearJSON(ordenAResponder);
-			}
 		}
 		else {
 			return "ERROR: no existe alguna de las ordenes asociadas a estos IDs";
@@ -493,7 +493,7 @@ public class ManejaPeticiones {
 			//Cambiamos el estado a en proceso de entrega(3) e indicamos que ya no necesita transportista
 			orden.setEstado(3);
 			orden.setNecesitaTransportista(false);
-			
+
 			//Ahora hay que guardar todos los cambios en BBDD
 			bloque.guardarOrden(orden);
 			
@@ -542,5 +542,5 @@ public class ManejaPeticiones {
 			return "ERROR: no existe la orden asociada a este ID";
 		}
 	} 
-}
 		
+}
