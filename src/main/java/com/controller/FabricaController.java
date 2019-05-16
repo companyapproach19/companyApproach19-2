@@ -471,6 +471,29 @@ import equipo6.model.Actor;
 			
 			OrdenTrazabilidad ot = BlockchainServices.getOrden(idOrden); //devuelve un objeto de tipo OrdenTrazabilidad
 			Productos prod = ot.getProductosPedidos(); //aquí tienes las cantidades de materias primas
+			int cant_stout = prod.getCant_lotes_stout();
+			int cant_pilsner = prod.getCant_lotes_bisner();
+
+			if (cant_stout>0 &&
+				prod.getCant_malta_palida()>=(261*cant_stout) &&
+				prod.getCant_malta_munich()>=(61*cant_stout) &&
+				prod.getCant_cebada_tostada()>=(21*cant_stout) &&
+				prod.getCant_malta_negra()>=(10*cant_stout) &&
+				prod.getCant_malta_crystal()>=(6*cant_stout) &&
+				prod.getCant_malta_chocolate()>=(5*cant_stout) &&
+				prod.getCant_lupulo_centenial()>=(3*cant_stout) &&
+				/*prod.getLevaduraAle()>=(1*cant_stout)*/) {
+
+			} else if (
+				cant_pilsner>0 &&
+				/*prod.getCant_malta_pilsner()>=(173*cant_pilsner) &&*/
+				prod.getCant_malta_caramelo()>=(21*cant_pilsner) &&
+				/*prod.getCant_lupulo_perle()>=(1*cant_pilsner) &&*/
+				/*prod.getCant_lupulo_tettnager()=(2*cant_pilsner) &&
+				prod.getCant_levadura_lager()=(1*cant_pilsner)*/) {
+
+			}
+
 
 			/*
 			1 LITRO DE STOUT (cantidades en gramos para que sean 'int'):
