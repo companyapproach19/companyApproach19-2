@@ -524,7 +524,7 @@ public class ManejaPeticiones {
 		
 		if(orden!=null) {
 			//Avisamos al equipo8(equipo del sensor) de que acaba el transporte
-			int idRegistro = equipo8.model.SensorStatic.idUltimoRegistro();
+			int idRegistro = equipo8.model.SensorStatic.idUltimoRegistro(idOrden);
 			
 			//Hay que rellenar orden con los campos de miniOrden y el idRegistro
 			orden.setFirmaEntrega(miniOrden.getFirmaEntrega());
@@ -542,4 +542,5 @@ public class ManejaPeticiones {
 			return "ERROR: no existe la orden asociada a este ID";
 		}
 	} 
+}
 		
