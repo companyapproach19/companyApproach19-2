@@ -361,7 +361,7 @@ public class StockController {
 				numLotes = String.valueOf(lotesS+lotesP);
 			}
 
-		} catch (Exception | equipo5.model.NotInDatabaseException e) {
+		} catch (Exception e) {
 			numLotesP = "0";
 			numLotesS = "0"; 
 			e.printStackTrace();
