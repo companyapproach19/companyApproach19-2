@@ -14,7 +14,7 @@ public class Registro extends DatosContainer{
 	private String fechaFin;
 	private int tempMax;
 	private int tempMin;
-	//private static int contId = 1; //tests sin servidor
+	private static int contId = 1; //tests sin servidor
 	
 	public Registro(int id,int idOrdenTrazabilidad, int idPedido, String fechaInicio, String fechaFin, int tempMax, int tempMin) {
 		this.id = id;
@@ -26,30 +26,21 @@ public class Registro extends DatosContainer{
 		this.tempMin = tempMin;
 	}
 	
-<<<<<<< HEAD
-	public Registro(int id,int idOrdenTrazabilidad,String fechaInicio, String fechaFin, int tempMax, int tempMin) {
-=======
 	public Registro(int idPedido,int idOrdenTrazabilidad,String fechaInicio, String fechaFin, int tempMax, int tempMin) {
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
-		try {
-			this.id = equipo5.dao.metodosCompany.idRegistro();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-<<<<<<< HEAD
-		this.idOrdenTrazabilidad=idOrdenTrazabilidad;
-		this.idPedido = id;
-=======
+//		try {
+//			this.id = equipo5.dao.metodosCompany.idRegistro();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
 		//tests sin servidors
-//		this.id = contId;
-//		contId++;
+		this.id = contId;
+		contId++;
 		this.idOrdenTrazabilidad=idOrdenTrazabilidad;
 		this.idPedido = idPedido;
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.tempMax = tempMax;
@@ -68,11 +59,7 @@ public class Registro extends DatosContainer{
 	
 
 	public String toString(){
-<<<<<<< HEAD
-		return "\n"+"idOrdenTrazabilidad: "+ idOrdenTrazabilidad + "\nidPedido: " + idPedido +"\nTemperatura máxima: "+tempMax+"ºC"+"\n"+"Temperatura mínima: "+tempMin +"ºC"+"\n"+"Fecha inicio: "+fechaInicio +"\n"+"Fecha fin: "+fechaFin+"\n";   
-=======
 		return "\n"+ "idRegistro: " + this.id + "\nidOrdenTrazabilidad: "+ this.idOrdenTrazabilidad + "\nidPedido: " + this.idPedido +"\nTemperatura máxima: "+ this.tempMax +"ºC"+"\n"+"Temperatura mínima: "+ this.tempMin +"ºC"+"\n"+"Fecha inicio: "+ this.fechaInicio +"\n"+"Fecha fin: " + this.fechaFin+"\n";   
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	}
 	
 	public void setId (int id) {
@@ -131,8 +118,4 @@ public class Registro extends DatosContainer{
 	public int getTempMin() {
 		return this.tempMin;
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
