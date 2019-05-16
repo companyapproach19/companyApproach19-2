@@ -453,7 +453,7 @@ public class ManejaPeticiones {
 			//Hay que activar necesitaTransportista
 			ordenAResponder.setEstado(2);
 			ordenAResponder.setNecesitaTransportista(true);
-		
+			bloque.guardarRespuestaPedido(ordenAResponder, ordenRespuesta);
 			//Guardamos la orden actualizada en BBDD
 			bloque.guardarOrden(ordenAResponder);
 			return CodificadorJSON.crearJSON(ordenAResponder);
@@ -493,7 +493,7 @@ public class ManejaPeticiones {
 			//Cambiamos el estado a en proceso de entrega(3) e indicamos que ya no necesita transportista
 			orden.setEstado(3);
 			orden.setNecesitaTransportista(false);
-			
+
 			//Ahora hay que guardar todos los cambios en BBDD
 			bloque.guardarOrden(orden);
 			
