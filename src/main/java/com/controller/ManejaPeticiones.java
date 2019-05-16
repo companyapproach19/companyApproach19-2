@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo7.otros.DescodificadorJson;
-<<<<<<< HEAD
-=======
 import equipo7.otros.IDsOrdenes;
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 import equipo7.otros.ListaIDs;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
@@ -23,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-<<<<<<< HEAD
-=======
 import equipo4.model.MateriaPrima;
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 import equipo6.model.Actor;
 //NECESARIOS PARA TRAZABILIDAD:
 import equipo6.otros.BlockchainServices;
@@ -49,25 +43,13 @@ public class ManejaPeticiones {
 		
 		//Pedimos id de la orden
 		int idOrden = equipo5.dao.metodosCompany.idOrdenTrazabilidad();
-<<<<<<< HEAD
-		int idPedido = inicial.getIdPedido();
-		if(inicial.getActorOrigen().getTipoActor()==4) {
-			//Si se trata de Retailer, hay que pedir el idPedido a BBDD
-			idPedido = equipo5.dao.metodosCompany.idPedido();
-		}
-=======
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		
 		if(inicial.getActorOrigen()!=null && inicial.getActorDestino()!=null && inicial.getProductosPedidos()!=null) {
 			//Creamos el objeto orden
 			OrdenTrazabilidad orden = new OrdenTrazabilidad(idOrden, inicial.getActorOrigen(),
 					inicial.getActorDestino(), inicial.getProductosPedidos());
-<<<<<<< HEAD
-			orden.setIdPedido(idPedido);
-=======
 			// idPedido ya no se usa, aunque lo conservamos para otros equipos
 			orden.setIdPedido(idOrden);
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			
 			//Guardamos en la cadena la orden
 			BlockchainServices bloque = new BlockchainServices();
@@ -228,20 +210,6 @@ public class ManejaPeticiones {
 			listaIDs.setListaIDs(null);
 			return CodificadorJSON.crearJSONlista(listaIDs);
 		}
-<<<<<<< HEAD
-	}
-		
-	//PARA EQUIPO 2: VISTAS
-	@Scope("request")
-	@RequestMapping("/ordenesEnProcesoDeEntrega")
-	@ResponseBody
-	public String ordenesEnProcesoDeEntrega(HttpServletResponse response,
-			@RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
-						
-		return this.ordenesPendientes(idActor, 3);
-									
-=======
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	}
 	
 	//PARA EQUIPO 2: VISTAS
@@ -314,16 +282,6 @@ public class ManejaPeticiones {
 		
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
-<<<<<<< HEAD
-	@RequestMapping("/aceptarOrden")
-	@ResponseBody
-	public String aceptarOrden(HttpServletResponse response,
-			@RequestParam(name="id", required=true) String id) throws Throwable{
-		
-		int idInt = Integer.parseInt(id);
-
-		//Recuperamos la orden para cambiar el estado
-=======
 	@RequestMapping("/ordenesEnProcesoDeEntrega")
 	@ResponseBody
 	public String ordenesEnProcesoDeEntrega(HttpServletResponse response,
@@ -458,35 +416,6 @@ public class ManejaPeticiones {
 		
 		int idInt = Integer.parseInt(id);
 			//Recuperamos la orden para cambiar el estado
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
-		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad orden = bloque.getOrden(idInt);
-		
-		if(orden!=null) {
-<<<<<<< HEAD
-			orden.setEstado(1);
-=======
-			orden.setEstado(-1);
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
-			bloque.guardarOrden(orden);
-			return CodificadorJSON.crearJSON(orden);
-		}
-		else {
-			return "ERROR: no existe la orden asociada a este ID";
-		}
-<<<<<<< HEAD
-
-	}
-	
-	//PARA EQUIPO 2: VISTAS
-	@Scope("request")
-	@RequestMapping("/rechazarOrden")
-	@ResponseBody
-	public String rechazarOrden(HttpServletResponse response,
-			@RequestParam(name="id", required=true) String id) throws Throwable{
-		
-		int idInt = Integer.parseInt(id);
-			//Recuperamos la orden para cambiar el estado
 		BlockchainServices bloque = new BlockchainServices();
 		OrdenTrazabilidad orden = bloque.getOrden(idInt);
 		
@@ -498,34 +427,6 @@ public class ManejaPeticiones {
 		else {
 			return "ERROR: no existe la orden asociada a este ID";
 		}
-
-	}
-	
-	//PARA EQUIPO 2: VISTAS
-	@Scope("request")
-	@RequestMapping("/listaOrden")
-	@ResponseBody
-	public String listaOrden(HttpServletResponse response,
-			@RequestParam(name="id", required=true) String id) throws Throwable{
-
-		DescodificadorJson decoder = new DescodificadorJson();
-		OrdenTrazabilidad miniOrden = decoder.DescodificadorJson(id);
-		//miniOrden contiene el id de la orden y los porductosAEntregar
-		int idOrden = miniOrden.getId();
-		
-		//Con el idOrden sacamos la orden de BBDD
-		BlockchainServices bloque = new BlockchainServices();
-		OrdenTrazabilidad orden = bloque.getOrden(idOrden);
-		
-		
-		if(orden!=null && miniOrden.getProductosAEntregar()!=null) {
-			//En orden hay que rellenar el campo de los productosAEntregar y cambiar el estado
-			orden.setProductosAEntregar(miniOrden.getProductosAEntregar());
-			orden.setEstado(2);
-			//Hay que activar necesitaTransportista
-			if(orden.getActorOrigen().getTipoActor()!=1) {
-				orden.setNecesitaTransportista(true);
-=======
 
 	}
 	
@@ -556,23 +457,12 @@ public class ManejaPeticiones {
 			//Guardamos la orden actualizada en BBDD
 			bloque.guardarOrden(ordenAResponder);
 			return CodificadorJSON.crearJSON(ordenAResponder);
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			}
-		
-			//Guardamos la orden actualizada en BBDD
-			bloque.guardarOrden(orden);
-			return CodificadorJSON.crearJSON(orden);
 		}
-		else {
-			return "ERROR: no existe la orden asociada a este ID";
-		}
-<<<<<<< HEAD
-=======
 		else {
 			return "ERROR: no existe alguna de las ordenes asociadas a estos IDs";
 		}
 		
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		
 	}
 	
@@ -595,39 +485,23 @@ public class ManejaPeticiones {
 		
 		if(orden!=null) {
 			//Avisar al equipo8 (equipo del sensor) que empieza un transporte
-<<<<<<< HEAD
-			equipo8.model.SensorStatic.iniciarTransporte(idOrden, orden.getIdPedido());
-=======
 			//equipo8.model.SensorStatic.iniciarTransporte(idOrden, orden.getIdPedido());
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			
 			//Hay que rellenar los campos que tiene miniOrden en orden y cambiar el estado
 			orden.setFirmaRecogida(miniOrden.getFirmaRecogida());
 			orden.setTransportista(miniOrden.getTransportista());
-<<<<<<< HEAD
-			//Cambiamos el estado a en proceso de entrega(3)
-			orden.setEstado(3);
-=======
 			//Cambiamos el estado a en proceso de entrega(3) e indicamos que ya no necesita transportista
 			orden.setEstado(3);
 			orden.setNecesitaTransportista(false);
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			
 			//Ahora hay que guardar todos los cambios en BBDD
 			bloque.guardarOrden(orden);
 			
 			return CodificadorJSON.crearJSON(orden);
-<<<<<<< HEAD
 		}
 		else {
 			return "ERROR: no existe la orden asociada a este ID";
 		}
-=======
-		}
-		else {
-			return "ERROR: no existe la orden asociada a este ID";
-		}
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		
 	}
 	
@@ -650,26 +524,15 @@ public class ManejaPeticiones {
 		
 		if(orden!=null) {
 			//Avisamos al equipo8(equipo del sensor) de que acaba el transporte
-<<<<<<< HEAD
-			int idRegistro = equipo8.model.SensorStatic.terminar();
-=======
 			int idRegistro = equipo8.model.SensorStatic.idUltimoRegistro();
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			
 			//Hay que rellenar orden con los campos de miniOrden y el idRegistro
 			orden.setFirmaEntrega(miniOrden.getFirmaEntrega());
 			orden.setIdRegistro(idRegistro);
-<<<<<<< HEAD
 			
 			//Hay que cambiar el estado
 			orden.setEstado(4);
 			
-=======
-			
-			//Hay que cambiar el estado
-			orden.setEstado(4);
-			
->>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			//Ahora hay que guardar todos los cambios en BBDD
 			bloque.guardarOrden(orden);
 			
@@ -680,4 +543,3 @@ public class ManejaPeticiones {
 		}
 	} 
 		
-}
