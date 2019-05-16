@@ -33,13 +33,15 @@
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
+
                             </li>
                         </ul>
                         <p></p>
                             <div class="col-3 borde">
                                 <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
+                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='fabricaInicio.html';">Volver</a>
+
                                 </li>
                                 </ul>
                             </div>
@@ -53,12 +55,25 @@
 											   
                                         <div class="form-group">
                                             <h6>* Destino:</h6>
-                                            <input type="text" class="form-control" placeholder="* Destino" id="idDestino" value="" required>
+
+                                            <select name="OS" required>
+                                            <option selected value="0"> Elige una opción </option>    
+                                               <option value="1">id1</option> 
+                                               <option value="2">id2</option> 
+                                               <option value="3">id3</option> 
+                                            </select>
                                         </div>
                                         
                                             <div class="form-group">
                                             <h6>* Identificador de pedido:</h6>
-                                            <input type="text" class="form-control" placeholder="* Número de Identificador de pedido" id="idPedido" value="" required>
+
+                                            <select name="OS" required>
+                                            <option selected value="0"> Elige una opción </option>    
+                                               <option value="1">id1</option> 
+                                               <option value="2">id2</option> 
+                                               <option value="3">id3</option> 
+                                            </select>
+                                           <br>
                                            <br>
                                             <label for="producto">Las casillas con * son campos obligatorios</label>
                                             <label for="producto">La cantidad en kg no puede contener números con decimales </label>

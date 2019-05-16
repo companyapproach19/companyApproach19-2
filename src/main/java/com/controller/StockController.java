@@ -513,7 +513,7 @@ public class StockController {
 			{
 				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
 				{
-					if(or.isNecesitaTransportista() && or.getEstado()==3) 
+        if(or.getEstado()==3 && !(or.getActorOrigen().getId().equals("1") && or.getActorDestino().getId().equals("0")))
 					{
 						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
 					}
@@ -551,7 +551,7 @@ public class StockController {
 			{
 				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
 				{
-					if(or.isNecesitaTransportista() && or.getEstado()==4) 
+					if(or.getEstado()==4 && !(or.getActorOrigen().getId().equals("1") && or.getActorDestino().getId().equals("0"))) 
 					{
 						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
 					}

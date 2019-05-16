@@ -2,7 +2,6 @@ package equipo7.model;
 
 import java.io.Serializable;
 
-
 public class Productos implements Serializable {
 	
     private int cant_malta_base_palida;
