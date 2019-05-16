@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.Calendar;
@@ -113,7 +115,15 @@ public class FichaEntrega extends AppCompatActivity {
 
                 servicio = retrofit.create(PedidosAPI.class);
 
-                Call<Object> peticion = servicio.updatePedidoE(new JsonObject());
+                Pedido pedido_a_enviar = sp.pedidosRecogidos.get(posicion);
+
+                JsonObject json = new JsonObject();
+                json.addProperty("id",pedido_a_enviar.getId());
+                json.addProperty("firmaRecogida", "sldibavabv");
+                json.addProperty("transportista","{id = 1}");
+
+
+                Call<Object> peticion = servicio.updatePedidoE(json);
 
                 System.out.println("PUTTTT");
                 // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();

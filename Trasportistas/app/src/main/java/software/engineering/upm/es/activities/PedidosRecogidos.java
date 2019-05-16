@@ -119,7 +119,7 @@ public class PedidosRecogidos extends AppCompatActivity {
 
             //System.out.println(elem.get("id"));
 
-            Pedido ped = new Pedido(id);
+            Pedido ped = new Pedido(id,null);
             boolean b = comprobar(id);
             if (!b) {
                 sp.pedidosRecogidos.add(ped);

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -89,24 +90,9 @@ public class MainActivity extends AppCompatActivity {
             servicio = retrofit.create(PedidosAPI.class);
 
             Call<Object> peticion = servicio.getPedidosL();
-           // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
+            // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
             peticion.enqueue(new ObtenerResultados());
 
-            }
-        else if (sp.contador == 0){
-            // Añado uno por defecto
-            Trasportista trasportista = new Trasportista("PePiTo", "Autónomo", "-/-/-", "-/-/-");
-            sp.pedidosSinAsignar.add(0,new Pedido(trasportista,
-                    123, false, false,
-                    new Productos(1,2,3,4,
-                            5,0,0,0,
-                            0,0,0)));
-            sp.pedidosSinAsignar.add(0,new Pedido(trasportista,
-                    1234, false, false,
-                    new Productos(1,2,3,4,
-                            5,0,0,0,
-                            0,0,0)));
-            sp.contador = 1;
         }
 
         adaptador = new AdaptadorPedidos(sp.pedidosSinAsignar);
@@ -141,18 +127,53 @@ public class MainActivity extends AppCompatActivity {
 
             JsonObject elem = p.parse(g.toJson(e)).getAsJsonObject();
             int id = elem.get("id").getAsInt();
-            int estado = elem.get("estado").getAsInt();
+            //int estado = elem.get("estado").getAsInt();
+
+            /*Los productos, no deberia salir fuera de rango*/
+            JsonArray productos = elem.get("productosPedidos").getAsJsonArray();
+
+            int cant_malta_palida = productos.get(0).getAsInt();
+            int cant_malta_munich = productos.get(1).getAsInt();
+            int cant_malta_negra = productos.get(2).getAsInt();
+            int cant_malta_crystal = productos.get(3).getAsInt();
+            int cant_malta_chocolate = productos.get(4).getAsInt();
+            int cant_malta_caramelo = productos.get(5).getAsInt();
+            int cant_malta_pilsner = productos.get(6).getAsInt();
+            int cant_cebada_tostada = productos.get(7).getAsInt();
+            int cant_lupulo_centenial = productos.get(8).getAsInt();
+            int cant_lupulo_perle = productos.get(9).getAsInt();
+            int cant_lupulo_tettnanger = productos.get(10).getAsInt();
+            int cant_levadura_lager = productos.get(11).getAsInt();
+            int cant_levadura_ale = productos.get(12).getAsInt();
+            int cant_lotes_stout = productos.get(13).getAsInt();
+            int cant_lotes_pilsner = productos.get(14).getAsInt();
 
             //System.out.println(elem.get("id"));
+            Productos prod = new Productos(cant_malta_palida,
+             cant_malta_munich,
+             cant_malta_negra,
+             cant_malta_crystal,
+             cant_malta_chocolate,
+             cant_malta_caramelo,
+             cant_malta_pilsner,
+             cant_cebada_tostada,
+             cant_lupulo_centenial,
+             cant_lupulo_perle,
+             cant_lupulo_tettnanger,
+             cant_levadura_lager,
+             cant_levadura_ale,
+             cant_lotes_stout,
+             cant_lotes_pilsner);
 
-            Pedido ped = new Pedido(id);
+            Pedido ped = new Pedido(id,prod);
+
             boolean b = comprobar(id);
             if(!b){
             sp.pedidosSinAsignar.add(ped);
             }
-
         }
-        sp.pedidosSinAsignar.add(new Pedido(1));
+        sp.pedidosSinAsignar.add(new Pedido(1,null));
+
 
 
 

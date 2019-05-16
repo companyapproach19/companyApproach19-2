@@ -122,7 +122,7 @@ public class HistorialPedidos extends AppCompatActivity {
 
             //System.out.println(elem.get("id"));
 
-            Pedido ped = new Pedido(id);
+            Pedido ped = new Pedido(id,null);
             boolean b = comprobar(id);
             if (!b) {
                 sp.historialPedidos.add(ped);
