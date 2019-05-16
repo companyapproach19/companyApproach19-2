@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AgricultoresPedidosAceptados</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!------ TEST SCRIPTSS ---------->
+<script type="text/javascript" src="ajaxs.js"></script>
+<!------ TEST SCRIPTSS ---------->
+
+<link href="style2.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<body>
+<div class="container register agricultores">
+    <div class="row">
+        <div class="col-md-3 register-left">
+			<img src="icono-agricultor.png" alt=""/>
+			<h1>Agricultores</h1>
+			<!--<p>Pedidos recibidos</p>-->
+        </div>
+        <div class="col-md-9 register-right pedidosaceptados">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
+                </li>
+            </ul>
+            <p></p>
+            <div class="col-3 borde">
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='agricultoresInicio.html';">Volver</a>
+                    </li>
+                </ul>
+            </div>
+
+			<div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <h3  class="register-heading titlecenter">PEDIDOS ACEPTADOS</h3>
+				<br>
+				<div class="row register-form">
+					<div class="col-md-8 pedidoscenter">
+					
+						<script>
+						var stri = "'none'";
+						var j = 0;
+							if (idsOrdenes != null){
+								for ( var i = 1; i <=idsOrdenes.length; i++) {
+									//CADA LINEA DE CHECKBOX
+									document.write('<div class="form-group">');
+									document.write('<input type="checkbox" name="producto'+i+'" id="producto'+i+'" value="Pedido id'+i+'">');
+									document.write('<label for="producto'+i+'" id="label'+i+'">Pedido noPedido</label>');
+									document.write('<a href="" data-toggle="modal" data-target="#exampleModalScrollable"> Ver más información del pedido </a>');
+									document.write('</div>');                                                     <!-- ^ '+i+' -->       
+									
+									
+									//////////MODAAAAAAAAAL
+									<!-- MODAL -->                                              <!-- V '+i+' -->    
+									document.write('<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">');
+									document.write('<div class="modal-dialog modal-dialog-scrollable" role="document">');
+									document.write('<div class="modal-content">');
+									document.write('<div class="modal-header">');
+									document.write('<button type="button" class="close" data-dismiss="modal" aria-label="Close">');
+									document.write('<span aria-hidden="true">&times;</span>');
+									document.write('</button>');
+									document.write('<a class="btn" href="#" id="d"  onclick="intermedio('+(i-1)+',1); style.display ='+stri+'"  data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1">PEDIDO</a>');
+									document.write('<div id="popup1" style="display: none;">');  
+									document.write('<div class="inner">');
+									document.write('<h1>PEDIDO</h1>');
+									document.write('<popup1></popup1>');
+									document.write('</div>');
+									document.write('</div>');
+									document.write('</div>');
+									document.write('</div>');
+									document.write('</div>'); 
+									document.write('</div>');
+									<!-- MODAL -->
+									j++;
+								}
+							}
+						</script>
+						
+																															   
+																									<!-- V ;window.location.href='agricultoresInicio.html' ;-->  
+						<input type="submit" class="btnRegister"  id="botoncompletar" onClick="mandarids();" value="Completar pedidos"/>
+					</div>
+				</div>
+			</div>
+        </div>
+	</div>
+</div>
+	   
+<script>
+ 
+window.onload = pedirIds(0,2);
+
+</script>
+</body>
+</html> 
