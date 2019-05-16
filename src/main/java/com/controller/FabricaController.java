@@ -33,7 +33,6 @@ import equipo6.model.Actor;
 		
 
 
-		//va a dar error hasta que equipo5 suba el código de este sprint a máster
 //		LinkedList<StockLote> lista = StockController.getStockListas();
 		
 		/*
@@ -451,14 +450,50 @@ import equipo6.model.Actor;
 			Actor actor = new Actor(null,null,null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 			
-			for(int i = 0; i<lista.length(); i++) {
+			for(int i = 0; i<lista.size(); i++) {
 				s+="Lote: "+lista.getLote().getIdBd()+"  Fase: "+comprobarFase(lista[i].getLote().getIdBd()+"\n");
 			}
 			return s;
 			
 		}
 		
-	
+		@Scope("request")
+        @RequestMapping("/fabricaComenzarProduccion")
+        @ResponseBody
+        public void fabricaComenzarProduccion(HttpServletResponse response,
+                                              @RequestParam(name="idOrden", required=true) String idOrden,
+                                              Model model) throws Throwable {
+            try{
+                int idOrden = Integer.parseInt(idOrden);
+            } catch (Exception e) {
+                e.printStackTrace();
+			}
+			
+			OrdenTrazabilidad ot = BlockchainServices.getOrden(idOrden); //devuelve un objeto de tipo OrdenTrazabilidad
+			Productos prod = ot.getProductosPedidos(); //aquí tienes las cantidades de materias primas
+
+			/*
+			1 LITRO DE STOUT (cantidades en gramos para que sean 'int'):
+maltaBasePalida=261
+maltaMunich=61
+cebadaTostada=21
+maltaNegra=10
+maltaCrystal=6
+maltaChocolate=5
+maltaCaramelo=4
+lupuloCentennial=3
+levaduraAle=1
+
+
+1 LITRO DE PILSNER (cantidades en gramos para que sean 'int'):
+maltaPilsner=173
+maltaCaramelo=21
+lupuloPerle=1
+lupuloTettnanger=2
+levaduraLager=1
+			*/
+			
+		}
 		
 		
 		
