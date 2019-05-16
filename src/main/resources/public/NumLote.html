@@ -9,7 +9,39 @@
     
   </head>
   <script type="text/javascript">
-  
+  function inicioProduccionPilsner(){
+	  var request = $.ajax({
+  	    url : '/crearLotePilsner',
+  	    data : "tipo=" + tipo,
+  	    type : 'POST',
+  	    dataType : 'json',
+  	    });
+  		request.done(function(response){
+  			alert("se acaba de iniciar la produccion de Pilsner")
+  	  
+  	   });
+  	   request.fail(function(response) {
+  			alert("Error en el servidor");
+  	 
+  	   });
+  	}
+  function inicioProduccionStout(){
+	  var request = $.ajax({
+  	    url : '/crearLoteStout',
+  	    data : "tipo=" + tipo,
+  	    type : 'POST',
+  	    dataType : 'json',
+  	    });
+  		request.done(function(response){
+  			alert("se acaba de iniciar la produccion de Stout")
+  	  
+  	   });
+  	   request.fail(function(response) {
+  			alert("Error en el servidor");
+  	 
+  	   });
+  	}
+    
   </script>
   
   
