@@ -78,8 +78,9 @@ public class Test extends metodosCompany {
 
 			insertarProductos(productosG3_1, 11);
 
-			Date dateiniG3_1 = new Date(11, 11, 2018);
+			Date dateiniG3_1 = new Date(2018, 11, 11);
 			Date datefinG3_1 = new Date(31, 12, 2019);
+			// Un actor y una localizacion pedido por el grupo6 (Blockchain)
 
 			Date dateMoli1 = new Date(31, 11, 2019);
 			Date dateCoci1 = new Date(1, 12, 2019);
@@ -308,15 +309,25 @@ public class Test extends metodosCompany {
 			byte[] firmaent = null;
 
 			OrdenTrazabilidad orden1 = new OrdenTrazabilidad(1, fabrica, cooperativa, productosord1);
+			orden1.setEstado(2);
 			//PEDIDO POR EL GRUPO 1 
 			orden1.setNecesitaTransportista(true);
 			insertarOrdenTrazabilidad(orden1);
 			extraerOrdenTrazabilidad(1);
-
-			OrdenTrazabilidad orden2 = new OrdenTrazabilidad(2, cooperativa, agricultor, productosord2);
+			
+			OrdenTrazabilidad orden2 = new OrdenTrazabilidad(33, fabrica, cooperativa, productosord1);
+			orden2.setEstado(3);
+			//PEDIDO POR EL GRUPO 1 
+			orden2.setNecesitaTransportista(true);
 			insertarOrdenTrazabilidad(orden2);
-			orden2.setEstado(1);
 			extraerOrdenTrazabilidad(2);
+			
+			OrdenTrazabilidad orden3 = new OrdenTrazabilidad(34, fabrica, cooperativa, productosord1);
+			orden3.setEstado(4);
+			//PEDIDO POR EL GRUPO 1 
+			orden3.setNecesitaTransportista(true);
+			insertarOrdenTrazabilidad(orden3);
+			extraerOrdenTrazabilidad(3);
 
 			// Prueba registros
 
@@ -425,14 +436,14 @@ public class Test extends metodosCompany {
 			insertarLote(loteSt2);
 			
 
-			StockLote stockLote1 = new StockLote(lote1, dateinilote1, datefinlote1, 11, 11, "16");
-			StockLote stockLote2 = new StockLote(lote2, dateinilote2, datefinlote2, 2, 2, "3");
+			StockLote stockLote1 = new StockLote(lote1, dateinilote1, datefinlote1, 11, 11, "0");
+			StockLote stockLote2 = new StockLote(lote2, dateinilote2, datefinlote2, 2, 2, "1");
 			StockLote stockLote3 = new StockLote(loteG3_1, dateinilote1, datefinlote1, 2, 2, "2");
-			StockLote stockLote4 = new StockLote(lote2, dateinilote2, datefinlote2, 1, 1, "8");
-			StockLote stockLote5 = new StockLote(loteG3_1, dateinilote3, datefinlote3, 2, 2, "18");
-			StockLote stockLote6 = new StockLote(loteSt1, dateinilote4, datefinlote4, 11, 11, "8");
-			StockLote stockLote7 = new StockLote(loteSt1, dateinilote4, datefinlote4, 2, 2, "9");
-			StockLote stockLote8 = new StockLote(loteSt1, dateinilote3, datefinlote3, 11, 11, "16");
+			StockLote stockLote4 = new StockLote(lote2, dateinilote2, datefinlote2, 1, 1, "4");
+			StockLote stockLote5 = new StockLote(loteG3_1, dateinilote3, datefinlote3, 2, 2, "0");
+			StockLote stockLote6 = new StockLote(loteSt1, dateinilote4, datefinlote4, 11, 11, "3");
+			StockLote stockLote7 = new StockLote(loteSt1, dateinilote4, datefinlote4, 2, 2, "1");
+			StockLote stockLote8 = new StockLote(loteSt1, dateinilote3, datefinlote3, 11, 11, "1");
 			
 			insertarStockLote(stockLote1);
 			insertarStockLote(stockLote2);

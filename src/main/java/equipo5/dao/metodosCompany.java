@@ -1326,7 +1326,7 @@ public class metodosCompany {
             break;
         case 3:
             conectar();
-            String query3 = "SELECT * FROM company.stockfabricalotes WHERE idCadena = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockfabricalotes WHERE fecha_salida <> NULL)";
+            String query3 = "SELECT * FROM company.stockfabricaMMPP WHERE idCadena = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockfabricaMMPP WHERE fecha_salida <> NULL)";
             Statement pst3 = conn.createStatement();
             ResultSet rs3 = pst3.executeQuery(query3);
             while(rs3.next()) {
