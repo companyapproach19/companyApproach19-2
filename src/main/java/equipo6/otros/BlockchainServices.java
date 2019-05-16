@@ -113,22 +113,7 @@ public class BlockchainServices{
 					break;
 				}
 
-				stock_mp = metodosCompany.extraerStockMpPorPedido(orden.getActorDestino(),orden);
-
-				if(stock_mp.size() != 0) {
-
-					for(MateriaPrima materia_prima : list_materia_prima) {
-
-						coincidencia = get_coincidencia(stock_mp, materia_prima.getTipo());
-
-						if(coincidencia != null)
-						{
-							metodosCompany.insertarStockMP(coincidencia);
-							valor_retorno = true;
-						}
-
-					}
-				}
+				
 
 				break;
 
@@ -150,7 +135,7 @@ public class BlockchainServices{
 		return valor_retorno;
 	}
 
-	public void guardarRespuestaPedido(int id_pedido_destino, ArrayList<Integer> ids_stock_origen) throws Throwable 
+	public void guardarRespuestaPedido(int id_pedido_destino, int id_stock_origen) throws Throwable 
 	{
 
 		Cadena origen;
@@ -161,18 +146,16 @@ public class BlockchainServices{
 		destino = metodosCompany.extraerCadena(id_pedido_destino);
 		origen = null;
 
-		for(Integer id : ids_stock_origen) 
-		{
-			origen = metodosCompany.extraerCadena(id);
-			new_super_block = new Bloque(destino.getHashUltimoBloque(), -1, destino.getNumBloques(), destino.getCodLote(), new DatosContainer(), origen.getCodLote(),-1);
+	
+		origen = metodosCompany.extraerCadena(id_stock_origen);
+		new_super_block = new Bloque(destino.getHashUltimoBloque(), -1, destino.getNumBloques(), destino.getCodLote(), new DatosContainer(), origen.getCodLote(),-1);
+		new_utimo_hash = new_super_block.getHashCode();
+		try {
+			metodosCompany.insertarBloque(new_super_block);
 			destino.incrementarNumBloques();
-			new_utimo_hash = new_super_block.getHashCode();
-			try {
-				metodosCompany.insertarBloque(new_super_block);
-				destino.setHashUltimoBloque(new_utimo_hash);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+			destino.setHashUltimoBloque(new_utimo_hash);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
 		if(destino != null)
@@ -318,15 +301,11 @@ public class BlockchainServices{
 
 		list_materia_prima = "";
 
-		if(productos.getCant_cebada() != 0) 
-		{
-			list_materia_prima += " Cebada";
-		}
 		if(productos.getCant_cebada_tostada() != 0) 
 		{
 			list_materia_prima += " cebadaTostada";
 		}
-		if(productos.getCant_lupulo_centenial() != 0) 
+		if(productos.getCant_lupulo_centennial() != 0) 
 		{
 			list_materia_prima += " lupuloCentennial";
 		}
@@ -350,7 +329,7 @@ public class BlockchainServices{
 		{
 			list_materia_prima += " maltaNegra";
 		}
-		if(productos.getCant_malta_palida() != 0)
+		if(productos.getCant_malta_base_palida() != 0)
 		{
 			list_materia_prima += " maltaBasePalida";
 		}
@@ -370,14 +349,6 @@ public class BlockchainServices{
 
 		list_materia_prima = new ArrayList<MateriaPrima>();
 
-		if(productos.getCant_cebada() != 0) 
-		{
-			cantidad = productos.getCant_cebada();
-			id = metodosCompany.idMateriaPrima();
-			materiaPrima = new MateriaPrima("Cebada", id, cantidad);
-			metodosCompany.insertarMateriaPrima(materiaPrima);
-			list_materia_prima.add(materiaPrima);
-		}
 		if(productos.getCant_cebada_tostada() != 0) 
 		{
 			cantidad = productos.getCant_cebada_tostada();
@@ -386,9 +357,9 @@ public class BlockchainServices{
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
 		}
-		if(productos.getCant_lupulo_centenial() != 0) 
+		if(productos.getCant_lupulo_centennial() != 0) 
 		{
-			cantidad = productos.getCant_lupulo_centenial();
+			cantidad = productos.getCant_lupulo_centennial();
 			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("lupuloCentennial", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
@@ -434,9 +405,9 @@ public class BlockchainServices{
 			metodosCompany.insertarMateriaPrima(materiaPrima);
 			list_materia_prima.add(materiaPrima);
 		}
-		if(productos.getCant_malta_palida() != 0)
+		if(productos.getCant_malta_base_palida() != 0)
 		{
-			cantidad = productos.getCant_malta_palida();
+			cantidad = productos.getCant_malta_base_palida();
 			id = metodosCompany.idMateriaPrima();
 			materiaPrima = new MateriaPrima("maltaBasePalida", id, cantidad);
 			metodosCompany.insertarMateriaPrima(materiaPrima);
