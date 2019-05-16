@@ -1,0 +1,436 @@
+<html lang="es">
+<head>
+    <title>Prediccion Actor</title>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script id ="speedCanvas">
+      function prueba() {var speedCanvas = document.getElementById("speedChart");
+      Chart.defaults.global.defaultFontFamily = "Lato";
+      Chart.defaults.global.defaultFontSize = 14;
+      var speedData = {
+  labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic","Ene"],
+  datasets: [{
+    label: "Malta Base Palida",
+    data: [0, 59, 75,20, 20, 55, 40],
+    borderColor: 'red',
+    backgroundColor: 'transparent',
+        },
+        {label : "Malta Munich",
+        data : [40,40,30,20,50,40,50,60,80,30],
+        borderColor: 'orange',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Cebada Tostada",
+        data : [50,10,20,20,60],
+        borderColor : 'blue',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Negra",
+        data : [40,40,30,20,50],
+        borderColor: 'pink',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Crystal",
+        data : [40,40,30,20,50],
+        borderColor: 'yellow',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Chocolate",
+        data : [50,10,20,20,60],
+        borderColor: 'purple',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Caramelo",
+        data : [50,10,20,20,60],
+        borderColor: 'green',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Lupulo Centennial",
+        data : [50,10,20,20,60],
+        borderColor: 'brown',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Levadura Ale",
+        data : [50,10,20,20,60],
+        borderColor: 'black',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Pilsner",
+        data : [50,10,20,20,60],
+        borderColor: 'gold',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Lupulo Perle",
+        data : [50,10,20,20,60],
+        borderColor: 'grey',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Lupulo Tettnanger",
+        data : [30,40,50,40,20],
+        borderColor: 'aqua',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Levadura Lager",
+        data : [50,10,20,20,60],
+        borderColor: 'fuchsia',
+        backgroundColor: 'transparent',
+
+        }
+        ]
+          };
+
+      var chartOptions = {
+       legend: {
+       display: true,
+       position: 'right',
+       labels: {
+        boxWidth: 20,
+       fontColor: 'black'
+    }
+  }
+};
+
+var lineChart = new Chart(speedCanvas, {
+  type: 'line',
+  data: speedData,
+  options: chartOptions
+});
+}</script>
+</head>
+<body onload="prueba()" style="display: block; height: 100%; !important">
+
+<div class="container-fluid register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="icono-agricultor.png" alt=""/>
+            <h1>Agricultor</h1>
+            <!--<p>Pedidos recibidos</p>
+            <input type="submit" name="" value="Log out"/><br/>
+                -->
+        </div>
+
+        <div class="col-md-8 register-right">
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    <h3 class="register-heading">Predicción Agricultor</h3>
+                </div>
+
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home" data-toggle="submit" href="/" role="submit" aria-controls="home"
+                           aria-selected="true">Volver</a>
+                    </li>
+
+
+                </ul>
+                </div>
+                <br/><br/>
+
+                <div class="col-md-9" style="position:inline; margin-left: 40px">
+                  <canvas id="speedChart" width="600" height="400">
+                    
+                  </canvas>
+                </div>
+                <div>
+                <table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Ene</th>
+      <th scope="col">Feb</th>
+      <th scope="col">Mar</th>
+      <th scope="col">Abr</th>
+      <th scope="col">May</th>
+      <th scope="col">Jun</th>
+      <th scope="col">Jul</th>
+      <th scope="col">Ago</th>
+      <th scope="col">Sep</th>
+      <th scope="col">Oct</th>
+      <th scope="col">Nov</th>
+      <th scope="col">Dic</th>
+      <th scope="col">PREDICCION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Malta Base Palida</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Munich</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Cebada Tostada</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Negra</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Crystal</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Chocolate</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Caramelo</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Lupulo Centennial</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Levadura Ale</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Pilsner</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Lupulo Perle</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th scope="row">Lupulo Tettnanger</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+     <tr>
+      <th scope="row">Levadura Lager</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2234</td>
+      <td>334765</td>
+      <td>4334</td>
+      <td>5</td>
+      <td>6000</td>
+      <td>7</td>
+      <td>800</td>
+      <td>9</td>
+      <td>10</td>
+      <td>746378</td>
+      <td>174634782</td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+                	 	
+                 
+                
+                <br/><br/><br/><br/> <br/><br/>
+            
+            <br/><br/><br/><br/>
+
+            
+            </div>
+            
+        
+</div>
+</body>
+</html>
+<!------ Include the above in your HEAD tag ---------->
+
+<script>
+    function obtenerNumLote() {
+
+        var request = $.ajax({
+            // la URL para la petición
+            url: '/numLote',
+
+            // la información a enviar
+            // (también es posible utilizar una cadena de datos)
+            data: "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+
+            // especifica si será una petición POST o GET
+            type: 'POST',
+
+            // el tipo de información que se espera de respuesta
+            dataType: 'json',
+
+        
+        
+
+        request.done(function (data) {
+
+            //Este metodo redirige a la URL
+            if (data.existe) {
+                alert(data.num);
+            } else {
+                alert("No existe el lote");
+            }
+
+        });
+
+        request.fail(function (data) {
+
+            alert("Error en el servidor");
+
+        });
+
+    }
+</script>
