@@ -448,12 +448,12 @@ import equipo6.model.Actor;
 		public static String ponerTabla(HttpServletResponse response, Model model) 
 						throws Exception {
 			String s = "";
-			Actor actor = new Actor(null,null,null,3);
+			/*Actor actor = new Actor(null,null,null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 			
-			for(int i = 0; i<lista.length(); i++) {
-				s+="Lote: "+lista.getLote().getIdBd()+"  Fase: "+comprobarFase(lista[i].getLote().getIdBd()+"\n");
-			}
+			for(int i = 0; i<lista.size(); i++) {
+				s+="Lote: "+lista.get(i).getLote().getIdBd()+"  Fase: "+comprobarFase(lista.get(i).getLote().getIdBd()+"\n");
+			}*/
 			return s;
 			
 		}
