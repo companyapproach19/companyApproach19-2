@@ -3,14 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<!-- Include the above in your HEAD tag -->
+
+
+<!-- CSSSS -->
 <link href="Login.css" rel="stylesheet" id="bootstrap-css">
+<!-- CSSSSS -->
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
@@ -39,12 +41,16 @@
 
           <fieldset class="clearfix">
 
-            <p ><span class="fa fa-user"></span><input type="text"  Placeholder="Username" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
-            <p><span class="fa fa-lock"></span><input type="password"  Placeholder="Password" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+            <p ><span class="fa fa-user"></span><input type="text"  Placeholder="Username" id="username" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fa fa-lock"></span><input type="password"  Placeholder="Password" id="password" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
             
 
              <div>                               
+<<<<<<< HEAD
                <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" onclick = "login(); style.display = 'none'" value="Sign In"></span>
+=======
+               <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" onClick="getDataLogin()" value="Sign In"></span>
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
              </div>
 
           </fieldset>
@@ -67,46 +73,91 @@
 
 
 <script>
+var email;
+var password;
+
+function getDataLogin(){
+	email = $("#username").val();
+	password = $("#password").val();
+	var log = {"usuario":email,"pwd":password};
+	console.log(log);
+	logIn(email, password);
+}
+function logIn(email,password){
+  $.getJSON("loginUser?usuario="+email+"&pwd="+password, function(data) {
+    //alert("BIEN. FUNCIONO GET JSON");
+    if(data==null){
+		console.log("soy null");
+		alert("Identification error. Please check that the email and password are correct.")
+    }else{
+    	localStorage.setItem("currentUser", JSON.stringify(data));
+        console.log("correct!");
+        location.href = data.redirect;
+    } 
+						 
+ });
+	
+};
+	//alert("MAL. NO FUNCIONO GET JSON");
+	
+	//TRAMPA
 
 
-function login() {
+var usuarios = new Array ( '{ "nombre":"Agricultor","mail":"agricultor@email.com", "tipoActor":"Agricultor" }',
+	'{ "nombre":"Cooperativa","mail":"cooperativa@email.com", "tipoActor":"Cooperativa" }',
+	'{ "nombre":"Transportista","mail":"transportista@email.com", "tipoActor":"Transportista" }',
+	'{ "nombre":"Fábrica","mail":"fabrica@email.com", "tipoActor":"Fábrica" }',
+	'{ "nombre":"Retailer","mail":"retailer@email.com", "tipoActor":"Retailer" }' );
 
-      hacerPeticion();
- 
-  }
 
-function hacerPeticion(){
-
-      var request = $.ajax({
-      // la URL para la petición
-      url : '/loginUser',
- 
-      // la información a enviar
-      // (también es posible utilizar una cadena de datos)
-      data : "usuario=" + $("#username").val() + "&pwd=" + $("#password").val(),
- 
-      // especifica si será una petición POST o GET
-      type : 'POST',
- 
-      // el tipo de información que se espera de respuesta
-      dataType : 'json',
- 
-      });
- 
-     request.done(function(data){
+	for (var i = 0; i < usuarios.length; i++) {
+		var actor = JSON.parse( usuarios[i] );
+								  
+		if (email == actor.nombre && password == "password" ) { 
+		  vistaPrincipal(actor.tipoActor)
+		  break;
+		}
+		else {
+	      //window.location.replace("LoginError.html");
+		}
+    }
+	  
+//-----------------------------TRAMPA-----------------------------
+  
+  
+function vistaPrincipal(tipoActor) {
       
+<<<<<<< HEAD
       //Este metodo redirige a la URL
       window.location.replace(data.redirect);
     
      });
+=======
+      switch (tipoActor) {
+      case "Agricultor" :
+	  window.location.replace("agricultoresInicio.html");
+	  break;
+      case "Cooperativa":
+	  window.location.replace("cooperativaInicio.html");
+	  break;
+      case "Transportista":
+	  window.location.replace("Transportista.html");
+	  break;
+      case "Fábrica":
+	  window.location.replace("Fabrica.html");
+	  break;
+      case "Retailer":
+	  window.location.replace("tiendaInicio.html");
+	  break;
+      default:
+	  window.location.replace("LoginError.html");
+      }
+  }
+  
+  
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
  
-     request.fail(function(data) {
-	 
-     alert("Error en el servidor");
-	 
-     });
  
- }
  
  </script>
 

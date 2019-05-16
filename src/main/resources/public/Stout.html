@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html lang="es">
   <head>
     <title>Stout</title>
@@ -123,3 +124,252 @@
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>     
+=======
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Stout</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>     
+    
+  </head>
+  <body style="display: block; height: 100vh; !important">
+
+    <div class="container-fluid register" style="margin-top: 0px">
+      <div class="row">
+        <div class="col-md-3 register-left">
+          <img src="https://image.flaticon.com/icons/png/512/25/25007.png" alt=""/>
+          <h1>Fábrica</h1>
+                        <!--<p>Pedidos recibidos</p>
+                        <input type="submit" name="" value="Log out"/><br/>
+                            -->
+        </div>
+
+        <div class="col-md-9 register-right">
+          <div class="row">
+             <div class="col-md-4 offset-md-2">
+              <h3 class="register-heading">Cerveza Stout</h3>
+            </div>
+
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="home" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+              </li>
+            </ul>
+          </div>
+          <br/><br/><br/><br/><br/><br/><br/>
+
+          <div class="row">
+            <div class="col-md-10 offset-md-2">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapseStout" role="button" aria-expanded="false" aria-controls="collapseStout">
+                Procesos y duración
+            </a>
+            
+            <div class="collapse" id="collapseStout">
+              
+              <strong>Macerado: </strong>0-70 mins (63-68 grados)<br/>
+
+                                    <strong>Cocción Centennial:</strong> 70 gr<br/>
+                                    
+                                    
+                                     <strong>Fermentación primaria</strong> 7 días (22 grados)<br/>
+                                    
+
+                                     <strong>Fermentación secundaria:</strong> 15 días (17-20 grados)<br/>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-10 offset-md-2">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapseCreacion" role="button" aria-expanded="false" aria-controls="collapseCreacion">
+                Ingredientes
+              </a>
+
+              <div class="collapse" id="collapseCreacion">
+               
+                  <strong>Malta base pálida:</strong> 5.5kg<br/>
+                                  
+                                  <strong>Malta Caramelo:</strong> 90gr
+                                  <br/>
+                                  
+                                  
+                                  <strong>Malta Múnich:</strong> 1.3kg
+                                  <br/>
+                                  
+
+                                  <strong>Cebada tostada:</strong> 450gr
+                                  <br/>
+
+                                  <strong>Malta negra:</strong> 225gr
+                                  <br/>
+
+                                  <strong>Malta crystal:</strong> 140gr
+                                  <br/>
+                                  <strong>Malta chocolate:</strong> 120gr
+                                  <br/>
+
+                                  <strong>Lúpulo Centennial:</strong> 70gr
+                                  <br/>
+                                  <strong>Levadura:</strong> Ale
+                                  <br/>
+                        
+              </div>
+            </div>
+          </div>
+
+
+            <div class="row">
+              <div class="col-md-10 offset-md-2">
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseVisualizar" role="button" aria-expanded="false" aria-controls="collapseVisualizar">
+                  Densidades
+                </a>
+
+                  <div class="collapse" id="collapseVisualizar">
+                                <strong> Original: </strong> 1045 <br/>
+                                <strong>Final:</strong> 1010
+                                </br>
+              </div>
+            </div>
+           </div>
+           <br/><br/>
+           <div class="col-md-5">
+                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item" >
+                                <a class="nav-link" id="home" onclick="moler();" aria-controls="home" aria-selected="true">Crear lote</a>
+                            </li>
+                            </ul>
+                        </div>
+           <br/><br/><br/><br/>
+           <div class="row">
+                        <div class="col-md-11 ">
+                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item" >
+                                <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
+                            </li>
+                            </ul>
+                        </div>
+                        <br/><br/><br/><br/>
+          
+  </body>
+</html>
+
+
+
+
+<script>
+
+
+	
+          function moler(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : /*"numLoteIntroducido=" + $("#CuadroNumLote").val()*/"",
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+    	 //falat recoger el numero
+  if(confirm("Lote 1 molido. ¿Desea que pase a fase de cocinado?")){
+  cocinar();
+  }
+    else{
+    alert("Proceso finalizado en fase de molienda.");
+    href="NumLote.html";
+    }
+     });
+     request.fail(function(data) {
+     alert("Error en el servidor");
+     cocinar();
+     });
+ 
+ }
+        </script>
+    
+    <script>
+          function cocinar(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+    	 //falta recoger el numero
+  if(confirm("Lote 1 cocinado. ¿Desea que pase a fase de fermentacion?")){
+  fermentar();
+  }
+    else{
+    alert("Proceso finalizado en fase de cocinado.");
+    href="NumLote.html";
+
+    }
+     });
+     request.fail(function(data) {
+     alert("Error en el servidor");
+     fermentar();
+     });
+ 
+ }
+        </script>
+    
+    <script>
+          function fermentar(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+    	 //falta recoger el valor
+  if(confirm("Lote 1 fermentado. ¿Desea que pase a fase de embotellado?")){
+  embotellado();
+  }
+    else{
+    alert("Proceso finalizado en fase de fermentado.");
+    href="NumLote.html";
+}
+     });
+     request.fail(function(data) {
+     alert("Error en el servidor");
+     embotellado();
+     });
+ 
+ }
+        </script>
+    
+    
+    <script>
+          function embotellado(){
+      var request = $.ajax({
+      url : '/funWait',
+      data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+      type : 'POST',
+      dataType : 'json',
+      });
+ 
+     request.done(function(data){
+    	 //falta poner bien el numero (recogerlo)
+  alert("Lote 1 embotellado. Proceso finalizado.");
+  href="NumLote.html";
+
+     });
+     request.fail(function(data) {
+     alert("Error en el servidor");
+     });
+ 
+ }
+        </script>
+
+
+<!------ Include the above in your HEAD tag ---------->
+
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e

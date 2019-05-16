@@ -1,7 +1,0 @@
-Test de simulación creación clase "Registro", parseando un .txt,con datos recogidos por Arduino, desde la clase "Sensor"
-
-Los datos recogido tienen el siguiente formato:
-año-mes-dia|hora:minuto:segundo+temperaturaºC
-
-Un Sensor puede generar muchos Registros, todos los txt recogidos en esta carpeta son registros reales tomados desde el
-dispositivo.

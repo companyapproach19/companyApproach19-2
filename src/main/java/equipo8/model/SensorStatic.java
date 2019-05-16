@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+<<<<<<< HEAD
+=======
+import java.sql.SQLException;
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -22,7 +26,11 @@ import equipo6.otros.BlockchainServices;
 //Clase para parsear el .txt donde guardamos los datos recogidos por Arduino
 public class SensorStatic{
 
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	//private static int idSensor;
 	private static int idPedido;
 	private static int idOrdentrazabilidad;
@@ -43,6 +51,7 @@ public class SensorStatic{
 	private static BlockchainServices blockchain = new BlockchainServices();
 
 	public static void iniciarTransporte(int idOrden, int idPed) {
+<<<<<<< HEAD
 		serialPort = null;
 		Calendar date = Calendar.getInstance();
 		idPedido = idPed;
@@ -96,6 +105,63 @@ public class SensorStatic{
 		};
 		timer.schedule(taskreceive, 0, 5000);//cada 5 segs desde el principio
 		timer.schedule(taskcreate, 20000,60000);//cada minuto a partir del primer minuto
+=======
+//		serialPort = null;
+//		Calendar date = Calendar.getInstance();
+//		idPedido = idPed;
+//		idOrdentrazabilidad = idOrden;
+//		fechainicio = new Fecha(date.get(Calendar.YEAR),date.get(Calendar.MONTH)+1,date.get(Calendar.DAY_OF_MONTH),date.get(Calendar.HOUR_OF_DAY),date.get(Calendar.MINUTE),date.get(Calendar.SECOND));
+//
+//		//ports
+//		ports = SerialPort.getCommPorts();
+//		if(ports.length>0) {
+//			serialPort = ports[6];
+//		}
+//
+//		System.out.println("Puerto seleccionado de forma predeterminada: " + serialPort.getSystemPortName());
+//		System.out.println("Puertos disponibles del sistema:");
+//		for (int i=0;i<ports.length; i++)
+//			System.out.println((i+1) + ") " + ports[i].getSystemPortName() + "\t" + ports[i].isOpen());
+//
+//		//txt
+//		txt = new File("datosArduino.txt");
+//		if(txt.exists()){
+//			txt.delete();
+//		}
+//		try {
+//			txt.createNewFile();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		//timer tasks
+//		timer = new Timer();
+//		taskreceive = new TimerTask() {
+//			public void run() {
+//				recibirDatosArduino();
+//			}
+//		};
+//		taskcreate = new TimerTask() {
+//			public void run() {
+//				try {
+//					Registro reg = crearRegistro(idOrdentrazabilidad, idPedido);
+//					System.out.println(reg);
+//					try {
+//						blockchain.guardarOrden(reg);
+//					} catch (Throwable e) {
+//						System.err.println("Error al enviar Registro al blockchain!");
+//						e.printStackTrace();
+//					}
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		};
+//		timer.schedule(taskreceive, 0, 5000);//cada 5 segs desde el principio
+//		timer.schedule(taskcreate, 20000,60000);//cada minuto a partir del primer minuto
+		idPedido = idPed;
+		idOrdentrazabilidad = idOrden;
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	}
 
 
@@ -107,6 +173,7 @@ public class SensorStatic{
 	}
 
 	public static int terminar() {
+<<<<<<< HEAD
 		timer.cancel();//paramos el recibo de datos
 		System.out.println("Último registro:");
 		Registro reg = null;
@@ -118,12 +185,40 @@ public class SensorStatic{
 		}
 		System.out.println("Fin recibo de datos.");
 		txt.delete();//borramos el txt del servidor
+=======
+//		timer.cancel();//paramos el recibo de datos
+//		System.out.println("Último registro:");
+//		Registro reg = null;
+//		try {
+//			reg = crearRegistro(idOrdentrazabilidad,idPedido);
+//			System.out.println(reg.toString());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println("Fin recibo de datos.");
+//		txt.delete();//borramos el txt del servidor
+//		return reg.getId();
+		Registro reg =null;
+    try {
+      reg = equipo5.dao.metodosCompany.extraerUltimoRegistro(idOrdentrazabilidad);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+		if(reg==null) {
+			return 0;
+		}
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		return reg.getId();
 	}
 
 
 	public static void recibirDatosArduino() {
 
+<<<<<<< HEAD
+=======
+		
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		if(serialPort==null) {
 			System.err.println("No se ha seleccionado un puerto"); 
 			System.exit(0);
@@ -131,10 +226,22 @@ public class SensorStatic{
 
 		String data = "";
 		serialPort.openPort();
+<<<<<<< HEAD
 		while(serialPort.bytesAvailable()<2) {
 			try {
 				//System.out.println("waiting...");
 				Thread.sleep(1000);
+=======
+		if(!serialPort.isOpen()) {
+			System.err.println("Fallo de conexión!");
+			terminar();
+			System.exit(1);
+		}
+		while(serialPort.bytesAvailable()<1) {
+			try {
+				//System.out.println("waiting...");
+				Thread.sleep(120);
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -163,9 +270,44 @@ public class SensorStatic{
 	}
 
 	public static void cambiarIntervalo(int millisleer,int milliscrear) {
+<<<<<<< HEAD
 		timer.cancel();
 		timer.schedule(taskreceive, 0, millisleer);
 		timer.schedule(taskcreate, milliscrear, milliscrear);
+=======
+		if(millisleer <1500 || milliscrear < millisleer) {
+			System.err.print("Intervalos no posibles");
+			return;
+		}
+		
+		timer.cancel();
+		//timer tasks
+		timer = new Timer();
+		taskreceive = new TimerTask() {
+			public void run() {
+				recibirDatosArduino();
+			}
+		};
+		taskcreate = new TimerTask() {
+			public void run() {
+				try {
+					Registro reg = crearRegistro(idOrdentrazabilidad, idPedido);
+					System.out.println(reg);
+					try {
+						blockchain.guardarOrden(reg);
+					} catch (Throwable e) {
+						System.err.println("Error al enviar Registro al blockchain!");
+						e.printStackTrace();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		timer.schedule(taskreceive, 0, millisleer);
+		timer.schedule(taskcreate, milliscrear, milliscrear);
+		System.out.println("Cambio de Intervalo");
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	}
 
 
@@ -217,9 +359,15 @@ public class SensorStatic{
 
 		}
 
+<<<<<<< HEAD
 		Registro registro= new Registro(idPedido, idOrdentrazabilidad,  fechainicio.toString(), fecha.toString(), Tmax, Tmin);
 		log.close();
 		return registro;
+=======
+		//Registro registro= new Registro(idPedido, idOrdentrazabilidad,  fechainicio.toString(), fecha.toString(), Tmax, Tmin);
+		log.close();
+		return new Registro(idPedido, idOrdentrazabilidad,  fechainicio.toString(), fecha.toString(), Tmax, Tmin);
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	}
 
 	// Método que EQUIPO TRANSPORTISTAS meta jsonRegistro en Pedido 
@@ -234,12 +382,21 @@ public class SensorStatic{
 		serialPort.closePort();
 	}
 
+<<<<<<< HEAD
 //	public static void setID (int id){
 //		idSensor = id;
 //	}
 //	public int getID (){
 //		return idSensor;
 //	}
+=======
+	//	public static void setID (int id){
+	//		idSensor = id;
+	//	}
+	//	public int getID (){
+	//		return idSensor;
+	//	}
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 	public static int getIdPedido() {
 		return idPedido;
@@ -282,4 +439,8 @@ public class SensorStatic{
 
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e

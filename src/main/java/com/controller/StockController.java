@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
+import equipo5.dao.NullException;
 import equipo5.dao.metodosCompany;
 import equipo5.model.StockLote;
 import equipo5.model.StockMP;
@@ -48,7 +50,11 @@ public class StockController {
 	 * dado un actor y una materia prima devuelve la cantidad de esa materia prima
 	 */
 	public static double getCantidadStock(Actor actor, int idOrden, MateriaPrima mp)
+<<<<<<< HEAD
 			throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException, NotInDatabaseException {
+=======
+			throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException {
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		double devolvemos = 0;
 		LinkedList<StockMP> lista = new LinkedList<StockMP>();
 		lista = metodosCompany.extraerStockMP(actor, idOrden);
@@ -65,16 +71,38 @@ public class StockController {
 	 * devuelve una lista de stocklotes dado un actor
 	 */
 
+<<<<<<< HEAD
 	public static LinkedList<StockLote> getListaLotes(Actor actor, int idOrden)
 			throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
 		return metodosCompany.extraerStockLote(actor, idOrden);
 	}
+=======
+	public static LinkedList<StockLote> getListaLotes(Actor actor)
+            throws ClassNotFoundException, SQLException, NotInDatabaseException, equipo5.model.NotInDatabaseException {
+        LinkedList<StockLote> lista = new LinkedList<StockLote>();
+        ArrayList<OrdenTrazabilidad> listaOrdenes = metodosCompany.extraerOrdenesActorDestino(actor.getId());
+        System.out.println(" tamano "+listaOrdenes.size());
+        for(OrdenTrazabilidad orden: listaOrdenes) {
+            System.out.println("id de la orden "+orden.getId());
+            LinkedList<StockLote> listaStockLote = metodosCompany.extraerStockLote(actor, orden.getId());
+            System.out.println(" tamano2 "+listaStockLote.size());
+            for(StockLote sLote: listaStockLote) {
+                lista.add(sLote);
+            }            
+        }
+        return lista;
+    }
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 
 	/*
 	 * dado un actor y un lote devuelve el stock de un tipo de lote
 	 */
+<<<<<<< HEAD
 	public static int getStockLote(Actor actor, int idOrden, Lote lote) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException, NotInDatabaseException {
+=======
+	public static int getStockLote(Actor actor, int idOrden, Lote lote) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException {
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 		// nos devuleve una lista con todos los lotes de un actor, luego tenemos que
 		// buscar
@@ -90,7 +118,11 @@ public class StockController {
 		return resultado;
 	}
 
+<<<<<<< HEAD
 	public static HashMap<String, Double> getStockPedidoFabrica(int idOrden) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException, NotInDatabaseException {
+=======
+	public static HashMap<String, Double> getStockPedidoFabrica(int idOrden) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException {
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		HashMap<String, Double> hm = new HashMap<String, Double>();
 		LinkedList<StockMP> lista = new LinkedList<StockMP>();
 		Actor actor=new Actor(null,null,3);
@@ -202,6 +234,7 @@ public class StockController {
 	public String getStockActores(
 			HttpServletRequest request,
 			@RequestParam(name="id") String id,
+<<<<<<< HEAD
 			Model model) throws Exception, equipo5.model.NotInDatabaseException {
 		int a = Integer.parseInt(id);
 		String tipo = "";
@@ -224,6 +257,30 @@ public class StockController {
 		default:
 			tipo = "Unknown";
 			break;
+=======
+			Model model) throws Exception {
+		int a = Integer.parseInt(id);
+		String tipo = "";
+		switch(a){
+			case 0:
+				tipo="Agricultor";
+				break;
+			case 1:
+				tipo="Cooperativa";
+				break;
+			case 2:
+				tipo="Transportista";
+				break;
+			case 3:
+				tipo="Fabrica";
+				break;
+			case 4:
+				tipo="Retailer";
+				break;
+			default:
+				tipo = "Unknown";
+				break;
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		}
 		JsonObject todos = new JsonObject();
 		List<Actor> actores = actoresDeTipo(a);
@@ -237,10 +294,18 @@ public class StockController {
 	private void init_map_nombres_bbdd_vistas(Map<String,String> mapeo_nombres) 
 	{
 
+<<<<<<< HEAD
 		mapeo_nombres.put("maltaBasePalida","malta_palida");
 		mapeo_nombres.put("maltaTostada","malta_tostada");
 		mapeo_nombres.put("maltaNegra","malta_negra");
 		mapeo_nombres.put("maltacrystal","malta_crystal");
+=======
+		
+		mapeo_nombres.put("maltaBasePalida","malta_palida");
+		mapeo_nombres.put("maltaTostada","malta_tostada");
+		mapeo_nombres.put("maltaNegra","malta_negra");
+		mapeo_nombres.put("maltaCrystal","malta_crystal");
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		mapeo_nombres.put("maltaChocolate","malta_chocolate");
 		mapeo_nombres.put("maltaCaramelo","malta_caramelo");
 		mapeo_nombres.put("maltaPilsner","malta_pilsner");
@@ -249,7 +314,11 @@ public class StockController {
 		mapeo_nombres.put("lupuloTettnanger","lupulo_tettnanger");
 		mapeo_nombres.put("lupuloCentennial","lupulo_centennial");
 		mapeo_nombres.put("levaduraAle","levadura_ale");
+<<<<<<< HEAD
 		mapeo_nombres.put("levaduraLagger","levadura_lagger");
+=======
+		mapeo_nombres.put("levaduraLager","levadura_lagger");
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 	}
 
@@ -257,6 +326,7 @@ public class StockController {
 	@Scope("request")
 	@RequestMapping("/dameStockActor")
 	@ResponseBody
+<<<<<<< HEAD
 	public String getStockActor(HttpServletRequest request, @RequestParam(name = "id") String id,Model model) throws Exception, equipo5.model.NotInDatabaseException {
 
 
@@ -266,6 +336,21 @@ public class StockController {
 	}
 
 	private JsonObject get_stock_actor(String id) throws equipo5.model.NotInDatabaseException, NotInDatabaseException 
+=======
+	public String getStockActor(HttpServletRequest request, @RequestParam(name = "id") String id,Model model) throws Exception {
+
+		if(id==null) {
+			idActor = get_id_actor_cookie(request.getCookies());
+		}
+		else {
+			idActor=id;
+		}
+		System.out.println(idActor);
+		return get_stock_actor(idActor).toString();
+	}
+
+	private JsonObject get_stock_actor(String id) 
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	{
 		MateriaPrima mp;
 		JsonObject json_resp;
@@ -277,8 +362,15 @@ public class StockController {
 		lista_nombre_mp = new HashMap<String, String>();
 		stock = new JsonObject();
 		json_resp = new JsonObject();
+<<<<<<< HEAD
 		try {
 			lista_ordenes = metodosCompany.extraerOrdenesActorOrigen(idActor);
+=======
+		idActor=id;
+
+		try {
+				lista_ordenes = metodosCompany.extraerOrdenesActorOrigen(idActor);
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 		}catch (Exception e) {
 			e.printStackTrace();
 			lista_ordenes = new ArrayList<OrdenTrazabilidad>();
@@ -294,6 +386,12 @@ public class StockController {
 			actor = new Actor(idActor, "Agricultor", "asdasd", "rmj@g.cm", 0, "41.5N 2.0W", "Agricultor A",
 					"c/mevoyamorir", "1234567C");
 		}
+<<<<<<< HEAD
+=======
+		
+		System.out.println(actor.getId());
+		System.out.println(actor.getNombreUsuario());
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 		json_resp.addProperty("nomUsuario", actor.getNombreUsuario());
 		json_resp.addProperty("email", actor.getEmail());
@@ -304,6 +402,7 @@ public class StockController {
 		LinkedList<StockMP> lista = new LinkedList<StockMP>();
 		try {
 			for (OrdenTrazabilidad orden : lista_ordenes) {
+<<<<<<< HEAD
 				lista = metodosCompany.extraerStockMpPorPedido(actor, orden);
 				for (StockMP var : lista) {
 					stock.addProperty(
@@ -314,6 +413,18 @@ public class StockController {
 			}
 
 		} catch (ClassNotFoundException | SQLException e1) {
+=======
+				lista = metodosCompany.extraerStockMP(actor, orden.getId());
+				for (StockMP var : lista) {
+						stock.addProperty(
+											lista_nombre_mp.get(var.getMp().getTipo()), 
+											var.getMp().getCantidad()
+											);
+				}
+			}
+
+		} catch (equipo5.model.NotInDatabaseException | ClassNotFoundException | SQLException e1) {
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -339,7 +450,11 @@ public class StockController {
 				numLotes = String.valueOf(lotesS+lotesP);
 			}
 
+<<<<<<< HEAD
 		} catch (Exception e) {
+=======
+		} catch (Exception | equipo5.model.NotInDatabaseException e) {
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			numLotesP = "0";
 			numLotesS = "0"; 
 			e.printStackTrace();
@@ -360,6 +475,10 @@ public class StockController {
 
 			break;
 		case 4:
+<<<<<<< HEAD
+=======
+			json_resp.add("stock", stock );
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			json_resp.addProperty("Numero de lotes", numLotes);
 
 			break;
@@ -384,6 +503,10 @@ public class StockController {
 		return bcs.get_trazabilidad(id_pedido);
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	@Scope("request")
 	@RequestMapping("/damePedidosTransportista")
 	@ResponseBody
@@ -392,14 +515,19 @@ public class StockController {
 		try {
 
 			CadenaActores cadena;
-			JsonObject json_resp;
 			Gson gson;
-			int index;
 			JsonParser parse;
+<<<<<<< HEAD
 
 
 			index = 0;
 			json_resp = new JsonObject();
+=======
+			JsonArray lista;
+
+			lista = new JsonArray();
+
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 			cadena = metodosCompany.extraerCadenaActores();
 			gson = new Gson();
 			parse = new JsonParser();
@@ -410,6 +538,7 @@ public class StockController {
 				{
 					if(or.isNecesitaTransportista()) 
 					{
+<<<<<<< HEAD
 						json_resp.add(or.getId()+"", parse.parse(gson.toJson(or)).getAsJsonObject());
 						index++;
 					}
@@ -418,6 +547,15 @@ public class StockController {
 
 			return json_resp.toString();
 
+=======
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
+					}
+				}
+			}
+
+			return lista.toString();
+
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -445,9 +583,14 @@ public class StockController {
 		bcs.guardarOrden(geo);
 
 	}
+<<<<<<< HEAD
 
 	@Scope("request")
 	@RequestMapping("/get_trabilidad_vista")
+=======
+	@Scope("request")
+	@RequestMapping("/get_trazabilidad_vista")
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 	@ResponseBody
 	public String get_trabilidad_vista(@RequestParam(name="id_pedido", required=true) int id_pedido,
 			Model model) throws SQLException 
@@ -467,6 +610,11 @@ public class StockController {
 			lista_bloques_registro = bcs.get_cadena(id_pedido).getBloque(1);
 			lista_bloques_lotes = bcs.get_cadena(id_pedido).getBloque(2);
 			json_respuesta = new JsonObject();
+<<<<<<< HEAD
+=======
+			
+			
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 			if(lista_bloques_ordenes == null || lista_bloques_ordenes.size() == 0) throw new Exception();
 			if(lista_bloques_registro == null || lista_bloques_registro.size() == 0) throw new Exception();
@@ -477,6 +625,7 @@ public class StockController {
 			}
 			else 
 			{
+<<<<<<< HEAD
 				ultimo_lote = ((Lote)(lista_bloques_lotes.get(lista_bloques_lotes.size()-1).getDatos()));
 				json_respuesta.addProperty("Tipo", ultimo_lote.getTipo());
 			}
@@ -485,11 +634,25 @@ public class StockController {
 			ultimo_registro = ((Registro)(lista_bloques_registro.get(lista_bloques_registro.size()-1).getDatos()));
 			json_respuesta.addProperty("Temperatura maxima", ultimo_registro.getTempMax());
 			json_respuesta.addProperty("Temperatura minima", ultimo_registro.getTempMax());
+=======
+				ultimo_lote = ((Lote)(lista_bloques_lotes.get(0).getDatos()));
+				json_respuesta.addProperty("Tipo", ultimo_lote.getTipo());
+			}
+			
+			json_respuesta.addProperty("Agricultor", "Sin resultados");
+			json_respuesta.addProperty("Fabrica", "Sin resultados");
+
+			insertar_actores(lista_bloques_ordenes,json_respuesta);
+			ultimo_registro = ((Registro)(lista_bloques_registro.get(0).getDatos()));
+			json_respuesta.addProperty("TemperaturaMax", ultimo_registro.getTempMax());
+			json_respuesta.addProperty("TemperaturaMin", ultimo_registro.getTempMin());
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 			return json_respuesta.toString();
 
 		}
 		catch (Exception e) {
+<<<<<<< HEAD
 			return "{\"Error\":\"cadena con encotrada\"}";
 		}
 	}
@@ -506,10 +669,30 @@ public class StockController {
 				break;
 			case 3:
 				json.addProperty("Fabrica", actor.getNombre());
+=======
+			e.printStackTrace();
+			return "{\"Error\":\"cadena no encotrada\"}";
+		}
+	}
+	
+	private void insertar_actores(List<Bloque> list_blo, JsonObject json) throws ClassNotFoundException, SQLException, RuntimeException, NullException 
+	{
+		OrdenTrazabilidad orden;
+		for (Bloque bloque : list_blo) {
+			orden = ((OrdenTrazabilidad)bloque.getDatos());
+			switch(orden.getActorDestino().getTipoActor()) 
+			{
+			case 0:
+				json.addProperty("Agricultor", orden.getActorDestino().getDireccion()+" "+BlockchainServices.extraer_nombres_materias_primas(orden.getProductosPedidos()));
+				break;
+			case 3:
+				json.addProperty("Fabrica", orden.getActorDestino().getNombre());
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 				break;
 			}
 		}
 	}
+<<<<<<< HEAD
 	
 	
 	/*
@@ -522,6 +705,8 @@ public class StockController {
 		
 	 */
 
+=======
+>>>>>>> fb283f52dfb5959529ee1a682e0a78260bc81c4e
 
 
 }
