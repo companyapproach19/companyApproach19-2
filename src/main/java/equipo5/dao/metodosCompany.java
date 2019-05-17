@@ -1424,7 +1424,7 @@ public class metodosCompany {
     			pst.setDate(11, orden.getFecha());
     			pst.executeUpdate();
     			pst.close();
-    			if(extraerProductosOrden(orden.getId())==null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+    			if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
     			
     		}
     		else {
@@ -1447,7 +1447,7 @@ public class metodosCompany {
 			pst.setDate(12, orden.getFecha());
     		pst.executeUpdate();
     		pst.close();
-    		if(extraerProductosOrden(orden.getId())==null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+    		if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
     		}
     	}
    
