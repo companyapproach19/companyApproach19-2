@@ -1,6 +1,7 @@
 package software.engineering.upm.es.activities;
 
 import android.content.Intent;
+import android.os.health.SystemHealthManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -130,23 +131,24 @@ public class MainActivity extends AppCompatActivity {
             //int estado = elem.get("estado").getAsInt();
 
             /*Los productos, no deberia salir fuera de rango*/
-            JsonArray productos = elem.get("productosPedidos").getAsJsonArray();
+            JsonObject productos = (JsonObject) elem.get("productosPedidos");
 
-            int cant_malta_palida = productos.get(0).getAsInt();
-            int cant_malta_munich = productos.get(1).getAsInt();
-            int cant_malta_negra = productos.get(2).getAsInt();
-            int cant_malta_crystal = productos.get(3).getAsInt();
-            int cant_malta_chocolate = productos.get(4).getAsInt();
-            int cant_malta_caramelo = productos.get(5).getAsInt();
-            int cant_malta_pilsner = productos.get(6).getAsInt();
-            int cant_cebada_tostada = productos.get(7).getAsInt();
-            int cant_lupulo_centenial = productos.get(8).getAsInt();
-            int cant_lupulo_perle = productos.get(9).getAsInt();
-            int cant_lupulo_tettnanger = productos.get(10).getAsInt();
-            int cant_levadura_lager = productos.get(11).getAsInt();
-            int cant_levadura_ale = productos.get(12).getAsInt();
-            int cant_lotes_stout = productos.get(13).getAsInt();
-            int cant_lotes_pilsner = productos.get(14).getAsInt();
+
+            int cant_malta_palida = productos.get("cant_malta_base_palida").getAsInt();
+            int cant_malta_munich = productos.get("cant_malta_munich").getAsInt();
+            int cant_malta_negra = productos.get("cant_malta_negra").getAsInt();
+            int cant_malta_crystal = productos.get("cant_malta_crystal").getAsInt();
+            int cant_malta_chocolate = productos.get("cant_malta_chocolate").getAsInt();
+            int cant_malta_caramelo = productos.get("cant_malta_caramelo").getAsInt();
+            int cant_malta_pilsner = productos.get("cant_malta_pilsner").getAsInt();
+            int cant_cebada_tostada = productos.get("cant_cebada_tostada").getAsInt();
+            int cant_lupulo_centenial = productos.get("cant_lupulo_centennial").getAsInt();
+            int cant_lupulo_perle = productos.get("cant_lupulo_perle").getAsInt();
+            int cant_lupulo_tettnanger = productos.get("cant_lupulo_tettnanger").getAsInt();
+            int cant_levadura_lager = productos.get("cant_levadura_lager").getAsInt();
+            int cant_levadura_ale =  productos.get("cant_levadura_ale").getAsInt();
+            int cant_lotes_stout =  productos.get("cant_lotes_stout").getAsInt();
+            int cant_lotes_pilsner =  productos.get("cant_lotes_pilsner").getAsInt();
 
             //System.out.println(elem.get("id"));
             Productos prod = new Productos(cant_malta_palida,
@@ -172,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             sp.pedidosSinAsignar.add(ped);
             }
         }
-        sp.pedidosSinAsignar.add(new Pedido(1,null));
+
 
 
 

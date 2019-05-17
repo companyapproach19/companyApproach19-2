@@ -11,7 +11,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HEAD;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -34,11 +37,13 @@ public interface PedidosAPI {
     @POST("ejemplo")
     Call<JSONArray> insertPedido(@Body Pedido pedido);
 
+    @FormUrlEncoded
     @PUT("https://beer-company2019.herokuapp.com/recogidaOrden")
-    Call<Object> updatePedidoR(@Body JsonObject JsonObject);
+    Call<Object> updatePedidoR( @Field("json") JsonObject JsonObject);
 
+    @FormUrlEncoded
     @PUT("https://beer-company2019.herokuapp.com/entregadaOrden")
-    Call<Object> updatePedidoE(@Body JsonObject JsonObject);
+    Call<Object> updatePedidoE(@Field("json")  JsonObject JsonObject);
 
     @DELETE("ejemplo/{id}")
     Call<JSONArray> deletePedido(@Path("id") String id);

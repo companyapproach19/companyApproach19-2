@@ -18,6 +18,8 @@ import com.google.gson.JsonObject;
 import java.util.Calendar;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import software.engineering.upm.es.R;
@@ -119,15 +121,15 @@ public class FichaEntrega extends AppCompatActivity {
 
                 JsonObject json = new JsonObject();
                 json.addProperty("id",pedido_a_enviar.getId());
-                json.addProperty("firmaRecogida", "sldibavabv");
-                json.addProperty("transportista","{id = 1}");
+                json.addProperty("firmaEntrega", "sldibavabv");
+
 
 
                 Call<Object> peticion = servicio.updatePedidoE(json);
 
                 System.out.println("PUTTTT");
                 // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
-
+                peticion.enqueue(new ObtenerResultados());
 
         }
             sp.pedidosRecogidos.remove(posicion);
@@ -135,7 +137,23 @@ public class FichaEntrega extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
+    private class ObtenerResultados implements Callback<Object> {
+        @Override
+        public void onResponse(Call<Object> call, Response<Object> response) {
+            System.out.println("Paso por aqui");
+            System.out.println(call);
+            System.out.println(response);
+        }
 
+        @Override
+        public void onFailure(Call<Object> call, Throwable t) {
+
+            procesarError(t.getMessage());
+        }
+    }
+    private void procesarError(String mensaje){
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
+    }
     public void calendarDialog (int i) {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
