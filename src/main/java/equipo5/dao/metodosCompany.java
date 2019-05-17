@@ -493,7 +493,7 @@ public class metodosCompany {
 			pst.setInt(10, orden.getIdPedido());
 			pst.executeUpdate();
 			pst.close();
-			if(extraerProductosOrden(orden.getId())==null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+			if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
 			
 		}
 		else {
@@ -515,7 +515,7 @@ public class metodosCompany {
 		pst.setInt(11, orden.getIdPedido());
 		pst.executeUpdate();
 		pst.close();
-		if(extraerProductosOrden(orden.getId())==null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+		if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
 		}
 	}
 
@@ -757,7 +757,7 @@ public class metodosCompany {
 			int estadoOrden = rs.getInt(9);
 			switch (tipoBloque) {
 			case 0:
-				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerOrdenTrazabilidad(rs.getInt(6)), idCadena, estadoOrden);
+				Bloque buscado = new Bloque(hashPrevio, tipoBloque, numBloque, codLote, extraerOrdenTrazabilidadEstado(rs.getInt(6), estadoOrden), idCadena, estadoOrden);
 				devolver = buscado;
 				break;
 			case 1:
@@ -1326,7 +1326,7 @@ public class metodosCompany {
             break;
         case 3:
             conectar();
-            String query3 = "SELECT * FROM company.stockfabricalotes WHERE idCadena = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockfabricalotes WHERE fecha_salida <> NULL)";
+            String query3 = "SELECT * FROM company.stockfabricaMMPP WHERE idCadena = "+orden.getIdPedido()+" AND idOrden NOT IN (SELECT idOrden FROM company.stockfabricaMMPP WHERE fecha_salida <> NULL)";
             Statement pst3 = conn.createStatement();
             ResultSet rs3 = pst3.executeQuery(query3);
             while(rs3.next()) {
@@ -1395,6 +1395,60 @@ public class metodosCompany {
     		pst.close();
     		rs.close();
     		return lista;	
+    	}
+    	
+    	public static void insertarOrdenTrazabilidadFecha(OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, NullException {
+    		if(orden == null){
+    	             throw new NullException("La orden introducida no es válida.");
+    		}
+    		if(orden.getActorOrigen() == null || orden.getActorDestino() == null){
+    	             throw new NullException("Los actores de la orden no pueden ser null.");
+    		}
+    		conectar();
+    		if(orden.getTransportista() == null || orden.getTransportista().getCifcooperativa()=="-1") {
+    			//comprobar que los productos no pueden ser null
+    			String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, estado, firmaRecogida, firmaEntrega, idRegistro, idCadena, fecha)"
+    					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+    			pst.setInt(1, orden.getId());
+    			pst.setString(2, orden.getActorOrigen().getId());
+    			pst.setString(3, orden.getActorDestino().getId());
+    			pst.setBoolean(4, orden.isNecesitaTransportista());
+    			if(extraerProductos(orden.getId())==null) insertarProductos(orden.getProductosPedidos(), orden.getId());
+    			pst.setInt(5, orden.getId());
+    			pst.setInt(6, orden.getEstado());
+    			pst.setBytes(7,orden.getFirmaRecogidaBBDD());
+    			pst.setBytes(8,orden.getFirmaEntregaBBDD());
+    			pst.setInt(9, orden.getIdRegistro());
+    			pst.setInt(10, orden.getIdPedido());
+    			pst.setDate(11, orden.getFecha());
+    			pst.executeUpdate();
+    			pst.close();
+    			if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+    			
+    		}
+    		else {
+    		//comprobar que los productos no pueden ser null
+    		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, estado, firmaRecogida, firmaEntrega, idTransportista, idRegistro, idCadena, fecha)"
+    				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
+    		pst.setInt(1, orden.getId());
+    		pst.setString(2, orden.getActorOrigen().getId());
+    		pst.setString(3, orden.getActorDestino().getId());
+    		pst.setBoolean(4, orden.isNecesitaTransportista());
+    		if(extraerProductos(orden.getId())==null) insertarProductos(orden.getProductosPedidos(), orden.getId());
+    		pst.setInt(5, orden.getId());
+    		pst.setInt(6, orden.getEstado());
+    		pst.setBytes(7,orden.getFirmaRecogidaBBDD());
+    		pst.setBytes(8,orden.getFirmaEntregaBBDD());
+    		pst.setString(9, orden.getTransportista().getId());
+    		pst.setInt(10, orden.getIdRegistro());
+    		pst.setInt(11, orden.getIdPedido());
+			pst.setDate(12, orden.getFecha());
+    		pst.executeUpdate();
+    		pst.close();
+    		if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+    		}
     	}
    
 }
