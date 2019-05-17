@@ -584,7 +584,7 @@ public class Test extends metodosCompany {
 				"Calle Madrid", null);
 
 		for (int j = 1; j<=30; j++) {
-			for (int i = 1; i<=12; i++) {
+			for (int i = 5; i<=12; i++) {
 				Productos prodG2_1 = new Productos(1, 12, 2, 4, 3, 1, 8, 10, 1, 9, 2,3,4,5,6);
 				Productos prodG2_2 = new Productos(18, 12, 3, 3, 2, 1, 8, 11, 11, 2, 0,5,6,7,8);
 				Productos prodG2_3 = new Productos(0,0,0,0,0,0,0,0,0,0,0,0,0,(i+j)%50,(i*j)%50);
@@ -605,6 +605,32 @@ public class Test extends metodosCompany {
 				OrdenTrazabilidad ordenG2_4 = new OrdenTrazabilidad(idOrdenTrazabilidad(), fabrica, cooperativa, prodG2_4);
 				ordenG2_4.setEstado((i+3)%4);
 				ordenG2_4.setFecha(Date.valueOf("2018-"+i+"-"+j));
+				if((i*j)%4 != 0)insertarOrdenTrazabilidadFecha(ordenG2_4);
+			}
+			System.out.println("Introducidas Ordenes del dia "+j);
+		}
+		for (int j = 1; j<=30; j++) {
+			for (int i = 1; i<=5; i++) {
+				Productos prodG2_1 = new Productos(1, 12, 2, 4, 3, 1, 8, 10, 1, 9, 2,3,4,5,6);
+				Productos prodG2_2 = new Productos(18, 12, 3, 3, 2, 1, 8, 11, 11, 2, 0,5,6,7,8);
+				Productos prodG2_3 = new Productos(0,0,0,0,0,0,0,0,0,0,0,0,0,(i+j)%50,(i*j)%50);
+				Productos prodG2_4 = new Productos(19, 12, 5, 0, 3, 1, 3, 10, 11, 9, 21,6,56,56,6);
+				
+				OrdenTrazabilidad ordenG2_1 = new OrdenTrazabilidad(idOrdenTrazabilidad(), cooperativa, agricultor, prodG2_1);
+				ordenG2_1.setFecha(Date.valueOf("2019-"+i+"-"+j));
+				ordenG2_1.setEstado(i%4);
+				if((i*j)%3 != 0) insertarOrdenTrazabilidadFecha(ordenG2_1);
+				OrdenTrazabilidad ordenG2_2 = new OrdenTrazabilidad(idOrdenTrazabilidad(), fabrica, cooperativa, prodG2_2);
+				ordenG2_2.setEstado((i+1)%4);
+				ordenG2_2.setFecha(Date.valueOf("2019-"+i+"-"+j));
+				if((i*j)%5 != 0)insertarOrdenTrazabilidadFecha(ordenG2_2);
+				OrdenTrazabilidad ordenG2_3 = new OrdenTrazabilidad(idOrdenTrazabilidad(), retailer, fabrica, prodG2_3);
+				ordenG2_3.setEstado((i+2)%4);
+				ordenG2_3.setFecha(Date.valueOf("2019-"+i+"-"+j));
+				if((i*j)%2 != 0)insertarOrdenTrazabilidadFecha(ordenG2_3);
+				OrdenTrazabilidad ordenG2_4 = new OrdenTrazabilidad(idOrdenTrazabilidad(), fabrica, cooperativa, prodG2_4);
+				ordenG2_4.setEstado((i+3)%4);
+				ordenG2_4.setFecha(Date.valueOf("2019-"+i+"-"+j));
 				if((i*j)%4 != 0)insertarOrdenTrazabilidadFecha(ordenG2_4);
 			}
 			System.out.println("Introducidas Ordenes del dia "+j);
