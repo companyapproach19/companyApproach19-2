@@ -25,63 +25,16 @@ import equipo4.model.Principal;
 import equipo5.model.NotInDatabaseException;
 import equipo5.model.StockLote;
 import equipo6.model.Actor;
+import equipo6.otros.*;
+import equipo7.model.OrdenTrazabilidad;
+import equipo7.model.Productos;
 
 
 	@Controller
 	@SpringBootApplication
 	public class FabricaController {
 		
-
-
-<<<<<<< HEAD
-//		LinkedList<StockLote> lista = StockController.getStockListas();
-		
-		/*
-		 * Comprueba si en la lista se encuentra el lote con el nÃºmero de lote introducido
-		 * para devolver informaciÃ³n acerca de Ã©l
-=======
-		//va a dar error hasta que equipo5 suba el cï¿½digo de este sprint a mï¿½ster
-//		LinkedList<StockLote> lista = StockController.getStockListas();
-		
-		/*
-		 * Comprueba si en la lista se encuentra el lote con el nï¿½mero de lote introducido
-		 * para devolver informaciï¿½n acerca de ï¿½l
->>>>>>> equipo7
-		 */
-		/*@Scope("request")
-		@RequestMapping("/numLote")
-		@ResponseBody
-		public JsonObject obtenerNumLote(HttpServletResponse response,
-										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
-<<<<<<< HEAD
-										//comprueba el nÃºmero de lote introducido en la vista
-=======
-										//comprueba el nï¿½mero de lote introducido en la vista
->>>>>>> equipo7
-										Model model) 
-						throws Exception {
-			JsonObject obj = new JsonObject();
-			
-			obj.addProperty("existe", false);
-			for (int i=0; i<lista.size(); i++) {
-				StockLote lote = lista.get(i);en
-				if (lote.getIdPedido()==numLoteIntroducido) {
-					i=lista.size();
-					obj.addProperty("existe",true);
-					obj.addProperty("num",1);
-//					obj.addProperty("nombreLote", lote.getLote());
-				}
-			}
-			return obj;
-		}*/
-		
-		
-		
-		
-		//comienzaProcesoFabricacion
-		
-		
-		
+	
         
 		@Scope("request")
         @RequestMapping("/comprobar")
@@ -129,48 +82,48 @@ import equipo6.model.Actor;
             String mensaje="";
             boolean bien=true;
             
-//            if(lista.get("maltaBasePalida")!=null && lista.get("maltaMunich")!= null && lista.get("cebadaTostada")!=null && lista.get("maltaNegra")!=null &&
-//            		lista.get("maltaCrystal")!=null && lista.get("maltaChocolate")!=null && lista.get("maltaCaramelo")!=null && lista.get("lupuloCentennial")!=null &&lista.get("levaduraAle")!=null
-//            		&& lista.get("maltaPilsner")!=null &&lista.get("lupuloPerle")!=null && lista.get("lupuloTettnanger")!=null &&lista.get("levaduraLager")!=null) {
-//            
-//            
+            if(lista.get("maltaBasePalida")!=null && lista.get("maltaMunich")!= null && lista.get("cebadaTostada")!=null && lista.get("maltaNegra")!=null &&
+            		lista.get("maltaCrystal")!=null && lista.get("maltaChocolate")!=null && lista.get("maltaCaramelo")!=null && lista.get("lupuloCentennial")!=null &&lista.get("levaduraAle")!=null
+            		&& lista.get("maltaPilsner")!=null &&lista.get("lupuloPerle")!=null && lista.get("lupuloTettnanger")!=null &&lista.get("levaduraLager")!=null) {
+            
+            
             //LAS CANTIDADES ESTAN EN GRAMOS
             if(tipo=="stout") {
-//                if(lista.get("maltaBasePalida") >= (261*kilosPedidos) && lista.get("maltaMunich") >= (61*kilosPedidos) && lista.get("cebadaTostada") >= 21*kilosPedidos &&
-//                        lista.get("maltaNegra") >= 10*kilosPedidos && lista.get("maltaCrystal") >=6*kilosPedidos && lista.get("maltaChocolate") >= 5*kilosPedidos &&
-//                        lista.get("maltaCaramelo") >= 4*kilosPedidos && lista.get("lupuloCentennial") >= 3*kilosPedidos && lista.get("levaduraAle") >= 1*kilosPedidos ) {
-//                
+                if(lista.get("maltaBasePalida") >= (261*kilosPedidos) && lista.get("maltaMunich") >= (61*kilosPedidos) && lista.get("cebadaTostada") >= 21*kilosPedidos &&
+                        lista.get("maltaNegra") >= 10*kilosPedidos && lista.get("maltaCrystal") >=6*kilosPedidos && lista.get("maltaChocolate") >= 5*kilosPedidos &&
+                        lista.get("maltaCaramelo") >= 4*kilosPedidos && lista.get("lupuloCentennial") >= 3*kilosPedidos && lista.get("levaduraAle") >= 1*kilosPedidos ) {
+                
                    Lote lote=Principal.crearLote("stout");
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                     
-//                }
-//                else {
-//                    bien=false;
-//                }
+                }
+                else {
+                    bien=false;
+                }
                 
             }
             else if(tipo=="pilsner") {
-//                if(lista.get("maltaPilsner") >= 173*kilosPedidos && lista.get("maltaCaramelo") >= 21*kilosPedidos && lista.get("lupuloPerle") >= 1*kilosPedidos &&
-//                        lista.get("lupuloTettnanger") >= 2*kilosPedidos && lista.get("levaduraLager") >= 1*kilosPedidos) {
+                if(lista.get("maltaPilsner") >= 173*kilosPedidos && lista.get("maltaCaramelo") >= 21*kilosPedidos && lista.get("lupuloPerle") >= 1*kilosPedidos &&
+                        lista.get("lupuloTettnanger") >= 2*kilosPedidos && lista.get("levaduraLager") >= 1*kilosPedidos) {
                     Lote lote=Principal.crearLote("pilsner");
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
-//                }
-//                else {
-//                    bien=false;
-//                }
+                }
+                else {
+                    bien=false;
+                }
             }
-//            else {
-//            	bien=false;
-//            }
-//            }
-//            if(bien) {
+            else {
+            	bien=false;
+            }
+            }
+            if(bien) {
             	mensaje="mensajeOK";
             	res="Hay stock suficiente";
-//            }
-//            else {
-//            	mensaje="mensajeNOOK";
-//            	res="No hay stock suficiente";
-//            }
+            }
+            else {
+            	mensaje="mensajeNOOK";
+            	res="No hay stock suficiente";
+            }
             obj.addProperty(mensaje, res.toString());
             return obj.toString();
         }
@@ -181,11 +134,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String llegadaALaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-<<<<<<< HEAD
-										//comprueba el nÃºmero de lote introducido en la vista
-=======
-										//comprueba el nï¿½mero de lote introducido en la vista
->>>>>>> equipo7
+										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
             Actor actor = new Actor(null,null,null,3);
@@ -215,11 +164,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String molienda(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-<<<<<<< HEAD
-										//comprueba el nÃºmero de lote introducido en la vista
-=======
-										//comprueba el nï¿½mero de lote introducido en la vista
->>>>>>> equipo7
+										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -248,11 +193,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String coccion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-<<<<<<< HEAD
-										//comprueba el nÃºmero de lote introducido en la vista
-=======
-										//comprueba el nï¿½mero de lote introducido en la vista
->>>>>>> equipo7
+										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -282,11 +223,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String fermentacion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-<<<<<<< HEAD
-										//comprueba el nÃºmero de lote introducido en la vista
-=======
-										//comprueba el nï¿½mero de lote introducido en la vista
->>>>>>> equipo7
+										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -319,11 +256,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String embotellado(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-<<<<<<< HEAD
-										//comprueba el nÃºmero de lote introducido en la vista
-=======
-										//comprueba el nï¿½mero de lote introducido en la vista
->>>>>>> equipo7
+										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -354,17 +287,12 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String salidaDeLaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-<<<<<<< HEAD
-										//comprueba el nÃºmero de lote introducido en la vista
-=======
-										//comprueba el nï¿½mero de lote introducido en la vista
->>>>>>> equipo7
+										//comprueba el número de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
 			obj.addProperty("fechaFin", "");
 			int introducido = Integer.parseInt(numLoteIntroducido);
-
 			//ya hemos comprobado que la lista contiene al lote deseado
 			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
 		for (int i=0; i<lista.size(); i++) {
@@ -377,7 +305,6 @@ import equipo6.model.Actor;
 				}
 			}
 			obj.addProperty("fechaInicio", "fechaqueyoheescrito6");
-
 			return obj.toString();
 		}*/
 	
@@ -482,63 +409,62 @@ import equipo6.model.Actor;
 		@RequestMapping("/ponerTabla")
 		@ResponseBody
 		public static String ponerTabla(HttpServletResponse response, Model model) 
-						throws Exception {
+						throws Exception, NotInDatabaseException {
 			String s = "";
 			Actor actor = new Actor(null,null,null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 			
 			for(int i = 0; i<lista.size(); i++) {
-				s+="Lote: "+lista.getLote().getIdBd()+"  Fase: "+comprobarFase(lista[i].getLote().getIdBd()+"\n");
+				s+="Lote: "+lista.get(i).getLote().getIdBd()+"  "+Principal.comprobarFase(lista.get(i).getLote().getIdBd());
 			}
 			return s;
 			
 		}
 		
 		@Scope("request")
-        @RequestMapping("/fabricaComenzarProduccion")
-        @ResponseBody
-        public void fabricaComenzarProduccion(HttpServletResponse response,
-                                              @RequestParam(name="idOrden", required=true) String idOrden,
-                                              Model model) throws Throwable {
-            
-                int orden = Integer.parseInt(idOrden);
-			
-                int orden = Integer.parseInt(idOrden);
-			OrdenTrazabilidad ot = BlockchainServices.getOrden(orden); //devuelve un objeto de tipo OrdenTrazabilidad
-			Productos prod = ot.getProductosPedidos(); //aquÃ­ tienes las cantidades de materias primas
-			int cantLotes;
-			boolean pilsner=false;
-			if (prod.getCant_malta_palida()>0){
-				cantLotes = prod.getCant_malta_palida()/261;
-			} else if (prod.getCant_malta_pilsner()>0) {
-				cantLotes = prod.getCant_malta_pilsner()/173;
-				pilsner=true;
-			}
+	       @RequestMapping("/fabricaComenzarProduccion")
+	       @ResponseBody
+	       public void fabricaComenzarProduccion(HttpServletResponse response,
+	                                             @RequestParam(name="idOrden", required=true) String idOrden,
+	                                             Model model) throws Throwable {
+				Actor actor = new Actor(null,null,null,3);
+	            int orden = Integer.parseInt(idOrden);
+	            BlockchainServices bl= new BlockchainServices();
+	            OrdenTrazabilidad ot = bl.getOrden(orden); //devuelve un objeto de tipo OrdenTrazabilidad
+	            Productos prod = ot.getProductosPedidos(); //aquí tienes las cantidades de materias primas
+	            int cantLotes=0;
+	            boolean pilsner=false;
+	            if (prod.getCant_malta_base_palida()>0){
+	                cantLotes = prod.getCant_malta_base_palida()/261;
+	            } else if (prod.getCant_malta_pilsner()>0) {
+	                cantLotes = prod.getCant_malta_pilsner()/173;
+	                pilsner=true;
+	            }
 
-			if (!pilsner &&
-				prod.getCant_malta_palida()>=(261*cantLotes) &&
-				prod.getCant_malta_munich()>=(61*cantLotes) &&
-				prod.getCant_cebada_tostada()>=(21*cantLotes) &&
-				prod.getCant_malta_negra()>=(10*cantLotes) &&
-				prod.getCant_malta_crystal()>=(6*cantLotes) &&
-				prod.getCant_malta_chocolate()>=(5*cantLotes) &&
-				prod.getCant_lupulo_centenial()>=(3*cantLotes) &&
-				prod.getCant_levadura_ale()>=(1*cantLotes)) {
-					Lote lote=Principal.crearLote("stout");
-					com.controller.StockController.setCantidadLote(actor,lote,orden);
+	            if (!pilsner &&
+	                prod.getCant_malta_base_palida()>=(261*cantLotes) &&
+	                prod.getCant_malta_munich()>=(61*cantLotes) &&
+	                prod.getCant_cebada_tostada()>=(21*cantLotes) &&
+	                prod.getCant_malta_negra()>=(10*cantLotes) &&
+	                prod.getCant_malta_crystal()>=(6*cantLotes) &&
+	                prod.getCant_malta_chocolate()>=(5*cantLotes) &&
+	                prod.getCant_lupulo_centennial()>=(3*cantLotes) &&
+	                prod.getCant_levadura_ale()>=(1*cantLotes)) {
+	                    Lote lote=Principal.crearLote("stout");
+	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
 
-			} else if (pilsner &&
-				prod.getCant_malta_pilsner()>=(173*cantLotes) &&
-				prod.getCant_malta_caramelo()>=(21*cantLotes) &&
-				prod.getCant_lupulo_perle()>=(1*cantLotes) &&
-				prod.getCant_lupulo_tettnager()>=(2*cantLotes) &&
-				prod.getCant_levadura_lager()>=(1*cantLotes)) {
-					Lote lote=Principal.crearLote("pilsner");
-					com.controller.StockController.setCantidadLote(actor,lote,orden);
-			}
+	            } else if (pilsner &&
+	                prod.getCant_malta_pilsner()>=(173*cantLotes) &&
+	                prod.getCant_malta_caramelo()>=(21*cantLotes) &&
+	                prod.getCant_lupulo_perle()>=(1*cantLotes) &&
+	                prod.getCant_lupulo_tettnanger()>=(2*cantLotes) &&
+	                prod.getCant_levadura_lager()>=(1*cantLotes)) {
+	                    Lote lote=Principal.crearLote("pilsner");
+	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
+	            }
 
-			
-		}
+	            
+	        }
 		
 		
 		
