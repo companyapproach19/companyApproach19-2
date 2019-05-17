@@ -462,6 +462,7 @@ public class ManejaPeticiones {
 				//Asignamos los lotes que estan asociados a la ordenRespuesta
 				ArrayList<Integer> idsLotes = new ArrayList<Integer>();
 				LinkedList<StockLote> lotes = equipo5.dao.metodosCompany.extraerStockLote(ordenAResponder.getActorDestino(), ordenRespuesta.getId());
+				if(lotes!=null){
 				Iterator<StockLote> it = lotes.iterator();
 				while(it.hasNext()) {
 					StockLote actual = it.next();
@@ -471,6 +472,7 @@ public class ManejaPeticiones {
 							idsLotes.add(lote.getIdBd());
 						}
 					}
+				}
 				}
 				ordenAResponder.setProductosAEntregar(idsLotes);
 			}
