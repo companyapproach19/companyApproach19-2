@@ -102,7 +102,7 @@ function ponerTabla(){
 		request.done(function(response){
 			alert("llama funcion ajax correcta");
 			var lista = response["s"];
-			$('#Tabla').text(fecha);
+			$('#Tabla').text(lista);
 			alert("la informacion que he recogido del servicio es:" + lista);
 	  
 	   });
