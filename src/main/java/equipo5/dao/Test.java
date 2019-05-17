@@ -25,11 +25,13 @@ import java.sql.SQLType;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
 
-import java.util.*;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -63,8 +65,8 @@ public class Test extends metodosCompany {
 			
 			// Un actor y una localizacion pedido por el grupo6 (Blockchain)
 
-			Date dategeo1 = new Date(11, 04, 2018);
-			Date dategeo2 = new Date(15, 04, 2018);
+			Date dategeo1 = Date.valueOf("2018-4-22");
+			Date dategeo2 = Date.valueOf("2018-4-23");
 
 			geolocalizacion geo1 = new geolocalizacion(1, 1, 1, "36.9211;-2.9411", dategeo1);
 			geolocalizacion geo2 = new geolocalizacion(2, 2, 2, "36.9521;-2.9811", dategeo2);
@@ -78,15 +80,15 @@ public class Test extends metodosCompany {
 
 			insertarProductos(productosG3_1, 11);
 
-			Date dateiniG3_1 = new Date(2018, 11, 11);
-			Date datefinG3_1 = new Date(31, 12, 2019);
+			Date dateiniG3_1 =  Date.valueOf("2018-11-11");
+			Date datefinG3_1 = Date.valueOf("2018-12-31");
 			// Un actor y una localizacion pedido por el grupo6 (Blockchain)
 
-			Date dateMoli1 = new Date(31, 11, 2019);
-			Date dateCoci1 = new Date(1, 12, 2019);
-			Date dateFerme1_1 = new Date(4, 12, 2019);
-			Date dateFerme1_2 = new Date(12, 12, 2019);
-			Date dateEmbo1 = new Date(28, 12, 2019);
+			Date dateMoli1 =  Date.valueOf("2018-11-31");
+			Date dateCoci1 =  Date.valueOf("2018-12-1");
+			Date dateFerme1_1 =  Date.valueOf("2018-4-12");
+			Date dateFerme1_2 =  Date.valueOf("2018-12-12");
+			Date dateEmbo1 =  Date.valueOf("2018-12-28");
 
 			Lote loteG3_1 = new Lote(11, dateiniG3_1, datefinG3_1, null, false, true, false, true, false, "pilsner",
 					dateMoli1, dateCoci1, dateFerme1_1, dateFerme1_2, dateEmbo1);
@@ -151,14 +153,14 @@ public class Test extends metodosCompany {
 			OrdenTrazabilidad ordenG2_4 = new OrdenTrazabilidad(53, fabrica, cooperativa, prodG2_4);
 			insertarOrdenTrazabilidad(ordenG2_4);
 
-			Date dateiniG2_1 = new Date(6, 11, 2018);
-			Date datefinG2_1 = new Date(19, 11, 2018);
-			Date dateiniG2_2 = new Date(21, 11, 2018);
-			Date datefinG2_2 = new Date(27, 11, 2018);
-			Date dateiniG2_3 = new Date(28, 11, 2018);
-			Date datefinG2_3 = new Date(29, 11, 2018);
-			Date dateiniG2_4 = new Date(5, 12, 2018);
-			Date datefinG2_4 = new Date(7, 12, 2018);
+			Date dateiniG2_1 =  Date.valueOf("2018-6-11");
+			Date datefinG2_1 =  Date.valueOf("2018-11-22");
+			Date dateiniG2_2 = Date.valueOf("2018-11-24");
+			Date datefinG2_2 = Date.valueOf("2018-11-25");
+			Date dateiniG2_3 = Date.valueOf("2018-11-27");
+			Date datefinG2_3 = Date.valueOf("2018-11-28");
+			Date dateiniG2_4 = Date.valueOf("2018-12-2");
+			Date datefinG2_4 = Date.valueOf("2018-12-7");
 
 			StockMP stockG2_1 = new StockMP(cebadaTostada, dateiniG2_1, datefinG2_1, 50, 5, "0");
 			StockMP stockG2_2 = new StockMP(levaduraAle, dateiniG2_1, datefinG2_1, 50, 5, "0");
@@ -240,26 +242,18 @@ public class Test extends metodosCompany {
 
 			// Prueba lotes
 
-			Date dateini2 = new Date(2, 12, 2015);
-			Date datefin2 = new Date(1, 12, 2019);
-			Date dateMoli2 = new Date(31, 11, 2016);
-			Date dateCoci2 = new Date(1, 12, 2017);
-			Date dateFerme2_1 = new Date(4, 12, 2018);
-			Date dateFerme2_2 = new Date(5, 12, 2018);
-			Date dateEmbo2 = new Date(28, 12, 2019);
-
-			Date dateini3 = new Date(6, 11, 2018);
-			Date datefin3 = new Date(8, 12, 2018);
-			Date dateMoli3 = new Date(31, 11, 2019);
-			Date dateCoci3 = new Date(1, 12, 2019);
-			Date dateFerme3_1 = new Date(4, 12, 2019);
-			Date dateFerme3_2 = new Date(12, 12, 2019);
-			Date dateEmbo3 = new Date(28, 12, 2019);
+			Date dateini2 = Date.valueOf("2018-11-2");
+			Date datefin2 = Date.valueOf("2018-12-2");
+			Date dateMoli2 =Date.valueOf("2018-11-3");
+			Date dateCoci2 = Date.valueOf("2018-11-6");
+			Date dateFerme2_1 = Date.valueOf("2018-11-12");
+			Date dateFerme2_2 = Date.valueOf("2018-11-16");
+			Date dateEmbo2 = Date.valueOf("2018-11-19");
 
 			Lote lote1 = new Lote(1, dateini2, datefin2, null, false, true, false, true, false, "stout", dateMoli2,
 					dateCoci2, dateFerme2_1, dateFerme2_2, dateEmbo2);
-			Lote lote2 = new Lote(2, dateini3, datefin3, null, false, true, false, true, false, "pilsner", dateMoli3,
-					dateCoci3, dateFerme3_1, dateFerme3_2, dateEmbo3);
+			Lote lote2 = new Lote(2, dateini2, datefin2, null, false, true, false, true, false, "pilsner", dateMoli2,
+					dateCoci2, dateFerme2_1, dateFerme2_2, dateEmbo2);
 
 			lote1.setQr(GeneradorQR2.generadorQR(lote1.getIdBd()));
 			lote2.setQr(GeneradorQR2.generadorQR(lote2.getIdBd()));
@@ -389,14 +383,14 @@ public class Test extends metodosCompany {
 
 			// Prueba insertarStockMp
 
-			Date dateinistock1 = new Date(6, 11, 2019);
-			Date datefinstock1 = new Date(19, 11, 2019);
-			Date dateinistock2 = new Date(21, 11, 2019);
-			Date datefinstock2 = new Date(27, 11, 2019);
-			Date dateinistock3 = new Date(6, 11, 2020);
-			Date datefinstock3 = new Date(19, 11, 2020);
-			Date dateinistock4 = new Date(21, 11, 2020);
-			Date datefinstock4 = new Date(27, 11, 2020);
+			Date dateinistock1 = Date.valueOf("2019-11-6");
+			Date datefinstock1 = Date.valueOf("2019-11-19");
+			Date dateinistock2 = Date.valueOf("2019-11-21");
+			Date datefinstock2 = Date.valueOf("2019-11-27");
+			Date dateinistock3 = Date.valueOf("2020-11-6");
+			Date datefinstock3 = Date.valueOf("2020-11-19");
+			Date dateinistock4 = Date.valueOf("2020-11-21");
+			Date datefinstock4 = Date.valueOf("2020-11-27");
 
 			StockMP stockMp1 = new StockMP(cebadaTostada, dateinistock1, datefinstock1, 1, 1, "0");
 			StockMP stockMp2 = new StockMP(lupuloPerle, dateinistock2, datefinstock2, 2, 2, "1");
@@ -419,19 +413,19 @@ public class Test extends metodosCompany {
 			System.out.println("Materias Primas Stock introducidas");
 
 			// Prueba insertarStockLote
-			Date dateinilote1 = new Date(6, 11, 2020);
-			Date datefinlote1 = new Date(19, 11, 2020);
-			Date dateinilote2 = new Date(21, 11, 2020);
-			Date datefinlote2 = new Date(27, 11, 2020);
-			Date dateinilote3 = new Date(6, 11, 2017);
-			Date datefinlote3 = new Date(19, 11, 2021);
-			Date dateinilote4 = new Date(21, 11, 2017);
-			Date datefinlote4 = new Date(27, 11, 2021);
+			Date dateinilote1 = new Date(2017, 11, 6);
+			Date datefinlote1 = new Date(2017, 11, 16);
+			Date dateinilote2 = new Date(2017, 11, 21);
+			Date datefinlote2 = new Date(2017, 11, 27);
+			Date dateinilote3 = new Date(2016, 11, 6);
+			Date datefinlote3 = new Date(2016, 11, 16);
+			Date dateinilote4 = new Date(2016, 11, 21);
+			Date datefinlote4 = new Date(2016, 11, 27);
 			
 			Lote loteSt1 = new Lote(3, dateinilote3, datefinlote3, null, false, false, false, true, true, "stout", dateMoli2,
 					dateCoci2, dateFerme2_1, dateFerme2_2, dateEmbo2);
-			Lote loteSt2 = new Lote(4, dateinilote4, datefinlote4,null, false, false, false, true, true, "pilsner", dateMoli3,
-					dateCoci3, dateFerme3_1, dateFerme3_2, dateEmbo3);
+			Lote loteSt2 = new Lote(4, dateinilote4, datefinlote4,null, false, false, false, true, true, "pilsner", dateMoli2,
+					dateCoci2, dateFerme2_1, dateFerme2_2, dateEmbo2);
 			insertarLote(loteSt1);
 			insertarLote(loteSt2);
 			
@@ -495,8 +489,8 @@ public class Test extends metodosCompany {
 			// Prueba insertarGeolocalizacion, extraerGeolocalizacion,
 			// extraerGeolocalizaciones
 
-			Date dategeo3 = new Date(17, 04, 2018);
-			Date dategeo4 = new Date(19, 06, 2018);
+			Date dategeo3 = new Date(2018, 04, 17);
+			Date dategeo4 = new Date(2018, 06, 19);
 
 			geolocalizacion geo3 = new geolocalizacion(3, 1, 1, "22.7212;-12.9434", dategeo1);
 			geolocalizacion geo4 = new geolocalizacion(4, 2, 2, "22.7300;-12.9633", dategeo2);
@@ -569,10 +563,55 @@ public class Test extends metodosCompany {
 						+ "Fecha fin:" + aux.getFechaFin());
 			}
 			System.out.println(extraerTodasLasOrdenes().size());
+			insertarOrdenes();
 			System.out.print("Pasados todos los test correctamente");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	public static void insertarOrdenes () throws ClassNotFoundException, SQLException, NullException {
+		
+		Actor agricultor = new Actor("0", "Productor", "password", "prod@gmail.es", 0, "40.4026076;-3.8363219", "Marta",
+				"Calle Valladolid", "3");
+		Actor cooperativa = new Actor("1", "Cooperativa", "password", "coop@gmail.es", 1, "40.4022076;-3.8369319", "Maria",
+				"Calle Murcia", null);
+		Actor transportista = new Actor("2", "Transportista", "password", "transp@gmail.es", 2, "40.4029076;-3.8369319",
+				"Luis", "Calle Cartagena", null);
+		Actor fabrica = new Actor("3", "Fabrica", "password", "fab@gmail.es", 3, "40.4025976;-3.8393319", "Fabrica",
+				"Calle AndalucÃ­a", null);
+		Actor retailer = new Actor("4", "Retailer", "password", "ret@gmail.es", 4, "40.4025079;-3.8369319", "Pilar",
+				"Calle Madrid", null);
+
+		for (int j = 1; j<=30; j++) {
+			for (int i = 1; i<=12; i++) {
+				Productos prodG2_1 = new Productos(1, 12, 2, 4, 3, 1, 8, 10, 1, 9, 2,3,4,5,6);
+				Productos prodG2_2 = new Productos(18, 12, 3, 3, 2, 1, 8, 11, 11, 2, 0,5,6,7,8);
+				Productos prodG2_3 = new Productos(0,0,0,0,0,0,0,0,0,0,0,0,0,(i+j)%50,(i*j)%50);
+				Productos prodG2_4 = new Productos(19, 12, 5, 0, 3, 1, 3, 10, 11, 9, 21,6,56,56,6);
+				
+				OrdenTrazabilidad ordenG2_1 = new OrdenTrazabilidad(idOrdenTrazabilidad(), cooperativa, agricultor, prodG2_1);
+				ordenG2_1.setFecha(Date.valueOf("2018-"+i+"-"+j));
+				ordenG2_1.setEstado(i%4);
+				if((i*j)%3 != 0) insertarOrdenTrazabilidadFecha(ordenG2_1);
+				OrdenTrazabilidad ordenG2_2 = new OrdenTrazabilidad(idOrdenTrazabilidad(), fabrica, cooperativa, prodG2_2);
+				ordenG2_2.setEstado((i+1)%4);
+				ordenG2_2.setFecha(Date.valueOf("2018-"+i+"-"+j));
+				if((i*j)%5 != 0)insertarOrdenTrazabilidadFecha(ordenG2_2);
+				OrdenTrazabilidad ordenG2_3 = new OrdenTrazabilidad(idOrdenTrazabilidad(), retailer, fabrica, prodG2_3);
+				ordenG2_3.setEstado((i+2)%4);
+				ordenG2_3.setFecha(Date.valueOf("2018-"+i+"-"+j));
+				if((i*j)%2 != 0)insertarOrdenTrazabilidadFecha(ordenG2_3);
+				OrdenTrazabilidad ordenG2_4 = new OrdenTrazabilidad(idOrdenTrazabilidad(), fabrica, cooperativa, prodG2_4);
+				ordenG2_4.setEstado((i+3)%4);
+				ordenG2_4.setFecha(Date.valueOf("2018-"+i+"-"+j));
+				if((i*j)%4 != 0)insertarOrdenTrazabilidadFecha(ordenG2_4);
+			}
+			System.out.println("Introducidas Ordenes del dia "+j);
+		}
+
+	
+	}
+	
+	
 }
