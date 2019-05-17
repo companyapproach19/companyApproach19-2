@@ -15,6 +15,27 @@ import equipo5.model.Retailer;
 import equipo7.model.OrdenTrazabilidad;
 import equipo6.model.Actor;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+//import com.controller.Lote;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 public class Prediccion {
 	static ArrayList<OrdenTrazabilidad> agricultor = new ArrayList<OrdenTrazabilidad> (); 
 	static ArrayList<OrdenTrazabilidad> cooperativa = new ArrayList<OrdenTrazabilidad> ();
@@ -26,34 +47,38 @@ public class Prediccion {
 	public static void split () throws SQLException, ClassNotFoundException { //metodo que separa en actores
 		ArrayList<OrdenTrazabilidad> list=metodosCompany.extraerTodasLasOrdenes(); //lista que nos pasan con todas las ordenes
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getActorOrigen().getTipoActor() == 1  ) { //materias p
+			if(list.get(i).getActorOrigen().getTipoActor() == 1  && menosDeUnAno(list.get(i)) ) { //materias p
 				agricultor.add(list.get(i));
 			}
-			if(list.get(i).getActorOrigen().getTipoActor() == 3  ) { //mp
+			if(list.get(i).getActorOrigen().getTipoActor() == 3  && menosDeUnAno(list.get(i)) ) { //mp
 				cooperativa.add(list.get(i));
 			}
-			if(list.get(i).getActorOrigen().getTipoActor() == 4  ) { //fabrica y retailer; lotes
+			if(list.get(i).getActorOrigen().getTipoActor() == 4  && menosDeUnAno(list.get(i)) ) { //fabrica y retailer; lotes
 				fabrica.add(list.get(i));
 			}
 		}
-	}
-	//añadir ademas if(list.get(i).getActorOrigen().getTipoActor() == 4 && menosDeUnAno(list.get(i)) )
-	/*public static Boolean menosDeUnAno(OrdenTrazabilidad ord) {
-        Calendar hoy = Calendar.getInstance();
-        Date fecha2 =  new Date();
-        fecha2= ord.getFecha();
-        long tiempo = (hoy.getTimeInMillis() - fecha2.getTime() );
-        int tiempoPar = (int) tiempo;
-        if(tiempoPar > 31536000) {
-            return false;
-        }else {
-            return true;
-        }
-        }
-*/
+	} 
+	
+	public static boolean menosDeUnAno (OrdenTrazabilidad orden) {
+	       java.util.Date fechaActual = new Date(2019, 5, 17);
+	       switch(fechaActual.getYear() - orden.getFecha().getYear()) {
+	       case 1:
+	           if(fechaActual.getMonth() <= orden.getFecha().getMonth()) {
+	               return true;
+	           }
+	           else {
+	               return false;
+	           }
+	       case 0:
+	           return true;
+	       default:
+	           return false;
+	       }    
+	   }
 
-	public static int[][] metodo1 (ArrayList<OrdenTrazabilidad> list){            // METODO TOCHO
-		//ArrayList<Productos> list2 = new ArrayList<Productos>();		
+
+	public static JsonObject metodo1 (ArrayList<OrdenTrazabilidad> list){            // METODO TOCHO
+		//ArrayList<Productos> list2 = new ArrayList<Productos>();	
 		int[] [] matriz = new int [12][13]; 
 		for(int i = 0; i < 12; i++) {
 			for(int j = 0; j < 13; j++) {
@@ -126,11 +151,11 @@ public class Prediccion {
 			}
 
 		}
-		return matriz;
+		return Prediccion.matPrimas(Prediccion.reordenacion(matriz));
 
 		// al final nos queda una matriz de 12 filas mes x 13 columnas tipo materia con la cantidad total de ese tipo/mes en cada posicion
 	}
-	public static int[][] metodo2 (ArrayList<OrdenTrazabilidad> list){            // METODO TOCHO 2
+	public static JsonObject metodo2 (ArrayList<OrdenTrazabilidad> list){            // METODO TOCHO 2
         int[] [] matriz = new int [12][2];
         for(int i = 0; i < 12; i++) {
             for(int j = 0; j < 2; j++) {
@@ -202,9 +227,9 @@ public class Prediccion {
                 continue;
             }
         }
-        return matriz;
+        return Prediccion.lotes(Prediccion.reordenacion(matriz));
 	}
-	public static int[] algoritmoPrediccion( int[][] matriz) {
+	public static JsonObject algoritmoPrediccion( int[][] matriz) {
 		int[] totalAnual= new int[13];
 		int[] prediccion= new int[13];
 		Date today = new Date(); 
@@ -219,7 +244,7 @@ public class Prediccion {
 			int pred = (matriz[month][i] + totalAnual[i])/2;
 			prediccion[i] = pred;
 		}
-		return prediccion;
+		return Prediccion.pred(prediccion);
 	}
 	public static int[][] reordenacion(int[][] matriz) {
 		Date today = new Date(); 
@@ -242,6 +267,54 @@ public class Prediccion {
 			cont2++;
 		}
 		return reor;
-		
-	}
+		}
+	public static JsonObject matPrimas(int[][] matrix) {
+	       String[] mes = {"junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre", "enero", "febrero", "marzo", "abril", "mayo"};
+	       String[] materias = {"Malta base palida", "Malta munich", "Malta negra", "Malta crystal", "Malta chocolate", "Malta caramelo", "Malta pilsner", "Cebada tostada", "Lupulo centennial", "Lupulo perle", "Lupulo tettnanger", "Levadura lager", "Levadura ale"};
+	       JsonObject res = new JsonObject();
+	       for(int i = 0; i < matrix.length; i++) {
+	           JsonObject col = new JsonObject();
+	           for (int j = 0; j < matrix[0].length; j++) {
+	               col.addProperty(materias[j] , matrix[i][j]);
+	           }
+	           res.add(mes[i] , col);
+	       }
+	             
+	            return res;
+	    }
+
+	   public static JsonObject lotes(int[][] matrix) {
+	       JsonObject res = new JsonObject();
+	       String[] mes = {"junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre", "enero", "febrero", "marzo", "abril", "mayo"};
+	       String [] lotes = {"Lotes stout", "Lotes pilsner"};
+	       for(int i = 0; i < matrix.length; i++) {
+	           JsonObject col = new JsonObject();
+	           for (int j = 0; j < matrix[0].length; j++) {
+	               col.addProperty(lotes[j] , matrix[i][j]);
+	           }
+	           res.add(mes[i] , col);
+	       }
+	             
+	            return res;
+	   }
+
+	   public static JsonObject pred (int[] pre) {
+	       JsonObject res = new JsonObject();
+
+	       if(pre.length==2) {
+	           String [] aux = {"Lotes stout", "Lotes pilsner"};
+	           for(int i = 0; i < pre.length; i++) {
+	               res.addProperty(aux[i], pre[i]);
+	           }
+	           return res;
+	       }
+	       else {
+	           String [] aux = {"Malta base palida", "Malta munich", "Malta negra", "Malta crystal", "Malta chocolate", "Malta caramelo", "Malta pilsner", "Cebada tostada", "Lupulo centennial", "Lupulo perle", "Lupulo tettnanger", "Levadura lager", "Levadura ale"};
+	           for(int i = 0; i < pre.length; i++) {
+	               res.addProperty(aux[i], pre[i]);
+	           }
+	           return res;
+	       }
+	   }
+	
 }
