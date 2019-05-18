@@ -493,7 +493,7 @@ public class metodosCompany {
 			pst.setInt(10, orden.getIdPedido());
 			pst.executeUpdate();
 			pst.close();
-			if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+			if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
 			
 		}
 		else {
@@ -515,7 +515,7 @@ public class metodosCompany {
 		pst.setInt(11, orden.getIdPedido());
 		pst.executeUpdate();
 		pst.close();
-		if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+		if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
 		}
 	}
 
@@ -1425,7 +1425,7 @@ public class metodosCompany {
     			pst.setDate(11, orden.getFecha());
     			pst.executeUpdate();
     			pst.close();
-    			if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+    			if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
     			
     		}
     		else {
@@ -1448,7 +1448,7 @@ public class metodosCompany {
 			pst.setDate(12, orden.getFecha());
     		pst.executeUpdate();
     		pst.close();
-    		if(extraerProductosOrden(orden.getId())!=null && orden.getProductosAEntregar().size()>0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+			if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
     		}
     	}
    
