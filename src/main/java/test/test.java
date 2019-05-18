@@ -87,7 +87,7 @@ public class test {
 	    	   * 
 	    	   * Aqui bien
 	    	   */
-	    	  {-1,new Actor("9","Retailer",4 ),new Actor("8","Fabrica" ,3  ), new Productos(0, 0,0,0,0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0) },//  
+	    	  {-1,new Actor("0","Productor",0 ),new Actor("1","Cooperativa" ,1  ), new Productos(0, 0,0,0,0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0) },//  
 		        /* {2,"Cuidado",new Actor("PepitoF","MARIPOSA","pepito@gmail.com",2),new Actor("MariaC","Cuidado con la temperatura","maria@gmail.com",1),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),2,1},//,
 		         {3,"Material organico",new Actor("RebecaR","Atención","rebe@gmail.com",3),new Actor("PepitoF","MARIPOSA","pepito@gmail.com",2),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),3,2},//
 		         {4,"Deben ser puntuales",new Actor("AnaT","Gracias","ana@gmail.com",4),new Actor("RebecaR","Atención","rebe@gmail.com",3),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),4,3},//
