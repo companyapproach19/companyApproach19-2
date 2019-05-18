@@ -119,12 +119,13 @@
 			 }
 						  $("<tbody/>",{html:items.join("")}).appendTo("table");
 		     });
-		     document.write("* Desde la cooperativa hasta la fábrica");
-	             document.write("<br/>** Desde la fábrica hasta la tienda");
+		     
 		     request.fail(function(data) {
 		     alert("Error al recuperar campos trazabilidad");
 		     });
 		 }  
+			  document.write("* Desde la cooperativa hasta la fábrica");
+	             document.write("<br/>** Desde la fábrica hasta la tienda");
 		</script>
 
 
