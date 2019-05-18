@@ -251,7 +251,6 @@ public class StockController {
 
 		mapeo_nombres.put("cebadaTostada","cebada_tostada");
 		mapeo_nombres.put("maltaBasePalida","malta_palida");
-		mapeo_nombres.put("maltaTostada","malta_tostada");
 		mapeo_nombres.put("maltaNegra","malta_negra");
 		mapeo_nombres.put("maltaCrystal","malta_crystal");
 		mapeo_nombres.put("maltaChocolate","malta_chocolate");
@@ -278,12 +277,13 @@ public class StockController {
 		else {
 			idActor=id;
 		}
-		System.out.println(idActor);
 		return get_stock_actor(idActor).toString();
 	}
 	
 	
-	
+	@Scope("request")
+	@RequestMapping("/stockSuficienteFabricarLote")
+	@ResponseBody
 	public boolean tieneStockSuficienteParaLote(String tipoCerveza) {
 		//getStockActor()
 		JsonObject obj = get_stock_actor("3");
@@ -296,7 +296,25 @@ public class StockController {
 		
 		System.out.println();
 		
-		
+		/*
+		 * 1 LITRO DE STOUT (cantidades en gramos para que sean 'int'):
+maltaBasePalida=261
+maltaMunich=61
+cebadaTostada=21
+maltaNegra=10
+maltaCrystal=6
+maltaChocolate=5
+maltaCaramelo=4
+lupuloCentennial=3
+levaduraAle=11
+
+LITRO DE STOUT (cantidades en gramos para que sean 'int'):
+maltaPilsner=173
+maltaCaramelo=21
+lupuloPerle=1
+lupuloTettnanger=2
+levaduraLager=1
+		 */
 		return true;
 	}
 
@@ -336,6 +354,7 @@ public class StockController {
 		System.out.println(actor.getNombreUsuario());
 
 		json_resp.addProperty("nomUsuario", actor.getNombreUsuario());
+		json_resp.addProperty("id", actor.getId());
 		json_resp.addProperty("email", actor.getEmail());
 		json_resp.addProperty("nomUsuario", actor.getNombreUsuario());
 		json_resp.addProperty("email", actor.getEmail());
@@ -603,6 +622,29 @@ public class StockController {
 		bcs.guardarOrden(geo);
 
 	}
+	
+	private List<Registro> dame_dos_ultimos_registros(List<Bloque> regitros)
+	{
+		Map<Integer, Boolean> map_reg;
+		List<Registro> reg_ret;
+		Registro reg;
+		
+		map_reg = new HashMap<Integer, Boolean>();
+		reg_ret = new ArrayList<Registro>();
+		
+		for(Bloque bloq : regitros) 
+		{
+			reg = ((Registro)bloq.getDatos());
+			if(map_reg.get(reg.getIdOrdenTrazabilidad()) == null) 
+			{
+				map_reg.put(reg.getIdOrdenTrazabilidad(), true);
+				reg_ret.add(reg);
+			}
+		}
+		
+		return reg_ret;
+	}
+	
 	@Scope("request")
 	@RequestMapping("/get_trazabilidad_vista")
 	@ResponseBody
@@ -612,23 +654,26 @@ public class StockController {
 		try {
 			JsonObject json_respuesta;	
 			BlockchainServices bcs;
-			Registro ultimo_registro;
+			List<Registro> ultimos_registros;
 			Lote ultimo_lote;
 			List <Bloque> lista_bloques_lotes;
 			List <Bloque> lista_bloques_registro;
 			List <Bloque> lista_bloques_ordenes;
+			List <Bloque> cadena_aplanada;
 
 
 			bcs = new BlockchainServices();
-			lista_bloques_ordenes = bcs.get_cadena(id_pedido).getBloque(0);
-			lista_bloques_registro = bcs.get_cadena(id_pedido).getBloque(1);
-			lista_bloques_lotes = bcs.get_cadena(id_pedido).getBloque(2);
+			cadena_aplanada = bcs.aplana_cadena(id_pedido);
+			lista_bloques_ordenes = bcs.filtra_cadena_bloques(cadena_aplanada, 0);
+			lista_bloques_registro = bcs.filtra_cadena_bloques(cadena_aplanada, 1);
+			lista_bloques_lotes = bcs.filtra_cadena_bloques(cadena_aplanada, 2);
 			json_respuesta = new JsonObject();
+			ultimo_lote = null;
 			
 			
 
 			if(lista_bloques_ordenes == null || lista_bloques_ordenes.size() == 0) throw new Exception();
-			if(lista_bloques_registro == null || lista_bloques_registro.size() == 0) throw new Exception();
+			if(lista_bloques_registro == null || lista_bloques_registro.size() <= 1) throw new Exception();
 			//esto es un hardcodeo asta que el grupo de lote meta el id de pedido dentro de lote
 			if(lista_bloques_lotes == null || lista_bloques_lotes.size() == 0) 
 			{
@@ -642,12 +687,22 @@ public class StockController {
 			
 			json_respuesta.addProperty("Agricultor", "Sin resultados");
 			json_respuesta.addProperty("Fabrica", "Sin resultados");
+			
+			if(ultimo_lote == null) 
+			{
+				json_respuesta.addProperty("fecha_embotellado", "Sin resultados");
+			}
+			else 
+			{
+				json_respuesta.addProperty("fecha_embotellado", ultimo_lote.getFecha_embotellado().toString());
+			}
 
 			insertar_actores(lista_bloques_ordenes,json_respuesta);
-			ultimo_registro = ((Registro)(lista_bloques_registro.get(0).getDatos()));
-			json_respuesta.addProperty("TemperaturaMax", ultimo_registro.getTempMax());
-			json_respuesta.addProperty("TemperaturaMin", ultimo_registro.getTempMin());
-
+			ultimos_registros = dame_dos_ultimos_registros(lista_bloques_registro);
+			json_respuesta.addProperty("TemperaturaMax1", ultimos_registros.get(0).getTempMax());
+			json_respuesta.addProperty("TemperaturaMin1", ultimos_registros.get(0).getTempMin());
+			json_respuesta.addProperty("TemperaturaMax2", ultimos_registros.get(1).getTempMax());
+			json_respuesta.addProperty("TemperaturaMin2", ultimos_registros.get(1).getTempMin());
 			return json_respuesta.toString();
 
 		}
