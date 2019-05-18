@@ -267,22 +267,25 @@ function parseJSON (stock,actorString) {
     switch (actorString) {
 
     case "0" :
-	
+	$("popup1").text("");
 	$("popup1").append("<br><br>DATOS DEL AGRICULTOR: " + stock.nomUsuario + "<br>Email: " + stock.email);
 	$("popup1").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th></tr></thead> <tbody>'+ fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
 	break;
 
     case "1" :
+	$("popup3").text("");
 	$("popup3").append("<br><br>DATOS DE LA COOPERATIVA: " + stock.nomUsuario + "<br>Email: " + stock.email);
 	$("popup3").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th></tr></thead> <tbody>'+  fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
 	break;
 	
     case "8" :
+	$("popup2").text("");
 	$("popup2").append("<br><br>DATOS DE LA FÁBRICA: " + stock.nomUsuario + "<br>Email: " + stock.email);
 	$("popup2").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th><th>Lotes</th></tr></thead>	<tbody>'+ fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
 	break;
 	
     case "4" :
+	$("popup4").text("");
 	$("popup4").append("<br><br>DATOS DEL RETAILER: " + stock.nomUsuario + "<br>Email: " + stock.email);
 	$("popup4").append('<table class=\"table\"><thead><tr><th>Lotes</th></tr></thead>	<tbody>'+  fila1 + "</tr>" + fila2 + "</tr>");
 	break;
