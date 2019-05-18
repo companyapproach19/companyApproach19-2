@@ -1300,7 +1300,7 @@ public class metodosCompany {
         switch(actor.getTipoActor()){
         case 0:
             conectar();
-            String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idOrden = "+orden.getId()+" AND idStockAgricultor NOT IN (SELECT idStockAgricultor FROM company.stockAgricultor WHERE fecha_salida <> NULL)";
+            String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idOrden = "+orden.getId()+" AND idStockAgricultor NOT IN (SELECT idStockAgricultor FROM company.stockAgricultor WHERE fecha_salida IS NOT NULL)";
             Statement pst = conn.createStatement();
             ResultSet rs = pst.executeQuery(query);
             while(rs.next()) {
@@ -1313,7 +1313,7 @@ public class metodosCompany {
             break;
         case 1:
             conectar();
-            String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idOrden = "+orden.getId()+" AND idStockCooperativa NOT IN (SELECT idStockCooperativa FROM company.stockCooperativa WHERE fecha_salida <> NULL)";
+            String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idOrden = "+orden.getId()+" AND idStockCooperativa NOT IN (SELECT idStockCooperativa FROM company.stockCooperativa WHERE fecha_salida IS NOT NULL)";
             Statement pst2 = conn.createStatement();
             ResultSet rs2 = pst2.executeQuery(query2);
             while(rs2.next()) {
@@ -1326,7 +1326,7 @@ public class metodosCompany {
             break;
         case 3:
             conectar();
-            String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idOrden = "+orden.getId()+" AND idStockMMPP NOT IN (SELECT idStockMMPP FROM company.stockFabricaMMPP WHERE fecha_salida <> NULL)";
+            String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idOrden = "+orden.getId()+" AND idStockMMPP NOT IN (SELECT idStockMMPP FROM company.stockFabricaMMPP WHERE fecha_salida IS NOT NULL)";
             Statement pst3 = conn.createStatement();
             ResultSet rs3 = pst3.executeQuery(query3);
             while(rs3.next()) {
