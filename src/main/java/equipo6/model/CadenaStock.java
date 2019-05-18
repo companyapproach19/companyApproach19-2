@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import equipo4.model.MateriaPrima;
+import equipo5.dao.NullException;
 import equipo5.dao.metodosCompany;
 import equipo5.model.NotInDatabaseException;
 import equipo5.model.StockLote;
@@ -49,13 +50,20 @@ public class CadenaStock {
 		return cantidad;
 	}
 	
-	public static void actualizar_stock(int id_or_origen,int id_or_destino) 
+	public static boolean actualizar_stock(OrdenTrazabilidad or_origen) throws ClassNotFoundException, SQLException, NotInDatabaseException, NullException 
 	{
-		OrdenTrazabilidad or_origen;
-		OrdenTrazabilidad or_destino;
 		Actor origen;
-		Actor destino;
+		List<StockMP> lista_stock_mp;
 		
-		//or_origen = metodosCompany.extraerOrdenTrazabilidad();
+		origen = or_origen.getActorOrigen();
+		lista_stock_mp = metodosCompany.extraerStockMpPorPedido(origen, or_origen);
+		if(lista_stock_mp != null)
+		{
+			for(StockMP stock_mp : lista_stock_mp) {
+				metodosCompany.insertarStockMP(stock_mp);
+			}
+			return true;
+		}
+		return false;
 	}
 }
