@@ -155,7 +155,8 @@ public class OrdenTrazabilidad extends DatosContainer
 		}
 
 		public void setProductosAEntregar(ArrayList<Integer> productosAEntregar) {
-			this.productosAEntregar = productosAEntregar;
+			for (Integer prod : productosAEntregar)
+				this.productosAEntregar.add(prod);
 		}
 
 		public int getEstado() {
@@ -195,14 +196,14 @@ public class OrdenTrazabilidad extends DatosContainer
 		}
 
 		public byte[] getFirmaEntregaBBDD() {
-			byte[] decodedBytes = Base64.getDecoder().decode(this.firmaRecogida.getBytes());
+			byte[] decodedBytes = Base64.getDecoder().decode(this.firmaEntrega.getBytes());
 			return decodedBytes;
 		}
 
 		public void setFirmaEntregaBBDD(byte[] firmaEntrega) {
-			if (firmaRecogida != null) {
+			if (firmaEntrega != null) {
 				byte[] encodedBytes = Base64.getEncoder().encode(firmaEntrega);
-				this.firmaRecogida = new String(encodedBytes);
+				this.firmaEntrega = new String(encodedBytes);
 			}
 		}
 
