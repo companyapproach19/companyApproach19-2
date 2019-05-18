@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -128,7 +129,13 @@ public class SensorStatic{
 //		System.out.println("Fin recibo de datos.");
 //		txt.delete();//borramos el txt del servidor
 //		return reg.getId();
-		Registro reg = equipo5.dao.metodosCompany.extraerUltimoRegistro(idOrdentrazabilidad);
+		Registro reg=null;
+    try {
+      reg = equipo5.dao.metodosCompany.extraerUltimoRegistro(idOrdentrazabilidad);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 		if(reg==null) {
 			return 0;
 		}
