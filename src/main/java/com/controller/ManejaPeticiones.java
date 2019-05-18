@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
+import equipo5.model.StockLote;
 import equipo6.model.Actor;
 //NECESARIOS PARA TRAZABILIDAD:
 import equipo6.otros.BlockchainServices;
@@ -454,6 +457,24 @@ public class ManejaPeticiones {
 				//Hay que activar necesitaTransportista
 				ordenAResponder.setEstado(2);
 				ordenAResponder.setNecesitaTransportista(true);
+			}
+			if(ordenAResponder.getActorOrigen().getTipoActor()==4) {
+				//Asignamos los lotes que estan asociados a la ordenRespuesta
+				ArrayList<Integer> idsLotes = new ArrayList<Integer>();
+				LinkedList<StockLote> lotes = equipo5.dao.metodosCompany.extraerStockLote(ordenAResponder.getActorDestino(), ordenRespuesta.getId());
+				if(lotes!=null) {
+					Iterator<StockLote> it = lotes.iterator();
+					while(it.hasNext()) {
+						StockLote actual = it.next();
+						if(actual!=null) {
+							Lote lote = actual.getLote();
+							if(lote!=null) {
+								idsLotes.add(lote.getIdBd());
+							}
+						}
+					}
+				}
+				ordenAResponder.setProductosAEntregar(idsLotes);
 			}
 			//Guardamos la orden actualizada en BBDD
 			bloque.guardarOrden(ordenAResponder);

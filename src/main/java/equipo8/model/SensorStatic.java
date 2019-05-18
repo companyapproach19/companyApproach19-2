@@ -17,6 +17,7 @@ import java.util.TimerTask;
 import com.fazecast.jSerialComm.SerialPort;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import equipo8.model.SendEmail;
 
 import equipo6.otros.BlockchainServices;
 
@@ -42,6 +43,7 @@ public class SensorStatic{
 	private static TimerTask taskcreate;
 	private static Timer timer;
 	private static BlockchainServices blockchain = new BlockchainServices();
+	private static boolean mailMandado = false;
 
 	public static void iniciarTransporte(int idOrden, int idPed) {
 //		serialPort = null;
@@ -53,9 +55,14 @@ public class SensorStatic{
 //		//ports
 //		ports = SerialPort.getCommPorts();
 //		if(ports.length>0) {
-//			serialPort = ports[6];
+//			serialPort = ports[0];
 //		}
 //
+//		else {
+//			System.err.print("No hay puertos");
+//			return;
+//		}
+//		
 //		System.out.println("Puerto seleccionado de forma predeterminada: " + serialPort.getSystemPortName());
 //		System.out.println("Puertos disponibles del sistema:");
 //		for (int i=0;i<ports.length; i++)
@@ -122,7 +129,7 @@ public class SensorStatic{
 //		System.out.println("Fin recibo de datos.");
 //		txt.delete();//borramos el txt del servidor
 //		return reg.getId();
-		Registro reg =null;
+		Registro reg=null;
     try {
       reg = equipo5.dao.metodosCompany.extraerUltimoRegistro(idOrdentrazabilidad);
     } catch (SQLException e) {
@@ -182,6 +189,15 @@ public class SensorStatic{
 		serialPort.closePort();
 	}
 
+	public static int idUltimoRegistro(int idOrden) {
+		try {
+			return equipo5.dao.metodosCompany.extraerUltimoRegistro(idOrden).getId();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public static void cambiarIntervalo(int millisleer,int milliscrear) {
 		if(millisleer <1500 || milliscrear < millisleer) {
 			System.err.print("Intervalos no posibles");
@@ -268,6 +284,10 @@ public class SensorStatic{
 
 		//Registro registro= new Registro(idPedido, idOrdentrazabilidad,  fechainicio.toString(), fecha.toString(), Tmax, Tmin);
 		log.close();
+		if(Tmax>=27 && !mailMandado) {
+			new SendEmail("cb1508@hotmail.com","Alerta","Temperatura Excedida!",idPedido);
+			mailMandado = true;
+		}
 		return new Registro(idPedido, idOrdentrazabilidad,  fechainicio.toString(), fecha.toString(), Tmax, Tmin);
 	}
 
