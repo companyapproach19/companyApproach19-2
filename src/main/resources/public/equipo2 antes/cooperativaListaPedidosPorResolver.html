@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>AgricultoresPedidosRecibidos</title>
+    <title>CooperativaPedidosPorResolver</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -10,7 +10,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
 
 <!------ TEST SCRIPTSS ---------->
 <script type="text/javascript" src="ajaxs.js"></script>
@@ -20,45 +19,40 @@
 </head>
 <body>
 <div class="container register agricultores">
-    <div class="row">
+                <div class="row">
              
-                  <div class="col-md-3 register-left">
-                        <img src="icono-agricultor.png" alt=""/>
-                        <h1>Agricultores</h1>
+                    <div class="col-md-3 register-left">
+                        <img src="icono-cooperativa.png" alt=""/>
+                        <h1>Cooperativa</h1>
                         <!--<p>Pedidos recibidos</p>-->
                     </div>
                     <div class="col-md-9 register-right pedidosaceptados">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>
                             </li>
                             </ul>
                             <p></p>
                             <div class="col-3 borde">
                                 <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='agricultoresInicio.html';">Volver</a>
+                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
                                 </li>
                                 </ul>
                             </div>
                             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading">PEDIDOS RECIBIDOS</h3>
+                                <h3  class="register-heading titlecenter">PEDIDOS PENDIENTES POR RESOLVER</h3>
+								<br>
                                 <br>
                                 <br>
-                                <br>
-                                <div class="row register-desplazable">
+                                  <div class="row register-desplazable">
                                     <div class="col-md-8 desplazable">
-                                    
-                                   
-                         <div id="contenedor_modales"> </div>
+                                        <p> </p>
+                                                                    
+                                           
                         
-                                                                                                                               
-                                                                                                    <!-- V ;window.location.href='agricultoresInicio.html' ;-->  
-                        
-                                                                             
+                                        
                                 </div>
-                                    
-                                <input type="submit" class="btnCompletar"   onClick="mandarids(0); " value="Aceptar Pedidos"/>
                                 
                             </div>
                         </div>
@@ -66,13 +60,10 @@
                 </div>
 
             </div>
-</div>
 </body>
 <script>
- pedirIds(0,0);
-//window.onload = pedirIds(0,0);
-//window.onload = imprimirjson(idsOrdenes);
+ 
+pedirIds(1,2);
 
 </script>
-
 </html>

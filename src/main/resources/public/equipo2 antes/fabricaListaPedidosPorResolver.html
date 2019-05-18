@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>FabricaPedidosRecibidos</title>
+    <title>FabricaPedidosPorResolver</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -31,7 +31,7 @@
                     <div class="col-md-9 register-right pedidosaceptados">
                             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a>
+                                <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='login.html';">Log out</a>
                             </li>
                             </ul>
                             <p></p>
@@ -43,27 +43,25 @@
                                 </ul>
                             </div>
                             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading titlecenter">PEDIDOS RECIBIDOS</h3>
-                                <br>
+                                <h3  class="register-heading titlecenter">PEDIDOS PENDIENTES POR RESOLVER</h3>
+								<br>
                                 <br>
                                 <br>
                                 <div class="row register-desplazable">
-                                    <div class="col-md-8 desplazable"  id="contenedor_modales">
-                                        
-                                        <div id="contenedor_modales"> </div>
-                                </div>  
-                                <input type="submit" class="btnCompletar" onClick="mandarids(0);" value="Aceptar Pedidos"/>                             
+                                    <div class="col-md-8 desplazable">
+                                      
+                                                                       </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-</div>
 </body>
 <script>
- //window.onload = imprimirjson(idsOrdenes);
- pedirIds(3,0);
+// window.onload = imprimirjson(idsOrdenes);
+ pedirIds(3,2);
 
 </script>
 </html>
