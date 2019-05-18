@@ -447,7 +447,7 @@ function mandarids(urlpar){
 		break;
 		
 		case 2:
-		url = "/comienzoProcesoFabricacion";
+		url = "/fabricaComenzarProduccion";
 		break;
 		
 		default:
@@ -594,15 +594,38 @@ function mandarids(urlpar){
 						break;
 					}
 
+					if(urlpar == 2){
+				console.log("acepto/completo en "+url+"id="+idsOrdenes[i-1]);
+				var request = $.ajax({
+			
+				url : url,
+				data :"id="+idsOrdenes[i-1] ,
+				type : 'POST',
+				dataType : 'json',  // el tipo de información que se espera de respuesta
+				
+				});
+		 
+				request.done(function(data){
+			  
+				 alert("Exito comienzo produccio");
+				 
+				});
+		 
+				request.fail(function(data) {
+			 
+			  		alert("error comenzando produccion pedido: "+idsOrdenes[i-1]);
+				
+				});
+				
+			}
 
 
 
-				}	
+				}	//fin del for
 
 			//}llave del else inutil
-				break;
-		  
-			} 
+						  
+			} //fin del if
 
 
 		else {
