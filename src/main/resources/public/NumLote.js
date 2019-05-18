@@ -31,7 +31,7 @@ $(document).ready(function(){
         return false;
     });
     $("#bt2").on('click', function() {
-	pedirStock("8");
+	pedirStock("3");
         $("#popup2").show();
         return false;
     });
@@ -48,15 +48,15 @@ $(document).ready(function(){
 });
 
 // /dameStockActor recibe el id (como un nif) del actor, no su tipo. Una fábrica de la bdd
-// es la que tiene id=8, por lo que de momento y al haber solo una fábrica, pedimos siempre
+// es la que tiene id=3, por lo que de momento y al haber solo una fábrica, pedimos siempre
 // el stock de esa
 
 // Petición de stock de un actor al servidor
 
 function pedirStock(actorString) {
 
-    // Si se trata del stock de la fábrica (id 8), pide su stock con dameStockActor
-    if (actorString == "8") {
+    // Si se trata del stock de la fábrica (id 3), pide su stock con dameStockActor
+    if (actorString == "3") {
 	var request = $.ajax({
 	    
 	    // la URL para la petición del stock
@@ -99,7 +99,7 @@ function pedirStock(actorString) {
 	case "1" :
 	    var op = "Cooperativa";
 	    break;
-	case "8" :
+	case "3" :
 	    var op = "Fabrica";
 	    break;
 	case "4" :
@@ -108,7 +108,7 @@ function pedirStock(actorString) {
 	default :
 	    var op = "Unknow";
 	}
-	if (actorString == "8") {
+	if (actorString == "3") {
 	    arrayJson.push(jsonObj);
 	}
 	else {
@@ -137,7 +137,7 @@ function pedirStock(actorString) {
 	    arrayJson = [JSON.parse(json_aux1.json_aux11),JSON.parse(json_aux1.json_aux12)];
             $("popup3").text("Petición al servidor fallida. Se utilizarán datos locales");
 	    break;
-	case "8":
+	case "3":
 	    arrayJson = [JSON.parse(json_aux3.json_aux31),JSON.parse(json_aux3.json_aux32)];
             $("popup2").text("Petición al servidor fallida. Se utilizarán datos locales");
 	    break;
@@ -163,7 +163,7 @@ function rellenaPopup(arrayJson,actorString) {
 	$("popup" + actorString).append("<br><br>Respuesta del servidor o datos locales erróneos. No hay stock para mostrar");
 	return;
     }
-    if (actorString == '0' || actorString == '1' || actorString == '8' || actorString == '4') {
+    if (actorString == '0' || actorString == '1' || actorString == '3' || actorString == '4') {
 	var stock;
 	for (i = 0; i < arrayJson.length; i++) {
 	    stock = arrayJson[i];
@@ -206,7 +206,7 @@ function parseJSON (stock,actorString) {
     } else {
 	fila1 += "<td class=\"table-danger\">Levadura ale: "+ levadura_ale.toString() + "</td>";
     }
-    if (actorString == "8" || actorString == "4") {
+    if (actorString == "3" || actorString == "4") {
 	if (actorString == "4") { fila1 = "<tr>"; }
 	if (0 < lotes_pilsner) {
 	    fila1 += "<td class=\"table-success\">Pilsner: "+ lotes_pilsner.toString() + "</td>";
@@ -229,7 +229,7 @@ function parseJSON (stock,actorString) {
     } else {
 	fila2 += "<td class=\"table-danger\">Levadura lagger: "+ levadura_lagger.toString() + "</td>";
     }
-    if (actorString == "8" || actorString == "4") {
+    if (actorString == "3" || actorString == "4") {
 	if (actorString == "4") { fila2 = "<tr>"; }
 	if (0 < lotes_stout) {
 	    fila2 += "<td class=\"table-success\">Stout: "+ lotes_stout.toString() + "</td>";
@@ -278,7 +278,7 @@ function parseJSON (stock,actorString) {
 	$("popup3").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th></tr></thead> <tbody>'+  fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
 	break;
 	
-    case "8" :
+    case "3" :
 	$("popup2").text("");
 	$("popup2").append("<br><br>DATOS DE LA FÁBRICA: " + stock.nomUsuario + "<br>Email: " + stock.email);
 	$("popup2").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th><th>Lotes</th></tr></thead>	<tbody>'+ fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
