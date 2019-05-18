@@ -103,12 +103,10 @@
 		   data-vpforcss="transform, transform-origin"
 		   style="transform-origin: 0px 0px;
 		   transform: rotate(0deg)"></div>
-
               <div id="linea2bis" class="linea2bis" data-linea3
 		   data-vpforcss="transform, transform-origin"
 		   style="transform-origin: 0px 0px;
 		   transform: rotate(0deg)"></div>
-
               <div id="linea3" class="linea3" data-linea2
 		   data-vpforcss="transform, transform-origin"
 		   style="transform-origin: 0px 0px;
@@ -191,24 +189,28 @@
 		</div>
 	      </div>
 	      <div class="collapse" id="collapseSeguimiento">
-		Introduzca en número de <strong>lote:</strong>
-		<br/></br>
-		<div>
-                  <span class="fa fa-user"></span>
-                  <input type="text" name="lote" Placeholder="1234..." required>
-                  
-                  <div class="input-group-append">
-                    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                      <li class="nav-item" >
-			<a id="buscar1" class="nav-link"  data-toggle="submit" href="Lote.html?a=$a" role="submit" aria-controls="home" aria-selected="true">
-			  Buscar
-			</a>
-                      </li>
-                    </ul>
-                  </div>
-		</div> <!-- JS because of IE support; better: placeholder="Username" -->
-		<br/>
-              </div>
+              Introduzca el número de una <strong>producción:</strong>
+              <br/></br>
+                        <div>
+                            <span class="fa fa-user"></span>
+                            <input type="text" name="lote" Placeholder="1234..." required id="numLote">
+
+                            <div class="input-group-append">
+                                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="home" data-toggle="submit"
+                                           role="submit" aria-controls="home" aria-selected="true" onclick="function recogidaNumLote() {
+                            window.location = 'Lote.html?a=' + document.getElementById('numLote').value;
+                       }
+                       recogidaNumLote()">Buscar</a>
+                    </li>
+                  </ul>
+                </div>
+              </div> <!-- JS because of IE support; better: placeholder="Username" -->
+              <br/>
+            </div>
+            </div>
+          </div>
 	      <div class="collapse" id="collapseCreacion">
                 <span class="row">
 		  Selecciona el lote de cerveza que deseea crear:
