@@ -1,182 +1,282 @@
-<html lang="es">
-  <head>
-    <title>NumLote</title>
-    <meta charset="utf-8">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    
-  </head>
-  <script type="text/javascript">
+<!------ pInclude the above in your HEAD tag ----------><head>
+
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" id="otro-css">
+  <link rel="stylesheet" href="NumLote.css" id="bootstrap-css">
   
-  </script>
-  
-  
-  
-  <body style="display: block; height: 100vh; !important">
-  <body>
 
-    <div class="container-fluid register">
-      <div class="row">
-        <div class="col-md-3 register-left">
-          <img src="https://image.flaticon.com/icons/png/512/25/25007.png" alt="" />
-          <h1>Fábrica</h1>
-                        <!--<p>Pedidos recibidos</p>
-                        <input type="submit" name="" value="Log out"/><br/>
-                            -->
-        </div>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-        <div class="col-md-9 register-right">
-          <div class="row">
-            <div class="col-md-4 offset-md-2">
-              <h3 class="register-heading">¿Qué desea realizar?</h3>
-            </div>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link" id="home" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">Log out</a>
-              </li>
-            </ul>
-          </div>
-          <br/><br/><br/><br/>
 
-          <div class="row">
-            <div class="col-md-10 offset-md-2">
-              <a class="btn btn-primary" data-toggle="collapse" href="#collapseSeguimiento" role="button" aria-expanded="false" aria-controls="collapseSeguimiento">
-              Producciones
-            </a>
-            
-            <div class="collapse" id="collapseSeguimiento">
-              Introduzca el número de una <strong>producción:</strong>
-              <br/></br>
-                        <div>
-                            <span class="fa fa-user"></span>
-                            <input type="text" name="lote" Placeholder="1234..." required id="numLote">
+  <!-- Aquí está el JS que controla los botones y las peticiones -->
+  <script type="text/javascript" src="NumLote.js"></script>
 
-                            <div class="input-group-append">
-                                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="home" data-toggle="submit"
-                                           role="submit" aria-controls="home" aria-selected="true" onclick="function recogidaNumLote() {
-                            window.location = 'Lote.html?a=' + document.getElementById('numLote').value;
-                       }
-                       recogidaNumLote()">Buscar</a>
-                    </li>
-                  </ul>
-                </div>
-              </div> <!-- JS because of IE support; better: placeholder="Username" -->
-              <br/>
-            </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-10 offset-md-2">
-              <a class="btn btn-primary" data-toggle="submit" href="Cadena.html" role="button" aria-expanded="false" aria-controls="collapseCreacion">
-                Seguimiento de cadena
-              </a>
+</head>
 
-            <!--  <div class="collapse" id="collapseCreacion">
-                <span class="row">Selecciona la producción de cerveza que deseea crear:</span>
-                <div class="row">
-                  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                    <li class="nav-item" >
-                       <a class="nav-link" id="home" data-toggle="submit" href="Pilsner.html" role="submit" aria-controls="home" aria-selected="true">Crear producción Pilsner</a>
-                    </li>
-                  </ul>
 
-                  <ul class="nav nav-tabs nav-justified ml-2" id="myTab" role="tablist">
-                    <li class="nav-item">
-                       <a class="nav-link" id="home" data-toggle="submit" href="Stout.html" role="submit" aria-controls="home" aria-selected="true">Crear produción Stout</a>
-                    </li>
-                  </ul>
+<!-- Contenido popup del agricultor -->
 
-                </div>
-                <br/>            
-              </div>-->
-            </div>
-          </div>
-			
-            <div class="row">
-              <div class="col-md-10 offset-md-2">
-                <a class="btn btn-primary" data-toggle="collapseVisualizar" href="fabrica2.html" role="button" aria-expanded="false" aria-controls="collapseVisualizar">
-                  Cuadro de mandos
-                </a>
+
+
+<div id="popup1" style="display: none;">
+  <div class="inner">
+    <h1>STOCK DEL AGRICULTOR</h1>
+    <popup1></popup1>
+    <p><a href="" class="ok" id="hide">Aceptar</a></p>
+  </div>
+</div>
+
+<!-- Contenido popup de la cooperativa -->
+<div id="popup3" style="display: none;">
+  <div class="inner">
+    <h1>STOCK DE LA COOPERATIVA</h1>
+    <popup3></popup3>
+    <p><a href="" class="ok" id="hide3">Aceptar</a></p>    
+  </div>
+</div>
+
+<!-- Contenido popup de la fábrica -->
+<div id="popup2" style="display: none;">
+  <div class="inner">
+    <h1>STOCK DE LA FÁBRICA</h1>
+    <popup2></popup2>
+    <p><a href="" class="ok" id="hide2">Aceptar</a></p>      
+  </div>
+</div>
+
+<!-- Contenido popup del retailer -->
+<div id="popup4" style="display: none;">
+  <div class="inner">
+    <h1>STOCK DEL RETAILER</h1>
+    <popup4></popup4>
+    <p><a href="" class="ok" id="hide4">Aceptar</a></p>      
+  </div>
+</div>
+
+<!-- Fondo: imagen, titulo, botones volver y logout -->
+<div class="container register">
+  <div class="row">    
+    <div class="col-md-3 register-left">
+      <img src="Imagenes/logo.png" alt="Icono"/>
+      <!-- Imagen obtenida de https://image.flaticon.com/icons/png/512/25/25007.png -->
+      
+      <h1>Fábrica</h1>
+
+    </div>
+
+    <!-- Botones Log out y volver -->
+    <div class="col-md-9 register-right">
+      <div class="col-md-4 offset-md-2">
+        <h3 class="register-heading">¿Qué desea realizar?</h3>
+      </div>
+      <ul id="logout" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" id="logout" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">
+            Log out
+          </a>
+        </li>
+      </ul>
+      
+      <!-- <ul id="volver" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+           <li class="nav-item">
+             <a class="nav-link" id="volver" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
+           </li>
+      </ul>-->
+
+      <!-- Botones de los actores -->
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          
+          <!--<div id="linea1" class="linea1" data-linea2
+	      data-vpforcss="transform, transform-origin"
+	      style="transform-origin: 0px 0px;"></div>
+              
+              <div id="linea2" class="linea2" data-linea2
+		   data-vpforcss="transform, transform-origin"
+		   style="transform-origin: 0px 0px;
+		   transform: rotate(0deg)"></div>
+
+              <div id="linea2bis" class="linea2bis" data-linea3
+		   data-vpforcss="transform, transform-origin"
+		   style="transform-origin: 0px 0px;
+		   transform: rotate(0deg)"></div>
+
+              <div id="linea3" class="linea3" data-linea2
+		   data-vpforcss="transform, transform-origin"
+		   style="transform-origin: 0px 0px;
+		   transform: rotate(0deg)"></div>-->
+              
+              
+              <div class="Botones1">
+		<!-- Botón del agricultor -->
+		<button href="#" id="bt1" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">
+		</button>
+		<!-- Botón de la cooperativa -->
+		<button id="bt3" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1">
+		</button>
+		<!-- Botón de la fábrica -->
+		<button id="bt2" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample1">
+		</button>
+
+		<!-- Botón del retailer -->
+		<button id="bt4" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample1">
+		</button>
               </div>
-           </div>
-           <div class="row">
-            <div class="col-md-10 offset-md-2">
-              <a class="btn btn-primary" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapseCreacion">
-                Pedidos
-              </a>
 
-              <div class="collapse" id="collapse3">
-                
-                <div class="row">
-                  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                    <li class="nav-item" >
-                       <a class="nav-link" id="home" data-toggle="submit" href="fabricaListaPedidosAceptados.html" role="submit" aria-controls="home" aria-selected="true">Pedidos aceptados</a>
-                    </li>
-                  </ul>
-                
-                  <ul class="nav nav-tabs nav-justified ml-2" id="myTab" role="tablist">
-                    <li class="nav-item" >
-                       <a class="nav-link" id="home" data-toggle="submit" href="fabricaListaPedidosPorResolver.html" role="submit" aria-controls="home" aria-selected="true">Pedidos por resolver</a>
-                    </li>
-                  </ul>
+	      <div class="navegacion">
+		<div>
+		  <a class="btn btn-primary" id="seguimiento" data-toggle="collapse" href="#collapseSeguimiento" role="button" aria-expanded="false" aria-controls="collapseSeguimiento">
+		    Producciones
+		  </a>
+		  
+   		  <a class="btn btn-primary" data-toggle="collapse" id="lote" href="#collapseCreacion" role="button" aria-expanded="false" aria-controls="collapseCreacion">
+                    Crear una Producción
+		  </a>
+
+		  <a class="btn btn-primary" id="seguimiento" data-toggle="submit" href="Cadena.html" role="submit" aria-controls="home" aria-selected="true">
+		    Seguimiento de cadena
+		  </a>
+
+		  <a class="btn btn-primary" id="seguimiento" data-toggle="submit" href="prediccionFabrica.html" role="submit" aria-controls="home" aria-selected="true">
+		    Ver predicción
+		  </a>
+
+		  <a class="btn btn-primary" id="seguimiento" data-toggle="collapse" href="#collapseCrea" role="button" aria-expanded="false" aria-controls="collapseCrea">
+		    Pedidos
+		  </a>
+
+		  <a class="btn btn-primary" id="seguimiento" data-toggle="submit" href="Mapa.html" role="submit" aria-controls="home" aria-selected="true">
+		    Mapa
+		  </a>
+		  
+		  <div class="collapse" id="collapseCrea">
+                    
+                    <div class="row">
+                      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+			<li class="nav-item" >
+			  <a class="nav-link" id="home" data-toggle="submit" href="fabricaListaPedidosAceptados.html" role="submit" aria-controls="home" aria-selected="true">
+			    Pedidos aceptados
+			  </a>
+			</li>
+                      </ul>
+                      <ul class="nav nav-tabs nav-justified ml-2" id="myTab" role="tablist">
+			<li class="nav-item">
+			  <a class="nav-link" id="home" data-toggle="submit" href="fabricaSolicitarPedido.html" role="submit" aria-controls="home" aria-selected="true">
+			    Solicitar pedidos
+			  </a>
+			</li>
+                      </ul>
+                    </div>
+
+                    <div class="row" id="PedRec">
+                      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+			<li class="nav-item">
+			  <a class="nav-link" id="home" data-toggle="submit" href="fabricaListaPedidosRecibidos.html" role="submit" aria-controls="home" aria-selected="true">
+			    Pedidos recibidos
+			  </a>
+			</li>
+                      </ul>
+                      <br>
+                    </div>
+                    <br/>            
+		  </div>
+		</div>
+	      </div>
+	      <div class="collapse" id="collapseSeguimiento">
+		Introduzca en número de <strong>lote:</strong>
+		<br/></br>
+		<div>
+                  <span class="fa fa-user"></span>
+                  <input type="text"  name="lote" Placeholder="1234..." required>
+                  
+                  <div class="input-group-append">
+                    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                      <li class="nav-item" >
+			<a id="buscar1" class="nav-link"  data-toggle="submit" href="Lote.html?a=$a" role="submit" aria-controls="home" aria-selected="true">
+			  Buscar
+			</a>
+                      </li>
+                    </ul>
                   </div>
-
-                  <div class="row">
+		</div> <!-- JS because of IE support; better: placeholder="Username" -->
+		<br/>
+              </div>
+	      <div class="collapse" id="collapseCreacion">
+                <span class="row">
+		  Selecciona el lote de cerveza que deseea crear:
+		</span>
+                <div class="row">
                   <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                    <li class="nav-item">
-                       <a class="nav-link" id="home" data-toggle="submit" href="fabricaListaPedidosRecibidos.html" role="submit" aria-controls="home" aria-selected="true">Pedidos recibidos</a>
+                    <li class="nav-item" >
+                      <a class="nav-link" id="home" data-toggle="submit" href="Pilsner.html" role="submit" aria-controls="home" aria-selected="true">
+			Crear lote Pilsner
+		      </a>
                     </li>
                   </ul>
-                  <br>
+
                   <ul class="nav nav-tabs nav-justified ml-2" id="myTab" role="tablist">
                     <li class="nav-item">
-                       <a class="nav-link" id="home" data-toggle="submit" href="fabricaSolicitarPedido.html" role="submit" aria-controls="home" aria-selected="true">Solicitar pedidos</a>
+                      <a class="nav-link" id="home" data-toggle="submit" href="Stout.html" role="submit" aria-controls="home" aria-selected="true">
+			Crear Lote Stout
+		      </a>
                     </li>
                   </ul>
 
                 </div>
                 <br/>            
-              </div>
-            </div>
-          </div>
-           <br/><br/><br/><br/><br/><br/>
-           </div>
-         </div>
-       </div>
-  </body>
-</html>
-<!------ Include the above in your HEAD tag ---------->
+              </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
-<!-- <div class="clearfix">
-  <a class="nav-link" href="Pilsner.html"  style= 'text-decoration: none;color:white'>
-                  <input type="button" class="btnRegister" value="Crear lote Pilsner">
-                </a>
-                <a class="nav-link" href="Stout.html"  style= 'text-decoration: none;color:white'>
-                  <input type="button" class="btnRegister" value="Crear lote Stout">
-                </a>
-<div class="row register-form">
-                        <div class="col-md-9">
-                        <div class="container">
-                            <div class="row">
-                            <a class="nav-link" href="Lote.html"  style="text-decoration: none;color:white">
-                  <input type="button" class="btnRegister" value="Buscar">
-                </a> 
-              <div class="row">
-                                
-                                <p>
-                                  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
-                                    Crear un Lote
-                                  </a>
-                                </p>
-                                
-                            </div>-->
+</div>
+</div>
+<script>
+  function obtenerNumLote(){
+      var request = $.ajax({
+	  // la URL para la petición
+	  url : '/numLote',
+	  
+	  // la información a enviar
+	  // (también es posible utilizar una cadena de datos)
+	  data : "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+	  
+	  // especifica si será una petición POST o GET
+	  type : 'POST',
+	  
+	  // el tipo de información que se espera de respuesta
+	  dataType : 'json',
+	  
+      });
+      
+      request.done(function(data){
+	  
+	  //Este metodo redirige a la URL
+	  if(data.existe){
+	      alert(data.num);
+	  }
+	  else{
+	      alert("No existe el lote");
+	  }
+	  
+      });
+      
+      request.fail(function(data) {
+	  
+	  alert("Error en el servidor");
+	  
+      });
+      
+  }
+</script>
+</body>
