@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 
@@ -22,7 +22,6 @@
 	   <center>
 	
 	   
-	   
 	 <!--ZONA TITULOS E IMAGEN -->
 	 
 	 <div class="container">
@@ -32,29 +31,19 @@
 		 	<!--Título ppal -->   
 		 	<br>
 		 	<br>
-			<h1 align="left"><font face="TAHOMA" size=10>Trazabilidad Cerveza</font></h1>
-			<img src="https://images.vexels.com/media/users/3/144118/isolated/lists/31093a4558d1aa47a6fcec2a174f2754-signo-de-cerveza-de-neon.png" width="150" height="150" style="position:relative; top:-130px; left:170px"/>
+			<h1 align="left"><font face="TAHOMA" size=6>Trazabilidad</font></h1>
+			<img src="https://images.vexels.com/media/users/3/144118/isolated/lists/31093a4558d1aa47a6fcec2a174f2754-signo-de-cerveza-de-neon.png" width="150" height="150" style="position:relative; top:-130px; left:70px"/>
   			<br>		
 			
-		</div>
-	    
-	
+	</div>
 	
 	
 	 <!--ZONA DIBUJAR TABLA -->
 	 
 	    <div class="container">
-		    <table class="table table-bordered table-striped table-hover">
+		    <table class="table table-bordered table-striped  table-responsive">
 		    	<thead>
-		     		<tr>
-		    			<th>Tipo:</th>
-		    			<th>Fecha embotellado:</th>
-		    			<th>Agricultor:</th>
-		    			<th>Cooperativa:</th>
-		    			<th>Fábrica:</th>
-		    			<th>Temperatura máxima:</th>
-		    			<th>Temperatura mínima:</th>
-		    		</tr>
+		     	
 		     	</thead>
 		      	<tbody> </tbody>
 		     </table>
@@ -98,9 +87,35 @@
 			 for(var ele of [data]){
 	    		  items.push("<tr>");
 			    	$.each(ele,function(key,val){
-						  items.push("<td id=''"+key+"''>"+val+"</td>");
+						          items.push("<tr>");
+	    		  		                  items.push("<th>Tipo:</th>");
+				  	                  items.push("<td id=''"+key+"''>"+val.tipo+"</td>");
+				  			  items.push("<tr>");
+							  items.push("<th>Agricultor:</th>");
+							  items.push("<td id=''"+key+"''>"+val.agricultor+"</td>");
+							  items.push("<tr>");
+							  items.push("<th>Cooperativa:</th>");
+							  items.push("<td id=''"+key+"''>"+val.cooperativa+"</td>");
+							  items.push("<tr>");
+							  items.push("<th>Temperatura máxima 1º:</th>");
+							  items.push("<td id=''"+key+"''>"+val.temp_max_1+"</td>");
+							  items.push("<tr>");
+							  items.push("<th>Temperatura mínima 1º:</th>");
+							  items.push("<td id=''"+key+"''>"+val.temp_min_1+"</td>");				  
+							  items.push("<tr>");
+							  items.push("<th>Fábrica:</th>");
+							  items.push("<td id=''"+key+"''>"+val.fabrica+"</td>");
+							  items.push("<tr>");
+							  items.push("<th>Fecha embotellado:</th>");
+							  items.push("<td id=''"+key+"''>"+val.fecha_embotellado+"</td>");
+							  items.push("<tr>");
+							  items.push("<th>Temperatura máxima 2º:</th>");
+							  items.push("<td id=''"+key+"''>"+val.temp_max_2+"</td>");
+							  items.push("<tr>");
+							  items.push("<th>Temperatura mínima 2º:</th>");
+							  items.push("<td id=''"+key+"''>"+val.temp_min_2+"</td>");
+							  items.push("<tr>");
 						  });
-					  items.push("<tr/>");
 			 }
 						  $("<tbody/>",{html:items.join("")}).appendTo("table");
 		     });
@@ -109,7 +124,6 @@
 		     });
 		 }  
 		</script>
-		
 
 		<!--FIN ZONA SCRIPTS -->
 		
@@ -118,4 +132,3 @@
     </center>
   </body>
 </html>
-
