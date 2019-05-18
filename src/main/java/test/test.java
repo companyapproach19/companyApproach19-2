@@ -87,13 +87,10 @@ public class test {
 	    	   * 
 	    	   * Aqui bien
 	    	   */
-	    	  {-1,new Actor("0","Productor",0 ),new Actor("1","Cooperativa" ,1  ), new Productos(0, 0,0,0,0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0) },//  
-		        /* {2,"Cuidado",new Actor("PepitoF","MARIPOSA","pepito@gmail.com",2),new Actor("MariaC","Cuidado con la temperatura","maria@gmail.com",1),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),2,1},//,
-		         {3,"Material organico",new Actor("RebecaR","Atención","rebe@gmail.com",3),new Actor("PepitoF","MARIPOSA","pepito@gmail.com",2),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),3,2},//
-		         {4,"Deben ser puntuales",new Actor("AnaT","Gracias","ana@gmail.com",4),new Actor("RebecaR","Atención","rebe@gmail.com",3),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),4,3},//
-		         {5,"Pedido urgente",new Actor("AnaT","Gracias","ana@gmail.com",1),new Actor("AnaT","Gracias","ana@gmail.com",0),new Productos(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),1,0},//,
-		         {6,"Dejar en la puerta",new Actor("PepitoF","MARIPOSA","pepito@gmail.com",1),new Actor("JuanT","PUERTA","juan@gmail.com",0),new Productos( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),1,0},//
-		     */ });
+	    	  {-1,new Actor("0","Productor",0 ),new Actor("1","Cooperativa" ,1), new Productos(0, 0,0,0,0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0) }, 
+	    	  {-1,new Actor("1","Cooperativa",1 ),new Actor("3","Fabrica" ,3), new Productos(0, 0,0,0,0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0) }, 
+	    	  {-1,new Actor("3","Fabrica",3 ),new Actor("4","Retailer" ,4), new Productos(0, 0,0,0,0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0) },
+		      });
 	   }  
 	   //1  
 	      @Test
@@ -111,6 +108,7 @@ public class test {
 	           assertEquals(pedidocomprobar.getActorOrigen().toString(),pedido.getActorOrigen().toString());  
 	           //cambiar comprobacion
 	       } 
+		   
 	   //3   
 	    @Test
 	    public void ListaOrdenesporAceptar() throws Throwable  { 
@@ -118,6 +116,7 @@ public class test {
 	        String pingResponse2=configurationController.ordenesPendientesPorAceptar(null,""+pedido.getActorDestino().getId());
 	        assertTrue(BuscarEnArray(pingResponse2,pedido.getId())); 
 	    } 
+	    
 	    //4
 	    @Test
 	    public void OrdenesQueHeEnviado() throws Throwable  { 
@@ -125,7 +124,8 @@ public class test {
 	        String pingResponse2=configurationController.ordenesQueHeEnviado(null,""+ pedido.getActorOrigen().getId());
 	        assertTrue(BuscarEnArray(pingResponse2,pedido.getId())); 
 	    } 
-	    //5
+	   
+	   //5
 	    @Test
 	    public void TestOrdenesEnProceso() throws Throwable  {//Pregunta : de los 3 constructores cual.
 	    	pedido=crearunaorden(); 
@@ -135,6 +135,7 @@ public class test {
 	        boolean is=BuscarEnArray(pingResponse,pedido.getId());
 	        assertTrue(is);
 	    }
+	    
 	    //6  
 	    @Test
 	    public void ordenesListasParaEntregar() throws Throwable  {//Pregunta : de los 3 constructores cual.
@@ -169,7 +170,8 @@ public class test {
 	        String pingresponse =configurationController.ordenesEnProcesoDeEntrega(null, this.pedidocomprobar.getActorDestino().getId());
 	        boolean is=BuscarEnArray(pingresponse, pedidocomprobar.getId());
 	        assertTrue(is);//Si esta metida se pasa el test.
-	    }   
+	    }  
+	   
 	    //9
 	    @Test
 	    public void TestAceptarOrden() throws Throwable  {
@@ -188,6 +190,7 @@ public class test {
 	        this.pedidocomprobar=desc.DescodificadorJson(pingResponse); 
 	        assertEquals(pedidocomprobar.getEstado(),-1); 
 	    }  
+	    
 	    //11
 	    @Test
 	    public void TestListaOrden() throws Throwable  { 
@@ -216,6 +219,8 @@ public class test {
 	    	   this.pedidocomprobar=desc.DescodificadorJson(pingResponse);
 		        assertEquals(pedidocomprobar.getEstado(),4);
 	    } 
+	    
+	    
 	/*
 	 * 
 	 * 
