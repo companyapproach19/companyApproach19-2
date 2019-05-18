@@ -29,10 +29,11 @@ package equipo8.model;
 			 Authenticator auth = new SMTPAuthenticator(); 
 			 Session session = Session.getInstance(props, auth); 
 			 MimeMessage msg = new MimeMessage(session); 
-			 msg.setText(emailBody); 
+			 //msg.setText(emailBody); 
 			 msg.setSubject(emailSubject); 
 			 msg.setFrom(new InternetAddress(senderEmailID)); 
-			 msg.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmailID)); 
+			 msg.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmailID));
+			 msg.setContent("<h1>" + emailBody + "</h1>","text/html");
 			 Transport.send(msg); 
 			 System.out.println("Message send Successfully:)"); 
 		 } 

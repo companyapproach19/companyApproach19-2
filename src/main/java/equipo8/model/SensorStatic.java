@@ -272,7 +272,7 @@ public class SensorStatic{
 
 		//Registro registro= new Registro(idPedido, idOrdentrazabilidad,  fechainicio.toString(), fecha.toString(), Tmax, Tmin);
 		log.close();
-		if(Tmax>=31 && !mailMandado) {
+		if(Tmax>=27 && !mailMandado) {
 			new SendEmail("cb1508@hotmail.com","Alerta","Temperatura Excedida!",idPedido);
 			mailMandado = true;
 		}
