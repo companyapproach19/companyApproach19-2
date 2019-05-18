@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 import equipo4.model.Lote;
 import equipo4.model.MateriaPrima;
 import equipo6.model.Bloque;
+import equipo6.model.CadenaStock;
 import equipo5.dao.NullException;
 import equipo5.dao.metodosCompany;
 import equipo5.model.Cadena;
@@ -73,33 +74,14 @@ public class BlockchainServices{
 
 	}
 
-	private StockMP get_coincidencia(List <StockMP> stock_mp,String tipo) 
-	{
-		List <StockMP> stock_filtrado;
-
-		stock_filtrado = new ArrayList<StockMP>();
-
-		for(StockMP stock : stock_mp) 
-		{
-			if(stock.getMp()
-					.getTipo()
-					.equals(tipo)) 
-			{
-				return stock;
-			}
-		}
-
-		return null;
-	}
 
 	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException, RuntimeException, NullException 
 	{
-		List <StockMP> stock_mp;
 		List <MateriaPrima> list_materia_prima;
-		StockMP coincidencia;
-		boolean valor_retorno;
+		Cadena cadenaDestino;
+		OrdenTrazabilidad orden_origen;
+		Bloque super_bloque;
 
-		valor_retorno = false;
 		list_materia_prima = get_materia_prima(orden.getProductosPedidos());
 
 
@@ -109,22 +91,20 @@ public class BlockchainServices{
 			case 2:
 
 				if(orden.getActorDestino().getTipoActor() == 0){
-					valor_retorno = true;
 					break;
 				}
 
+				cadenaDestino = metodosCompany.extraerCadena(orden.getId());
+				super_bloque = cadenaDestino.getBloque(-1).get(0);
+				orden_origen = metodosCompany.extraerOrdenTrazabilidad(super_bloque.getIdCadena());
+				CadenaStock.actualizar_stock(orden_origen);
 				
-
 				break;
 
 			case 4:
 
 				for(MateriaPrima materia_prima : list_materia_prima)
 					metodosCompany.insertarStockMP(new StockMP(materia_prima, null, null, orden.getId(), orden.getIdPedido(), orden.getActorOrigen().getId()));
-
-			default:
-				valor_retorno = true;
-
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -132,7 +112,7 @@ public class BlockchainServices{
 			return false;
 		}
 
-		return valor_retorno;
+		return true;
 	}
 
 	public void guardarRespuestaPedido(int id_pedido_destino, int id_stock_origen) throws Throwable 
@@ -140,12 +120,13 @@ public class BlockchainServices{
 
 		Cadena origen;
 		Cadena destino;
+		OrdenTrazabilidad ordenOrigen;
 		Bloque new_super_block;
 		String new_utimo_hash;
 
 		destino = metodosCompany.extraerCadena(id_pedido_destino);
 		origen = null;
-
+		ordenOrigen = metodosCompany.extraerOrdenTrazabilidad(id_stock_origen);
 	
 		origen = metodosCompany.extraerCadena(id_stock_origen);
 		new_super_block = new Bloque(destino.getHashUltimoBloque(), -1, destino.getNumBloques(), destino.getCodLote(), new DatosContainer(), origen.getCodLote(),-1);
@@ -160,6 +141,9 @@ public class BlockchainServices{
 
 		if(destino != null)
 			metodosCompany.insertarCadena(destino);
+		
+		ordenOrigen.setEstado(5);
+		metodosCompany.insertarOrdenTrazabilidad(ordenOrigen);
 
 	}
 
@@ -236,10 +220,10 @@ public class BlockchainServices{
 	private int get_id_datos(DatosContainer datos_container) throws ClassNotFoundException, SQLException 
 	{
 
-		if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getIdPedido();
-		if(datos_container instanceof Registro) return ((Registro)datos_container).getIdPedido();
+		if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getId();
+		if(datos_container instanceof Registro) return ((Registro)datos_container).getIdOrdenTrazabilidad();
 		if(datos_container instanceof Lote) return ((Lote)datos_container).getIdBd();
-		if(datos_container instanceof geolocalizacion) return metodosCompany.extraerOrdenTrazabilidad(((geolocalizacion)datos_container).getIdOrden()).getIdPedido();
+		if(datos_container instanceof geolocalizacion) return ((geolocalizacion)datos_container).getIdOrden();
 
 		return -1;
 	}
