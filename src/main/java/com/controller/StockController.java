@@ -55,7 +55,7 @@ public class StockController {
 		lista = metodosCompany.extraerStockMP(actor, idOrden);
 		for (StockMP encontrar : lista) {
 			if (encontrar.getMp().getTipo().equals(mp.getTipo())) {
-				encontrar.getMp().getCantidad();
+				devolvemos=encontrar.getMp().getCantidad();
 			}
 		}
 		return devolvemos;
@@ -289,12 +289,38 @@ public class StockController {
 		JsonObject obj = get_stock_actor("3");
 		JsonObject stock = obj.get("stock").getAsJsonObject();
 		if(tipoCerveza.equals("stout")) {
-			
+			if(null==stock.get("MaltaBasePalida")|| stock.get("maltaBasePalida").getAsInt()<261)
+				return false;
+			if(null==stock.get("MaltaMunich")|| stock.get("MaltaMunich").getAsInt()<61)
+				return false;
+			if(null==stock.get("CebadaTostada")|| stock.get("cebadaTostada").getAsInt()<21)
+				return false;
+			if(null==stock.get("MaltaNegra")|| stock.get("MaltaNegra").getAsInt()<10)
+				return false;
+			if(null==stock.get("MaltaCrystal")|| stock.get("MaltaCrystal").getAsInt()<6)
+				return false;
+			if(null==stock.get("MaltaChocolate")|| stock.get("MaltaChocolate").getAsInt()<5)
+				return false;
+			if(null==stock.get("MaltaCaramelo")|| stock.get("MaltaCaramelo").getAsInt()<4)
+				return false;
+			if(null==stock.get("LupuloCentennial")|| stock.get("LupuloCentennial").getAsInt()<3)
+				return false;
+			if(null==stock.get("LevaduraAle")|| stock.get("levaduraAle").getAsInt()<11)
+				return false;
 		}else if(tipoCerveza.equals("pilsner")) {
-			
+			if(null==stock.get("MaltaPilsner")|| stock.get("MaltaPilsner").getAsInt()<261)
+				return false;
+			if(null==stock.get("MaltaCaramelo")|| stock.get("MaltaCaramelo").getAsInt()<21)
+				return false;
+			if(null==stock.get("LupuloPerle")|| stock.get("LupuloPerle").getAsInt()<1)
+				return false;
+			if(null==stock.get("LupuloTettnanger")|| stock.get("LupuloTettnanger").getAsInt()<2)
+				return false;
+			if(null==stock.get("LevaduraLager")|| stock.get("LevaduraLager").getAsInt()<1)
+				return false;
 		}
 		
-		System.out.println();
+		return true;
 		
 		/*
 		 * 1 LITRO DE STOUT (cantidades en gramos para que sean 'int'):
@@ -315,7 +341,6 @@ lupuloPerle=1
 lupuloTettnanger=2
 levaduraLager=1
 		 */
-		return true;
 	}
 
 	private JsonObject get_stock_actor(String id) 
