@@ -1,0 +1,219 @@
+<html lang="es">
+<head>
+    <title>Prediccion Actor</title>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script id ="speedCanvas">
+      function prueba() {var speedCanvas = document.getElementById("speedChart");
+      Chart.defaults.global.defaultFontFamily = "Lato";
+      Chart.defaults.global.defaultFontSize = 18;
+      var speedData = {
+  labels: ["Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic", "Ene", "Feb", "Mar", "Abr", "May"],
+  datasets: [{
+    label: "Lotes Pilsner",
+    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    borderColor: 'red',
+    backgroundColor: 'transparent',
+        },
+        {label : "Lotes Stout",
+        data : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+        borderColor: 'blue',
+        backgroundColor: 'transparent',
+
+        }
+        ]
+          };
+
+      var chartOptions = {
+       legend: {
+       display: true,
+       position: 'top',
+       labels: {
+        boxWidth: 80,
+       fontColor: 'black'
+    }
+  }
+};
+
+var lineChart = new Chart(speedCanvas, {
+  type: 'line',
+  data: speedData,
+  options: chartOptions
+});
+}</script>
+</head>
+<body onload="prueba()" style="display: block; height: 100%; !important">
+<body>
+
+<div class="container-fluid register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="https://image.flaticon.com/icons/png/512/25/25007.png" alt=""/>
+            <h1>Fabrica</h1>
+            <!--<p>Pedidos recibidos</p>
+            <input type="submit" name="" value="Log out"/><br/>
+                -->
+        </div>
+
+        <div class="col-md-8 register-right">
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    <h3 class="register-heading">Predicción Fabrica</h3>
+                </div>
+
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home"
+                           aria-selected="true">Volver</a>
+                    </li>
+                </ul>
+              </div>
+              <br/><br/>
+                <div class="col-md-9" style="position:inline; margin-left: 40px"><canvas id="speedChart" width="600" height="400"></canvas></div>
+                <div> <table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Jun</th>
+      <th scope="col">Jul</th>
+      <th scope="col">Ago</th>
+      <th scope="col">Sep</th>
+      <th scope="col">Oct</th>
+      <th scope="col">Nov</th>
+      <th scope="col">Dic</th>
+      <th scope="col">Ene</th>
+      <th scope="col">Feb</th>
+      <th scope="col">Mar</th>
+      <th scope="col">Abr</th>
+      <th scope="col">May</th>
+      <th scope="col">PREDICCION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Lotes Stout</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th scope="row">Lotes Pilsner</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8</td>
+      <td>0</td>
+
+    </tr>
+  </tbody>
+</table></div>
+                	 	
+                 
+                
+                <br/><br/><br/><br/><br/><br/><br/><br/>
+            </div>
+            
+            <br/><br/><br/><br/>
+
+            
+            </div>
+            <br/><br/><br/><br/><br/><br/>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<!-- <div class="clearfix">
+  <a class="nav-link" href="Pilsner.html"  style= 'text-decoration: none;color:white'>
+                  <input type="button" class="btnRegister" value="Crear lote Pilsner">
+                </a>
+                <a class="nav-link" href="Stout.html"  style= 'text-decoration: none;color:white'>
+                  <input type="button" class="btnRegister" value="Crear lote Stout">
+                </a>
+<div class="row register-form">
+                        <div class="col-md-9">
+                        <div class="container">
+                            <div class="row">
+                            <a class="nav-link" href="Lote.html"  style="text-decoration: none;color:white">
+                  <input type="button" class="btnRegister" value="Buscar">
+                </a> 
+              <div class="row">
+                                
+                                <p>
+                                  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+                                    Crear un Lote
+                                  </a>
+                                </p>
+                                
+                            </div>-->
+
+<script>
+    function obtenerNumLote() {
+
+        var request = $.ajax({
+            // la URL para la petición
+            url: '/numLote',
+
+            // la información a enviar
+            // (también es posible utilizar una cadena de datos)
+            data: "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+
+            // especifica si será una petición POST o GET
+            type: 'POST',
+
+            // el tipo de información que se espera de respuesta
+            dataType: 'json',
+
+        
+        
+
+        request.done(function (data) {
+
+            //Este metodo redirige a la URL
+            if (data.existe) {
+                alert(data.num);
+            } else {
+                alert("No existe el lote");
+            }
+
+        });
+
+        request.fail(function (data) {
+
+            alert("Error en el servidor");
+
+        });
+
+    }
+</script>
