@@ -105,6 +105,19 @@
 }
 .btnCompletar{
     float: right;
+    /*margin-top: 2%;*/
+    margin-left: 18%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #0062cc;  /*Boton enviar pedido*/
+    color: #fff;          /*Letras enviar pedidos*/
+    font-weight: 600;
+    width: 50%;
+    cursor: pointer;
+}
+.btnCompletarAgricultor{
+    float: right;
     margin-top: 2%;
     margin-left: 18%;
     border: none;
