@@ -686,6 +686,7 @@ levaduraLager=1
 			}
 			
 			json_respuesta.addProperty("Agricultor", "Sin resultados");
+			json_respuesta.addProperty("Cooperativa", "Sin resultados");
 			json_respuesta.addProperty("Fabrica", "Sin resultados");
 			
 			if(ultimo_lote == null) 
@@ -721,6 +722,9 @@ levaduraLager=1
 			{
 			case 0:
 				json.addProperty("Agricultor", orden.getActorDestino().getDireccion()+" "+BlockchainServices.extraer_nombres_materias_primas(orden.getProductosPedidos()));
+				break;
+			case 1:
+				json.addProperty("Cooperativa", orden.getActorDestino().getNombre());
 				break;
 			case 3:
 				json.addProperty("Fabrica", orden.getActorDestino().getNombre());
