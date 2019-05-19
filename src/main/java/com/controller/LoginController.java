@@ -21,6 +21,7 @@ import equipo6.otros.UsuariosService;
 @Controller
 @SpringBootApplication
 public class LoginController {
+	
 
 	@Scope("request")
 	@RequestMapping("/loginUser")
@@ -29,7 +30,6 @@ public class LoginController {
 			@RequestParam(name="usuario", required=true) String usuario,
 			@RequestParam(name="pwd", required=true) String pwd,
 			Model model) throws Exception {
-		
 		
 		
 		//Obtiene los datos del usuario que se quiere logear
@@ -64,14 +64,15 @@ public class LoginController {
 			tipo = "Transportista";
 			break;
 		case 3:
-			tipo = "Fabrica";
+			tipo = "NumLote";
 			break;
 		case 4:
-			tipo = "Retailer";
-			break;
-		case 5:
+			//	tipo = "Retailer";
 			tipo = "tiendaInicio";
 			break;
+		/*case 5:
+			tipo = "tiendaInicio";
+			break;*/
 		default:
 			tipo="LoginError";
 			break;

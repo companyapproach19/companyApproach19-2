@@ -195,14 +195,24 @@ public class OrdenTrazabilidad extends DatosContainer
 		}
 
 		public byte[] getFirmaEntregaBBDD() {
+<<<<<<< HEAD
 			byte[] decodedBytes = Base64.getDecoder().decode(this.firmaEntrega.getBytes());
+=======
+			byte[] decodedBytes = Base64.getDecoder().decode(this.firmaRecogida.getBytes());
+>>>>>>> a22a092c552e85d6518a8e9d6c7b37de093644a7
 			return decodedBytes;
 		}
 
 		public void setFirmaEntregaBBDD(byte[] firmaEntrega) {
+<<<<<<< HEAD
 			if (firmaEntrega != null) {
 				byte[] encodedBytes = Base64.getEncoder().encode(firmaEntrega);
 				this.firmaEntrega = new String(encodedBytes);
+=======
+			if (firmaRecogida != null) {
+				byte[] encodedBytes = Base64.getEncoder().encode(firmaEntrega);
+				this.firmaRecogida = new String(encodedBytes);
+>>>>>>> a22a092c552e85d6518a8e9d6c7b37de093644a7
 			}
 		}
 
@@ -240,4 +250,8 @@ public class OrdenTrazabilidad extends DatosContainer
 		
 		
  
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a22a092c552e85d6518a8e9d6c7b37de093644a7
