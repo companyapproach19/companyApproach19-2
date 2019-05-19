@@ -155,8 +155,7 @@ public class OrdenTrazabilidad extends DatosContainer
 		}
 
 		public void setProductosAEntregar(ArrayList<Integer> productosAEntregar) {
-			for (Integer prod : productosAEntregar)
-				this.productosAEntregar.add(prod);
+			this.productosAEntregar=productosAEntregar;
 		}
 
 		public int getEstado() {
