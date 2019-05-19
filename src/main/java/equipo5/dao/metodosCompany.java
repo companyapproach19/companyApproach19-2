@@ -1007,7 +1007,7 @@ public class metodosCompany {
 	   	if(stockLote == null){
 	             throw new NullException("El stock de lote introducido no es válido.");
 		}
-		if(stockLote.getFecha_salida()==null) {
+		if(stockLote.getFecha_entrada()==null) {
 	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 4:
@@ -1037,7 +1037,7 @@ public class metodosCompany {
 			    break;
 	   		} 
 	   	}
-	   	else if(stockLote.getFecha_salida()!=null) {
+	   	else if(stockLote.getFecha_salida()==null) {
 	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
 	   		switch(actor.getTipoActor()){
 	   		case 4:
