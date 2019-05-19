@@ -38,13 +38,6 @@
     animation: mover 1s infinite  alternate;
 }
 
-@-webkit-keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
-}
-@keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
 }
 .register-left p{
      
@@ -146,26 +139,28 @@
     /* Imagen obtenida de https://cdn.icon-icons.com/icons2/53/PNG/256/farmer_10763.png */
   background-image:url(molienda.png);
   background-size: 100px;
-  margin-left: 170px;
+  margin-left: 70px;
 }
 
 #bt2 {
     /* Imagen obtenida de https://images.vexels.com/media/users/3/149778/isolated/preview/1f81375bf0c5b07e551aed611ef4bdc1-ilustraci--n-del-edificio-de-la-f--brica-by-vexels.png */
   background-image:url(coccion.jpg);
   background-size: 100px;
-  margin-left: 270px;
+  margin-left: 40px;
 }
 
 #bt3 {
     /* Imagen obtenida de https://transastur.com/wp-content/uploads/2015/11/icono-cooperativa.png */
-  background-image: url(coccion.jpg);
+  background-image:url(fermentacion.jpg);
   background-size: 100px;
-  margin-left: 30px;
+  margin-left: 40px;
 }
-#bt4{
-	background-image : url(embotellado.jpg);
-	background-size: 100px;
-	margin-left: 30px;
+
+#bt4 {
+    /* Imagen obtenida de https://img.icons8.com/plasticine/2x/shop.png */
+  background-image:url(embotellado.jpg);
+  background-size: 100px;
+  margin-left: 40px;
 }
 
 .btn:hover {
@@ -174,6 +169,15 @@
   border: 1px solid rgba(223,190,106,0);
   color: #fff;
   /*background-position: right center;*/
+}
+
+
+.panel{
+  margin-left: 100px;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1rem;
+
 }
 
 article {
@@ -215,195 +219,16 @@ body{
 .Botones1{
   display: inline-flex;
   margin-top:-40px;
+  margin-bottom: 0px;
 }
-.Botones2{
-  display: inline-flex;
-  margin-top:-150px;
-}
-#mapa {
-  margin-top: 7%;
 
-}
+
 #volver {
-  margin-right: 30px;
+  margin-left: 600px;
 
 }
 nav-item{
    margin-right: 30px;
 }
 
- .linea1 {
-    position: absolute;
-    left: 130px;
-    top: 280px;
-    height: 10px;
-    width: 700px;
-    z-index: 0;
-    }
- .linea2 {
-    position: absolute;
-    left: 500px;
-    top: 205px;
-    height: 10px;
-    width: 200px;
-    z-index: 0;
-    }
-
-  .linea2bis {
-    position: absolute;
-    left: 512px;
-    top: 212px;
-    height: 12px;
-    width: 205px;
-    z-index: 2;
-    }
-
- .linea3 {
-    position: absolute;
-    left: 520px;
-    top: 200px;
-    height: 10px;
-    width: 200px;
-    z-index: 0;
-    }
-    [data-linea2] {
-        border-top: black dashed 3px;
-    }
-    [data-linea3] {
-        border: #f8f9fa solid 20px;
-    }
-
-#popup1, #popup2, #popup3, #popup4 {
-  display:none;
-  position:fixed;
-  left:0px;
-  right:0px;
-  bottom:0px;   
-  top:0;
-  background-color: rgba(216, 216, 216, 0.78);
-  z-index:99999;
-}
  
-#popup1 .inner, #popup2 .inner, #popup3 .inner, #popup4 .inner {
-  max-width:50%;
-  width:100%;
-  position:absolute;
-  top:10%;
-  left:50%;
-  margin-left:-20%;
-  border-radius:2px;
-  -moz-border-radius:2px;
-  -webkit-border-radius:2px;
-  background-color:#ffffff;
-  padding:19px 23px;
-  color:#000000;
-  box-sizing:border-box;
-  max-height: 500px;
-  overflow: auto;
-}
-
-#popup1 .inner h1, #popup2 .inner h1, #popup3 .inner h1, #popup4 .inner h1 {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 26px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #000000;
-  padding: 0 7px 10px 7px;
-  border-bottom: solid 1px #979797;
-}
-
-#popup1 .inner h2, #popup2 .inner h2, #popup3 .inner h2, #popup4 .inner h2 {
-  font-size:12px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight:bold;
-  color:#4a4a4a;
-  text-align:left;
-  margin:0 0 10px 0;
-}
-
-#popup1 .inner p, #popup2 .inner p, #popup3 .inner p, #popup4 .inner p {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.5;
-  letter-spacing: normal;
-  text-align: left;
-  color: #000000;
-  margin: 24px 0;
-}
-
-#popup1 .inner p.small, #popup2 .inner p.small, #popup3 .inner p.small, #popup4 .inner p.small {
-  font-size: 11px;
-  margin:10px 0;
-}
-
-#popup1 .inner a.ok, #popup2 .inner a.ok, #popup3 .inner a.ok, #popup4 .inner a.ok {
-  display: block;
-  width: 152px;
-  height: 30px;
-  border-radius: 1px;
-  background-color: #f5f5f5;
-  border: solid 1px #2e2e2e;
-  font-family: Arial;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: #000000;
-  line-height: 30px;
-}
-
-#popup1 .inner .cookie-message-footer, #popup2 .inner .cookie-message-footer, #popup3 .inner .cookie-message-footer, #popup4 .inner .cookie-message-footer {
-  padding: 10px 7px 0 7px;
-  border-top: solid 1px #979797;
-  text-align: right;
-}
-
-#popup1 .inner .cookie-message-footer p, #popup2 .inner .cookie-message-footer p, #popup3 .inner .cookie-message-footer p, #popup4 .inner .cookie-message-footer p {
-  font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.62;
-    letter-spacing: normal;
-    text-align: right;
-    color: #000000;
-}
-
-#popup1 .inner .cookie-message-footer p a, #popup2 .inner .cookie-message-footer p a, #popup3 .inner .cookie-message-footer p a, #popup4 .inner .cookie-message-footer p a {
-  color:#000000;
-  text-decoration:underline;
-}
-
-#popup1 .inner .table, #popup2 .inner .table, #popup3 .inner .table, #popup4 .inner .table {
-  display:table;
-  font-size:12px;
-}
-
-#popup1 .inner .table .tr, #popup2 .inner .table .tr, #popup3 .inner .table .tr, #popup4 .inner .table .tr {
-  display:table-row;
-}
-
-#popup1 .inner .table .tr:nth-child(odd), #popup2 .inner .table .tr:nth-child(odd), #popup3 .inner .table .tr:nth-child(odd), #popup4 .inner .table .tr:nth-child(odd) {
-  background:rgba(168, 168, 168, 0.13);
-}
-
-#popup1 .inner .table .tr .td, #popup2 .inner .table .tr .td, #popup3 .inner .table .tr .td, #popup4 .inner .table .tr .td {
-  display:table-cell;
-  padding:5px;
-}
-
-#popup1 .inner .table .tr .td:first-child, #popup2 .inner .table .tr .td:first-child, #popup3 .inner .table .tr .td:first-child, #popup4 .inner .table .tr .td:first-child {
-  width:180px;
-}

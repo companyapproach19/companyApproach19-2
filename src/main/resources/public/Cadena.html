@@ -1,9 +1,12 @@
 <!------ Include the above in your HEAD tag ---------->
 
+<!DOCTYPE html>
+<html>
 
 <head>
 
 <meta charset="UTF-8">
+<title>Cadena</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -11,36 +14,38 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link href="Cadena.css" rel="stylesheet" id="bootstrap-css">
 
-<!-- Aquí está el JS que controla los botones y las peticiones -->
-<script type="text/javascript"></script>
-
 </head>
 <script type="text/javascript">
 function moliendaCadena(){
+	alert("moliendaCadena");
     var request = $.ajax({
     url : '/moliendaCadena',
     type : 'POST',
     dataType : 'json',
     });
 	request.done(function(response){
+		alert("llama funcion ajax correcta");
 		var info = response["info"];
-		$('#molienda').text(info);
+		alert("la informacion que he recogido del servicio es:" + info);
   
    });
    request.fail(function(response) {
+ 
 		alert("Error en el servidor");
  
    });
 }
 function cocinandoCadena(){
+	alert("cocinandoCadena");
     var request = $.ajax({
     url : '/cocinandoCadena',
     type : 'POST',
     dataType : 'json',
     });
 	request.done(function(response){
+		alert("llama funcion ajax correcta");
 		var info = response["info"];
-		$('#coccion').text(info);
+		alert("la informacion que he recogido del servicio es:" + info);
   
    });
    request.fail(function(response) {
@@ -50,14 +55,16 @@ function cocinandoCadena(){
    });
 }
 function fermentandoCadena(){
+	alert("fermentandoCadena");
     var request = $.ajax({
     url : '/fermentandoCadena',
     type : 'POST',
     dataType : 'json',
     });
 	request.done(function(response){
+		alert("llama funcion ajax correcta");
 		var info = response["info"];
-		$('#fermentacion').text(info);
+		alert("la informacion que he recogido del servicio es:" + info);
   
    });
    request.fail(function(response) {
@@ -67,14 +74,16 @@ function fermentandoCadena(){
    });
 }
 function embotellandoCadena(){
+	alert("embotellandoCadena");
     var request = $.ajax({
     url : '/embotellandoCadena',
     type : 'POST',
     dataType : 'json',
     });
 	request.done(function(response){
+		alert("llama funcion ajax correcta");
 		var info = response["info"];
-		$('#embotellado').text(info);
+		alert("la informacion que he recogido del servicio es:" + info);
   
    });
    request.fail(function(response) {
@@ -84,11 +93,32 @@ function embotellandoCadena(){
    });
 }
 
+function ponerTabla(){
+	var request = $.ajax({
+	    url : '/ponerTabla',
+	    type : 'POST',
+	    dataType : 'json',
+	    });
+		request.done(function(response){
+			alert("llama funcion ajax correcta");
+			var lista = response["s"];
+			$('#Tabla').text(lista);
+			alert("la informacion que he recogido del servicio es:" + lista);
+	  
+	   });
+	   request.fail(function(response) {
+	 
+			alert("Error en el servidor");
+	 
+	   });
+	
+}
 </script>
 
-  
 
+<body>
 
+    
     <!-- Fondo: imagen, titulo, botones volver y logout -->
     <div class="container register">
       <div class="row">    
@@ -111,56 +141,51 @@ function embotellandoCadena(){
 	  
 	  
 
-	  <!-- Botones de los actores -->
+	  <!-- Botones-->
 	  <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+           
 	      
-	    	      <div class="Botones1">
-		<!-- Botón de la fábrica -->
-		<button id="bt1" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1" onclick="moliendaCadena()">
+	   <div class="Botones1">
+		<button id="bt1" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">
 		</button>
 
-		<!-- Botón de la fábrica -->
-		<button id="bt3" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3" onclick = "fermentandoCadena()">
+		<button id="bt2" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">
 		</button>
 
-
-		<!-- Botón del retailer -->
-        <button id="bt5" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5" aria-expanded="false" aria-controls="multiCollapseExample5" onclick = "embotellandoCadena()">
+		<button id="bt3" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">
 		</button>
-	      </div>
+
+		<button id="bt4" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4">
+		</button> 
+		
+	   </div>
 	      
 	      <div class="row">
                 <div class="col">
                   <div class="collapse multi-collapse" id="multiCollapseExample1">
 		    <div class="card card-body">
-		     1. Molienda 
-		     <p id="molienda">
-             </p>
+		     1. Molienda
 		    </div>
                   </div>
                 </div>
 	      </div>
-		
-		<div class="row">
+
+	      <div class="row">
                 <div class="col">
                   <div class="collapse multi-collapse" id="multiCollapseExample2">
 		    <div class="card card-body">
 		      2. Cocción
-		      <p id="coccion">
-             </p>
 		    </div>
                   </div>
                 </div>
 	      </div>
-	      
+
 	      <div class="row">
                 <div class="col">
                   <div class="collapse multi-collapse" id="multiCollapseExample3">
 		    <div class="card card-body">
 		      3. Fermentación
-		      <p id="fermentacion">
-             </p>
 		    </div>
                   </div>
                 </div>
@@ -168,42 +193,54 @@ function embotellandoCadena(){
 
 	      <div class="row">
                 <div class="col">
-                  <div class="collapse multi-collapse" id="multiCollapseExample5">
+                  <div class="collapse multi-collapse" id="multiCollapseExample4">
 		    <div class="card card-body">
 		      4. Embotellado
-		      <p id="embotellado">
-             </p>
 		    </div>
                   </div>
                 </div>
 	      </div>  
 
-	     <hr class="hr"/>   
-
-	      <div class="Botones2">
-
-		<button href="#" id="bt2" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" onclick = "cocinandoCadena()">
-		</button>
-
-		<button id="bt4" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4" onclick = "segundaFermentandoCadena()">
-		</button> 
+	     <hr class="hr"/> 
+	      
+<div>
+			<ul id="actualizar" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true" onclick = "ponerTabla()">Actualizar</a>
+                </li>
+            </ul>
 	      </div>
-	      
+			<div class="panel panel-default">
+			<div class="panel-heading"><u><b>Lotes en fábrica </b></u></br></div>
+			  <div class="panel-body">
+			  <p id="Tabla">
+                      </p>
 
-	      
-	      
-	      
-	      <ul id="mapa" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+
+			  </div>
+			</div>
+			
+	      <br>
+		<div>	
+	      <ul id="volver" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
                 </li>
 	      </ul>
-
+	      </div>
             </div>
+
 	  </div>
 	</div>
+
       </div>
     </div>
 
-</div>
-</div>
+	</div>
+	</div>
+
+</body>
+</html>
+
+
+
