@@ -313,7 +313,7 @@ public class StockController {
 			if(null==stock.get("LevaduraAle")|| stock.get("levaduraAle").getAsInt()<11)
 				return falseJ.toString();
 		}else if(tipoCerveza.equals("pilsner")) {
-			if(null==stock.get("MaltaPilsner")|| stock.get("MaltaPilsner").getAsInt()<261)
+			if(null==stock.get("MaltaPilsner")|| stock.get("MaltaPilsner").getAsInt()<173)
 				return falseJ.toString();
 			if(null==stock.get("MaltaCaramelo")|| stock.get("MaltaCaramelo").getAsInt()<21)
 				return falseJ.toString();
