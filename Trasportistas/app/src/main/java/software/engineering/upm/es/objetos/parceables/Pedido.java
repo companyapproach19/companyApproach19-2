@@ -31,12 +31,12 @@ public class Pedido implements Parcelable {
         this.productos = productos;
     }
 
-    public Pedido (int id){
+    public Pedido (int id, Productos prod){
         this.id = id;
         this.trasportista = new Trasportista("Pepito", "Software", "","");
         this.firmadoEntrega = false;
         this.firmadoRecogida = false;
-        this.productos = new Productos(3,3,3,3,3,3,3,3,3,3,4);
+        this.productos = prod;
     }
 
     public Pedido (JSONObject pedidos) throws JSONException {

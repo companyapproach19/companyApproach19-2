@@ -10,7 +10,7 @@
         android:id="@+id/asignar_pedido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Asignar Pedido"
+        android:text="Listado de pedidos por recoger"
         android:onClick="asignar_pedido"
         app:layout_constraintBottom_toTopOf="@+id/pedido_recogido"
         app:layout_constraintEnd_toEndOf="parent"

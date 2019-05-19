@@ -1,6 +1,7 @@
 package software.engineering.upm.es.activities;
 
 import android.content.Intent;
+import android.os.health.SystemHealthManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton refresh;
 
     private PedidosAPI servicio;
-    public static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTransportista/";//https://beer-company2019.herokuapp.com/damePedidosTransportista
+    public static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTransportistaListo/";//https://beer-company2019.herokuapp.com/damePedidosTransportista
 
     final int FICHA_RECOGIDA = 1;
 
@@ -88,25 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
             servicio = retrofit.create(PedidosAPI.class);
 
-            Call<Object> peticion = servicio.getPedidos();
-           // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
+            Call<Object> peticion = servicio.getPedidosL();
+            // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
             peticion.enqueue(new ObtenerResultados());
 
-            }
-        else if (sp.contador == 0){
-            // Añado uno por defecto
-            Trasportista trasportista = new Trasportista("PePiTo", "Autónomo", "-/-/-", "-/-/-");
-            sp.pedidosSinAsignar.add(0,new Pedido(trasportista,
-                    123, false, false,
-                    new Productos(1,2,3,4,
-                            5,0,0,0,
-                            0,0,0)));
-            sp.pedidosSinAsignar.add(0,new Pedido(trasportista,
-                    1234, false, false,
-                    new Productos(1,2,3,4,
-                            5,0,0,0,
-                            0,0,0)));
-            sp.contador = 1;
         }
 
         adaptador = new AdaptadorPedidos(sp.pedidosSinAsignar);
@@ -133,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void procesarConsulta (Object jsonString) throws JSONException {
        // Toast.makeText(this, jsonString.getClass().toString(), Toast.LENGTH_LONG).show();
+        if(jsonString == null){
+            System.out.println("NULLLLLLLLL");
+        }
+
         System.out.println(jsonString.toString());
         Gson g = new Gson ();
         JsonParser p = new JsonParser();
@@ -141,19 +132,67 @@ public class MainActivity extends AppCompatActivity {
 
             JsonObject elem = p.parse(g.toJson(e)).getAsJsonObject();
             int id = elem.get("id").getAsInt();
-            int estado = elem.get("estado").getAsInt();
+            //int estado = elem.get("estado").getAsInt();
+
+            /*Los productos, no deberia salir fuera de rango*/
+            JsonObject productos = (JsonObject) elem.get("productosPedidos");
+
+
+            int cant_malta_palida = productos.get("cant_malta_base_palida").getAsInt();
+            int cant_malta_munich = productos.get("cant_malta_munich").getAsInt();
+            int cant_malta_negra = productos.get("cant_malta_negra").getAsInt();
+            int cant_malta_crystal = productos.get("cant_malta_crystal").getAsInt();
+            int cant_malta_chocolate = productos.get("cant_malta_chocolate").getAsInt();
+            int cant_malta_caramelo = productos.get("cant_malta_caramelo").getAsInt();
+            int cant_malta_pilsner = productos.get("cant_malta_pilsner").getAsInt();
+            int cant_cebada_tostada = productos.get("cant_cebada_tostada").getAsInt();
+            int cant_lupulo_centenial = productos.get("cant_lupulo_centennial").getAsInt();
+            int cant_lupulo_perle = productos.get("cant_lupulo_perle").getAsInt();
+            int cant_lupulo_tettnanger = productos.get("cant_lupulo_tettnanger").getAsInt();
+            int cant_levadura_lager = productos.get("cant_levadura_lager").getAsInt();
+            int cant_levadura_ale =  productos.get("cant_levadura_ale").getAsInt();
+            int cant_lotes_stout =  productos.get("cant_lotes_stout").getAsInt();
+            int cant_lotes_pilsner =  productos.get("cant_lotes_pilsner").getAsInt();
 
             //System.out.println(elem.get("id"));
-            if(estado == 1){
-            Pedido ped = new Pedido(id);
+            Productos prod = new Productos(cant_malta_palida,
+             cant_malta_munich,
+             cant_malta_negra,
+             cant_malta_crystal,
+             cant_malta_chocolate,
+             cant_malta_caramelo,
+             cant_malta_pilsner,
+             cant_cebada_tostada,
+             cant_lupulo_centenial,
+             cant_lupulo_perle,
+             cant_lupulo_tettnanger,
+             cant_levadura_lager,
+             cant_levadura_ale,
+             cant_lotes_stout,
+             cant_lotes_pilsner);
+
+            Pedido ped = new Pedido(id,prod);
+
+            boolean b = comprobar(id);
+            if(!b){
             sp.pedidosSinAsignar.add(ped);
             }
-
         }
 
 
-    }
 
+
+
+    }
+    private boolean comprobar(int id){
+        boolean b = false;
+        int i;
+        for (i=0;i<sp.pedidosSinAsignar.size();i++){
+            Pedido ped = sp.pedidosSinAsignar.get(i);
+            if(ped.getId()==id) return true;
+        }
+        return b;
+    }
     private void procesarError(String mensaje){
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
     }
