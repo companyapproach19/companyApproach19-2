@@ -284,43 +284,48 @@ public class StockController {
 	@Scope("request")
 	@RequestMapping("/stockSuficienteFabricarLote")
 	@ResponseBody
-	public boolean tieneStockSuficienteParaLote(String tipoCerveza) {
+	public String tieneStockSuficienteParaLote(String tipoCerveza) {
 		//getStockActor()
+		JsonObject falseJ = new JsonObject();
+		falseJ.addProperty("tieneStock", "false");
+		JsonObject trueJ = new JsonObject();
+		trueJ.addProperty("tieneStock", "true");
+		
 		JsonObject obj = get_stock_actor("3");
 		JsonObject stock = obj.get("stock").getAsJsonObject();
 		if(tipoCerveza.equals("stout")) {
 			if(null==stock.get("MaltaBasePalida")|| stock.get("maltaBasePalida").getAsInt()<261)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("MaltaMunich")|| stock.get("MaltaMunich").getAsInt()<61)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("CebadaTostada")|| stock.get("cebadaTostada").getAsInt()<21)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("MaltaNegra")|| stock.get("MaltaNegra").getAsInt()<10)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("MaltaCrystal")|| stock.get("MaltaCrystal").getAsInt()<6)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("MaltaChocolate")|| stock.get("MaltaChocolate").getAsInt()<5)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("MaltaCaramelo")|| stock.get("MaltaCaramelo").getAsInt()<4)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("LupuloCentennial")|| stock.get("LupuloCentennial").getAsInt()<3)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("LevaduraAle")|| stock.get("levaduraAle").getAsInt()<11)
-				return false;
+				return falseJ.toString();
 		}else if(tipoCerveza.equals("pilsner")) {
 			if(null==stock.get("MaltaPilsner")|| stock.get("MaltaPilsner").getAsInt()<261)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("MaltaCaramelo")|| stock.get("MaltaCaramelo").getAsInt()<21)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("LupuloPerle")|| stock.get("LupuloPerle").getAsInt()<1)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("LupuloTettnanger")|| stock.get("LupuloTettnanger").getAsInt()<2)
-				return false;
+				return falseJ.toString();
 			if(null==stock.get("LevaduraLager")|| stock.get("LevaduraLager").getAsInt()<1)
-				return false;
+				return falseJ.toString();
 		}
 		
-		return true;
+		return trueJ.toString();
 		
 		/*
 		 * 1 LITRO DE STOUT (cantidades en gramos para que sean 'int'):
