@@ -50,18 +50,29 @@ public class Prediccion {
 			if(list.get(i).getActorOrigen().getTipoActor() == 1  && menosDeUnAno(list.get(i)) ) { //materias p
 				agricultor.add(list.get(i));
 			}
-			if(list.get(i).getActorOrigen().getTipoActor() == 3  && menosDeUnAno(list.get(i)) ) { //mp
+			if(list.get(i).getActorOrigen().getTipoActor() == 3 && menosDeUnAno(list.get(i))  ) { //mp
 				cooperativa.add(list.get(i));
 			}
-			if(list.get(i).getActorOrigen().getTipoActor() == 4  && menosDeUnAno(list.get(i)) ) { //fabrica y retailer; lotes
+			if(list.get(i).getActorOrigen().getTipoActor() == 4 && menosDeUnAno(list.get(i)) ) { //fabrica y retailer; lotes
 				fabrica.add(list.get(i));
 			}
 		}
 	} 
 	
+	/*public static ArrayList<OrdenTrazabilidad> splitActor (Actor actor) throws NoExisteException, SQLException, ClassNotFoundException  { //metodo que separa en actores
+		Prediccion.split();
+		switch (actor.getTipoActor()) {
+		case 1: return Prediccion.agricultor;
+		case 3: return Prediccion.cooperativa;
+		case 4: return Prediccion.fabrica;
+		default: throw NoExisteException();
+		}
+		}
+	*/
+	
 	public static boolean menosDeUnAno (OrdenTrazabilidad orden) {
-	       java.util.Date fechaActual = new Date(2019, 5, 17);
-	       switch(fechaActual.getYear() - orden.getFecha().getYear()) {
+	       java.util.Date fechaActual = new Date(119, 5, 17);
+	       switch(fechaActual.getYear() - orden.getFecha().getYear() ) {
 	       case 1:
 	           if(fechaActual.getMonth() <= orden.getFecha().getMonth()) {
 	               return true;
@@ -75,9 +86,16 @@ public class Prediccion {
 	           return false;
 	       }    
 	   }
-
-
-	public static JsonObject metodo1 (ArrayList<OrdenTrazabilidad> list){            // METODO TOCHO
+	   
+	/*@Scope("request")
+    @RequestMapping("localHost:5000/comprobar")
+    @ResponseBody
+    public static String metodon (Model model) throws SQLException, ClassNotFoundException{
+		return Prediccion.metodo1(Prediccion.split()).toString();
+	}
+	*/
+////cambiado para que devuelva una matriz en lugar de json
+	public static int[][] metodo1 (ArrayList<OrdenTrazabilidad> list){            // METODO TOCHO
 		//ArrayList<Productos> list2 = new ArrayList<Productos>();	
 		int[] [] matriz = new int [12][13]; 
 		for(int i = 0; i < 12; i++) {
@@ -151,11 +169,12 @@ public class Prediccion {
 			}
 
 		}
-		return Prediccion.matPrimas(Prediccion.reordenacion(matriz));
+		return (Prediccion.reordenacionM(matriz));
 
 		// al final nos queda una matriz de 12 filas mes x 13 columnas tipo materia con la cantidad total de ese tipo/mes en cada posicion
 	}
-	public static JsonObject metodo2 (ArrayList<OrdenTrazabilidad> list){            // METODO TOCHO 2
+	//cambiado para que devuelva una matriz en lugar de json
+	public static int[][] metodo2 (ArrayList<OrdenTrazabilidad> list){            // METODO TOCHO 2
         int[] [] matriz = new int [12][2];
         for(int i = 0; i < 12; i++) {
             for(int j = 0; j < 2; j++) {
@@ -227,26 +246,25 @@ public class Prediccion {
                 continue;
             }
         }
-        return Prediccion.lotes(Prediccion.reordenacion(matriz));
+        return (Prediccion.reordenacionL(matriz));
 	}
-	public static JsonObject algoritmoPrediccion( int[][] matriz) {
+	public static int[] algoritmoPrediccion( int[][] matriz) {
 		int[] totalAnual= new int[13];
 		int[] prediccion= new int[13];
 		Date today = new Date(); 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(today);
-		int month = cal.get(Calendar.MONTH)+1;
 		for (int i=0; i<matriz[0].length; i++) {
 			for(int j=0; j<12; j++) {
 				totalAnual[i]= totalAnual[i] + matriz[j][i];
 			}
 			totalAnual[i]=totalAnual[i]/12;
-			int pred = (matriz[month][i] + totalAnual[i])/2;
+			int pred = (matriz[0][i] + totalAnual[i])/2;
 			prediccion[i] = pred;
 		}
-		return Prediccion.pred(prediccion);
+		return prediccion;
 	}
-	public static int[][] reordenacion(int[][] matriz) {
+	public static int[][] reordenacionM(int[][] matriz) {
 		Date today = new Date(); 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(today);
@@ -268,21 +286,45 @@ public class Prediccion {
 		}
 		return reor;
 		}
-	public static JsonObject matPrimas(int[][] matrix) {
+	public static int[][] reordenacionL(int[][] matriz) {
+		Date today = new Date(); 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(today);
+		int month = cal.get(Calendar.MONTH);
+		int cont1 = 11;
+		int cont2= 0;
+		int[][] reor = new int[12][2];
+		for(int i=month; i>=0; i--) {
+			for(int j=0; j<matriz[0].length; j++) {
+				reor[cont1][j]=matriz[i][j];
+			}
+			cont1--;
+		}
+		for(int i=month+1; i<12 ;i++) {
+			for(int j=0; j<matriz[0].length ;j++) {
+				reor[cont2][j]=matriz[i][j];
+			}
+			cont2++;
+		}
+		return reor;
+		}
+
+    
+    
+    
+	public static JsonObject matPrimas( int[][] matrix) {
 	       String[] mes = {"junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre", "enero", "febrero", "marzo", "abril", "mayo"};
 	       String[] materias = {"Malta base palida", "Malta munich", "Malta negra", "Malta crystal", "Malta chocolate", "Malta caramelo", "Malta pilsner", "Cebada tostada", "Lupulo centennial", "Lupulo perle", "Lupulo tettnanger", "Levadura lager", "Levadura ale"};
 	       JsonObject res = new JsonObject();
-	       for(int i = 0; i < matrix.length; i++) {
-	           JsonObject col = new JsonObject();
-	           for (int j = 0; j < matrix[0].length; j++) {
-	               col.addProperty(materias[j] , matrix[i][j]);
-	           }
-	           res.add(mes[i] , col);
-	       }
-	             
-	            return res;
-	    }
-
+	       for(int i=0; i<matrix[0].length; i++) {
+	    	   JsonObject col = new JsonObject();
+	    	   for(int j=0; j<matrix.length; j++) {
+	    		   col.addProperty(mes[j] , matrix[i][j]);
+		   }
+	    	   res.add(materias[i], col);
+	   }
+	       return res;
+	}
 	   public static JsonObject lotes(int[][] matrix) {
 	       JsonObject res = new JsonObject();
 	       String[] mes = {"junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre", "enero", "febrero", "marzo", "abril", "mayo"};
