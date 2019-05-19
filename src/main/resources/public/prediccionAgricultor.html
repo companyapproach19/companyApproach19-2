@@ -1,0 +1,509 @@
+<html lang="es">
+<head>
+    <title>Prediccion Actor</title>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <link href="prueba.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script>
+  function creaTabla(){
+   var request = $.ajax({
+   url : '/',
+
+   type : 'GET',
+   dataType : 'json',
+   });
+ request.done(function(response){
+   //var fecha = response.fechaInicio;
+   alert("llama funcion ajax correcta");
+   //$('#Llegada').text(fecha);
+
+   for (var element in response["data"]){
+     var i = 0;
+           console.log(element)
+           var row = table.insertRow();
+           var cell = row.insertCell()
+           cell.innerHTML = response["data"][element]["name"];
+
+           for (var month in response["data"][element]["meses"]){
+               row.insertCell().innerHTML = month;
+           }
+           row.insertCell().innerHTML = response["prediccion"][i];
+           i=i+1;
+       }
+
+  });
+  request.fail(function(response) {
+
+   
+ var response = { "data":
+           [{
+                   "name": "Malta Base Palida",
+                   "meses": [6,4,2,3,6,4,2,3,6,4,2,3]
+               },{
+                   "name": "Malta Base Palida",
+                   "meses": [6,4,2,3]
+               },{
+                   "name": "Malta Base Palida",
+                   "meses": [6,4,2,3]
+               },{
+                   "name": "Malta Base Palida",
+                   "meses": [6,4,2,3]
+               },{
+                   "name": "Malta Base Palida",
+                   "meses": [6,4,2,3]
+               },
+               {
+                   "name": "Malta Base Palida",
+                   "meses": [6,4,2,3]
+               },
+               {
+                   "name": "Coco",
+                   "meses": [3,2,1,0]
+               }
+           ],
+           "prediccion":[1,2,3,4,5,6,7,8,9]
+ }
+       var table = document.getElementById("mi_Tabla");
+   
+
+          // row.insertCell().innerHTML = response["prediccion"][i];
+         //  i=i+1;
+       }
+
+  );
+ }
+
+
+
+
+</script>
+    <script id ="speedCanvas">
+      function prueba() {var speedCanvas = document.getElementById("speedChart");
+      Chart.defaults.global.defaultFontFamily = "Lato";
+      Chart.defaults.global.defaultFontSize = 14;
+      var speedData = {
+  labels: [ "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic","Ene", "Feb", "Mar", "Abr", "May"],
+  datasets: [{
+    label: "Malta Base Palida",
+    data: [717, 869, 432, 869, 285, 869, 432, 869, 680, 906, 432, 576],
+    borderColor: 'red',
+    backgroundColor: 'transparent',
+        },
+        {label : "Malta Munich",
+        data : [468, 564, 288, 564, 180, 564, 288, 564, 444, 588, 288, 376],
+        borderColor: 'orange',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Cebada Tostada",
+        data : [147, 187, 72, 187, 75, 187, 72, 187, 139, 195, 72, 167],
+        borderColor : 'blue',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Negra",
+        data : [72, 72, 72, 72, 0, 72, 72, 72, 69, 75 ,72, 13],
+        borderColor: 'pink',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Crystal",
+        data : [93, 117, 48, 117, 45, 117, 48, 117, 88, 122, 48, 99],
+        borderColor: 'yellow',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Chocolate",
+        data : [39, 47, 24, 47, 15, 47, 24, 47, 37, 49, 24, 51],
+        borderColor: 'purple',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Caramelo",
+        data : [237, 261, 192, 261, 45, 261, 192, 261, 226, 272, 192, 129],
+        borderColor: 'green',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Lupulo Centennial",
+        data : [414, 494, 264, 494, 150, 494, 264, 494, 393, 515, 264, 325],
+        borderColor: 'brown',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Levadura Ale",
+        data : [429, 517, 264, 517, 165, 517, 264, 517, 407, 539, 264, 363],
+        borderColor: 'black',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Malta Pilsner",
+        data : [183, 255, 48, 255, 135, 255, 48, 255, 172, 266, 48, 257],
+        borderColor: 'gold',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Lupulo Perle",
+        data : [315, 483, 0, 483, 315, 483, 0, 483, 294, 504, 0, 582],
+        borderColor: 'grey',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Lupulo Tettnanger",
+        data : [210, 258, 120, 258, 90, 258, 120, 258, 199, 269, 120, 194],
+        borderColor: 'aqua',
+        backgroundColor: 'transparent',
+
+        },
+        {label : "Levadura Lager",
+        data : [984, 1432, 144, 1432, 840, 1432, 144, 1432, 922, 1494, 144, 1550],
+        borderColor: 'fuchsia',
+        backgroundColor: 'transparent',
+
+        }
+        ]
+          };
+
+      var chartOptions = {
+       legend: {
+       display: true,
+       position: 'right',
+       labels: {
+        boxWidth: 20,
+       fontColor: 'black'
+    }
+  }
+};
+
+var lineChart = new Chart(speedCanvas, {
+  type: 'line',
+  data: speedData,
+  options: chartOptions
+});
+}</script>
+</head>
+<body onload="prueba();creaTabla();" style="display: block; height: 100%; !important">
+
+<div class="container-fluid register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="icono-agricultor.png" alt=""/>
+            <h1>Agricultor</h1>
+            <!--<p>Pedidos recibidos</p>
+            <input type="submit" name="" value="Log out"/><br/>
+                -->
+        </div>
+
+        <div class="col-md-8 register-right">
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    <h3 class="register-heading">Predicción Agricultor</h3>
+                </div>
+
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home" data-toggle="submit" href="agricultoresInicio.html" role="submit" aria-controls="home"
+                           aria-selected="true">Volver</a>
+                    </li>
+
+
+                </ul>
+                </div>
+                <br/><br/>
+
+                <div class="col-md-9" style="position:inline; margin-left: 40px">
+                  <canvas id="speedChart" width="600" height="400">
+                    
+                  </canvas>
+                </div>
+                <div>
+                <table class="table table-sm" id="mi_Tabla">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Jun</th>
+      <th scope="col">Jul</th>
+      <th scope="col">Ago</th>
+      <th scope="col">Sep</th>
+      <th scope="col">Oct</th>
+      <th scope="col">Nov</th>
+      <th scope="col">Dic</th>
+      <th scope="col">Ene</th>
+      <th scope="col">Feb</th>
+      <th scope="col">Mar</th>
+      <th scope="col">Abr</th>
+      <th scope="col">May</th>
+      <th scope="col">PREDICCION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Malta Base Palida</th>
+      <td>717</td>
+      <td>869</td>
+      <td>432</td>
+      <td>869</td>
+      <td>285</td>
+      <td>869</td>
+      <td>432</td>
+      <td>869</td>
+      <td>680</td>
+      <td>906</td>
+      <td>432</td>
+      <td>576</td>
+      <td>765</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Munich</th>
+      <td>468</td>
+      <td>564</td>
+      <td>288</td>
+      <td>564</td>
+      <td>180</td>
+      <td>564</td>
+      <td>288</td>
+      <td>564</td>
+      <td>444</td>
+      <td>588</td>
+      <td>288</td>
+      <td>376</td>
+      <td>497</td>
+    </tr>
+    <tr>
+      <th scope="row">Cebada Tostada</th>
+      <td>147</td>
+      <td>187</td>
+      <td>72</td>
+      <td>187</td>
+      <td>75</td>
+      <td>187</td>
+      <td>72</td>
+      <td>187</td>
+      <td>139</td>
+      <td>195</td>
+      <td>72</td>
+      <td>167</td>
+      <td>163</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Negra</th>
+      <td>72</td>
+      <td>72</td>
+      <td>72</td>
+      <td>72</td>
+      <td>0</td>
+      <td>72</td>
+      <td>72</td>
+      <td>72</td>
+      <td>69</td>
+      <td>75</td>
+      <td>72</td>
+      <td>13</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Crystal</th>
+      <td>93</td>
+      <td>117</td>
+      <td>48</td>
+      <td>117</td>
+      <td>45</td>
+      <td>117</td>
+      <td>48</td>
+      <td>117</td>
+      <td>88</td>
+      <td>122</td>
+      <td>48</td>
+      <td>99</td>
+      <td>102</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Chocolate</th>
+      <td>39</td>
+      <td>47</td>
+      <td>24</td>
+      <td>47</td>
+      <td>15</td>
+      <td>47</td>
+      <td>24</td>
+      <td>47</td>
+      <td>37</td>
+      <td>49</td>
+      <td>24</td>
+      <td>51</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Caramelo</th>
+      <td>237</td>
+      <td>261</td>
+      <td>192</td>
+      <td>261</td>
+      <td>45</td>
+      <td>261</td>
+      <td>192</td>
+      <td>261</td>
+      <td>226</td>
+      <td>272</td>
+      <td>192</td>
+      <td>129</td>
+      <td>235</td>
+    </tr>
+    <tr>
+      <th scope="row">Lupulo Centennial</th>
+      <td>414</td>
+      <td>494</td>
+      <td>264</td>
+      <td>494</td>
+      <td>150</td>
+      <td>494</td>
+      <td>264</td>
+      <td>494</td>
+      <td>393</td>
+      <td>515</td>
+      <td>264</td>
+      <td>325</td>
+      <td>437</td>
+    </tr>
+    <tr>
+      <th scope="row">Levadura Ale</th>
+      <td>429</td>
+      <td>517</td>
+      <td>264</td>
+      <td>517</td>
+      <td>165</td>
+      <td>517</td>
+      <td>264</td>
+      <td>517</td>
+      <td>407</td>
+      <td>539</td>
+      <td>264</td>
+      <td>363</td>
+      <td>456</td>
+    </tr>
+    <tr>
+      <th scope="row">Malta Pilsner</th>
+      <td>183</td>
+      <td>255</td>
+      <td>48</td>
+      <td>255</td>
+      <td>135</td>
+      <td>255</td>
+      <td>48</td>
+      <td>255</td>
+      <td>172</td>
+      <td>266</td>
+      <td>48</td>
+      <td>257</td>
+      <td>218</td>
+    </tr>
+    <tr>
+      <th scope="row">Lupulo Perle</th>
+      <td>315</td>
+      <td>483</td>
+      <td>0</td>
+      <td>483</td>
+      <td>315</td>
+      <td>483</td>
+      <td>0</td>
+      <td>483</td>
+      <td>294</td>
+      <td>504</td>
+      <td>0</td>
+      <td>582</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <th scope="row">Lupulo Tettnanger</th>
+      <td>210</td>
+      <td>258</td>
+      <td>120</td>
+      <td>258</td>
+      <td>90</td>
+      <td>258</td>
+      <td>120</td>
+      <td>258</td>
+      <td>199</td>
+      <td>269</td>
+      <td>120</td>
+      <td>194</td>
+      <td>227</td>
+    </tr>
+     <tr>
+      <th scope="row">Levadura Lager</th>
+      <td>984</td>
+      <td>1432</td>
+      <td>144</td>
+      <td>1432</td>
+      <td>840</td>
+      <td>1432</td>
+      <td>144</td>
+      <td>1432</td>
+      <td>922</td>
+      <td>1494</td>
+      <td>144</td>
+      <td>1550</td>
+      <td>1213</td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+                	 	
+                 
+                
+                <br/><br/><br/><br/> <br/><br/>
+            
+            <br/><br/><br/><br/>
+
+            
+            </div>
+            
+        
+</div>
+</body>
+</html>
+<!------ Include the above in your HEAD tag ---------->
+
+<script>
+    function obtenerNumLote() {
+
+        var request = $.ajax({
+            // la URL para la petición
+            url: '/numLote',
+
+            // la información a enviar
+            // (también es posible utilizar una cadena de datos)
+            data: "numLoteIntroducido=" + $("#CuadroNumLote").val(),
+
+            // especifica si será una petición POST o GET
+            type: 'POST',
+
+            // el tipo de información que se espera de respuesta
+            dataType: 'json',
+
+        
+        
+
+        request.done(function (data) {
+
+            //Este metodo redirige a la URL
+            if (data.existe) {
+                alert(data.num);
+            } else {
+                alert("No existe el lote");
+            }
+
+        });
+
+        request.fail(function (data) {
+
+            alert("Error en el servidor");
+
+        });
+
+    }
+</script>
