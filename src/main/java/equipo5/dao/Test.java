@@ -1,5 +1,6 @@
-package equipo5.dao;
+package equipo5;
 
+import equipo5.dao.NullException;
 import equipo5.dao.metodosCompany;
 import equipo5.model.Cadena;
 import equipo5.model.StockLote;
@@ -644,8 +645,8 @@ public class Test extends metodosCompany {
 			System.out.println("Introducidas Ordenes del dia "+j);
 		}
 
-	
+		
+		
 	}
-	
 	
 }
