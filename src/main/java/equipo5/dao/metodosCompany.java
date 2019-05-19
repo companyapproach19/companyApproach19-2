@@ -476,7 +476,6 @@ public class metodosCompany {
 		}
 		conectar();
 		if(orden.getTransportista() == null || orden.getTransportista().getCifcooperativa()=="-1") {
-			//comprobar que los productos no pueden ser null
 			String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, estado, firmaRecogida, firmaEntrega, idRegistro, idCadena)"
 					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -493,11 +492,10 @@ public class metodosCompany {
 			pst.setInt(10, orden.getIdPedido());
 			pst.executeUpdate();
 			pst.close();
-			if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+			if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()).size()==0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
 			
 		}
 		else {
-		//comprobar que los productos no pueden ser null
 		String query = "INSERT INTO company.ordenTrazabilidad (id, idActorOrigen, idActorDestino, necesitaTransportista, idProductos, estado, firmaRecogida, firmaEntrega, idTransportista, idRegistro, idCadena)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
@@ -515,7 +513,7 @@ public class metodosCompany {
 		pst.setInt(11, orden.getIdPedido());
 		pst.executeUpdate();
 		pst.close();
-		if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+		if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()).size()==0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
 		}
 	}
 
@@ -1295,12 +1293,14 @@ public class metodosCompany {
 		pst.executeUpdate();
 		pst.close();
 	}
+    
+    
     public static LinkedList<StockMP> extraerStockMpPorPedido(Actor actor,OrdenTrazabilidad orden) throws SQLException, ClassNotFoundException, NotInDatabaseException {
         LinkedList<StockMP> aDevolver = new LinkedList<StockMP>();
         switch(actor.getTipoActor()){
         case 0:
             conectar();
-            String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idOrden = "+orden.getId()+" AND idStockAgricultor NOT IN (SELECT idStockAgricultor FROM company.stockAgricultor WHERE fecha_salida IS NOT NULL)";
+            String query = "SELECT * FROM company.stockAgricultor WHERE idActor = '"+actor.getId()+"' AND idOrden = "+orden.getId()+" AND idMateriaPrima NOT IN (SELECT idMateriaPrima FROM company.stockAgricultor WHERE fecha_salida is not NULL)";
             Statement pst = conn.createStatement();
             ResultSet rs = pst.executeQuery(query);
             while(rs.next()) {
@@ -1313,7 +1313,7 @@ public class metodosCompany {
             break;
         case 1:
             conectar();
-            String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idOrden = "+orden.getId()+" AND idStockCooperativa NOT IN (SELECT idStockCooperativa FROM company.stockCooperativa WHERE fecha_salida IS NOT NULL)";
+            String query2 = "SELECT * FROM company.stockCooperativa WHERE idActor = '"+actor.getId()+"' AND idOrden = "+orden.getId()+" AND idMateriaPrima NOT IN (SELECT idMateriaPrima FROM company.stockCooperativa WHERE fecha_salida is not NULL)";
             Statement pst2 = conn.createStatement();
             ResultSet rs2 = pst2.executeQuery(query2);
             while(rs2.next()) {
@@ -1326,7 +1326,7 @@ public class metodosCompany {
             break;
         case 3:
             conectar();
-            String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idOrden = "+orden.getId()+" AND idStockMMPP NOT IN (SELECT idStockMMPP FROM company.stockFabricaMMPP WHERE fecha_salida IS NOT NULL)";
+            String query3 = "SELECT * FROM company.stockFabricaMMPP WHERE idOrden = "+orden.getId()+" AND idMateriaPrima NOT IN (SELECT idMateriaPrima FROM company.stockFabricaMMPP WHERE fecha_salida is not NULL)";
             Statement pst3 = conn.createStatement();
             ResultSet rs3 = pst3.executeQuery(query3);
             while(rs3.next()) {
@@ -1425,7 +1425,7 @@ public class metodosCompany {
     			pst.setDate(11, orden.getFecha());
     			pst.executeUpdate();
     			pst.close();
-    			if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+    			if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()).size()==0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
     			
     		}
     		else {
@@ -1448,7 +1448,7 @@ public class metodosCompany {
 			pst.setDate(12, orden.getFecha());
     		pst.executeUpdate();
     		pst.close();
-			if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()) == null) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
+    		if(orden.getProductosAEntregar()!=null && orden.getProductosAEntregar().size()>0 && extraerProductosOrden(orden.getId()).size()==0) insertarProductosOrden(orden.getProductosAEntregar(), orden.getId());
     		}
     	}
    
