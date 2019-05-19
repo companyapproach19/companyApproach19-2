@@ -122,7 +122,8 @@ public class StockController {
 		cantidad_entera = (int) cantidad;
 		BlockchainServices bcs;
 		bcs = new BlockchainServices();
-		OrdenTrazabilidad orden = bcs.getOrden(idOrden);		
+		OrdenTrazabilidad orden = bcs.getOrden(idOrden);
+		mp.setCantidad(cantidad_entera);
 		StockMP smp= new StockMP(mp,null,null,idOrden,orden.getIdPedido(),actor.getId());
 		metodosCompany.insertarStockMP(smp);
 	}
@@ -294,11 +295,11 @@ public class StockController {
 		JsonObject obj = get_stock_actor("3");
 		JsonObject stock = obj.get("stock").getAsJsonObject();
 		if(tipoCerveza.equals("stout")) {
-			if(null==stock.get("MaltaBasePalida")|| stock.get("maltaBasePalida").getAsInt()<261)
+			if(null==stock.get("MaltaBasePalida")|| stock.get("MaltaBasePalida").getAsInt()<261)
 				return falseJ.toString();
 			if(null==stock.get("MaltaMunich")|| stock.get("MaltaMunich").getAsInt()<61)
 				return falseJ.toString();
-			if(null==stock.get("CebadaTostada")|| stock.get("cebadaTostada").getAsInt()<21)
+			if(null==stock.get("CebadaTostada")|| stock.get("CebadaTostada").getAsInt()<21)
 				return falseJ.toString();
 			if(null==stock.get("MaltaNegra")|| stock.get("MaltaNegra").getAsInt()<10)
 				return falseJ.toString();
@@ -310,7 +311,7 @@ public class StockController {
 				return falseJ.toString();
 			if(null==stock.get("LupuloCentennial")|| stock.get("LupuloCentennial").getAsInt()<3)
 				return falseJ.toString();
-			if(null==stock.get("LevaduraAle")|| stock.get("levaduraAle").getAsInt()<11)
+			if(null==stock.get("LevaduraAle")|| stock.get("LevaduraAle").getAsInt()<11)
 				return falseJ.toString();
 		}else if(tipoCerveza.equals("pilsner")) {
 			if(null==stock.get("MaltaPilsner")|| stock.get("MaltaPilsner").getAsInt()<173)
