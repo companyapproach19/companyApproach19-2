@@ -1,13 +1,24 @@
 package software.engineering.upm.es;
 
+import android.animation.ObjectAnimator;
+
+import com.google.gson.JsonObject;
+
 import org.json.JSONObject;
 import org.junit.Test;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import software.engineering.upm.es.retrofit.PedidosAPI;
 
 import static org.junit.Assert.*;
 
 public class PedidoTest {
 
     private MainActivity activity = new MainActivity();
+    public static final String URL = "https://beer-company2019.herokuapp.com/damePedidosTransportistaListo/";//https://beer-company2019.herokuapp.com/damePedidosTransportista
+
 
     @Test
     public void test(){
@@ -23,7 +34,7 @@ public class PedidoTest {
 
     }
 
-   @Test
+    @Test
     public void test2(){
         try {
             Pedido pedido = new Pedido(new JSONObject("{\"id\":11,\"actorOrigen\":{\"id\":\"11\",\"nombreUsuario\":\"TranspG3_1\",\"passwordPlana\":\"password\",\"email\":\"tranpG3_1@gmail.es\",\"tipoActor\":2,\"localizacion\":\"40.4022076;-3.8369319\",\"nombre\":\"Maria\",\"direccion\":\"Calle Renacimiento\",\"cifcooperativa\":\"fg4\"},\"actorDestino\":{\"id\":\"12\",\"nombreUsuario\":\"TranspG3_2\",\"passwordPlana\":\"password\",\"email\":\"tranpG3_2@gmail.es\",\"tipoActor\":2,\"localizacion\":\"40.4029076;-3.8369319\",\"nombre\":\"Jose\",\"direccion\":\"Calle IlustraciÃ³n\",\"cifcooperativa\":\"fg5\"},\"necesitaTransportista\":true,\"productosPedidos\":{\"cant_malta_palida\":11,\"cant_malta_munich\":2,\"cant_malta_negra\":9,\"cant_malta_crystal\":2,\"cant_malta_chocolate\":1,\"cant_malta_caramelo\":7,\"cant_cebada\":8,\"cant_cebada_tostada\":0,\"cant_lupulo_centenial\":11,\"cant_lotes_stout\":4,\"cant_lotes_bisner\":7},\"productosAEntregar\":[1],\"estado\":1,\"firmaRecogida\":\"\",\"idRegistro\":11,\"idPedido\":1,\"fecha\":\"May 7, 2019\"}"));
@@ -76,6 +87,44 @@ public class PedidoTest {
         }
         // Show the historial
 
+    }
+
+    @Test
+    public void test6(){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL).addConverterFactory(GsonConverterFactory.create()).build();
+        PedidosAPI servicio = retrofit.create(PedidosAPI.class);
+        Call<Object> peticion = servicio.getPedidosL();
+        System.out.println(peticion);
+    }
+
+    @Test
+    public void test7(){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL).addConverterFactory(GsonConverterFactory.create()).build();
+        PedidosAPI servicio = retrofit.create(PedidosAPI.class);
+        Call<Object> peticion = servicio.getPedidosR();
+        System.out.println(peticion);
+    }
+
+    @Test
+    public void test8(){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL).addConverterFactory(GsonConverterFactory.create()).build();
+        PedidosAPI servicio = retrofit.create(PedidosAPI.class);
+        Call<Object> peticion = servicio.getPedidosE();
+        System.out.println(peticion);
+    }
+
+    @Test
+    public void test9(){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL).addConverterFactory(GsonConverterFactory.create()).build();
+        PedidosAPI servicio = retrofit.create(PedidosAPI.class);
+        servicio.updatePedidoR(new JsonObject());
+    }
+
+    @Test
+    public void test10(){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL).addConverterFactory(GsonConverterFactory.create()).build();
+        PedidosAPI servicio = retrofit.create(PedidosAPI.class);
+        servicio.updatePedidoE(new JsonObject());
     }
 
 }

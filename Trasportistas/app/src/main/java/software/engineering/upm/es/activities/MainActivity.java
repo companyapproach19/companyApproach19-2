@@ -120,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void procesarConsulta (Object jsonString) throws JSONException {
        // Toast.makeText(this, jsonString.getClass().toString(), Toast.LENGTH_LONG).show();
+        if(jsonString == null){
+            System.out.println("NULLLLLLLLL");
+        }
+
         System.out.println(jsonString.toString());
         Gson g = new Gson ();
         JsonParser p = new JsonParser();
