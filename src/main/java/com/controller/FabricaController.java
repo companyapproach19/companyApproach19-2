@@ -25,51 +25,16 @@ import equipo4.model.Principal;
 import equipo5.model.NotInDatabaseException;
 import equipo5.model.StockLote;
 import equipo6.model.Actor;
+import equipo6.otros.*;
+import equipo7.model.OrdenTrazabilidad;
+import equipo7.model.Productos;
 
 
 	@Controller
 	@SpringBootApplication
 	public class FabricaController {
 		
-
-
-		//va a dar error hasta que equipo5 suba el código de este sprint a máster
-//		LinkedList<StockLote> lista = StockController.getStockListas();
-		
-		/*
-		 * Comprueba si en la lista se encuentra el lote con el número de lote introducido
-		 * para devolver información acerca de él
-		 */
-		/*@Scope("request")
-		@RequestMapping("/numLote")
-		@ResponseBody
-		public JsonObject obtenerNumLote(HttpServletResponse response,
-										@RequestParam(name="numLoteIntroducido", required=true) int numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
-										Model model) 
-						throws Exception {
-			JsonObject obj = new JsonObject();
-			
-			obj.addProperty("existe", false);
-			for (int i=0; i<lista.size(); i++) {
-				StockLote lote = lista.get(i);en
-				if (lote.getIdPedido()==numLoteIntroducido) {
-					i=lista.size();
-					obj.addProperty("existe",true);
-					obj.addProperty("num",1);
-//					obj.addProperty("nombreLote", lote.getLote());
-				}
-			}
-			return obj;
-		}*/
-		
-		
-		
-		
-		//comienzaProcesoFabricacion
-		
-		
-		
+	
         
 		@Scope("request")
         @RequestMapping("/comprobar")
@@ -169,7 +134,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String llegadaALaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
             Actor actor = new Actor(null,null,null,3);
@@ -199,7 +164,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String molienda(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -228,7 +193,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String coccion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -258,7 +223,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String fermentacion(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -291,7 +256,7 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String embotellado(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
 			Actor actor = new Actor(null,null,null,3);
@@ -322,13 +287,12 @@ import equipo6.model.Actor;
 		@ResponseBody
 		public static String salidaDeLaFabrica(HttpServletResponse response,
 										@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
-										//comprueba el número de lote introducido en la vista
+										//comprueba el nï¿½mero de lote introducido en la vista
 										Model model) 
 						throws Exception {
 			JsonObject obj = new JsonObject();
 			obj.addProperty("fechaFin", "");
 			int introducido = Integer.parseInt(numLoteIntroducido);
-
 			//ya hemos comprobado que la lista contiene al lote deseado
 			//HashMap<String,Double> lista = getStockPedidoFabrica(introducido);
 		for (int i=0; i<lista.size(); i++) {
@@ -341,7 +305,6 @@ import equipo6.model.Actor;
 				}
 			}
 			obj.addProperty("fechaInicio", "fechaqueyoheescrito6");
-
 			return obj.toString();
 		}*/
 	
@@ -441,7 +404,67 @@ import equipo6.model.Actor;
 			return obj.toString();
 		}
 		
-	
+		
+		@Scope("request")
+		@RequestMapping("/ponerTabla")
+		@ResponseBody
+		public static String ponerTabla(HttpServletResponse response, Model model) 
+						throws Exception, NotInDatabaseException {
+			String s = "";
+			Actor actor = new Actor(null,null,null,3);
+			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
+			
+			for(int i = 0; i<lista.size(); i++) {
+				s+="Lote: "+lista.get(i).getLote().getIdBd()+"  "+Principal.comprobarFase(lista.get(i).getLote().getIdBd());
+			}
+			return s;
+			
+		}
+		
+		@Scope("request")
+	       @RequestMapping("/fabricaComenzarProduccion")
+	       @ResponseBody
+	       public void fabricaComenzarProduccion(HttpServletResponse response,
+	                                             @RequestParam(name="idOrden", required=true) String idOrden,
+	                                             Model model) throws Throwable {
+				Actor actor = new Actor(null,null,null,3);
+	            int orden = Integer.parseInt(idOrden);
+	            BlockchainServices bl= new BlockchainServices();
+	            OrdenTrazabilidad ot = bl.getOrden(orden); //devuelve un objeto de tipo OrdenTrazabilidad
+	            Productos prod = ot.getProductosPedidos(); //aquï¿½ tienes las cantidades de materias primas
+	            int cantLotes=0;
+	            boolean pilsner=false;
+	            if (prod.getCant_malta_base_palida()>0){
+	                cantLotes = prod.getCant_malta_base_palida()/261;
+	            } else if (prod.getCant_malta_pilsner()>0) {
+	                cantLotes = prod.getCant_malta_pilsner()/173;
+	                pilsner=true;
+	            }
+
+	            if (!pilsner &&
+	                prod.getCant_malta_base_palida()>=(261*cantLotes) &&
+	                prod.getCant_malta_munich()>=(61*cantLotes) &&
+	                prod.getCant_cebada_tostada()>=(21*cantLotes) &&
+	                prod.getCant_malta_negra()>=(10*cantLotes) &&
+	                prod.getCant_malta_crystal()>=(6*cantLotes) &&
+	                prod.getCant_malta_chocolate()>=(5*cantLotes) &&
+	                prod.getCant_lupulo_centennial()>=(3*cantLotes) &&
+	                prod.getCant_levadura_ale()>=(1*cantLotes)) {
+	                    Lote lote=Principal.crearLote("stout");
+	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
+
+	            } else if (pilsner &&
+	                prod.getCant_malta_pilsner()>=(173*cantLotes) &&
+	                prod.getCant_malta_caramelo()>=(21*cantLotes) &&
+	                prod.getCant_lupulo_perle()>=(1*cantLotes) &&
+	                prod.getCant_lupulo_tettnanger()>=(2*cantLotes) &&
+	                prod.getCant_levadura_lager()>=(1*cantLotes)) {
+	                    Lote lote=Principal.crearLote("pilsner");
+	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
+	            }
+
+	            
+	        }
 		
 		
 		

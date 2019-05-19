@@ -21,7 +21,7 @@ public class Principal extends Thread {
 	public static LinkedList<Lote> cociendo = new LinkedList<Lote>();
 	public static LinkedList<Lote> fermentando = new LinkedList<Lote>();
 	public static LinkedList<Lote> embotellando = new LinkedList<Lote>();
-	
+	public static double densidadAnterior=0;
 	public static Lote crearLote(String tipo) throws Exception {
 		Lote l = new Lote();
 		l.setTipo(tipo);
@@ -33,6 +33,38 @@ public class Principal extends Thread {
 	
 	public static double calcularDensidad(){
 		return Math.random()*(0.3)+1.1;
+	}
+	
+	public static String comprobarFase(int idLote) {
+		String res="";
+		boolean encontrado=false;
+		for(int i=0;i<moliendo.size() && !encontrado;i++) {
+			if (moliendo.get(i).getIdBd()==idLote) {
+				encontrado=true;
+				res="Fase molienda.";
+			}
+		}
+		for(int j=0;j<cociendo.size() && !encontrado;j++) {
+			if (cociendo.get(j).getIdBd()==idLote) {
+				encontrado=true;
+				res="Fase cocinado.";
+			}
+		}
+		for(int k=0;k<fermentando.size() && !encontrado;k++) {
+			if (fermentando.get(k).getIdBd()==idLote) {
+				encontrado=true;
+				double d=calcularDensidad();
+				if(d<densidadAnterior) d=densidadAnterior;
+				res="Fase fermentaci�n. Densidad actual= "+d;
+			}
+		}
+		for(int l=0;l<embotellando.size() && !encontrado;l++) {
+			if (embotellando.get(l).getIdBd()==idLote) {
+				encontrado=true;
+				res="Fase embotellado. Se esta embotellando con densidad 1.4";
+			}
+		}
+		return res;
 	}
 	
 	public static void actualizarLista() throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException {
