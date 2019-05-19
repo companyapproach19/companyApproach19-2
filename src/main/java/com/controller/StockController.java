@@ -55,7 +55,7 @@ public class StockController {
 		lista = metodosCompany.extraerStockMP(actor, idOrden);
 		for (StockMP encontrar : lista) {
 			if (encontrar.getMp().getTipo().equals(mp.getTipo())) {
-				encontrar.getMp().getCantidad();
+				devolvemos=encontrar.getMp().getCantidad();
 			}
 		}
 		return devolvemos;
@@ -122,7 +122,8 @@ public class StockController {
 		cantidad_entera = (int) cantidad;
 		BlockchainServices bcs;
 		bcs = new BlockchainServices();
-		OrdenTrazabilidad orden = bcs.getOrden(idOrden);		
+		OrdenTrazabilidad orden = bcs.getOrden(idOrden);
+		mp.setCantidad(cantidad_entera);
 		StockMP smp= new StockMP(mp,null,null,idOrden,orden.getIdPedido(),actor.getId());
 		metodosCompany.insertarStockMP(smp);
 	}
@@ -143,7 +144,7 @@ public class StockController {
 
 		bcs = new BlockchainServices();
 		OrdenTrazabilidad orden=bcs.getOrden(idOrden);
-		if(orden.getProductosPedidos().getCant_lotes_bisner()!=0) {
+		if(orden.getProductosPedidos().getCant_lotes_pilsner()!=0) {
 			return "pilsner";
 		}
 		if (orden.getProductosPedidos().getCant_lotes_stout()!=0) {
@@ -157,8 +158,8 @@ public class StockController {
 
 		bcs = new BlockchainServices();
 		OrdenTrazabilidad orden=bcs.getOrden(idOrden);
-		if(orden.getProductosPedidos().getCant_lotes_bisner()!=0) {
-			return orden.getProductosPedidos().getCant_lotes_bisner();
+		if(orden.getProductosPedidos().getCant_lotes_pilsner()!=0) {
+			return orden.getProductosPedidos().getCant_lotes_pilsner();
 		}
 		if (orden.getProductosPedidos().getCant_lotes_stout()!=0) {
 			return orden.getProductosPedidos().getCant_lotes_stout();
@@ -249,9 +250,8 @@ public class StockController {
 	private void init_map_nombres_bbdd_vistas(Map<String,String> mapeo_nombres) 
 	{
 
-		
+		mapeo_nombres.put("cebadaTostada","cebada_tostada");
 		mapeo_nombres.put("maltaBasePalida","malta_palida");
-		mapeo_nombres.put("maltaTostada","malta_tostada");
 		mapeo_nombres.put("maltaNegra","malta_negra");
 		mapeo_nombres.put("maltaCrystal","malta_crystal");
 		mapeo_nombres.put("maltaChocolate","malta_chocolate");
@@ -278,8 +278,75 @@ public class StockController {
 		else {
 			idActor=id;
 		}
-		System.out.println(idActor);
 		return get_stock_actor(idActor).toString();
+	}
+	
+	
+	@Scope("request")
+	@RequestMapping("/stockSuficienteFabricarLote")
+	@ResponseBody
+	public String tieneStockSuficienteParaLote(String tipoCerveza) {
+		//getStockActor()
+		JsonObject falseJ = new JsonObject();
+		falseJ.addProperty("tieneStock", "false");
+		JsonObject trueJ = new JsonObject();
+		trueJ.addProperty("tieneStock", "true");
+		
+		JsonObject obj = get_stock_actor("3");
+		JsonObject stock = obj.get("stock").getAsJsonObject();
+		if(tipoCerveza.equals("stout")) {
+			if(null==stock.get("MaltaBasePalida")|| stock.get("MaltaBasePalida").getAsInt()<261)
+				return falseJ.toString();
+			if(null==stock.get("MaltaMunich")|| stock.get("MaltaMunich").getAsInt()<61)
+				return falseJ.toString();
+			if(null==stock.get("CebadaTostada")|| stock.get("CebadaTostada").getAsInt()<21)
+				return falseJ.toString();
+			if(null==stock.get("MaltaNegra")|| stock.get("MaltaNegra").getAsInt()<10)
+				return falseJ.toString();
+			if(null==stock.get("MaltaCrystal")|| stock.get("MaltaCrystal").getAsInt()<6)
+				return falseJ.toString();
+			if(null==stock.get("MaltaChocolate")|| stock.get("MaltaChocolate").getAsInt()<5)
+				return falseJ.toString();
+			if(null==stock.get("MaltaCaramelo")|| stock.get("MaltaCaramelo").getAsInt()<4)
+				return falseJ.toString();
+			if(null==stock.get("LupuloCentennial")|| stock.get("LupuloCentennial").getAsInt()<3)
+				return falseJ.toString();
+			if(null==stock.get("LevaduraAle")|| stock.get("LevaduraAle").getAsInt()<11)
+				return falseJ.toString();
+		}else if(tipoCerveza.equals("pilsner")) {
+			if(null==stock.get("MaltaPilsner")|| stock.get("MaltaPilsner").getAsInt()<173)
+				return falseJ.toString();
+			if(null==stock.get("MaltaCaramelo")|| stock.get("MaltaCaramelo").getAsInt()<21)
+				return falseJ.toString();
+			if(null==stock.get("LupuloPerle")|| stock.get("LupuloPerle").getAsInt()<1)
+				return falseJ.toString();
+			if(null==stock.get("LupuloTettnanger")|| stock.get("LupuloTettnanger").getAsInt()<2)
+				return falseJ.toString();
+			if(null==stock.get("LevaduraLager")|| stock.get("LevaduraLager").getAsInt()<1)
+				return falseJ.toString();
+		}
+		
+		return trueJ.toString();
+		
+		/*
+		 * 1 LITRO DE STOUT (cantidades en gramos para que sean 'int'):
+maltaBasePalida=261
+maltaMunich=61
+cebadaTostada=21
+maltaNegra=10
+maltaCrystal=6
+maltaChocolate=5
+maltaCaramelo=4
+lupuloCentennial=3
+levaduraAle=11
+
+LITRO DE STOUT (cantidades en gramos para que sean 'int'):
+maltaPilsner=173
+maltaCaramelo=21
+lupuloPerle=1
+lupuloTettnanger=2
+levaduraLager=1
+		 */
 	}
 
 	private JsonObject get_stock_actor(String id) 
@@ -318,6 +385,7 @@ public class StockController {
 		System.out.println(actor.getNombreUsuario());
 
 		json_resp.addProperty("nomUsuario", actor.getNombreUsuario());
+		json_resp.addProperty("id", actor.getId());
 		json_resp.addProperty("email", actor.getEmail());
 		json_resp.addProperty("nomUsuario", actor.getNombreUsuario());
 		json_resp.addProperty("email", actor.getEmail());
@@ -329,7 +397,7 @@ public class StockController {
 				lista = metodosCompany.extraerStockMP(actor, orden.getId());
 				for (StockMP var : lista) {
 						stock.addProperty(
-											lista_nombre_mp.get(var.getMp().getTipo()), 
+											var.getMp().getTipo(), 
 											var.getMp().getCantidad()
 											);
 				}
@@ -410,6 +478,12 @@ public class StockController {
 
 	@Scope("request")
 	@RequestMapping("/damePedidosTransportista")
+	/*Descomponemos en varias URL para darle los pedidos a transportista ya filtrado.
+	 * 
+	 *damePedidosTransportistaListo
+	 *damePedidosTransportistaRecogido
+	 *damePedidosTransportistaEntregado 
+	 */
 	@ResponseBody
 	public String get_pedidos_transportista(Model model) throws SQLException, ClassNotFoundException 
 	{
@@ -447,6 +521,119 @@ public class StockController {
 
 
 	}
+	
+	@Scope("request")
+	@RequestMapping("/damePedidosTransportistaListo")
+	@ResponseBody
+	public String getPedidosTransportistaListo(Model m) throws SQLException, ClassNotFoundException
+	{
+		try {
+			CadenaActores cadena;
+			Gson gson;
+			JsonParser parse;
+			JsonArray lista;
+
+			lista = new JsonArray();
+
+			cadena = metodosCompany.extraerCadenaActores();
+			gson = new Gson();
+			parse = new JsonParser();
+
+			for(Actor actor : cadena.getlista_actores()) 
+			{
+				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
+				{
+					if(or.isNecesitaTransportista() && or.getEstado()==2) 
+					{
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
+					}
+				}
+			}
+
+			return lista.toString();
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"respuesta\":\"Error\"}";
+		}
+	}
+	
+	
+	@Scope("request")
+	@RequestMapping("/damePedidosTransportistaRecogido")
+	@ResponseBody
+	public String getPedidosTransportistaRecogido(Model m) throws SQLException, ClassNotFoundException
+	{
+		try {
+			CadenaActores cadena;
+			Gson gson;
+			JsonParser parse;
+			JsonArray lista;
+
+			lista = new JsonArray();
+
+			cadena = metodosCompany.extraerCadenaActores();
+			gson = new Gson();
+			parse = new JsonParser();
+
+			for(Actor actor : cadena.getlista_actores()) 
+			{
+				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
+				{
+        if(or.getEstado()==3 && !(or.getActorOrigen().getId().equals("1") && or.getActorDestino().getId().equals("0")))
+					{
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
+					}
+				}
+			}
+
+			return lista.toString();
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"respuesta\":\"Error\"}";
+		}
+	}
+	
+	
+	@Scope("request")
+	@RequestMapping("/damePedidosTransportistaEntregado")
+	@ResponseBody
+	public String getPedidosTransportistaEntregado(Model m) throws SQLException, ClassNotFoundException
+	{
+		try {
+			CadenaActores cadena;
+			Gson gson;
+			JsonParser parse;
+			JsonArray lista;
+
+			lista = new JsonArray();
+
+			cadena = metodosCompany.extraerCadenaActores();
+			gson = new Gson();
+			parse = new JsonParser();
+
+			for(Actor actor : cadena.getlista_actores()) 
+			{
+				for(OrdenTrazabilidad or : metodosCompany.extraerOrdenesActorDestino(actor.getId()))
+				{
+					if(or.getEstado()==4 && !(or.getActorOrigen().getId().equals("1") && or.getActorDestino().getId().equals("0"))) 
+					{
+						lista.add(parse.parse(gson.toJson(or)).getAsJsonObject());
+					}
+				}
+			}
+
+			return lista.toString();
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"respuesta\":\"Error\"}";
+		}
+	}
 
 	@Scope("request")
 	@RequestMapping("/actualizar_geolocalizacion")
@@ -466,6 +653,29 @@ public class StockController {
 		bcs.guardarOrden(geo);
 
 	}
+	
+	private List<Registro> dame_dos_ultimos_registros(List<Bloque> regitros)
+	{
+		Map<Integer, Boolean> map_reg;
+		List<Registro> reg_ret;
+		Registro reg;
+		
+		map_reg = new HashMap<Integer, Boolean>();
+		reg_ret = new ArrayList<Registro>();
+		
+		for(Bloque bloq : regitros) 
+		{
+			reg = ((Registro)bloq.getDatos());
+			if(map_reg.get(reg.getIdOrdenTrazabilidad()) == null) 
+			{
+				map_reg.put(reg.getIdOrdenTrazabilidad(), true);
+				reg_ret.add(reg);
+			}
+		}
+		
+		return reg_ret;
+	}
+	
 	@Scope("request")
 	@RequestMapping("/get_trazabilidad_vista")
 	@ResponseBody
@@ -475,23 +685,26 @@ public class StockController {
 		try {
 			JsonObject json_respuesta;	
 			BlockchainServices bcs;
-			Registro ultimo_registro;
+			List<Registro> ultimos_registros;
 			Lote ultimo_lote;
 			List <Bloque> lista_bloques_lotes;
 			List <Bloque> lista_bloques_registro;
 			List <Bloque> lista_bloques_ordenes;
+			List <Bloque> cadena_aplanada;
 
 
 			bcs = new BlockchainServices();
-			lista_bloques_ordenes = bcs.get_cadena(id_pedido).getBloque(0);
-			lista_bloques_registro = bcs.get_cadena(id_pedido).getBloque(1);
-			lista_bloques_lotes = bcs.get_cadena(id_pedido).getBloque(2);
+			cadena_aplanada = bcs.aplana_cadena(id_pedido);
+			lista_bloques_ordenes = bcs.filtra_cadena_bloques(cadena_aplanada, 0);
+			lista_bloques_registro = bcs.filtra_cadena_bloques(cadena_aplanada, 1);
+			lista_bloques_lotes = bcs.filtra_cadena_bloques(cadena_aplanada, 2);
 			json_respuesta = new JsonObject();
+			ultimo_lote = null;
 			
 			
 
 			if(lista_bloques_ordenes == null || lista_bloques_ordenes.size() == 0) throw new Exception();
-			if(lista_bloques_registro == null || lista_bloques_registro.size() == 0) throw new Exception();
+			if(lista_bloques_registro == null || lista_bloques_registro.size() <= 1) throw new Exception();
 			//esto es un hardcodeo asta que el grupo de lote meta el id de pedido dentro de lote
 			if(lista_bloques_lotes == null || lista_bloques_lotes.size() == 0) 
 			{
@@ -504,13 +717,24 @@ public class StockController {
 			}
 			
 			json_respuesta.addProperty("Agricultor", "Sin resultados");
+			json_respuesta.addProperty("Cooperativa", "Sin resultados");
 			json_respuesta.addProperty("Fabrica", "Sin resultados");
+			
+			if(ultimo_lote == null) 
+			{
+				json_respuesta.addProperty("fecha_embotellado", "Sin resultados");
+			}
+			else 
+			{
+				json_respuesta.addProperty("fecha_embotellado", ultimo_lote.getFecha_embotellado().toString());
+			}
 
 			insertar_actores(lista_bloques_ordenes,json_respuesta);
-			ultimo_registro = ((Registro)(lista_bloques_registro.get(0).getDatos()));
-			json_respuesta.addProperty("TemperaturaMax", ultimo_registro.getTempMax());
-			json_respuesta.addProperty("TemperaturaMin", ultimo_registro.getTempMin());
-
+			ultimos_registros = dame_dos_ultimos_registros(lista_bloques_registro);
+			json_respuesta.addProperty("TemperaturaMax1", ultimos_registros.get(0).getTempMax());
+			json_respuesta.addProperty("TemperaturaMin1", ultimos_registros.get(0).getTempMin());
+			json_respuesta.addProperty("TemperaturaMax2", ultimos_registros.get(1).getTempMax());
+			json_respuesta.addProperty("TemperaturaMin2", ultimos_registros.get(1).getTempMin());
 			return json_respuesta.toString();
 
 		}
@@ -529,6 +753,9 @@ public class StockController {
 			{
 			case 0:
 				json.addProperty("Agricultor", orden.getActorDestino().getDireccion()+" "+BlockchainServices.extraer_nombres_materias_primas(orden.getProductosPedidos()));
+				break;
+			case 1:
+				json.addProperty("Cooperativa", orden.getActorDestino().getNombre());
 				break;
 			case 3:
 				json.addProperty("Fabrica", orden.getActorDestino().getNombre());
