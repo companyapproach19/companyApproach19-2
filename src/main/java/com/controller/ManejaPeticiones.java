@@ -455,8 +455,7 @@ public class ManejaPeticiones {
 			if(ordenAResponder.getActorOrigen().getTipoActor()==3){
 				ordenAResponder.setProductosAEntregar(ordenRespuesta.getProductosAEntregar());
 				//Hay que activar necesitaTransportista
-				ordenAResponder.setEstado(2);
-				ordenAResponder.setNecesitaTransportista(true);
+				
 			}
 			if(ordenAResponder.getActorOrigen().getTipoActor()==4) {
 				//Asignamos los lotes que estan asociados a la ordenRespuesta
@@ -476,6 +475,8 @@ public class ManejaPeticiones {
 				}
 				ordenAResponder.setProductosAEntregar(idsLotes);
 			}
+			ordenAResponder.setEstado(2);
+			ordenAResponder.setNecesitaTransportista(true);
 			//Guardamos la orden actualizada en BBDD
 			bloque.guardarOrden(ordenAResponder);
 			return CodificadorJSON.crearJSON(ordenAResponder);
