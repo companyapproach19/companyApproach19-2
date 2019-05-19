@@ -951,70 +951,51 @@ function imprimeStock(json, i){
 ////////////////////JSON NUEVO//////////////////////
 
 var nuevaOrden = {
-  "id": 30,
+  "id": 0,
   "actorOrigen": {
-    "id": "5",
-    "nombreUsuario": "Cooperativa",
-    "passwordPlana": "password",
-    "email": "coop@gmail.es",
-    "tipoActor": 1,
-    "localizacion": "Calle Luarca",
-    "nombre": "Maria",
-    "direccion": "Calle Murcia",
-    "cifcooperativa": "fg2"
+    "id": 0,
+    "nombreUsuario": "",
+    "passwordPlana": "",
+    "email": "",
+    "tipoActor": 0
   },
   "actorDestino": {
-    "id": "8",
-    "nombreUsuario": "Fabrica",
-    "passwordPlana": "password",
-    "email": "fab@gmail.es",
-    "tipoActor": 3,
-    "localizacion": "Calle Velazquez",
-    "nombre": "Santiago",
-    "direccion": "Calle Andalucia",
-    "cifcooperativa": "fg3"
+    "id": 0,
+    "nombreUsuario": "",
+    "passwordPlana": "",
+    "email": "",
+    "tipoActor": 0
   },
-  "necesitaTransportista": false,
+  "necesitaTransportista": true,
   "productosPedidos": {
-    "cant_malta_base_palida": 0,
-    "cant_malta_munich": 10,
-    "cant_malta_negra": 5,
-    "cant_malta_crystal": 30,
+    "cant_malta_palida": 0,       
+    "cant_malta_munich": 0,
+    "cant_malta_negra": 0,
+    "cant_malta_crystal": 0,
     "cant_malta_chocolate": 0,
     "cant_malta_caramelo": 0,
-    "cant_malta_pilsner": 0,
-    "cant_cebada_tostada": 10,
-    "cant_lupulo_centennial": 0,
-    "cant_lupulo_perle": 0,
-    "cant_lupulo_tettnanger": 0,
-    "cant_levadura_lager": 0,
-    "cant_levadura_ale": 0,
+    "cant_cebada": 0,
+    "cant_cebada_tostada": 0,
+    "cant_lupulo_centenial": 0,
     "cant_lotes_stout": 0,
-    "cant_lotes_pilsner": 0
+    "cant_lotes_bisner": 0
   },
   "productosAEntregar": [
-    100,
-    101,
-    102,
-    103
+    
   ],
-  "estado": 4,
-  "firmaRecogida": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs",
-  "firmaEntrega": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs",
+  "estado": 0,
+  "firmaRecogida": "",
+  "firmaEntrega": "",
   "transportista": {
-    "id": "7",
-    "nombreUsuario": "Transportista",
-    "passwordPlana": "password",
-    "email": "transp@gmail.es",
-    "tipoActor": 2,
-    "localizacion": "Calle Lugo",
-    "nombre": "Luis",
-    "direccion": "Calle Cartagena",
-    "cifcooperativa": "fg1"
+    "id": "",
+    "nombreUsuario": "",
+    "passwordPlana": "",
+    "email": "",
+    "tipoActor": 0
   },
-  "idRegistro": 2,
-  "idPedido": 30,
-  "fecha": "ago 12, 1911"
+  "idRegistro": 0,
+  "idPedido": 0,
+  "fecha": ""
 }
 
 /*Funcionamiento:recibe un JSON con dos IDs:idOrdenAResponder, que contiene el ID de la ordenque se está satisfaciendo, 
