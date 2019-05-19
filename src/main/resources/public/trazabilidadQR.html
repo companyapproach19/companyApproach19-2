@@ -60,14 +60,11 @@
 			function getID() {
 			  return window.location.hash;
 			}
-			<!--Esta linea imprime por pantalla idLote, hay que quitarla y pasar el idLote a  SCRIPT PETICION A BLOCKCHAIN-->  
-			//document.getElementById('idLote').innerHTML = window.getID().substr(1); 
 		</script>
 		
 		
 	        <!--SCRIPT PETICION A BLOCKCHAIN -->
 		<!--Petición para conseguir json trazabilidad --> 
-		<!--Ahora mismo va mal, por eso lanza el cuadro de error --> 
 		<script>
 		window.onload = hacerPeticion;
 		 function hacerPeticion(){
@@ -119,15 +116,14 @@
 			 }
 						  $("<tbody/>",{html:items.join("")}).appendTo("table");
 		     });
-		     
+		   
 		     request.fail(function(data) {
 		     alert("Error al recuperar campos trazabilidad");
 		     });
 		 }  
-			document.write("* Desde la cooperativa hasta la fábrica");
-	             document.write("<br/>** Desde la fábrica hasta la tienda");
+		     document.write("* Transporte desde la cooperativa hasta la fábrica");
+	             document.write("<br/>** Transporte desde la fábrica hasta la tienda");
 		</script>
-
 
 		<!--FIN ZONA SCRIPTS -->
 		
