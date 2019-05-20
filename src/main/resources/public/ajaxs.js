@@ -380,7 +380,7 @@ function creaOrden(actor){
 			nuevaOrden.actorOrigen.tipoActor= 3;
 		}
 		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value -0;
-		nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
+		//nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
 		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value -0;
 		nuevaOrden.productosPedidos.cant_malta_munich= document.getElementById("malta_munich").value -0;
 		nuevaOrden.productosPedidos.cant_malta_negra= document.getElementById("malta_negra").value -0;
@@ -458,10 +458,13 @@ function mandarids(urlpar){
   //creare un array de longitud tantos como Ordenes haya (pedidos)
   //donde 1 en i pos significa que he marcado la orden i, -1 si no marcado
   var str = 'producto';
+  var stri = 'producto2';
   var array = Array.from(idsOrdenes); // copio idsOrdenes en nueva variable
   var array2 = Array.from(idsOrdenes2);
   var str2 = '';
+  var str3 = '';
   var aux;
+  var aux2;
   for (var i = 1; i< idsOrdenes.length+1; i++) {
   
   	var x = i.toString(10);
@@ -470,64 +473,54 @@ function mandarids(urlpar){
 	if (aux.checked){		
 		array[i-1] = 1;
 		  
-		  // proceso fabricacion
-		 /* if (urlpar==2){ // necesito obtener el id del pedido
-				
-				var idPedidoAux;
-			  	var ordenAux;
-				console.log("pido idPedido en /obtenerOrden?id="+idsOrdenes[i-1]);
-				var requestIdPedido = $.ajax({
-				  
-					url : '/obtenerOrden',  // la URL para la petición
-					data :"id="+idsOrdenes[i-1] ,
-					type : 'GET',
-					dataType : 'json',  // el tipo de información que se espera de respuesta
-						 
-				});
-				 
-				requestIdPedido.done(function(data){
-					 
-					 url = "/comienzaProcesoFabricacion";
-					//se han obtenido json del pedido
-					idPedidoAux = data.idPedido;
-					ordenAux = data.id;
-					// ahora ya puedo empezar fabricacion
-					
-					console.log("empiezo fabricacion en /comienzaProcesoFabricacion?pedido="+idPedidoAux+"&orden="+ordenAux);
-					var request = $.ajax({
-			
-						url : url,
-						data :"pedido="+idPedidoAux+"&orden="+ordenAux ,
-						type : 'GET',
-						dataType : 'json',  // el tipo de información que se espera de respuesta
-						
-						});
-				 
-						request.done(function(data){
-					  	for (var key of Object.keys(data)) {
-					  	//	alert(data.key);
-					  	}
-						 
-						 
-						});
-				 
-						request.fail(function(data) {
-					 
-							alert("fallo empezando fabricacion de"+idsOrdenes[i-1]);
-						
-						});
-					
-				});
-					 
-				requestIdPedido.fail(function(data){
-						
-					alert("fallo el ajax obtenerIdPedido "+idsOrdenes[i-1]);
-						
-					  
-				});
-			} else { */ //urlpar es 0 o 1 0 2 
-				//Caso de aceptar el poedido
+		 
 			var primerID = idsOrdenes[i-1];
+			
+			
+			for (var j = 1; j< idsOrdenes.length+1; j++) {
+  
+							var y = j.toString(10);
+							str3 = stri.concat(y);
+							aux2 = document.getElementById(str4);
+							if (aux2.checked){		
+							
+							///
+							console.log("comienzo produccion  "+url+"id="+idsOrdenes[i-1]);
+							var request = $.ajax({
+						
+							url : url,
+							data :"pedido="+idsOrdenes[i-1]+"&orden="+idsOrdenes2[j-1] ,
+							type : 'POST',
+							dataType : 'json',  // el tipo de información que se espera de respuesta
+							
+							});
+					 
+							request.done(function(data){
+						  
+							 alert("Exito comienzo produccion");
+							 
+							});
+					 
+							request.fail(function(data) {
+						 
+								alert("error comenzando produccion pedido: "+idsOrdenes[i-1]);
+							
+							});
+							
+						}
+						
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			if(urlpar == 0){
 				console.log("acepto/completo en "+url+"id="+idsOrdenes[i-1]);
 				var request = $.ajax({
@@ -594,29 +587,10 @@ function mandarids(urlpar){
 					}
 
 					if(urlpar == 2){
-				console.log("comienzo produccion  "+url+"id="+idsOrdenes[i-1]);
-				var request = $.ajax({
-			
-				url : url,
-				data :"id="+idsOrdenes[i-1] ,
-				type : 'POST',
-				dataType : 'json',  // el tipo de información que se espera de respuesta
-				
-				});
-		 
-				request.done(function(data){
-			  
-				 alert("Exito comienzo produccion");
-				 
-				});
-		 
-				request.fail(function(data) {
-			 
-			  		alert("error comenzando produccion pedido: "+idsOrdenes[i-1]);
-				
-				});
-				
-			}
+						
+						var str3 = '';
+						
+					
 
 
 
