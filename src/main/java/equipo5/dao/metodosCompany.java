@@ -615,7 +615,11 @@ public class metodosCompany {
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
 			pst.setInt(1, lote.getIdBd());
 			pst.setDate(2, new Date(lote.getFecha_inicio().getTime()));
-			pst.setDate(3, new Date(lote.getFecha_final().getTime()));
+      if (lote.getFecha_final() == null) {
+        pst.setNull(3, java.sql.Types.NULL);
+      } else {
+        pst.setDate(3, new Date(lote.getFecha_final().getTime()));
+      }
 			pst.setBoolean(4, lote.isMolido());
 			pst.setBoolean(5, lote.isCocido());
 			pst.setBoolean(6, lote.isFermentado());
