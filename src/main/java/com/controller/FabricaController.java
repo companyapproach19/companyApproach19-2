@@ -421,50 +421,50 @@ import equipo7.model.Productos;
 			
 		}
 		
-		@Scope("request")
-	       @RequestMapping("/fabricaComenzarProduccion")
-	       @ResponseBody
-	       public void fabricaComenzarProduccion(HttpServletResponse response,
-	                                             @RequestParam(name="idOrden", required=true) String idOrden,
-	                                             Model model) throws Throwable {
-				Actor actor = new Actor(null,null,null,3);
-	            int orden = Integer.parseInt(idOrden);
-	            BlockchainServices bl= new BlockchainServices();
-	            OrdenTrazabilidad ot = bl.getOrden(orden); //devuelve un objeto de tipo OrdenTrazabilidad
-	            Productos prod = ot.getProductosPedidos(); //aqu� tienes las cantidades de materias primas
-	            int cantLotes=0;
-	            boolean pilsner=false;
-	            if (prod.getCant_malta_base_palida()>0){
-	                cantLotes = prod.getCant_malta_base_palida()/261;
-	            } else if (prod.getCant_malta_pilsner()>0) {
-	                cantLotes = prod.getCant_malta_pilsner()/173;
-	                pilsner=true;
-	            }
+	 @Scope("request")
+   @RequestMapping("/fabricaComenzarProduccion")
+   @ResponseBody
+   public void fabricaComenzarProduccion(HttpServletResponse response,
+                                         @RequestParam(name="idOrden", required=true) String idOrden,
+                                         Model model) throws Throwable {
+	Actor actor = new Actor(null,null,null,3);
+        int orden = Integer.parseInt(idOrden);
+        BlockchainServices bl= new BlockchainServices();
+        OrdenTrazabilidad ot = bl.getOrden(orden); //devuelve un objeto de tipo OrdenTrazabilidad
+        Productos prod = ot.getProductosPedidos(); //aqu� tienes las cantidades de materias primas
+        int cantLotes=0;
+        boolean pilsner=false;
+        if (prod.getCant_malta_base_palida()>0){
+            cantLotes = prod.getCant_malta_base_palida()/261;
+        } else if (prod.getCant_malta_pilsner()>0) {
+            cantLotes = prod.getCant_malta_pilsner()/173;
+            pilsner=true;
+        }
 
-	            if (!pilsner &&
-	                prod.getCant_malta_base_palida()>=(261*cantLotes) &&
-	                prod.getCant_malta_munich()>=(61*cantLotes) &&
-	                prod.getCant_cebada_tostada()>=(21*cantLotes) &&
-	                prod.getCant_malta_negra()>=(10*cantLotes) &&
-	                prod.getCant_malta_crystal()>=(6*cantLotes) &&
-	                prod.getCant_malta_chocolate()>=(5*cantLotes) &&
-	                prod.getCant_lupulo_centennial()>=(3*cantLotes) &&
-	                prod.getCant_levadura_ale()>=(1*cantLotes)) {
-	                    Lote lote=Principal.crearLote("stout");
-	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
+        if (!pilsner &&
+            prod.getCant_malta_base_palida()>=(261*cantLotes) &&
+            prod.getCant_malta_munich()>=(61*cantLotes) &&
+            prod.getCant_cebada_tostada()>=(21*cantLotes) &&
+            prod.getCant_malta_negra()>=(10*cantLotes) &&
+            prod.getCant_malta_crystal()>=(6*cantLotes) &&
+            prod.getCant_malta_chocolate()>=(5*cantLotes) &&
+            prod.getCant_lupulo_centennial()>=(3*cantLotes) &&
+            prod.getCant_levadura_ale()>=(1*cantLotes)) {
+                Lote lote=Principal.crearLote("stout");
+                com.controller.StockController.setCantidadLote(actor,lote,orden);
 
-	            } else if (pilsner &&
-	                prod.getCant_malta_pilsner()>=(173*cantLotes) &&
-	                prod.getCant_malta_caramelo()>=(21*cantLotes) &&
-	                prod.getCant_lupulo_perle()>=(1*cantLotes) &&
-	                prod.getCant_lupulo_tettnanger()>=(2*cantLotes) &&
-	                prod.getCant_levadura_lager()>=(1*cantLotes)) {
-	                    Lote lote=Principal.crearLote("pilsner");
-	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
-	            }
+        } else if (pilsner &&
+            prod.getCant_malta_pilsner()>=(173*cantLotes) &&
+            prod.getCant_malta_caramelo()>=(21*cantLotes) &&
+            prod.getCant_lupulo_perle()>=(1*cantLotes) &&
+            prod.getCant_lupulo_tettnanger()>=(2*cantLotes) &&
+            prod.getCant_levadura_lager()>=(1*cantLotes)) {
+                Lote lote=Principal.crearLote("pilsner");
+                com.controller.StockController.setCantidadLote(actor,lote,orden);
+        }
 
-	            
-	        }
+        
+    }
 		
 		
 		
