@@ -158,7 +158,16 @@ public class ManejaPeticiones {
 			return CodificadorJSON.crearJSONlista(listaIDs);
 		}
 	}
-	
+
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/ordenesQueHeCompletado")
+	@ResponseBody
+	public String ordenesQueHeCompletado(HttpServletResponse response,
+								   @RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+
+		return this.ordenesPendientes(idActor, 4);
+	}
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
