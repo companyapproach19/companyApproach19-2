@@ -435,8 +435,8 @@ levaduraLager=1
 			e.printStackTrace();
 		}
 
-		stock.addProperty("lotes_pilsner", numLotesP); 
-		stock.addProperty("lotes_stout", numLotesS); 
+		stock.addProperty("lotes_pilsner", lotesP); 
+		stock.addProperty("lotes_stout", lotesS); 
 		switch (tipoActor) {
 		case 0:
 			json_resp.add("stock", stock);
