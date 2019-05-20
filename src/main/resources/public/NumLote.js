@@ -110,10 +110,12 @@ function pedirStock(actorString) {
 	}
 	if (actorString == "3") {
 	    arrayJson.push(jsonObj);
+	    console.log(jsonObj[op+i]);
 	}
 	else {
 	    while (jsonObj[op + i] != null) {
 		//print(jsonObj[op+i]);
+		console.log(jsonObj[op+i]);
 		arrayJson.push(jsonObj[op + i]);
 		i++;
 	    }
@@ -187,6 +189,8 @@ function parseJSON (stock,actorString) {
 	var varName = array[j];
 	var content = eval('stock.stock.'+varName);
 	if (typeof content != 'undefined' && content != "") { eval(varName+"="+content.toString()+";"); } else { eval(varName+"=0;"); }
+	console.log(varName + " json : " + content);
+	console.log(varName + " variable : " + eval(varName));
     }
     var fila1="";
     var fila2="";
