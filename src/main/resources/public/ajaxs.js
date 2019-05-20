@@ -380,7 +380,7 @@ function creaOrden(actor){
 			nuevaOrden.actorOrigen.tipoActor= 3;
 		}
 		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value -0;
-		nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
+		//nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
 		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value -0;
 		nuevaOrden.productosPedidos.cant_malta_munich= document.getElementById("malta_munich").value -0;
 		nuevaOrden.productosPedidos.cant_malta_negra= document.getElementById("malta_negra").value -0;
