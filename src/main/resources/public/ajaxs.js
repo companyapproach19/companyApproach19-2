@@ -477,7 +477,7 @@ function mandarids(urlpar){
 			var primerID = idsOrdenes[i-1];
 			
 			
-			for (var j = 1; j< idsOrdenes.length+1; j++) {
+			for (var j = 1; j< idsOrdenes2.length+1; j++) {
   
 							var y = j.toString(10);
 							str3 = stri.concat(y);
