@@ -472,17 +472,17 @@ function mandarids(urlpar){
   var aux2;
   for (var i = 1; i< idsOrdenes.length+1; i++) {
   
-  	var x = i.toString(10);
-	str2 = str.concat(x);
-	aux = document.getElementById(str2);
-	if (aux.checked){		
-		array[i-1] = 1;
+		var x = i.toString(10);
+		str2 = str.concat(x);
+		aux = document.getElementById(str2);
+		if (aux.checked){		
+			array[i-1] = 1;
 		  
 		 
 			var primerID = idsOrdenes[i-1];
 			
-			
-			for (var j = 1; j< idsOrdenes.length+1; j++) {
+			if(urlpar == 2){
+				for (var j = 1; j< idsOrdenes.length+1; j++) {
   
 							var y = j.toString(10);
 							str3 = stri.concat(y);
@@ -516,7 +516,9 @@ function mandarids(urlpar){
 						
 				
 				
-			}
+				}
+			
+			}	
 			
 			
 			
@@ -591,33 +593,32 @@ function mandarids(urlpar){
 						break;
 					}
 
-					if(urlpar == 2){
+					
 						
-						var str3 = '';
+						
 						
 					
 
 
 
-				}	//fin del for
-
-			//}llave del else inutil
+				}		
 						  
 			} //fin del if
 
 
-		else {
+		}else {
 			array[i-1] = -1;
 		}
     
-    }
+		
 	
 	}
-	console.log("ARRAY ES  "+array);
-	//console.log("EL ORIYINAL ES  "+idsOrdenes);  //(no lo machaca)
+		console.log("ARRAY ES  "+array);
+		//console.log("EL ORIYINAL ES  "+idsOrdenes);  //(no lo machaca)
 	
 	
 }
+
 
 
 
