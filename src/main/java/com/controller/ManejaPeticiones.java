@@ -158,7 +158,16 @@ public class ManejaPeticiones {
 			return CodificadorJSON.crearJSONlista(listaIDs);
 		}
 	}
-	
+
+	//PARA EQUIPO 2: VISTAS
+	@Scope("request")
+	@RequestMapping("/ordenesQueHeCompletado")
+	@ResponseBody
+	public String ordenesQueHeCompletado(HttpServletResponse response,
+								   @RequestParam(name="idActor", required=true) String idActor) throws ClassNotFoundException, SQLException {
+
+		return this.ordenesPendientes(idActor, 4);
+	}
 	
 	//PARA EQUIPO 2: VISTAS
 	@Scope("request")
@@ -462,17 +471,17 @@ public class ManejaPeticiones {
 				//Asignamos los lotes que estan asociados a la ordenRespuesta
 				ArrayList<Integer> idsLotes = new ArrayList<Integer>();
 				LinkedList<StockLote> lotes = equipo5.dao.metodosCompany.extraerStockLote(ordenAResponder.getActorDestino(), ordenRespuesta.getId());
-				if(lotes!=null) {
-					Iterator<StockLote> it = lotes.iterator();
-					while(it.hasNext()) {
-						StockLote actual = it.next();
-						if(actual!=null) {
-							Lote lote = actual.getLote();
-							if(lote!=null) {
-								idsLotes.add(lote.getIdBd());
-							}
+				if(lotes!=null){
+				Iterator<StockLote> it = lotes.iterator();
+				while(it.hasNext()) {
+					StockLote actual = it.next();
+					if(actual!=null) {
+						Lote lote = actual.getLote();
+						if(lote!=null) {
+							idsLotes.add(lote.getIdBd());
 						}
 					}
+				}
 				}
 				ordenAResponder.setProductosAEntregar(idsLotes);
 			}
