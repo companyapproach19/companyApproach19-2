@@ -594,7 +594,7 @@ function mandarids(urlpar){
 					}
 
 					if(urlpar == 2){
-				console.log("acepto/completo en "+url+"id="+idsOrdenes[i-1]);
+				console.log("comienzo produccion  "+url+"id="+idsOrdenes[i-1]);
 				var request = $.ajax({
 			
 				url : url,
@@ -606,7 +606,7 @@ function mandarids(urlpar){
 		 
 				request.done(function(data){
 			  
-				 alert("Exito comienzo produccio");
+				 alert("Exito comienzo produccion");
 				 
 				});
 		 
