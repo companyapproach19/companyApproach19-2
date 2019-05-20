@@ -161,9 +161,9 @@ public class MapController {
 	private String getLat(String localizacion) {
 		String[] p = localizacion.split(";");
 		if(p.length==2) {
-			return p[1];
+			return p[0];
 		}else {
-			return "40.4130076";
+			return "0";
 		}
 	}
 	
@@ -172,7 +172,7 @@ public class MapController {
 		if(p.length==2) {
 			return p[1];
 		}else {
-			return "-3.8243319";
+			return "0";
 		}
 	}
 
