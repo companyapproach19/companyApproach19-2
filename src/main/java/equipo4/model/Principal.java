@@ -115,6 +115,7 @@ public class Principal extends Thread {
 					moliendo.add(lote2);
 				}
 		}
+		//Puede que haya que meter todos los lotes otra vez en la base
 	}
 
 
