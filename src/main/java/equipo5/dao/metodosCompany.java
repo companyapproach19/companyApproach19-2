@@ -1012,7 +1012,9 @@ public class metodosCompany {
 	             throw new NullException("El stock de lote introducido no es válido.");
 		}
 		if(stockLote.getFecha_entrada()==null) {
+		 
 	   		Actor actor = extraerActor((""+stockLote.getIdActor()));
+	   	 System.out.println(actor);
 	   		switch(actor.getTipoActor()){
 	   		case 4:
 	   			conectar();
