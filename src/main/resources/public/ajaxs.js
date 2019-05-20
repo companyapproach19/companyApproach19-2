@@ -292,7 +292,6 @@ var bolo = false;
 			alert("Error en el servidor comprobando stock ");
 	 
 		});
-
 */
 return bolo;
 }
@@ -381,7 +380,7 @@ function creaOrden(actor){
 			nuevaOrden.actorOrigen.tipoActor= 3;
 		}
 		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value -0;
-		nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
+		//nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
 		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value -0;
 		nuevaOrden.productosPedidos.cant_malta_munich= document.getElementById("malta_munich").value -0;
 		nuevaOrden.productosPedidos.cant_malta_negra= document.getElementById("malta_negra").value -0;
@@ -459,10 +458,13 @@ function mandarids(urlpar){
   //creare un array de longitud tantos como Ordenes haya (pedidos)
   //donde 1 en i pos significa que he marcado la orden i, -1 si no marcado
   var str = 'producto';
+  var stri = 'producto2';
   var array = Array.from(idsOrdenes); // copio idsOrdenes en nueva variable
   var array2 = Array.from(idsOrdenes2);
   var str2 = '';
+  var str3 = '';
   var aux;
+  var aux2;
   for (var i = 1; i< idsOrdenes.length+1; i++) {
   
   	var x = i.toString(10);
@@ -471,64 +473,54 @@ function mandarids(urlpar){
 	if (aux.checked){		
 		array[i-1] = 1;
 		  
-		  // proceso fabricacion
-		 /* if (urlpar==2){ // necesito obtener el id del pedido
-				
-				var idPedidoAux;
-			  	var ordenAux;
-				console.log("pido idPedido en /obtenerOrden?id="+idsOrdenes[i-1]);
-				var requestIdPedido = $.ajax({
-				  
-					url : '/obtenerOrden',  // la URL para la petición
-					data :"id="+idsOrdenes[i-1] ,
-					type : 'GET',
-					dataType : 'json',  // el tipo de información que se espera de respuesta
-						 
-				});
-				 
-				requestIdPedido.done(function(data){
-					 
-					 url = "/comienzaProcesoFabricacion";
-					//se han obtenido json del pedido
-					idPedidoAux = data.idPedido;
-					ordenAux = data.id;
-					// ahora ya puedo empezar fabricacion
-					
-					console.log("empiezo fabricacion en /comienzaProcesoFabricacion?pedido="+idPedidoAux+"&orden="+ordenAux);
-					var request = $.ajax({
-			
-						url : url,
-						data :"pedido="+idPedidoAux+"&orden="+ordenAux ,
-						type : 'GET',
-						dataType : 'json',  // el tipo de información que se espera de respuesta
-						
-						});
-				 
-						request.done(function(data){
-					  	for (var key of Object.keys(data)) {
-					  	//	alert(data.key);
-					  	}
-						 
-						 
-						});
-				 
-						request.fail(function(data) {
-					 
-							alert("fallo empezando fabricacion de"+idsOrdenes[i-1]);
-						
-						});
-					
-				});
-					 
-				requestIdPedido.fail(function(data){
-						
-					alert("fallo el ajax obtenerIdPedido "+idsOrdenes[i-1]);
-						
-					  
-				});
-			} else { */ //urlpar es 0 o 1 0 2 
-				//Caso de aceptar el poedido
+		 
 			var primerID = idsOrdenes[i-1];
+			
+			
+			for (var j = 1; j< idsOrdenes.length+1; j++) {
+  
+							var y = j.toString(10);
+							str3 = stri.concat(y);
+							aux2 = document.getElementById(str4);
+							if (aux2.checked){		
+							
+							///
+							console.log("comienzo produccion  "+url+"id="+idsOrdenes[i-1]);
+							var request = $.ajax({
+						
+							url : url,
+							data :"pedido="+idsOrdenes[i-1]+"&orden="+idsOrdenes2[j-1] ,
+							type : 'POST',
+							dataType : 'json',  // el tipo de información que se espera de respuesta
+							
+							});
+					 
+							request.done(function(data){
+						  
+							 alert("Exito comienzo produccion");
+							 
+							});
+					 
+							request.fail(function(data) {
+						 
+								alert("error comenzando produccion pedido: "+idsOrdenes[i-1]);
+							
+							});
+							
+						}
+						
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			if(urlpar == 0){
 				console.log("acepto/completo en "+url+"id="+idsOrdenes[i-1]);
 				var request = $.ajax({
@@ -595,29 +587,10 @@ function mandarids(urlpar){
 					}
 
 					if(urlpar == 2){
-				console.log("comienzo produccion  "+url+"id="+idsOrdenes[i-1]);
-				var request = $.ajax({
-			
-				url : url,
-				data :"id="+idsOrdenes[i-1] ,
-				type : 'POST',
-				dataType : 'json',  // el tipo de información que se espera de respuesta
-				
-				});
-		 
-				request.done(function(data){
-			  
-				 alert("Exito comienzo produccion");
-				 
-				});
-		 
-				request.fail(function(data) {
-			 
-			  		alert("error comenzando produccion pedido: "+idsOrdenes[i-1]);
-				
-				});
-				
-			}
+						
+						var str3 = '';
+						
+					
 
 
 
@@ -897,17 +870,14 @@ function rellenaPopup(json, actor, i) {
 	    //alert("still cope");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido+ "<br>Estado:"+ estado  +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial+" kg<br>");
 	  break;
-
 		case 3:
 		//alert("still fab");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido +"<br>Estado:"+ estado  +"<br><br>ID de origen<br> " + json.actorOrigen.id + "<br><br>Cantidades: <br>1.Cebada tostada:" +json.productosPedidos.cant_cebada_tostada +"kg<br>2.Cebada:" +json.productosPedidos.cant_cebada+ "kg<br>3.Malta Palida" +  json.productosPedidos.cant_malta_palida +"+kg<br>4.Malta Munich:" +  json.productosPedidos.cant_malta_munich +" kg<br>5.Malta Negra: "+ json.productosPedidos.cant_malta_negra +" kg<br>6.Malta Crystal: "+ json.productosPedidos.cant_malta_crystal +" kg<br>7.Malta Chocolate: "+ json.productosPedidos.cant_malta_chocolate +" kg<br>8.Malta Caramelo: "+ json.productosPedidos.cant_malta_caramelo +" kg<br>9.Lupulo centenial:" +json.productosPedidos.cant_lupulo_centenial +" kg<br>10.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " 11. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
-
 		case 4:
 		//alert("still tienda");
 	  $("popup"+i).append("<br><br>Datos Generales<br>ID orden: " + json.id + "<br>ID pedido:"+ json.idPedido  +"<br>Estado:"+ estado +"<br><br>Cantidades: <br>1.Lotes Bisner: "+ json.productosPedidos.cant_lotes_bisner + " kg<br>2. Lotes Stout: "+ json.productosPedidos.cant_lotes_stout);
 	  break;
-
 		default :
 	  $("popup"+i).append("<br><br>Respuesta del servidor o datos locales erróneos. No hay stock para mostrar");
 	  break;
@@ -951,70 +921,51 @@ function imprimeStock(json, i){
 ////////////////////JSON NUEVO//////////////////////
 
 var nuevaOrden = {
-  "id": 30,
+  "id": 0,
   "actorOrigen": {
-    "id": "5",
-    "nombreUsuario": "Cooperativa",
-    "passwordPlana": "password",
-    "email": "coop@gmail.es",
-    "tipoActor": 1,
-    "localizacion": "Calle Luarca",
-    "nombre": "Maria",
-    "direccion": "Calle Murcia",
-    "cifcooperativa": "fg2"
+    "id": 0,
+    "nombreUsuario": "",
+    "passwordPlana": "",
+    "email": "",
+    "tipoActor": 0
   },
   "actorDestino": {
-    "id": "8",
-    "nombreUsuario": "Fabrica",
-    "passwordPlana": "password",
-    "email": "fab@gmail.es",
-    "tipoActor": 3,
-    "localizacion": "Calle Velazquez",
-    "nombre": "Santiago",
-    "direccion": "Calle Andalucia",
-    "cifcooperativa": "fg3"
+    "id": 0,
+    "nombreUsuario": "",
+    "passwordPlana": "",
+    "email": "",
+    "tipoActor": 0
   },
-  "necesitaTransportista": false,
+  "necesitaTransportista": true,
   "productosPedidos": {
-    "cant_malta_base_palida": 0,
-    "cant_malta_munich": 10,
-    "cant_malta_negra": 5,
-    "cant_malta_crystal": 30,
+    "cant_malta_palida": 0,       
+    "cant_malta_munich": 0,
+    "cant_malta_negra": 0,
+    "cant_malta_crystal": 0,
     "cant_malta_chocolate": 0,
     "cant_malta_caramelo": 0,
-    "cant_malta_pilsner": 0,
-    "cant_cebada_tostada": 10,
-    "cant_lupulo_centennial": 0,
-    "cant_lupulo_perle": 0,
-    "cant_lupulo_tettnanger": 0,
-    "cant_levadura_lager": 0,
-    "cant_levadura_ale": 0,
+    "cant_cebada": 0,
+    "cant_cebada_tostada": 0,
+    "cant_lupulo_centenial": 0,
     "cant_lotes_stout": 0,
-    "cant_lotes_pilsner": 0
+    "cant_lotes_bisner": 0
   },
   "productosAEntregar": [
-    100,
-    101,
-    102,
-    103
+    
   ],
-  "estado": 4,
-  "firmaRecogida": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs",
-  "firmaEntrega": "SG9sYSBxdWUgdGFsIHNveSBjb2xvc2Fs",
+  "estado": 0,
+  "firmaRecogida": "",
+  "firmaEntrega": "",
   "transportista": {
-    "id": "7",
-    "nombreUsuario": "Transportista",
-    "passwordPlana": "password",
-    "email": "transp@gmail.es",
-    "tipoActor": 2,
-    "localizacion": "Calle Lugo",
-    "nombre": "Luis",
-    "direccion": "Calle Cartagena",
-    "cifcooperativa": "fg1"
+    "id": "",
+    "nombreUsuario": "",
+    "passwordPlana": "",
+    "email": "",
+    "tipoActor": 0
   },
-  "idRegistro": 2,
-  "idPedido": 30,
-  "fecha": "ago 12, 1911"
+  "idRegistro": 0,
+  "idPedido": 0,
+  "fecha": ""
 }
 
 /*Funcionamiento:recibe un JSON con dos IDs:idOrdenAResponder, que contiene el ID de la ordenque se está satisfaciendo, 

@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>CooperativaPedidosRecibidos</title>
-
+    <title>TiendaPedidosPorResolver</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -25,8 +24,8 @@
                 <div class="row">
              
                     <div class="col-md-3 register-left">
-                        <img src="icono-cooperativa.png" alt=""/>
-                        <h1>Cooperativa</h1>
+                        <img src="icono-tienda.png" alt=""/>
+                        <h1>Tienda</h1>
                         <!--<p>Pedidos recibidos</p>-->
                     </div>
                     <div class="col-md-9 register-right pedidosaceptados">
@@ -39,23 +38,22 @@
                             <div class="col-3 borde">
                                 <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='cooperativaInicio.html';">Volver</a>
+                                    <a class="nav-link" id="home2" data-toggle="submit" href="#home2" role="submit" aria-controls="home2" aria-selected="true" onclick="window.location.href='tiendaInicio.html';">Volver</a>
                                 </li>
                                 </ul>
                             </div>
                             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading titlecenter">PEDIDOS RECIBIDOS</h3>
+                                <h3  class="register-heading titlecenter">PEDIDOS COMPLETADOS</h3>
 								<br>
-                                <br>
-                                <br>
+                <br>
+                <br>
                                 <div class="row register-desplazable">
                                     <div class="col-md-8 desplazable">
-                                             <div id="contenedor_modales"> </div>
-                                </div>
-					
+                         
+                                  <div id="contenedor_modales"> </div>
                                 
-                                        <input type="submit" class="btnCompletar"  onClick="mandarids(0)" value="Aceptar pedidos"/>
                             </div>
+					
                         </div>
                     </div>
                 </div>
@@ -63,8 +61,8 @@
             </div>
 </body>
 <script>
- //window.onload = imprimirjson(idsOrdenes);
-pedirIds(1,0);
+ 
+pedirIds(4,3);
 
 </script>
 </html>
