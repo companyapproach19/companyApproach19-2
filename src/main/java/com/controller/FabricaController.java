@@ -42,7 +42,7 @@ import equipo7.model.Productos;
         public String comprobar(HttpServletResponse response,@RequestParam(name="numLoteIntroducido", required=true) String numLoteIntroducido, 
                 Model model) throws Throwable { 
 			int existe=1;
-			Actor actor = new Actor("3",null,null,3);
+			Actor actor = new Actor("3",null,3);
 			JsonObject obj = new JsonObject();
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
@@ -70,7 +70,7 @@ import equipo7.model.Productos;
             int idOrden = Integer.parseInt(orden);
             
             HashMap<String, Double> lista = com.controller.StockController.getStockPedidoFabrica(idOrden);
-            Actor actor = new Actor("3",null,null,3);
+            Actor actor = new Actor("3",null,3);
             String tipo;
             int kilosPedidos;
             JsonObject obj = new JsonObject();
@@ -140,7 +140,7 @@ import equipo7.model.Productos;
 										//comprueba el n�mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
-            Actor actor = new Actor("3",null,null,3);
+            Actor actor = new Actor("3",null,3);
 			JsonObject obj = new JsonObject();
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
@@ -170,7 +170,7 @@ import equipo7.model.Productos;
 										//comprueba el n�mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
-			Actor actor = new Actor("3",null,null,3);
+			Actor actor = new Actor("3",null,3);
 			JsonObject obj = new JsonObject();
 			boolean esta=false;
 			int introducido = Integer.parseInt(numLoteIntroducido);
@@ -199,7 +199,7 @@ import equipo7.model.Productos;
 										//comprueba el n�mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
-			Actor actor = new Actor("3",null,null,3);
+			Actor actor = new Actor("3",null,3);
 			JsonObject obj = new JsonObject();
 			boolean esta=false;
 			int introducido = Integer.parseInt(numLoteIntroducido);
@@ -229,7 +229,7 @@ import equipo7.model.Productos;
 										//comprueba el n�mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
-			Actor actor = new Actor("3",null,null,3);
+			Actor actor = new Actor("3",null,3);
 			JsonObject obj = new JsonObject();
 			int introducido = Integer.parseInt(numLoteIntroducido);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
@@ -262,7 +262,7 @@ import equipo7.model.Productos;
 										//comprueba el n�mero de lote introducido en la vista
 										Model model) 
 						throws Exception, NotInDatabaseException {
-			Actor actor = new Actor("3",null,null,3);
+			Actor actor = new Actor("3",null,3);
 			JsonObject obj = new JsonObject();
 			boolean esta=false;
 			int introducido = Integer.parseInt(numLoteIntroducido);
@@ -414,7 +414,7 @@ import equipo7.model.Productos;
 		public static String ponerTabla(HttpServletResponse response, Model model) 
 						throws Exception, NotInDatabaseException {
 			String s = "";
-			Actor actor = new Actor("3",null,null,3);
+			Actor actor = new Actor("3",null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 			
 			for(int i = 0; i<lista.size(); i++) {
@@ -430,7 +430,7 @@ import equipo7.model.Productos;
 	       public void fabricaComenzarProduccion(HttpServletResponse response,
 	                                             @RequestParam(name="idOrden", required=true) String idOrden,
 	                                             Model model) throws Throwable {
-				Actor actor = new Actor("3",null,null,3);
+				Actor actor = new Actor("3",null,3);
 	            int orden = Integer.parseInt(idOrden);
 	            BlockchainServices bl= new BlockchainServices();
 	            OrdenTrazabilidad ot = bl.getOrden(orden); //devuelve un objeto de tipo OrdenTrazabilidad
