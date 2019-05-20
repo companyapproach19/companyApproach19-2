@@ -485,7 +485,7 @@ function mandarids(urlpar){
 							if (aux2.checked){		
 							
 							///
-							console.log("comienzo produccion  "+url+"id="+idsOrdenes[i-1]);
+							console.log("enlazo pedido "+url+"pedido="+idsOrdenes[i-1]+"&orden="+idsOrdenes2[j-1]);
 							var request = $.ajax({
 						
 							url : url,
@@ -497,13 +497,13 @@ function mandarids(urlpar){
 					 
 							request.done(function(data){
 						  
-							 alert("Exito comienzo produccion");
+							 alert("Exito enlazando pedidos");
 							 
 							});
 					 
 							request.fail(function(data) {
 						 
-								alert("error comenzando produccion pedido: "+idsOrdenes[i-1]);
+								alert("error al enlazar pedidos");
 							
 							});
 							
