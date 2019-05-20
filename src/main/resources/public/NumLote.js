@@ -110,7 +110,7 @@ function pedirStock(actorString) {
 	}
 	if (actorString == "3") {
 	    arrayJson.push(jsonObj);
-	    console.log(jsonObj[op+i]);
+	    console.log(jsonObj);
 	}
 	else {
 	    while (jsonObj[op + i] != null) {
@@ -150,7 +150,6 @@ function pedirStock(actorString) {
 	default:
 	    break;
 	}
-	console.log(arrayJson);
 	
 	// Llamamos al método para rellenar el popup con los datos del (los) JSON.
 	rellenaPopup(arrayJson, actorString);
@@ -185,12 +184,27 @@ function parseJSON (stock,actorString) {
     // Si alguna de las materias prima coincide con algún campo del JSON, se le da el valor que tenga en el JSON a la variable.
     var malta_palida,malta_tostada,malta_negra,malta_crystal,malta_chocolate,malta_caramelo,malta_pilsner,malta_munich,lupulo_perle,lupulo_tettnanger,lupulo_centennial,levadura_ale,levadura_lagger,lotes_pilsner,lotes_stout;
     var array = ['malta_palida','malta_tostada','malta_negra','malta_crystal','malta_chocolate','malta_caramelo','malta_pilsner','malta_munich','lupulo_perle','lupulo_tettnanger','lupulo_centennial','levadura_ale','levadura_lagger','lotes_pilsner','lotes_stout'];
+    var array2 = ['MaltaBasePalida','CebadaTostada','MaltaNegra','MaltaCrystal','MaltaChocolate','MaltaCaramelo','MaltaPilsner','MaltaMunich','LupuloPerle','LupuloTettnanger','LupuloCentennial','LevaduraAle','LevaduraLager','lotes_pilsner','lotes_stout'];
     for (j = 0; j < array.length; j++) {
 	var varName = array[j];
 	var content = eval('stock.stock.'+varName);
-	if (typeof content != 'undefined' && content != "") { eval(varName+"="+content.toString()+";"); } else { eval(varName+"=0;"); }
-	console.log(varName + " json : " + content);
-	console.log(varName + " variable : " + eval(varName));
+	if (typeof content != 'undefined' && content != "") {
+	    eval(varName+"="+content.toString()+";");
+	    console.log(varName + " json: " + content);
+	    console.log(varName + " variable: " + eval(varName));
+	}
+	else {
+	    console.log(varName + " json: " + content);
+	    content = eval('stock.stock.'+ array2[j]);
+	    if (typeof content != 'undefined' && content != "") {
+		eval(varName+"="+content.toString()+";");
+	    }
+	    else {
+		eval(varName+"=0;");
+	    }
+	    console.log(array2[j] + " json: " + content);
+	    console.log(array2[j] + " variable: " + eval(array[j]));
+	}
     }
     var fila1="";
     var fila2="";
