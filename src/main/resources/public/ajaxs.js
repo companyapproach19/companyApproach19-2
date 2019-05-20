@@ -44,7 +44,7 @@ function pedirIds(actor, estado){
 		
 		console.log(idsOrdenes);
 
-		if(estado == 1) pedirIds2(actor,2);
+		//if(estado == 1) pedirIds2(actor,2);
 	     	
 		//paso por parametro a imprimir
 		
