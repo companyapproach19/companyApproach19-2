@@ -264,26 +264,31 @@ function cargar_popups(actor)
 
 
 function compruebaStock(json){
-alert("Me faltan parametros para comprueba stock, de momento no se comprueba XD");
+//alert("Me faltan parametros para comprueba stock, de momento no se comprueba XD");
 var bolo = false;
+	
+var cerveza = "stout";
+//var cerveza = "pilsner";
 
 //Mitica mierda de ajax
-/* var request = $.ajax({
+ var request = $.ajax({
       
 			url : '/stockSuficienteFabricarLote',    // la URL para la petición
-			data : 'json='.concat(json),
-			type : 'POST',
+			data :"tipoCerveza="+cerveza,
+			type : 'GET',
 			dataType : 'json',  // el tipo de información que se espera de respuesta
  
 		});
  
 		request.done(function(data){
-      
-		for (var key of Object.keys(data)) {
-			var aux = data.key
-			bolo = aux;
-			console.log("valor de la respuesta es" + bolo);
-					  	}
+      		
+			if (data.tieneStock.equals(true)){
+			//alert("Hay stock suficiente");
+			bolo = true;
+			} else {
+			//alert("No hay stock suficiente, quieres continuar?");
+			bolo = false;
+			}
     
 		});
  
@@ -292,7 +297,7 @@ var bolo = false;
 			alert("Error en el servidor comprobando stock ");
 	 
 		});
-*/
+
 return bolo;
 }
 
@@ -485,7 +490,7 @@ function mandarids(urlpar){
 							if (aux2.checked){		
 							
 							///
-							console.log("comienzo produccion  "+url+"id="+idsOrdenes[i-1]);
+							console.log("enlazo pedido "+url+"pedido="+idsOrdenes[i-1]+"&orden="+idsOrdenes2[j-1]);
 							var request = $.ajax({
 						
 							url : url,
@@ -497,13 +502,13 @@ function mandarids(urlpar){
 					 
 							request.done(function(data){
 						  
-							 alert("Exito comienzo produccion");
+							 alert("Exito enlazando pedidos");
 							 
 							});
 					 
 							request.fail(function(data) {
 						 
-								alert("error comenzando produccion pedido: "+idsOrdenes[i-1]);
+								alert("error enlazando pedidos");
 							
 							});
 							
