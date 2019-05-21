@@ -44,7 +44,7 @@ function pedirIds(actor, estado){
 		
 		console.log(idsOrdenes);
 
-		if(estado == 1) pedirIds2(actor,2);
+		//if(estado == 1) pedirIds2(actor,2);
 	     	
 		//paso por parametro a imprimir
 		
@@ -141,13 +141,13 @@ function cargar_popups2(actor)
      var contenedor_modales2;
      
      contenedor_modales2 = document.getElementById("contenedor_modales2");
-	if (idsOrdenes != null){
-        for ( var i = 1; i <=idsOrdenes.length; i++) {
+	if (idsOrdenes2 != null){
+        for ( var i = 1; i <=idsOrdenes2.length; i++) {
         	//antes en pedirPedido, en actor habia un 4
         	var modalN = 
                 '<div class="form-group">'+
-                '<input type="checkbox" name="producto'+i+'" id="producto2'+i+'" value="Pedido id'+i+'">'+
-                '<label for="producto'+i+'" id="label2'+i+'">Pedido '+idsOrdenes[i-1]+'</label>'+
+                '<input type="checkbox" name="producto2'+i+'" id="producto2'+i+'" value="Pedido id'+i+'">'+
+                '<label for="producto2'+i+'" id="label2'+i+'">Pedido '+idsOrdenes2[i-1]+'</label>'+
                 '<a href="" data-toggle="modal" onclick="pedirPedido2('+(i-1)+','+actor+','+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>'+
                 '</div>'+                                                          
                 '<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">'+
@@ -157,7 +157,7 @@ function cargar_popups2(actor)
                 '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
                 '<span aria-hidden="true">&times;</span>'+
                 '</button>'+
-                '<div id="popup'+i+'" style="display: none;">'+  
+                '<div id="popup'+i+'" style="display: none;transform: translateX(-100%);">'+  
                 '<div class="inner">'+                      
                 '<h1>PEDIDO</h1>'+                     
                 '<popup'+i+'></popup'+i+'>'+
@@ -202,10 +202,10 @@ function cargar_popups(actor)
                 '<div class="modal-dialog modal-dialog-scrollable" role="document">'+
                 '<div class="modal-content">'+
                 '<div class="modal-header">'+
-                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                '<button type="button" style="border: none; cursor: pointer; background: transparent; font-size: 1.5rem;" data-dismiss="modal" aria-label="Close">'+
                 '<span aria-hidden="true">&times;</span>'+
                 '</button>'+
-                '<div id="popup'+i+'" style="display: none;">'+  
+                '<div id="popup'+i+'" style="display: none;transform: translateX(-100%);">'+  
                 '<div class="inner">'+                      
                 '<h1>PEDIDO</h1>'+                     
                 '<popup'+i+'></popup'+i+'>'+
@@ -264,26 +264,31 @@ function cargar_popups(actor)
 
 
 function compruebaStock(json){
-alert("Me faltan parametros para comprueba stock, de momento no se comprueba XD");
-var bolo = false;
+//alert("Me faltan parametros para comprueba stock, de momento no se comprueba XD");
+//var bolo = false;
+	
+var cerveza = "stout";
+//var cerveza = "pilsner";
 
 //Mitica mierda de ajax
-/* var request = $.ajax({
+ var request = $.ajax({
       
 			url : '/stockSuficienteFabricarLote',    // la URL para la petición
-			data : 'json='.concat(json),
-			type : 'POST',
+			data :"tipoCerveza="+cerveza,
+			type : 'GET',
 			dataType : 'json',  // el tipo de información que se espera de respuesta
  
 		});
  
 		request.done(function(data){
-      
-		for (var key of Object.keys(data)) {
-			var aux = data.key
-			bolo = aux;
-			console.log("valor de la respuesta es" + bolo);
-					  	}
+      		
+			if (data.tieneStock.equals(true)){
+			//alert("Hay stock suficiente");
+			return true;
+			} else {
+			//alert("No hay stock suficiente, quieres continuar?");
+			return false;
+			}
     
 		});
  
@@ -292,18 +297,21 @@ var bolo = false;
 			alert("Error en el servidor comprobando stock ");
 	 
 		});
-*/
-return bolo;
+
+return false;
 }
 
 
+var bolo;
 
 function creaOrden(actor){
 	
 	  console.log("mando orden a /crearOrden, idActor = " + actor);
 
 	  var soyAuxiliar=paraJson(actor);
-	  var bolo = compruebaStock(soyAuxiliar);
+	  //alert("ENTRO A BOLO");
+	   bolo = compruebaStock(soyAuxiliar);
+	  //alert("SALGO DE BOLO");
 	  if (bolo){
       var request = $.ajax({
       
@@ -380,7 +388,7 @@ function creaOrden(actor){
 			nuevaOrden.actorOrigen.tipoActor= 3;
 		}
 		nuevaOrden.actorDestino.id = document.getElementById("idDestino").value -0;
-		nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
+		//nuevaOrden.idPedido = document.getElementById("idPedido").value -0;
 		nuevaOrden.productosPedidos.cant_malta_palida = document.getElementById("malta_palida").value -0;
 		nuevaOrden.productosPedidos.cant_malta_munich= document.getElementById("malta_munich").value -0;
 		nuevaOrden.productosPedidos.cant_malta_negra= document.getElementById("malta_negra").value -0;
@@ -458,76 +466,75 @@ function mandarids(urlpar){
   //creare un array de longitud tantos como Ordenes haya (pedidos)
   //donde 1 en i pos significa que he marcado la orden i, -1 si no marcado
   var str = 'producto';
+  var stri = 'producto2';
   var array = Array.from(idsOrdenes); // copio idsOrdenes en nueva variable
   var array2 = Array.from(idsOrdenes2);
   var str2 = '';
+  var str3 = '';
   var aux;
+  var aux2;
   for (var i = 1; i< idsOrdenes.length+1; i++) {
   
-  	var x = i.toString(10);
-	str2 = str.concat(x);
-	aux = document.getElementById(str2);
-	if (aux.checked){		
-		array[i-1] = 1;
+		var x = i.toString(10);
+		str2 = str.concat(x);
+		aux = document.getElementById(str2);
+		if (aux.checked){		
+			array[i-1] = 1;
 		  
-		  // proceso fabricacion
-		 /* if (urlpar==2){ // necesito obtener el id del pedido
-				
-				var idPedidoAux;
-			  	var ordenAux;
-				console.log("pido idPedido en /obtenerOrden?id="+idsOrdenes[i-1]);
-				var requestIdPedido = $.ajax({
-				  
-					url : '/obtenerOrden',  // la URL para la petición
-					data :"id="+idsOrdenes[i-1] ,
-					type : 'GET',
-					dataType : 'json',  // el tipo de información que se espera de respuesta
-						 
-				});
-				 
-				requestIdPedido.done(function(data){
-					 
-					 url = "/comienzaProcesoFabricacion";
-					//se han obtenido json del pedido
-					idPedidoAux = data.idPedido;
-					ordenAux = data.id;
-					// ahora ya puedo empezar fabricacion
-					
-					console.log("empiezo fabricacion en /comienzaProcesoFabricacion?pedido="+idPedidoAux+"&orden="+ordenAux);
-					var request = $.ajax({
-			
-						url : url,
-						data :"pedido="+idPedidoAux+"&orden="+ordenAux ,
-						type : 'GET',
-						dataType : 'json',  // el tipo de información que se espera de respuesta
-						
-						});
-				 
-						request.done(function(data){
-					  	for (var key of Object.keys(data)) {
-					  	//	alert(data.key);
-					  	}
-						 
-						 
-						});
-				 
-						request.fail(function(data) {
-					 
-							alert("fallo empezando fabricacion de"+idsOrdenes[i-1]);
-						
-						});
-					
-				});
-					 
-				requestIdPedido.fail(function(data){
-						
-					alert("fallo el ajax obtenerIdPedido "+idsOrdenes[i-1]);
-						
-					  
-				});
-			} else { */ //urlpar es 0 o 1 0 2 
-				//Caso de aceptar el poedido
+		 
 			var primerID = idsOrdenes[i-1];
+			
+			if(urlpar == 2){
+				console.log("quieres comenzar produccion");
+				console.log("idsOrdenes"+idsOrdenes);
+				console.log("idsOrdenes2"+idsOrdenes2);
+				
+				for (var j = 1; j< idsOrdenes2.length+1; j++) {
+  
+							var y = j.toString(10);
+							str3 = stri.concat(y);
+							aux2 = document.getElementById(str3);
+							if (aux2.checked){		
+							
+							///
+							console.log("enlazo pedido "+url+"pedido="+idsOrdenes[i-1]+"&orden="+idsOrdenes2[j-1]);
+							var request = $.ajax({
+						
+							url : url,
+							data :"pedido="+idsOrdenes[i-1]+"&orden="+idsOrdenes2[j-1] ,
+							type : 'POST',
+							dataType : 'json',  // el tipo de información que se espera de respuesta
+							
+							});
+					 
+							request.done(function(data){
+						  
+							 alert("Exito enlazando pedidos");
+							 
+							});
+					 
+							request.fail(function(data) {
+						 
+								alert("error enlazando pedidos");
+							
+							});
+							
+						}
+						
+				
+				
+				}
+			
+			}	
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			if(urlpar == 0){
 				console.log("acepto/completo en "+url+"id="+idsOrdenes[i-1]);
 				var request = $.ajax({
@@ -593,52 +600,32 @@ function mandarids(urlpar){
 						break;
 					}
 
-					if(urlpar == 2){
-				console.log("acepto/completo en "+url+"id="+idsOrdenes[i-1]);
-				var request = $.ajax({
-			
-				url : url,
-				data :"id="+idsOrdenes[i-1] ,
-				type : 'POST',
-				dataType : 'json',  // el tipo de información que se espera de respuesta
-				
-				});
-		 
-				request.done(function(data){
-			  
-				 alert("Exito comienzo produccio");
-				 
-				});
-		 
-				request.fail(function(data) {
-			 
-			  		alert("error comenzando produccion pedido: "+idsOrdenes[i-1]);
-				
-				});
-				
-			}
+					
+						
+						
+						
+					
 
 
 
-				}	//fin del for
-
-			//}llave del else inutil
+				}		
 						  
 			} //fin del if
 
 
-		else {
+		}else {
 			array[i-1] = -1;
 		}
     
-    }
+		
 	
 	}
-	console.log("ARRAY ES  "+array);
-	//console.log("EL ORIYINAL ES  "+idsOrdenes);  //(no lo machaca)
+		console.log("ARRAY ES  "+array);
+		//console.log("EL ORIYINAL ES  "+idsOrdenes);  //(no lo machaca)
 	
 	
 }
+
 
 
 
@@ -659,18 +646,23 @@ var idsOrdenes2 = [];
 function pedirStock(actor,i) {
 
 	var actor2;
+	var act;
 	switch (actor){
 		case 0:
 		actor2=10;
+		act="0";
 		break;
 		case 1:
 		actor2=6;
+		act="1";
 		break;
 		case 3:
 		actor2=8;
+		act="3";
 		break;
 		case 4:
 		actor2=9;
+		act="4";
 		break;
 		}
 	$("#popup"+i).show();
@@ -697,7 +689,9 @@ function pedirStock(actor,i) {
 		//paso por parametro a imprimir
 		
 		//rellenaPopup(pedido, actor,i);
-		imprimeStock(data, i); //maybe parse?
+		//imprimeStock(data, i); //maybe parse?
+		parseJSON(data,act);
+		
   
     });
     request.fail(function(data) {
@@ -938,6 +932,169 @@ function imprimeStock(json, i){
 	$("popup"+i).append(stock);
 }
 
+
+
+
+
+
+
+
+//GRANDIOSO JAIME MASTODONTE
+//VVVVVVVVVVVVV
+function parseJSON (stock,actorString) {
+	
+var minMalta_palida = 261;
+var minMalta_tostada = 21;
+var minMalta_negra = 10;
+var minMalta_crystal = 6;
+var minMalta_chocolate = 5;
+var minMalta_caramelo = 21;
+var minMalta_pilsner = 173;
+var minMalta_munich = 61;
+var minLupulo_perle = 1;
+var minLupulo_tettnanger = 5;
+var minLupulo_centennial = 3;
+var minLevadura_ale = 1;
+var minLevadura_lagger = 1;
+
+    // Recorremos los campos del JSON. Si alguna de las materias primas o lotes no es un campo del json, se le da el valor 0 a la variable.
+    // Si alguna de las materias prima coincide con algún campo del JSON, se le da el valor que tenga en el JSON a la variable.
+    var malta_palida,malta_tostada,malta_negra,malta_crystal,malta_chocolate,malta_caramelo,malta_pilsner,malta_munich,lupulo_perle,lupulo_tettnanger,lupulo_centennial,levadura_ale,levadura_lagger,lotes_pilsner,lotes_stout;
+    var array = ['malta_palida','malta_tostada','malta_negra','malta_crystal','malta_chocolate','malta_caramelo','malta_pilsner','malta_munich','lupulo_perle','lupulo_tettnanger','lupulo_centennial','levadura_ale','levadura_lagger','lotes_pilsner','lotes_stout'];
+    var array2 = ['MaltaBasePalida','CebadaTostada','MaltaNegra','MaltaCrystal','MaltaChocolate','MaltaCaramelo','MaltaPilsner','MaltaMunich','LupuloPerle','LupuloTettnanger','LupuloCentennial','LevaduraAle','LevaduraLager','lotes_pilsner','lotes_stout'];
+    for (j = 0; j < array.length; j++) {
+	var varName = array[j];
+	var content = eval('stock.stock.'+varName);
+	if (typeof content != 'undefined' && content != "") {
+	    eval(varName+"="+content.toString()+";");
+	    console.log(varName + " json: " + content);
+	    console.log(varName + " variable: " + eval(varName));
+	}
+	else {
+	    console.log(varName + " json: " + content);
+	    content = eval('stock.stock.'+ array2[j]);
+	    if (typeof content != 'undefined' && content != "") {
+		eval(varName+"="+content.toString()+";");
+	    }
+	    else {
+		eval(varName+"=0;");
+	    }
+	    console.log(array2[j] + " json: " + content);
+	    console.log(array2[j] + " variable: " + eval(array[j]));
+	}
+    }
+    var fila1="";
+    var fila2="";
+    var fila3="";
+    if (minMalta_palida < malta_palida) {
+	fila1 = "<tr> <td class=\"table-success\">Malta pálida: "+ malta_palida.toString() + "</td>";
+    } else {
+	fila1 = "<tr> <td class=\"table-danger\">Malta pálida: "+ malta_palida.toString() + "</td>";
+    }
+    if (minLupulo_perle < lupulo_perle) {
+	fila1 += "<td class=\"table-success\">Lúpulo perle: "+ lupulo_perle.toString() + "</td>";
+    } else {
+	fila1 += "<td class=\"table-danger\">Lúpulo perle: "+ lupulo_perle.toString() + "</td>";
+    }
+    if (minLevadura_ale < levadura_ale) {
+	fila1 += "<td class=\"table-success\">Levadura ale: "+ levadura_ale.toString() + "</td>";
+    } else {
+	fila1 += "<td class=\"table-danger\">Levadura ale: "+ levadura_ale.toString() + "</td>";
+    }
+    if (actorString == "3" || actorString == "4") {
+	if (actorString == "4") { fila1 = "<tr>"; }
+	if (0 < lotes_pilsner) {
+	    fila1 += "<td class=\"table-success\">Pilsner: "+ lotes_pilsner.toString() + "</td>";
+	} else {
+	    fila1 += "<td class=\"table-danger\">Pilsner: "+ lotes_pilsner.toString() + "</td>";
+	}
+    }
+    if (minMalta_tostada < malta_tostada) {
+	fila2 = "<tr> <td class=\"table-success\">Malta tostada: "+ malta_tostada.toString() + "</td>";
+    } else {
+	fila2 = "<tr> <td class=\"table-danger\">Malta tostada: "+ malta_tostada.toString() + "</td>";
+    }
+    if (minLupulo_tettnanger < lupulo_tettnanger) {
+	fila2 += "<td class=\"table-success\">Lúpulo tettnanger: "+ lupulo_tettnanger.toString() + "</td>";
+    } else {
+	fila2 += "<td class=\"table-danger\">Lúpulo tettnanger: "+ lupulo_tettnanger.toString() + "</td>";
+    }
+    if (minLevadura_lagger < levadura_lagger) {
+	fila2 += "<td class=\"table-success\">Levadura lagger: "+ levadura_lagger.toString() + "</td>";
+    } else {
+	fila2 += "<td class=\"table-danger\">Levadura lagger: "+ levadura_lagger.toString() + "</td>";
+    }
+    if (actorString == "3" || actorString == "4") {
+	if (actorString == "4") { fila2 = "<tr>"; }
+	if (0 < lotes_stout) {
+	    fila2 += "<td class=\"table-success\">Stout: "+ lotes_stout.toString() + "</td>";
+	} else {
+	    fila2 += "<td class=\"table-danger\">Stout: "+ lotes_stout.toString() + "</td>";
+	}
+    }
+    if (minMalta_negra < malta_negra) {
+	fila3 = "<tr> <td class=\"table-success\">Malta negra: "+ malta_negra.toString() + "</td>";
+    } else {
+	fila3 = "<tr> <td class=\"table-danger\">Malta negra: "+ malta_negra.toString() + "</td>";
+    }
+    if (minLupulo_centennial < lupulo_centennial) {
+	fila3 += "<td class=\"table-success\">Lúpulo centennial: "+ lupulo_centennial.toString() + "</td>";
+    } else {
+	fila3 += "<td class=\"table-danger\">Lúpulo centennial: "+ lupulo_centennial.toString() + "</td>";
+    }
+    if (minMalta_crystal < malta_crystal) {
+	fila4 = "<tr> <td class=\"table-success\">Malta crystal: "+ malta_crystal.toString() + "</td>";
+    } else {
+	fila4 = "<tr> <td class=\"table-danger\">Malta crystal: "+ malta_crystal.toString() + "</td>";
+    }
+    if (minMalta_chocolate < malta_chocolate) {
+	fila5 = "<tr> <td class=\"table-success\">Malta chocolate: "+ malta_chocolate.toString() + "</td>";
+    } else {
+	fila5 = "<tr> <td class=\"table-danger\">Malta chocolate: "+ malta_chocolate.toString() + "</td>";
+    }
+    if (minMalta_caramelo < malta_caramelo) {
+	fila6 = "<tr> <td class=\"table-success\">Malta caramelo: "+ malta_caramelo.toString() + "</td>";
+    } else {
+	fila6 = "<tr> <td class=\"table-danger\">Malta caramelo: "+ malta_caramelo.toString() + "</td>";
+    }
+    
+    // Después de dar valor a todas las variables (materias primas+lotes), los imprimimos en el popup.
+    switch (actorString) {
+
+    case "0" :
+	$("popup1").text("");
+	$("popup1").append("<br><br>DATOS DEL AGRICULTOR: " + stock.nomUsuario + "<br>Email: " + stock.email);
+	$("popup1").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th></tr></thead> <tbody>'+ fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
+	break;
+
+    case "1" :
+	$("popup1").text("");
+	$("popup1").append("<br><br>DATOS DE LA COOPERATIVA: " + stock.nomUsuario + "<br>Email: " + stock.email);
+	$("popup1").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th></tr></thead> <tbody>'+  fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
+	break;
+	
+    case "3" :
+	$("popup1").text("");
+	$("popup1").append("<br><br>DATOS DE LA FÁBRICA: " + stock.nomUsuario + "<br>Email: " + stock.email);
+	$("popup1").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th><th>Lotes</th></tr></thead>	<tbody>'+ fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
+	break;
+	
+    case "4" :
+	$("popup1").text("");
+	$("popup1").append("<br><br>DATOS DEL RETAILER: " + stock.nomUsuario + "<br>Email: " + stock.email);
+	$("popup1").append('<table class=\"table\"><thead><tr><th>Lotes</th></tr></thead>	<tbody>'+  fila1 + "</tr>" + fila2 + "</tr>");
+	break;
+    default :  
+    }
+}
+
+//^^^^^^^^^^^^^^^^
+
+
+
+
+
+
 /* JSON local por si el servidor falla o no hay datos */
 
 ////// JSONS VIEJOSSSS /////
@@ -1069,3 +1226,4 @@ var pedido = {
   "idPedido": 30,
   "fecha": "ago 12, 1911"
 }
+
