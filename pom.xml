@@ -100,7 +100,6 @@
         <version>3.3.0</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.fazecast/jSerialComm -->
-<<<<<<< HEAD
   <dependency>
       <groupId>com.fazecast</groupId>
       <artifactId>jSerialComm</artifactId>
@@ -122,14 +121,6 @@
   </dependency>
   
   
-=======
-	<dependency>
-	    <groupId>com.fazecast</groupId>
-	    <artifactId>jSerialComm</artifactId>
-	    <version>2.5.0</version>
-	</dependency>
-
->>>>>>> equipo2
 
   </dependencies>
   
