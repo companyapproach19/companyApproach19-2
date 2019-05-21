@@ -237,7 +237,12 @@ body {
     margin-bottom: -15%;
     color: #495057;
 }
-.inner{
-  position: relative;
-  text-align: center;
+#popup1{
+  transform: translateX(-100%);
+}
+.close{
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  font-size: 1.5rem;
 }
