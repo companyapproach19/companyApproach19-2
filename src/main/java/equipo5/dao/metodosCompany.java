@@ -1337,7 +1337,7 @@ public class metodosCompany {
             ResultSet rs3 = pst3.executeQuery(query3);
             while(rs3.next()) {
                 MateriaPrima mp = extraerMateriaPrima(rs3.getInt(2));
-                StockMP nuevo = new StockMP(mp, rs3.getDate(3), rs3.getDate(4), rs3.getInt(5), rs3.getInt(6), null);
+                StockMP nuevo = new StockMP(mp, rs3.getDate(3), rs3.getDate(4), rs3.getInt(5), rs3.getInt(6), "3");//qué hacía este puto actor a null????? (by vuestra jefa)
                 aDevolver.add(nuevo);
             }
             pst3.close();

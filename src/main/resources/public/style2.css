@@ -237,3 +237,7 @@ body {
     margin-bottom: -15%;
     color: #495057;
 }
+.inner{
+  position: relative;
+  text-align: center;
+}
