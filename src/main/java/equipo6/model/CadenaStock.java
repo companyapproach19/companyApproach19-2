@@ -50,7 +50,7 @@ public class CadenaStock {
 		return cantidad;
 	}
 	
-	public static boolean actualizar_stock(OrdenTrazabilidad or_origen) throws ClassNotFoundException, SQLException, NotInDatabaseException, NullException 
+	public static boolean actualizar_stock(OrdenTrazabilidad or_origen) throws Throwable 
 	{
 		Actor origen;
 		List<StockMP> lista_stock_mp;
@@ -62,6 +62,7 @@ public class CadenaStock {
 			for(StockMP stock_mp : lista_stock_mp) {
 				metodosCompany.insertarStockMP(stock_mp);
 			}
+			
 			return true;
 		}
 		return false;

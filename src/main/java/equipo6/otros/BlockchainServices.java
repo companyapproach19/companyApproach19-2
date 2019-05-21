@@ -17,6 +17,7 @@ import equipo5.dao.NullException;
 import equipo5.dao.metodosCompany;
 import equipo5.model.Cadena;
 import equipo5.model.NotInDatabaseException;
+import equipo5.model.StockLote;
 import equipo5.model.StockMP;
 import equipo6.model.DatosContainer;
 import equipo6.model.geolocalizacion;
@@ -75,13 +76,15 @@ public class BlockchainServices{
 	}
 
 
-	private boolean operaciones_stock(OrdenTrazabilidad orden) throws ClassNotFoundException, SQLException, NotInDatabaseException, RuntimeException, NullException 
+	private boolean operaciones_stock(OrdenTrazabilidad orden) throws Throwable 
 	{
 		List <MateriaPrima> list_ele;
 		Cadena cadenaDestino;
 		OrdenTrazabilidad orden_origen;
 		Bloque super_bloque;
 		boolean resp;
+		List<StockLote> list_stock_lotes;
+		StockLote new_lote;
 
 		list_ele = get_materia_prima(orden.getProductosPedidos());
 		resp = true;
@@ -103,9 +106,23 @@ public class BlockchainServices{
 				break;
 
 			case 4:
-
-				for(MateriaPrima materia_prima : list_ele)
-					metodosCompany.insertarStockMP(new StockMP(materia_prima, null, null, orden.getId(), orden.getIdPedido(), orden.getActorOrigen().getId()));
+				if(orden.getActorOrigen().getTipoActor() != 4)
+				{
+					for(MateriaPrima materia_prima : list_ele)
+						metodosCompany.insertarStockMP(new StockMP(materia_prima, null, null, orden.getId(), orden.getIdPedido(), orden.getActorOrigen().getId()));
+				}
+				else 
+				{
+					cadenaDestino = metodosCompany.extraerCadena(orden.getId());
+					super_bloque = cadenaDestino.getBloque(-1).get(0);
+					orden_origen = metodosCompany.extraerOrdenTrazabilidad(super_bloque.getIdCadena());
+					list_stock_lotes = metodosCompany.extraerStockLote(orden_origen.getActorOrigen(), orden_origen.getId());
+					for(StockLote stock_lote : list_stock_lotes) {
+						new_lote = new StockLote(stock_lote.getLote(), null, null, orden.getId(), orden.getId(), orden.getActorOrigen().getId());
+						metodosCompany.insertarStockLote(stock_lote);
+						metodosCompany.insertarStockLote(new_lote);
+					}
+				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
