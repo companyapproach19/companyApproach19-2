@@ -937,6 +937,20 @@ function imprimeStock(json, i){
 
 
 function parseJSON (stock,actorString) {
+	
+var minMalta_palida = 261;
+var minMalta_tostada = 21;
+var minMalta_negra = 10;
+var minMalta_crystal = 6;
+var minMalta_chocolate = 5;
+var minMalta_caramelo = 21;
+var minMalta_pilsner = 173;
+var minMalta_munich = 61;
+var minLupulo_perle = 1;
+var minLupulo_tettnanger = 5;
+var minLupulo_centennial = 3;
+var minLevadura_ale = 1;
+var minLevadura_lagger = 1;
 
     // Recorremos los campos del JSON. Si alguna de las materias primas o lotes no es un campo del json, se le da el valor 0 a la variable.
     // Si alguna de las materias prima coincide con algún campo del JSON, se le da el valor que tenga en el JSON a la variable.
