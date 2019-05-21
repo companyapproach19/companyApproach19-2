@@ -44,7 +44,7 @@ function pedirIds(actor, estado){
 		
 		console.log(idsOrdenes);
 
-		if(estado == 1) pedirIds2(actor,2);
+		//if(estado == 1) pedirIds2(actor,2);
 	     	
 		//paso por parametro a imprimir
 		
@@ -264,26 +264,31 @@ function cargar_popups(actor)
 
 
 function compruebaStock(json){
-alert("Me faltan parametros para comprueba stock, de momento no se comprueba XD");
+//alert("Me faltan parametros para comprueba stock, de momento no se comprueba XD");
 var bolo = false;
+	
+var cerveza = "stout";
+//var cerveza = "pilsner";
 
 //Mitica mierda de ajax
-/* var request = $.ajax({
+ var request = $.ajax({
       
 			url : '/stockSuficienteFabricarLote',    // la URL para la petición
-			data : 'json='.concat(json),
-			type : 'POST',
+			data :"tipoCerveza="+cerveza,
+			type : 'GET',
 			dataType : 'json',  // el tipo de información que se espera de respuesta
  
 		});
  
 		request.done(function(data){
-      
-		for (var key of Object.keys(data)) {
-			var aux = data.key
-			bolo = aux;
-			console.log("valor de la respuesta es" + bolo);
-					  	}
+      		
+			if (data.tieneStock.equals(true)){
+			//alert("Hay stock suficiente");
+			bolo = true;
+			} else {
+			//alert("No hay stock suficiente, quieres continuar?");
+			bolo = false;
+			}
     
 		});
  
@@ -292,7 +297,7 @@ var bolo = false;
 			alert("Error en el servidor comprobando stock ");
 	 
 		});
-*/
+
 return bolo;
 }
 
@@ -467,17 +472,17 @@ function mandarids(urlpar){
   var aux2;
   for (var i = 1; i< idsOrdenes.length+1; i++) {
   
-  	var x = i.toString(10);
-	str2 = str.concat(x);
-	aux = document.getElementById(str2);
-	if (aux.checked){		
-		array[i-1] = 1;
+		var x = i.toString(10);
+		str2 = str.concat(x);
+		aux = document.getElementById(str2);
+		if (aux.checked){		
+			array[i-1] = 1;
 		  
 		 
 			var primerID = idsOrdenes[i-1];
 			
-			
-			for (var j = 1; j< idsOrdenes2.length+1; j++) {
+			if(urlpar == 2){
+				for (var j = 1; j< idsOrdenes.length+1; j++) {
   
 							var y = j.toString(10);
 							str3 = stri.concat(y);
@@ -503,7 +508,7 @@ function mandarids(urlpar){
 					 
 							request.fail(function(data) {
 						 
-								alert("error al enlazar pedidos");
+								alert("error enlazando pedidos");
 							
 							});
 							
@@ -511,7 +516,9 @@ function mandarids(urlpar){
 						
 				
 				
-			}
+				}
+			
+			}	
 			
 			
 			
@@ -586,33 +593,32 @@ function mandarids(urlpar){
 						break;
 					}
 
-					if(urlpar == 2){
+					
 						
-						var str3 = '';
+						
 						
 					
 
 
 
-				}	//fin del for
-
-			//}llave del else inutil
+				}		
 						  
 			} //fin del if
 
 
-		else {
+		}else {
 			array[i-1] = -1;
 		}
     
-    }
+		
 	
 	}
-	console.log("ARRAY ES  "+array);
-	//console.log("EL ORIYINAL ES  "+idsOrdenes);  //(no lo machaca)
+		console.log("ARRAY ES  "+array);
+		//console.log("EL ORIYINAL ES  "+idsOrdenes);  //(no lo machaca)
 	
 	
 }
+
 
 
 

@@ -32,6 +32,7 @@
                     <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
+
                                 <a class="nav-link" id="home" data-toggle="submit" href="#home" role="submit" aria-controls="home" aria-selected="true" onclick="window.location.href='/';">Log out</a> 
                             </li>
                         </ul>
@@ -55,12 +56,11 @@
                                         <a class="btn" href="tiendaPedidosCompletados.html">Pedidos completados</a>
                                         <a class="btn" href="prediccionRetailer.html">Método predictivo</a>
 
-                                        <div id="popup1" style="display: none;">
-                                                    <div class="inner">
-                                                        <h3>* Stock del retailer</h3>
-                                                        <popup1></popup1>
-                                                    </div>
-                                                </div>
+
+                                        <p id="mostrar1"></p>
+					    <script>
+						    document.getElementById("mostrar1").innerHTML=pedirStock(4,1);
+					    </script>
                                                      
                             </div>
 
@@ -78,6 +78,3 @@
 </div> 
 </body>
 </html> 
-<script>
- pedirStock(4,1);
-</script>
