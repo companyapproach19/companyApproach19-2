@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,9 +8,9 @@
 	  <!--ZONA SCRIPTS EXTERNOS NECESARIOS -->
 	         
 	  <head>
-		  <meta charset="utf-8">
-		  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		  <meta name="viewport" content="width=device-width, initial-scale=1">
+              <meta charset="utf-8">
+              <meta http-equiv="X-UA-Compatible" content="IE=edge">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
 	      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -77,44 +78,22 @@
 		      // el tipo de información que se espera de respuesta
 		      dataType : 'json',
 		      });
-		     request.done(function(data){
+		      request.done(function(data){
 			 // Por si acaso lo lanzamos tambien por consola
 		    	 console.log(data);
+		    	 var i=0;
 		    	 var items=[];
+		    	 var nombres = ['Tipo', 'Agricultor','Cooperativa', 'Fábrica','Fecha embotellado', 'Temperatura máxima *','Temperatura mínima *', 'Temperatura máxima **','Temperatura mínima **'];
 			 for(var ele of [data]){
 	    		  items.push("<tr>");
 			    	$.each(ele,function(key,val){
-						          items.push("<tr>");
-	    		  		                  items.push("<th>Tipo</th>");
-				  	                  items.push("<td id=''"+key+"''>"+val.Tipo+"</td>");
-				  			  items.push("<tr>");
-							  items.push("<th>Agricultor</th>");
-							  items.push("<td id=''"+key+"''>"+val.Agricultor+"</td>");
-							  items.push("<tr>");
-							  items.push("<th>Cooperativa</th>");
-							  items.push("<td id=''"+key+"''>"+val.Cooperativa+"</td>");
-							  items.push("<tr>");
-							  items.push("<th>Temperatura máxima *</th>");
-							  items.push("<td id=''"+key+"''>"+val.TemperaturaMax1+"</td>");
-							  items.push("<tr>");
-							  items.push("<th>Temperatura mínima *</th>");
-							  items.push("<td id=''"+key+"''>"+val.TemperaturaMin1+"</td>");				  
-							  items.push("<tr>");
-							  items.push("<th>Fábrica</th>");
-							  items.push("<td id=''"+key+"''>"+val.Fabrica+"</td>");
-							  items.push("<tr>");
-							  items.push("<th>Fecha embotellado</th>");
-							  items.push("<td id=''"+key+"''>"+val.fecha_embotellado+"</td>");
-							  items.push("<tr>");
-							  items.push("<th>Temperatura máxima **</th>");
-							  items.push("<td id=''"+key+"''>"+val.TemperaturaMax2+"</td>");
-							  items.push("<tr>");
-							  items.push("<th>Temperatura mínima **</th>");
-							  items.push("<td id=''"+key+"''>"+val.TemperaturaMin2+"</td>");
-							  items.push("<tr>");
-						  });
+			    				items.push("<th>"+nombres[i]+"</th>");
+							items.push("<td id=''"+key+"''>"+val+"</td>");
+							items.push("<tr>");   
+							i=i+1;   
+			        });
 			 }
-						  $("<tbody/>",{html:items.join("")}).appendTo("table");
+			$("<tbody/>",{html:items.join("")}).appendTo("table");
 		     });
 		   
 		     request.fail(function(data) {
