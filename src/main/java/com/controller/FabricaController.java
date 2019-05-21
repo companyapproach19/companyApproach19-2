@@ -96,9 +96,9 @@ import equipo8.model.GeneradorQR2;
                         lista.get("maltaCaramelo") >= 4*kilosPedidos && lista.get("lupuloCentennial") >= 3*kilosPedidos && lista.get("levaduraAle") >= 1*kilosPedidos ) {
                 
                    Lote lote=Principal.crearLote("stout");
-           		   lote.setQr(GeneradorQR2.generadorQR(idOrden));
+           		   lote.setQr(GeneradorQR2.generadorQR(idPedido));
                    bl.guardarOrden(lote);
-                    com.controller.StockController.setCantidadLote(actor,lote,idOrden);
+                   com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                     
                 }
                 else {
@@ -110,7 +110,7 @@ import equipo8.model.GeneradorQR2;
                 if(lista.get("maltaPilsner") >= 173*kilosPedidos && lista.get("maltaCaramelo") >= 21*kilosPedidos && lista.get("lupuloPerle") >= 1*kilosPedidos &&
                         lista.get("lupuloTettnanger") >= 2*kilosPedidos && lista.get("levaduraLager") >= 1*kilosPedidos) {
                     Lote lote=Principal.crearLote("pilsner");
-            		lote.setQr(GeneradorQR2.generadorQR(idOrden));
+            		lote.setQr(GeneradorQR2.generadorQR(idPedido));
                     bl.guardarOrden(lote);
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                 }
@@ -457,6 +457,7 @@ import equipo8.model.GeneradorQR2;
 	                prod.getCant_lupulo_centennial()>=(3*cantLotes) &&
 	                prod.getCant_levadura_ale()>=(1*cantLotes)) {
 	                    Lote lote=Principal.crearLote("stout");
+	            		   lote.setQr(GeneradorQR2.generadorQR(orden));
 	                    bl.guardarOrden(lote);
 	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
 
@@ -467,6 +468,7 @@ import equipo8.model.GeneradorQR2;
 	                prod.getCant_lupulo_tettnanger()>=(2*cantLotes) &&
 	                prod.getCant_levadura_lager()>=(1*cantLotes)) {
 	                    Lote lote=Principal.crearLote("pilsner");
+	            		   lote.setQr(GeneradorQR2.generadorQR(orden));
 	                    bl.guardarOrden(lote);
 	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
 	            }
