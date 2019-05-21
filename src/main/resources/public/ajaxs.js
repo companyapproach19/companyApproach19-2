@@ -642,18 +642,23 @@ var idsOrdenes2 = [];
 function pedirStock(actor,i) {
 
 	var actor2;
+	var act;
 	switch (actor){
 		case 0:
 		actor2=10;
+		act="0";
 		break;
 		case 1:
 		actor2=6;
+		act="1";
 		break;
 		case 3:
 		actor2=8;
+		act="3";
 		break;
 		case 4:
 		actor2=9;
+		act="4";
 		break;
 		}
 	$("#popup"+i).show();
@@ -680,7 +685,9 @@ function pedirStock(actor,i) {
 		//paso por parametro a imprimir
 		
 		//rellenaPopup(pedido, actor,i);
-		imprimeStock(data, i); //maybe parse?
+		//imprimeStock(data, i); //maybe parse?
+		parseJSON(data,act);
+		
   
     });
     request.fail(function(data) {
@@ -921,6 +928,154 @@ function imprimeStock(json, i){
 	$("popup"+i).append(stock);
 }
 
+
+
+
+
+
+
+
+
+function parseJSON (stock,actorString) {
+
+    // Recorremos los campos del JSON. Si alguna de las materias primas o lotes no es un campo del json, se le da el valor 0 a la variable.
+    // Si alguna de las materias prima coincide con algún campo del JSON, se le da el valor que tenga en el JSON a la variable.
+    var malta_palida,malta_tostada,malta_negra,malta_crystal,malta_chocolate,malta_caramelo,malta_pilsner,malta_munich,lupulo_perle,lupulo_tettnanger,lupulo_centennial,levadura_ale,levadura_lagger,lotes_pilsner,lotes_stout;
+    var array = ['malta_palida','malta_tostada','malta_negra','malta_crystal','malta_chocolate','malta_caramelo','malta_pilsner','malta_munich','lupulo_perle','lupulo_tettnanger','lupulo_centennial','levadura_ale','levadura_lagger','lotes_pilsner','lotes_stout'];
+    var array2 = ['MaltaBasePalida','CebadaTostada','MaltaNegra','MaltaCrystal','MaltaChocolate','MaltaCaramelo','MaltaPilsner','MaltaMunich','LupuloPerle','LupuloTettnanger','LupuloCentennial','LevaduraAle','LevaduraLager','lotes_pilsner','lotes_stout'];
+    for (j = 0; j < array.length; j++) {
+	var varName = array[j];
+	var content = eval('stock.stock.'+varName);
+	if (typeof content != 'undefined' && content != "") {
+	    eval(varName+"="+content.toString()+";");
+	    console.log(varName + " json: " + content);
+	    console.log(varName + " variable: " + eval(varName));
+	}
+	else {
+	    console.log(varName + " json: " + content);
+	    content = eval('stock.stock.'+ array2[j]);
+	    if (typeof content != 'undefined' && content != "") {
+		eval(varName+"="+content.toString()+";");
+	    }
+	    else {
+		eval(varName+"=0;");
+	    }
+	    console.log(array2[j] + " json: " + content);
+	    console.log(array2[j] + " variable: " + eval(array[j]));
+	}
+    }
+    var fila1="";
+    var fila2="";
+    var fila3="";
+    if (minMalta_palida < malta_palida) {
+	fila1 = "<tr> <td class=\"table-success\">Malta pálida: "+ malta_palida.toString() + "</td>";
+    } else {
+	fila1 = "<tr> <td class=\"table-danger\">Malta pálida: "+ malta_palida.toString() + "</td>";
+    }
+    if (minLupulo_perle < lupulo_perle) {
+	fila1 += "<td class=\"table-success\">Lúpulo perle: "+ lupulo_perle.toString() + "</td>";
+    } else {
+	fila1 += "<td class=\"table-danger\">Lúpulo perle: "+ lupulo_perle.toString() + "</td>";
+    }
+    if (minLevadura_ale < levadura_ale) {
+	fila1 += "<td class=\"table-success\">Levadura ale: "+ levadura_ale.toString() + "</td>";
+    } else {
+	fila1 += "<td class=\"table-danger\">Levadura ale: "+ levadura_ale.toString() + "</td>";
+    }
+    if (actorString == "3" || actorString == "4") {
+	if (actorString == "4") { fila1 = "<tr>"; }
+	if (0 < lotes_pilsner) {
+	    fila1 += "<td class=\"table-success\">Pilsner: "+ lotes_pilsner.toString() + "</td>";
+	} else {
+	    fila1 += "<td class=\"table-danger\">Pilsner: "+ lotes_pilsner.toString() + "</td>";
+	}
+    }
+    if (minMalta_tostada < malta_tostada) {
+	fila2 = "<tr> <td class=\"table-success\">Malta tostada: "+ malta_tostada.toString() + "</td>";
+    } else {
+	fila2 = "<tr> <td class=\"table-danger\">Malta tostada: "+ malta_tostada.toString() + "</td>";
+    }
+    if (minLupulo_tettnanger < lupulo_tettnanger) {
+	fila2 += "<td class=\"table-success\">Lúpulo tettnanger: "+ lupulo_tettnanger.toString() + "</td>";
+    } else {
+	fila2 += "<td class=\"table-danger\">Lúpulo tettnanger: "+ lupulo_tettnanger.toString() + "</td>";
+    }
+    if (minLevadura_lagger < levadura_lagger) {
+	fila2 += "<td class=\"table-success\">Levadura lagger: "+ levadura_lagger.toString() + "</td>";
+    } else {
+	fila2 += "<td class=\"table-danger\">Levadura lagger: "+ levadura_lagger.toString() + "</td>";
+    }
+    if (actorString == "3" || actorString == "4") {
+	if (actorString == "4") { fila2 = "<tr>"; }
+	if (0 < lotes_stout) {
+	    fila2 += "<td class=\"table-success\">Stout: "+ lotes_stout.toString() + "</td>";
+	} else {
+	    fila2 += "<td class=\"table-danger\">Stout: "+ lotes_stout.toString() + "</td>";
+	}
+    }
+    if (minMalta_negra < malta_negra) {
+	fila3 = "<tr> <td class=\"table-success\">Malta negra: "+ malta_negra.toString() + "</td>";
+    } else {
+	fila3 = "<tr> <td class=\"table-danger\">Malta negra: "+ malta_negra.toString() + "</td>";
+    }
+    if (minLupulo_centennial < lupulo_centennial) {
+	fila3 += "<td class=\"table-success\">Lúpulo centennial: "+ lupulo_centennial.toString() + "</td>";
+    } else {
+	fila3 += "<td class=\"table-danger\">Lúpulo centennial: "+ lupulo_centennial.toString() + "</td>";
+    }
+    if (minMalta_crystal < malta_crystal) {
+	fila4 = "<tr> <td class=\"table-success\">Malta crystal: "+ malta_crystal.toString() + "</td>";
+    } else {
+	fila4 = "<tr> <td class=\"table-danger\">Malta crystal: "+ malta_crystal.toString() + "</td>";
+    }
+    if (minMalta_chocolate < malta_chocolate) {
+	fila5 = "<tr> <td class=\"table-success\">Malta chocolate: "+ malta_chocolate.toString() + "</td>";
+    } else {
+	fila5 = "<tr> <td class=\"table-danger\">Malta chocolate: "+ malta_chocolate.toString() + "</td>";
+    }
+    if (minMalta_caramelo < malta_caramelo) {
+	fila6 = "<tr> <td class=\"table-success\">Malta caramelo: "+ malta_caramelo.toString() + "</td>";
+    } else {
+	fila6 = "<tr> <td class=\"table-danger\">Malta caramelo: "+ malta_caramelo.toString() + "</td>";
+    }
+    
+    // Después de dar valor a todas las variables (materias primas+lotes), los imprimimos en el popup.
+    switch (actorString) {
+
+    case "0" :
+	$("popup1").text("");
+	$("popup1").append("<br><br>DATOS DEL AGRICULTOR: " + stock.nomUsuario + "<br>Email: " + stock.email);
+	$("popup1").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th></tr></thead> <tbody>'+ fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
+	break;
+
+    case "1" :
+	$("popup1").text("");
+	$("popup1").append("<br><br>DATOS DE LA COOPERATIVA: " + stock.nomUsuario + "<br>Email: " + stock.email);
+	$("popup1").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th></tr></thead> <tbody>'+  fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
+	break;
+	
+    case "3" :
+	$("popup1").text("");
+	$("popup1").append("<br><br>DATOS DE LA FÁBRICA: " + stock.nomUsuario + "<br>Email: " + stock.email);
+	$("popup1").append('<table class=\"table\"><thead><tr><th>Malta</th><th>Lúpulo</th><th>Levadura</th><th>Lotes</th></tr></thead>	<tbody>'+ fila1 + "</tr>" + fila2 + "</tr>" + fila3 + "</tr>" + fila4 + "</tr>" + fila5 + "</tr>" + fila6 + "</tr></tbody>");
+	break;
+	
+    case "4" :
+	$("popup1").text("");
+	$("popup1").append("<br><br>DATOS DEL RETAILER: " + stock.nomUsuario + "<br>Email: " + stock.email);
+	$("popup1").append('<table class=\"table\"><thead><tr><th>Lotes</th></tr></thead>	<tbody>'+  fila1 + "</tr>" + fila2 + "</tr>");
+	break;
+    default :  
+    }
+}
+
+
+
+
+
+
+
+
 /* JSON local por si el servidor falla o no hay datos */
 
 ////// JSONS VIEJOSSSS /////
@@ -1052,3 +1207,4 @@ var pedido = {
   "idPedido": 30,
   "fecha": "ago 12, 1911"
 }
+
