@@ -202,10 +202,10 @@ function cargar_popups(actor)
                 '<div class="modal-dialog modal-dialog-scrollable" role="document">'+
                 '<div class="modal-content">'+
                 '<div class="modal-header">'+
-                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                '<button type="button" class="close" style="border: none; cursor: pointer; background: transparent; font-size: 1.5rem;" data-dismiss="modal" aria-label="Close">'+
                 '<span aria-hidden="true">&times;</span>'+
                 '</button>'+
-                '<div id="popup'+i+'" style="display: none;">'+  
+                '<div id="popup'+i+'" style="display: none;transform: translateX(-100%);">'+  
                 '<div class="inner">'+                      
                 '<h1>PEDIDO</h1>'+                     
                 '<popup'+i+'></popup'+i+'>'+
