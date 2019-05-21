@@ -917,7 +917,7 @@ public class metodosCompany {
 			ResultSet rs2 = pst2.executeQuery(query2);
 			while(rs2.next()){
 				Lote loteBD = extraerLote(rs2.getInt(2));
-				StockLote nuevo = new StockLote(loteBD, rs2.getDate(3), rs2.getDate(4), rs2.getInt(5), rs2.getInt(6), null);
+				StockLote nuevo = new StockLote(loteBD, rs2.getDate(3), rs2.getDate(4), rs2.getInt(5), rs2.getInt(6), "3");
 				buscado=estaLote(buscado, nuevo);
 			}
 			pst2.close();
