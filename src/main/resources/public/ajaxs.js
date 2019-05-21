@@ -485,7 +485,8 @@ function mandarids(urlpar){
 			var primerID = idsOrdenes[i-1];
 			
 			if(urlpar == 2){
-				for (var j = 1; j< idsOrdenes.length+1; j++) {
+				console.log("quieres comenzar produccion");
+				for (var j = 1; j< idsOrdenes2.length+1; j++) {
   
 							var y = j.toString(10);
 							str3 = stri.concat(y);
