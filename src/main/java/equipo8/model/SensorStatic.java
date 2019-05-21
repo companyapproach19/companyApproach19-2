@@ -86,12 +86,12 @@ public class SensorStatic{
 				try {
 					Registro reg = crearRegistro(idOrdentrazabilidad, idPedido);
 					System.out.println(reg);
-//					try {
-//						blockchain.guardarOrden(reg);
-//					} catch (Throwable e) {
-//						System.err.println("Error al enviar Registro al blockchain!");
-//						e.printStackTrace();
-//					}
+					try {
+						blockchain.guardarOrden(reg);
+					} catch (Throwable e) {
+						System.err.println("Error al enviar Registro al blockchain!");
+						e.printStackTrace();
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -206,12 +206,12 @@ public class SensorStatic{
 				try {
 					Registro reg = crearRegistro(idOrdentrazabilidad, idPedido);
 					System.out.println(reg);
-//					try {
-//						blockchain.guardarOrden(reg);
-//					} catch (Throwable e) {
-//						System.err.println("Error al enviar Registro al blockchain!");
-//						e.printStackTrace();
-//					}
+					try {
+						blockchain.guardarOrden(reg);
+					} catch (Throwable e) {
+						System.err.println("Error al enviar Registro al blockchain!");
+						e.printStackTrace();
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -273,7 +273,7 @@ public class SensorStatic{
 
 		//Registro registro= new Registro(idPedido, idOrdentrazabilidad,  fechainicio.toString(), fecha.toString(), Tmax, Tmin);
 		log.close();
-		if(Tmax>=27 && !mailMandado) {
+		if(Tmax>=31 && !mailMandado) {
 			new SendEmail("cb1508@hotmail.com","Alerta","Temperatura Excedida!",idPedido);
 			mailMandado = true;
 		}
