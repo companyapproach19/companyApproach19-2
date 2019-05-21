@@ -88,7 +88,7 @@ import equipo8.model.GeneradorQR2;
             		lista.get("maltaCrystal")!=null && lista.get("maltaChocolate")!=null && lista.get("maltaCaramelo")!=null && lista.get("lupuloCentennial")!=null &&lista.get("levaduraAle")!=null
             		&& lista.get("maltaPilsner")!=null &&lista.get("lupuloPerle")!=null && lista.get("lupuloTettnanger")!=null &&lista.get("levaduraLager")!=null) {
             */
-            
+            System.out.println("-----------------------------------------------"+tipo);
             //LAS CANTIDADES ESTAN EN GRAMOS
             if(tipo=="stout") {
                 if(lista.get("maltaBasePalida") >= (261*kilosPedidos) && lista.get("maltaMunich") >= (61*kilosPedidos) && lista.get("cebadaTostada") >= 21*kilosPedidos &&
