@@ -147,7 +147,7 @@ function cargar_popups2(actor)
         	var modalN = 
                 '<div class="form-group">'+
                 '<input type="checkbox" name="producto'+i+'" id="producto2'+i+'" value="Pedido id'+i+'">'+
-                '<label for="producto'+i+'" id="label2'+i+'">Pedido '+idsOrdenes2[i-1]+'</label>'+
+                '<label for="producto2'+i+'" id="label2'+i+'">Pedido '+idsOrdenes2[i-1]+'</label>'+
                 '<a href="" data-toggle="modal" onclick="pedirPedido2('+(i-1)+','+actor+','+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>'+
                 '</div>'+                                                          
                 '<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">'+
