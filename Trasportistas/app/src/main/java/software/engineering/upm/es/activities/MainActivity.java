@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                     .build();
 
             servicio = retrofit.create(PedidosAPI.class);
-
             Call<Object> peticion = servicio.getPedidosL();
             // Toast.makeText(this,peticion.toString(), Toast.LENGTH_LONG).show();
             peticion.enqueue(new ObtenerResultados());
