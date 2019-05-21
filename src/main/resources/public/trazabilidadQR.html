@@ -1,4 +1,69 @@
-   <!--SCRIPT PETICION A BLOCKCHAIN -->
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+	  <!--ZONA SCRIPTS EXTERNOS NECESARIOS -->
+	         
+	  <head>
+		  <meta charset="utf-8">
+		  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+	      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  </head>
+	  
+	  
+	  <body>
+	   <center>
+	
+	   
+	 <!--ZONA TITULOS E IMAGEN -->
+	 
+	 <div class="container">
+	     <!--Título de la pestania en el navegador -->       
+		     <title>Trazabilidad Cerveza</title>
+		    
+		 	<!--Título ppal -->   
+		 	<br>
+		 	<br>
+			<h1 align="left"><font face="TAHOMA" size=6>Trazabilidad</font></h1>
+			<img src="https://images.vexels.com/media/users/3/144118/isolated/lists/31093a4558d1aa47a6fcec2a174f2754-signo-de-cerveza-de-neon.png" width="150" height="150" style="position:relative; top:-130px; left:70px"/>
+  			<br>		
+			
+	</div>
+	
+	
+	 <!--ZONA DIBUJAR TABLA -->
+	 
+	    <div class="container">
+		    <table class="table table-bordered table-striped  table-responsive">
+		    	<thead>
+		     	
+		     	</thead>
+		      	<tbody> </tbody>
+		     </table>
+		</div>
+    
+	    
+	        <!--ZONA SCRIPTS -->
+	    
+	    
+                <!--SCRIPT GET IDPEDIDO -->
+	        <!--Este script recupera el numero que se le pasa después del # a la vista de trazabilidadQR.html -->  
+		<p id="idLote"></p> <!--ya no pone el #-->
+		<script>
+			function getID() {
+			  return window.location.hash;
+			}
+		</script>
+		
+		
+	        <!--SCRIPT PETICION A BLOCKCHAIN -->
 		<!--Petición para conseguir json trazabilidad --> 
 		<script>
 		window.onload = hacerPeticion;
@@ -15,66 +80,17 @@
 		     request.done(function(data){
 			 // Por si acaso lo lanzamos tambien por consola
 		    	 console.log(data);
+		    	 var i=0;
 		    	 var items=[];
+		    	 var nombres = ['Tipo', 'Agricultor','Cooperativa', 'Fábrica','Fecha embotellado', 'Temperatura máxima *','Temperatura mínima *', 'Temperatura máxima **','Temperatura mínima **'];
 			 for(var ele of [data]){
 	    		  items.push("<tr>");
 			    	$.each(ele,function(key,val){
-								  switch (val) {
-									  case '20':
-									    items.push("<th>Tipo</th>");
+			    							
+	 										items.push("<th>"+nombres[i]+"</th>");
 							  		  		items.push("<td id=''"+key+"''>"+val+"</td>");
-							  		  		items.push("<tr>");
-							  		  		break;
-									  case 'Agricultor':
-									    items.push("<th>Agricultor</th>");
-							  		  		items.push("<td id=''"+key+"''>"+val+"</td>");
-							  		  		items.push("<tr>");
-							  		  		break;
-									  case 'Cooperativa':
-									   items.push("<th>Cooperativa</th>");
-							  		  		items.push("<td id=''"+key+"''>"+val+"</td>");
-							  		  		items.push("<tr>");
-							  		  		break;
-									  case 'Fabrica':
-									    items.push("<th>Fábrica</th>");
-							  		  		items.push("<td id=''"+key+"''>"+val+"</td>");
-							  		  		items.push("<tr>");
-							  		  		break;
-									 case 'fecha_embotellado':
-									    items.push("<th>Fecha embotellado</th>");
-							  		  		items.push("<td id=''"+key+"''>"+val+"</td>");
-							  		  		items.push("<tr>");
-							  		  		break;
-									    
-									  case 'TemperaturaMax1':
-									  items.push("<th>Temperatura máxima *</th>");
-							  		  		items.push("<td id=''"+key+"''>"+val+"</td>");
-							  		  		items.push("<tr>");
-							  		  		break;
-									   case 'TemperaturaMin1':
-									    items.push("<th>Temperatura mínima *</th>");
-							  		  		items.push("<td id=''"+key+"''>"+val+"</td>");
-							  		  		items.push("<tr>");
-											break;								    
-									     case 'TemperaturaMax2':
-									    items.push("<th>Temperatura máxima **</th>");
-							  		  		items.push("<td id=''"+key+"''>"+val+"</td>");
-							  		  		items.push("<tr>");
-									    break;
-									     case 'TemperaturaMin2':
-	 										items.push("<th>Temperatura mínima **</th>");
-							  		  		items.push("<td id=''"+key+"''>"+val+"</td>");
-							  		  		items.push("<tr>");
-										    break;
-									    
-									  default:
-									    console.log('No se han obtenido datos');
-									}
-			    				
-			    	
-						          
-						          
-	    		  		         
+							  		  		items.push("<tr>");   
+							  		  		i=i+1;   
 						  });
 			 }
 						  $("<tbody/>",{html:items.join("")}).appendTo("table");
@@ -90,3 +106,8 @@
 
 		<!--FIN ZONA SCRIPTS -->
 		
+		
+		
+    </center>
+  </body>
+</html>
