@@ -48,13 +48,19 @@
                                 <br>
                                 <br>
                                 <div class="row register-desplazable">
-                                    
-                                        <div class="col-md-6  desplazable" id="contenedor_modales"> </div> 
 
-                                        
-                                        <div class="col-md-6  desplazable" id="contenedor_modales2"> </div>                                                                                                                                             
+										<div class="col-md-6">
+										<label>Pedido por resolver:</label>
+                                        <div class="desplazable centroModal" id="contenedor_modales"> </div> 
+										</div>
+										<div class="col-md-6">
+										<label>Pedido para poder resolverlo:</label>
+                                        <div class="desplazable centroModal" id="contenedor_modales2"> </div> 
+										</div>  
+
+											<input type="submit" class="btnCompletarAgricultor"  onClick="mandarids(2); " value="Comenzar Produccion"/>
                                 </div>
-                                <input type="submit" class="btnCompletar"  onClick="mandarids(2); " value="Comenzar Produccion"/>
+                                
                             </div>
                         </div>
                     </div>
@@ -65,6 +71,7 @@
 <script>
 // window.onload = imprimirjson(idsOrdenes);
 pedirIds(3,1);
+pedirIds2(1,2);
 
 </script>
 </body>

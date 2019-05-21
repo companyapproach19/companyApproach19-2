@@ -53,15 +53,14 @@
                                     <div class="row">
                                         <a class="btn" href="tiendaSolicitarPedido.html">Solicitar pedidos</a>
                                         <a class="btn" href="tiendaListaPedidosPorResolver.html">Pedidos por resolver</a>
+                                        <a class="btn" href="tiendaPedidosCompletados.html">Pedidos completados</a>
                                         <a class="btn" href="prediccionRetailer.html">Método predictivo</a>
 
 
-                                        <div id="popup1" style="display: none;">
-                                                    <div class="inner">
-                                                        <h3>* Stock del retailer</h3>
-                                                        <popup1></popup1>
-                                                    </div>
-                                                </div>
+                                        <p id="mostrar1"></p>
+					    <script>
+						    document.getElementById("mostrar1").innerHTML=pedirStock(4,1);
+					    </script>
                                                      
                             </div>
 
@@ -79,6 +78,4 @@
 </div> 
 </body>
 </html> 
-<script>
- pedirStock(4,1);
-</script>
+
