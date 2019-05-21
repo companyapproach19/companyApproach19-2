@@ -489,7 +489,7 @@ function mandarids(urlpar){
   
 							var y = j.toString(10);
 							str3 = stri.concat(y);
-							aux2 = document.getElementById(str4);
+							aux2 = document.getElementById(str3);
 							if (aux2.checked){		
 							
 							///
@@ -935,7 +935,8 @@ function imprimeStock(json, i){
 
 
 
-
+//GRANDIOSO JAIME MASTODONTE
+//VVVVVVVVVVVVV
 function parseJSON (stock,actorString) {
 	
 var minMalta_palida = 261;
@@ -1083,7 +1084,7 @@ var minLevadura_lagger = 1;
     }
 }
 
-
+//^^^^^^^^^^^^^^^^
 
 
 
