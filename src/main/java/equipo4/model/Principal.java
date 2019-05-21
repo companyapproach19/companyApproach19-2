@@ -27,7 +27,6 @@ public class Principal extends Thread {
 		l.setTipo(tipo);
 		l.setFecha_inicio(fechaActual);
 		l.setIdBd(metodosCompany.idLote());
-		l.setQr(GeneradorQR2.generadorQR(l.getIdBd()));
 		return l;
 	}
 	
