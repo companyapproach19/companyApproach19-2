@@ -120,9 +120,42 @@ public class HistorialPedidos extends AppCompatActivity {
             int id = elem.get("id").getAsInt();
             int estado = elem.get("estado").getAsInt();
 
-            //System.out.println(elem.get("id"));
+            JsonObject productos = (JsonObject) elem.get("productosPedidos");
 
-            Pedido ped = new Pedido(id,null);
+            int cant_malta_palida = productos.get("cant_malta_base_palida").getAsInt();
+            int cant_malta_munich = productos.get("cant_malta_munich").getAsInt();
+            int cant_malta_negra = productos.get("cant_malta_negra").getAsInt();
+            int cant_malta_crystal = productos.get("cant_malta_crystal").getAsInt();
+            int cant_malta_chocolate = productos.get("cant_malta_chocolate").getAsInt();
+            int cant_malta_caramelo = productos.get("cant_malta_caramelo").getAsInt();
+            int cant_malta_pilsner = productos.get("cant_malta_pilsner").getAsInt();
+            int cant_cebada_tostada = productos.get("cant_cebada_tostada").getAsInt();
+            int cant_lupulo_centenial = productos.get("cant_lupulo_centennial").getAsInt();
+            int cant_lupulo_perle = productos.get("cant_lupulo_perle").getAsInt();
+            int cant_lupulo_tettnanger = productos.get("cant_lupulo_tettnanger").getAsInt();
+            int cant_levadura_lager = productos.get("cant_levadura_lager").getAsInt();
+            int cant_levadura_ale =  productos.get("cant_levadura_ale").getAsInt();
+            int cant_lotes_stout =  productos.get("cant_lotes_stout").getAsInt();
+            int cant_lotes_pilsner =  productos.get("cant_lotes_pilsner").getAsInt();
+
+            //System.out.println(elem.get("id"));
+            Productos prod = new Productos(cant_malta_palida,
+                    cant_malta_munich,
+                    cant_malta_negra,
+                    cant_malta_crystal,
+                    cant_malta_chocolate,
+                    cant_malta_caramelo,
+                    cant_malta_pilsner,
+                    cant_cebada_tostada,
+                    cant_lupulo_centenial,
+                    cant_lupulo_perle,
+                    cant_lupulo_tettnanger,
+                    cant_levadura_lager,
+                    cant_levadura_ale,
+                    cant_lotes_stout,
+                    cant_lotes_pilsner);
+
+            Pedido ped = new Pedido(id,prod);
             boolean b = comprobar(id);
             if (!b) {
                 sp.historialPedidos.add(ped);
