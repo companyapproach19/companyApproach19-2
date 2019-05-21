@@ -157,7 +157,7 @@ function cargar_popups2(actor)
                 '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
                 '<span aria-hidden="true">&times;</span>'+
                 '</button>'+
-                '<div id="popup'+i+'" style="display: none;">'+  
+                '<div id="popup'+i+'" style="display: none;transform: translateX(-100%);">'+  
                 '<div class="inner">'+                      
                 '<h1>PEDIDO</h1>'+                     
                 '<popup'+i+'></popup'+i+'>'+
