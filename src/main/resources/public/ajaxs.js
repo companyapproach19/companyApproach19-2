@@ -265,7 +265,7 @@ function cargar_popups(actor)
 
 function compruebaStock(json){
 //alert("Me faltan parametros para comprueba stock, de momento no se comprueba XD");
-var bolo = false;
+//var bolo = false;
 	
 var cerveza = "stout";
 //var cerveza = "pilsner";
@@ -284,10 +284,10 @@ var cerveza = "stout";
       		
 			if (data.tieneStock.equals(true)){
 			//alert("Hay stock suficiente");
-			bolo = true;
+			return true;
 			} else {
 			//alert("No hay stock suficiente, quieres continuar?");
-			bolo = false;
+			return false;
 			}
     
 		});
@@ -298,17 +298,20 @@ var cerveza = "stout";
 	 
 		});
 
-return bolo;
+return false;
 }
 
 
+var bolo;
 
 function creaOrden(actor){
 	
 	  console.log("mando orden a /crearOrden, idActor = " + actor);
 
 	  var soyAuxiliar=paraJson(actor);
-	  var bolo = compruebaStock(soyAuxiliar);
+	  //alert("ENTRO A BOLO");
+	   bolo = compruebaStock(soyAuxiliar);
+	  //alert("SALGO DE BOLO");
 	  if (bolo){
       var request = $.ajax({
       
