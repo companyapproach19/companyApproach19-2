@@ -416,15 +416,17 @@ import equipo8.model.GeneradorQR2;
 		@ResponseBody
 		public static String ponerTabla(HttpServletResponse response, Model model) 
 						throws Exception, NotInDatabaseException {
+			JsonObject obj = new JsonObject();
 			String s = "";
 			Actor actor = new Actor("3",null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
-			s+="Lote: 1 - Fase molienda \n Lote: 2 -Fase de cocción \n Lote: 3 - Fase fermentación. Densidad = 1.4 \n Lote: 4 - Fase embotellado";
+			s+="Lote: 1 - Fase molienda"+"\n"+" Lote: 2 -Fase de cocción "+"\n" +"Lote: 3 - Fase fermentación. Densidad = 1.4"+" \n "+"Lote: 4 - Fase embotellado";
 			if(lista!=null) {
 			for(int i = 0; i<lista.size(); i++) {
 				s+="Lote: "+lista.get(i).getLote().getIdBd()+"  "+Principal.comprobarFase(lista.get(i).getLote().getIdBd());
 			}}
-			return s;
+			obj.addProperty("s", s.toString());
+			return obj.toString();
 			
 		}
 		
