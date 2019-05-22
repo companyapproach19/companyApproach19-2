@@ -27,6 +27,7 @@ public class Principal extends Thread {
 		l.setTipo(tipo);
 		l.setFecha_inicio(fechaActual);
 		l.setIdBd(metodosCompany.idLote());
+		l.setQr(GeneradorQR2.generadorQR(l.getIdBd()));
 		return l;
 	}
 	
@@ -34,8 +35,9 @@ public class Principal extends Thread {
 		return Math.random()*(0.3)+1.1;
 	}
 	
-	public static String comprobarFase(int idLote) {
+	public static String comprobarFase(int idLote) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException {
 		String res="";
+		actualizarLista();
 		boolean encontrado=false;
 		for(int i=0;i<moliendo.size() && !encontrado;i++) {
 			if (moliendo.get(i).getIdBd()==idLote) {
@@ -84,10 +86,9 @@ public class Principal extends Thread {
 		for (int i=0; i<lista.size(); i++) {
 			StockLote lote1 = lista.get(i);
 				Lote lote2 = lote1.getLote();
-				Date fechaInicial =  lote2.getFecha_inicio();
+				Date fechaInicial = (Date) lote2.getFecha_inicio();
 				Date fechaActual = new Date(System.currentTimeMillis());
-				int tiempo= fechaActual.getMinutes() - fechaInicial.getMinutes();
-				//int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
+				int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
 			
 				if(tiempo>=13) {
 					lote2.setMolido(true);
@@ -114,7 +115,6 @@ public class Principal extends Thread {
 					moliendo.add(lote2);
 				}
 		}
-		//Puede que haya que meter todos los lotes otra vez en la base
 	}
 
 
