@@ -98,8 +98,7 @@ import equipo8.model.GeneradorQR2;
                 
                    Lote lote=Principal.crearLote("stout");
            		   lote.setQr(GeneradorQR2.generadorQR(idOrden));
-           		   lote.setIdOrden(idOrden);
-
+           		lote.setIdOrden(idOrden);
                    bl.guardarOrden(lote);
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                     
@@ -114,8 +113,7 @@ import equipo8.model.GeneradorQR2;
                         lista.get("lupuloTettnanger") >= 2*kilosPedidos && lista.get("levaduraLager") >= 1*kilosPedidos) {
                     Lote lote=Principal.crearLote("pilsner");
             		lote.setQr(GeneradorQR2.generadorQR(idOrden));
-            		   lote.setIdOrden(idOrden);
-
+            		lote.setIdOrden(idOrden);
                     bl.guardarOrden(lote);
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                 }
@@ -433,11 +431,6 @@ import equipo8.model.GeneradorQR2;
 			String s = "";
 			Actor actor = new Actor("3",null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
-			Lote l1 = Principal.crearLote("pilsner");
-            BlockchainServices bl= new BlockchainServices();
-    		   l1.setIdOrden(3001);
-            bl.guardarOrden(l1);
-            com.controller.StockController.setCantidadLote(actor,l1,3001);
 			s+="Lote: 3000 - Fase molienda. Llegó el día : 22/5/2019.";
 			if(lista!=null) {
 			for(int i = 0; i<lista.size(); i++) {
@@ -478,9 +471,8 @@ import equipo8.model.GeneradorQR2;
 	                prod.getCant_lupulo_centennial()>=(3*cantLotes) &&
 	                prod.getCant_levadura_ale()>=(1*cantLotes)) {
 	                    Lote lote=Principal.crearLote("stout");
-	            		   lote.setIdOrden(orden);
-
 	                    bl.guardarOrden(lote);
+	                    lote.setIdOrden(orden);
 	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
 
 	            } else if (pilsner &&
@@ -490,8 +482,7 @@ import equipo8.model.GeneradorQR2;
 	                prod.getCant_lupulo_tettnanger()>=(2*cantLotes) &&
 	                prod.getCant_levadura_lager()>=(1*cantLotes)) {
 	                    Lote lote=Principal.crearLote("pilsner");
-	            		   lote.setIdOrden(orden);
-
+	                    lote.setIdOrden(orden);
 	                    bl.guardarOrden(lote);
 	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
 	            }
