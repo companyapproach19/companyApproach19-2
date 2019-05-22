@@ -99,7 +99,7 @@ function ponerTabla(){
 	    dataType : 'json',
 	    });
 		request.done(function(response){
-			alert("llama funcion ajax correcta");
+		//	alert("llama funcion ajax correcta");
 			var lista = response["s"];
 			$('#Tabla').text(lista);
 			//alert("la informacion que he recogido del servicio es:" + lista);
