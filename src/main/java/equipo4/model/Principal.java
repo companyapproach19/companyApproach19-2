@@ -81,37 +81,37 @@ public class Principal extends Thread {
 		for(int l=0;l<embotellando.size();l++) {
 			embotellando.remove(l);
 		}
-        Actor actor = new Actor(null,null,null,3);
+        Actor actor = new Actor("3",null,3);
 		LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 		for (int i=0; i<lista.size(); i++) {
 			StockLote lote1 = lista.get(i);
 				Lote lote2 = lote1.getLote();
-				Date fechaInicial = (Date) lote2.getFecha_inicio();
+				Date fechaInicial = lote2.getFecha_inicio();
 				Date fechaActual = new Date(System.currentTimeMillis());
-				int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
-			
-				if(tiempo>=13) {
+				double t= fechaActual.getTime()-fechaInicial.getTime();
+				double tiempo = t/60000;
+				if(tiempo>=1.1) {
 					lote2.setMolido(true);
 					lote2.setCocido(true);
 					lote2.setFermentado(true);
 					lote2.setEmbotellado(true);
 				}
-				else if(tiempo<13 && tiempo>=11) {
+				else if(tiempo<1.1 && tiempo>=1) {
 					lote2.setMolido(true);
 					lote2.setCocido(true);
 					lote2.setFermentado(true);
 					embotellando.add(lote2);
 				}
-				else if (tiempo<11 && tiempo>=4) {
+				else if (tiempo<1 && tiempo>=0.7) {
 					lote2.setMolido(true);
 					lote2.setCocido(true);
 					fermentando.add(lote2);
 				}
-				else if (tiempo<4 && tiempo>=2) {
+				else if (tiempo<0.7 && tiempo>=0.5) {
 					lote2.setMolido(true);
 					cociendo.add(lote2);
 				}
-				else if(tiempo<2) {
+				else if(tiempo<0.5) {
 					moliendo.add(lote2);
 				}
 		}
