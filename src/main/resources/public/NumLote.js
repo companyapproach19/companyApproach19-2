@@ -110,12 +110,9 @@ function pedirStock(actorString) {
 	}
 	if (actorString == "3") {
 	    arrayJson.push(jsonObj);
-	    console.log(jsonObj);
 	}
 	else {
 	    while (jsonObj[op + i] != null) {
-		//print(jsonObj[op+i]);
-		console.log(jsonObj[op+i]);
 		arrayJson.push(jsonObj[op + i]);
 		i++;
 	    }
@@ -190,20 +187,14 @@ function parseJSON (stock,actorString) {
 	var content = eval('stock.stock.'+varName);
 	if (typeof content != 'undefined' && content != "") {
 	    eval(varName+"="+content.toString()+";");
-	    console.log(varName + " json: " + content);
-	    console.log(varName + " variable: " + eval(varName));
 	}
 	else {
-	    console.log(varName + " json: " + content);
-	    content = eval('stock.stock.'+ array2[j]);
 	    if (typeof content != 'undefined' && content != "") {
 		eval(varName+"="+content.toString()+";");
 	    }
 	    else {
 		eval(varName+"=0;");
 	    }
-	    console.log(array2[j] + " json: " + content);
-	    console.log(array2[j] + " variable: " + eval(array[j]));
 	}
     }
     var fila1="";
