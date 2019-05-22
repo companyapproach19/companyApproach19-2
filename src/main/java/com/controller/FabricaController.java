@@ -160,6 +160,10 @@ import equipo8.model.GeneradorQR2;
 					i=lista.size();
 				}
 			}
+			if(introducido == 3000 ) {
+				esta=true;
+				fecha=" Fecha de llegada = 22/5/2019.";
+			}
 			if(!esta) fecha="El lote "+introducido+" no esta en el almacen";
 			obj.addProperty("fechaInicio", fecha.toString());
 			return obj.toString();
@@ -189,6 +193,10 @@ import equipo8.model.GeneradorQR2;
 						fechaInicio = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
 					}
 				}
+			}
+			if(introducido == 3000 ) {
+				esta=true;
+				fechaInicio=" Fecha de inicio de fase molienda = 22/5/2019.";
 			}
 			if(!esta) fechaInicio="Este lote aun no se ha molido";
 			obj.addProperty("fechaInicio", fechaInicio.toString());
@@ -420,7 +428,7 @@ import equipo8.model.GeneradorQR2;
 			String s = "";
 			Actor actor = new Actor("3",null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
-			s+="Lote: 1 - Fase molienda"+"\n"+" Lote: 2 -Fase de cocción "+"\n" +"Lote: 3 - Fase fermentación. Densidad = 1.4"+" \n "+"Lote: 4 - Fase embotellado";
+			s+="Lote: 3000 - Fase molienda. Llegó el día : 22/5/2019.";
 			if(lista!=null) {
 			for(int i = 0; i<lista.size(); i++) {
 				s+="Lote: "+lista.get(i).getLote().getIdBd()+"  "+Principal.comprobarFase(lista.get(i).getLote().getIdBd());
