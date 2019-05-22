@@ -423,11 +423,15 @@ import equipo8.model.GeneradorQR2;
 		@RequestMapping("/ponerTabla")
 		@ResponseBody
 		public static String ponerTabla(HttpServletResponse response, Model model) 
-						throws Exception, NotInDatabaseException {
+						throws Throwable {
 			JsonObject obj = new JsonObject();
 			String s = "";
 			Actor actor = new Actor("3",null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
+			Lote l1 = Principal.crearLote("pilsner");
+            BlockchainServices bl= new BlockchainServices();
+            bl.guardarOrden(l1);
+            com.controller.StockController.setCantidadLote(actor,l1,3001);
 			s+="Lote: 3000 - Fase molienda. Llegó el día : 22/5/2019.";
 			if(lista!=null) {
 			for(int i = 0; i<lista.size(); i++) {
