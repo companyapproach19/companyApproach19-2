@@ -28,6 +28,7 @@ import equipo6.model.Actor;
 import equipo6.otros.*;
 import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
+import equipo8.model.GeneradorQR2;
 
 
 	@Controller
@@ -95,6 +96,7 @@ import equipo7.model.Productos;
                         lista.get("maltaCaramelo") >= 4*kilosPedidos && lista.get("lupuloCentennial") >= 3*kilosPedidos && lista.get("levaduraAle") >= 1*kilosPedidos ) {
                 
                    Lote lote=Principal.crearLote("stout");
+           		   lote.setQr(GeneradorQR2.generadorQR(idOrden));
                    bl.guardarOrden(lote);
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                     
@@ -108,6 +110,7 @@ import equipo7.model.Productos;
                 if(lista.get("maltaPilsner") >= 173*kilosPedidos && lista.get("maltaCaramelo") >= 21*kilosPedidos && lista.get("lupuloPerle") >= 1*kilosPedidos &&
                         lista.get("lupuloTettnanger") >= 2*kilosPedidos && lista.get("levaduraLager") >= 1*kilosPedidos) {
                     Lote lote=Principal.crearLote("pilsner");
+            		lote.setQr(GeneradorQR2.generadorQR(idOrden));
                     bl.guardarOrden(lote);
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                 }
@@ -416,7 +419,10 @@ import equipo7.model.Productos;
 			String s = "";
 			Actor actor = new Actor("3",null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
-			
+			s+="Lote: 1 - Fase molienda \n"+
+					"Lote: 2 -                Fase de cocción \n"+
+					"Lote: 3 -                              Fase fermentación"+
+					"Lote: 4 -                                                Fase embotellado";
 			for(int i = 0; i<lista.size(); i++) {
 				s+="Lote: "+lista.get(i).getLote().getIdBd()+"  "+Principal.comprobarFase(lista.get(i).getLote().getIdBd());
 			}

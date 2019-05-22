@@ -38,7 +38,7 @@
     height: 625px;
 }
 .solicitarpedidos{
-    padding-top: 28%;
+    padding-top: 55%;
 }
 .solicitartienda{
     padding-top: 0;
@@ -62,7 +62,12 @@
   height: 22rem;
   text-align: center;
 }
-
+.margen{
+	height: 36rem;
+}
+.centroModal{
+	text-align:center;
+}
 @-webkit-keyframes mover {
     0% { transform: translateY(0); }
     100% { transform: translateY(-20px); }

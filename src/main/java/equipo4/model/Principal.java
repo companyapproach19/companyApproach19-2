@@ -4,7 +4,7 @@ package equipo4.model;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.LinkedList;
 
 import equipo5.dao.NotInDatabaseException;
 import equipo5.dao.metodosCompany;
@@ -27,7 +27,6 @@ public class Principal extends Thread {
 		l.setTipo(tipo);
 		l.setFecha_inicio(fechaActual);
 		l.setIdBd(metodosCompany.idLote());
-		l.setQr(GeneradorQR2.generadorQR(l.getIdBd()));
 		return l;
 	}
 	
@@ -85,9 +84,10 @@ public class Principal extends Thread {
 		for (int i=0; i<lista.size(); i++) {
 			StockLote lote1 = lista.get(i);
 				Lote lote2 = lote1.getLote();
-				Date fechaInicial = (Date) lote2.getFecha_inicio();
+				Date fechaInicial =  lote2.getFecha_inicio();
 				Date fechaActual = new Date(System.currentTimeMillis());
-				int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
+				int tiempo= fechaActual.getMinutes() - fechaInicial.getMinutes();
+				//int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
 			
 				if(tiempo>=13) {
 					lote2.setMolido(true);
@@ -114,6 +114,7 @@ public class Principal extends Thread {
 					moliendo.add(lote2);
 				}
 		}
+		//Puede que haya que meter todos los lotes otra vez en la base
 	}
 
 
