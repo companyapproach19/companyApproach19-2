@@ -92,7 +92,6 @@ function embotellandoCadena(){
  
    });
 }
-
 function ponerTabla(){
 	var request = $.ajax({
 	    url : '/ponerTabla',
@@ -133,13 +132,18 @@ function ponerTabla(){
 	<!-- Botones Log out y volver -->
 	<div class="col-md-9 register-right">
 	  
-	  <ul id="logout" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+	  <ul id="logout" class="nav nav-tabs nav-justified offset-md-9" id="myTab" role="tablist">
             <li class="nav-item">
               <a class="nav-link" id="logout" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true">Log out</a>
+              <a class="nav-link" id="logout" data-toggle="submit" href="/" role="submit" aria-controls="home" aria-selected="true" style="height: 10px;"></a>
             </li>
 	  </ul>
-	  
-	  
+	  <ul class="nav nav-tabs nav-justified " id="myTab" role="tablist" >
+          <li class="nav-item">
+            	 <a class="nav-link" id="volver" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
+          </li>
+      </ul>
+
 
 	  <!-- Botones-->
 	  <div class="tab-content" id="myTabContent">
@@ -206,7 +210,7 @@ function ponerTabla(){
 <div>
 			<ul id="actualizar" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true" onclick = "ponerTabla()">Actualizar</a>
+                  <a class="nav-link" id="home" data-toggle="submit" href="Cadena.html" role="submit" aria-controls="home" aria-selected="true" onclick = "ponerTabla()">Actualizar</a>
                 </li>
             </ul>
 	      </div>
@@ -220,14 +224,8 @@ function ponerTabla(){
 			  </div>
 			</div>
 			
-	      <br>
-		<div>	
-	      <ul id="volver" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link" id="home" data-toggle="submit" href="NumLote.html" role="submit" aria-controls="home" aria-selected="true">Volver</a>
-                </li>
-	      </ul>
-	      </div>
+	      <br><br><br><br>	
+		
             </div>
 
 	  </div>
@@ -241,6 +239,3 @@ function ponerTabla(){
 
 </body>
 </html>
-
-
-
