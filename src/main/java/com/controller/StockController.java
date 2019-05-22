@@ -136,6 +136,8 @@ public class StockController {
 		bcs = new BlockchainServices();
 		OrdenTrazabilidad orden = bcs.getOrden(idOrden);
 		StockLote sLote=new StockLote(lote,null,null,idOrden,orden.getIdPedido(),actor.getId());
+		lote.setIdBd(idOrden);
+		bcs.guardarOrden(lote);
 		metodosCompany.insertarStockLote(sLote);
 	}
 

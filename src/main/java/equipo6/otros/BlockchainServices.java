@@ -75,7 +75,6 @@ public class BlockchainServices{
 
 	}
 
-
 	private boolean operaciones_stock(OrdenTrazabilidad orden) throws Throwable 
 	{
 		List <MateriaPrima> list_ele;
@@ -106,6 +105,7 @@ public class BlockchainServices{
 				break;
 
 			case 4:
+				System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1");
 				if(orden.getActorOrigen().getTipoActor() != 4)
 				{
 					for(MateriaPrima materia_prima : list_ele)
@@ -113,10 +113,14 @@ public class BlockchainServices{
 				}
 				else 
 				{
+					System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa2");
 					cadenaDestino = metodosCompany.extraerCadena(orden.getId());
 					super_bloque = cadenaDestino.getBloque(-1).get(0);
 					orden_origen = metodosCompany.extraerOrdenTrazabilidad(super_bloque.getIdCadena());
+					System.out.println(orden_origen.getActorOrigen().getId()+" aaaaaaaaaaaa "+orden.getId());
 					list_stock_lotes = metodosCompany.extraerStockLote(orden_origen.getActorOrigen(), orden_origen.getId());
+					System.out.println(list_stock_lotes.get(0).getIdActor());
+					list_stock_lotes = CadenaStock.filtrar_stock_lote(list_stock_lotes);
 					for(StockLote stock_lote : list_stock_lotes) {
 						new_lote = new StockLote(stock_lote.getLote(), null, null, orden.getId(), orden.getId(), orden.getActorOrigen().getId());
 						metodosCompany.insertarStockLote(stock_lote);
@@ -293,7 +297,7 @@ public class BlockchainServices{
 
 		if(datos_container instanceof OrdenTrazabilidad) return ((OrdenTrazabilidad)datos_container).getId();
 		if(datos_container instanceof Registro) return ((Registro)datos_container).getIdOrdenTrazabilidad();
-		if(datos_container instanceof Lote) return ((Lote)datos_container).getIdBd();
+		if(datos_container instanceof Lote) return ((Lote)datos_container).getIdOrden();
 		if(datos_container instanceof geolocalizacion) return ((geolocalizacion)datos_container).getIdOrden();
 
 		return -1;

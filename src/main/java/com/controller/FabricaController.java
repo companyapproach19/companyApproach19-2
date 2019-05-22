@@ -30,13 +30,11 @@ import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo8.model.GeneradorQR2;
 
-
 	@Controller
 	@SpringBootApplication
 	public class FabricaController {
 		
 	
-        
 		@Scope("request")
         @RequestMapping("/comprobar")
         @ResponseBody
@@ -97,6 +95,7 @@ import equipo8.model.GeneradorQR2;
                 
                    Lote lote=Principal.crearLote("stout");
            		   lote.setQr(GeneradorQR2.generadorQR(idPedido));
+           		   lote.setIdOrden(idOrden);
                    bl.guardarOrden(lote);
                    com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                     
@@ -111,6 +110,7 @@ import equipo8.model.GeneradorQR2;
                         lista.get("lupuloTettnanger") >= 2*kilosPedidos && lista.get("levaduraLager") >= 1*kilosPedidos) {
                     Lote lote=Principal.crearLote("pilsner");
             		lote.setQr(GeneradorQR2.generadorQR(idPedido));
+            		lote.setIdOrden(idOrden);
                     bl.guardarOrden(lote);
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                 }
@@ -458,6 +458,7 @@ import equipo8.model.GeneradorQR2;
 	                prod.getCant_levadura_ale()>=(1*cantLotes)) {
 	                    Lote lote=Principal.crearLote("stout");
 	            		   lote.setQr(GeneradorQR2.generadorQR(orden));
+	            	    lote.setIdOrden(orden);
 	                    bl.guardarOrden(lote);
 	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
 
@@ -469,6 +470,7 @@ import equipo8.model.GeneradorQR2;
 	                prod.getCant_levadura_lager()>=(1*cantLotes)) {
 	                    Lote lote=Principal.crearLote("pilsner");
 	            		   lote.setQr(GeneradorQR2.generadorQR(orden));
+		            	    lote.setIdOrden(orden);
 	                    bl.guardarOrden(lote);
 	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
 	            }

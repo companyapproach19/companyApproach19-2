@@ -50,6 +50,22 @@ public class CadenaStock {
 		return cantidad;
 	}
 	
+	public static List<StockLote> filtrar_stock_lote(List<StockLote> list_stock) {
+		List<StockLote> lista_filtrada;
+		
+		lista_filtrada = new ArrayList<StockLote>();
+		
+		for(StockLote lote : list_stock) 
+		{
+			if(lote.getFecha_salida() == null) 
+			{
+				lista_filtrada.add(lote);
+			}
+		}
+		
+		return lista_filtrada;
+	}
+	
 	public static boolean actualizar_stock(OrdenTrazabilidad or_origen) throws Throwable 
 	{
 		Actor origen;

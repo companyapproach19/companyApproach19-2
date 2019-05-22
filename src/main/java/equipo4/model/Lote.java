@@ -16,6 +16,7 @@ public class Lote extends DatosContainer{
 	private boolean fermentado;
 	private boolean fermentado2;
 	private boolean embotellado;
+	private int idOrden;
 	private String tipo;
 	private Date fecha_molido;
 	private Date fecha_cocido;
@@ -51,7 +52,15 @@ public class Lote extends DatosContainer{
 		this.fecha_embotellado = fecha_embotellado;
 	}
 
+	public int getIdOrden() {
+		return idOrden;
+	}
 
+
+	public void setIdOrden(int idOrden) {
+		this.idOrden = idOrden;
+	}
+	
 	public byte[] getQr() {
 		return qr;
 	}
