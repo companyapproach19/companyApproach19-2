@@ -141,13 +141,13 @@ function cargar_popups2(actor)
      var contenedor_modales2;
      
      contenedor_modales2 = document.getElementById("contenedor_modales2");
-	if (idsOrdenes != null){
-        for ( var i = 1; i <=idsOrdenes.length; i++) {
+	if (idsOrdenes2 != null){
+        for ( var i = 1; i <=idsOrdenes2.length; i++) {
         	//antes en pedirPedido, en actor habia un 4
         	var modalN = 
                 '<div class="form-group">'+
-                '<input type="checkbox" name="producto'+i+'" id="producto2'+i+'" value="Pedido id'+i+'">'+
-                '<label for="producto'+i+'" id="label2'+i+'">Pedido '+idsOrdenes[i-1]+'</label>'+
+                '<input type="checkbox" name="producto2'+i+'" id="producto2'+i+'" value="Pedido id'+i+'">'+
+                '<label for="producto2'+i+'" id="label2'+i+'">Pedido '+idsOrdenes2[i-1]+'</label>'+
                 '<a href="" data-toggle="modal" onclick="pedirPedido2('+(i-1)+','+actor+','+i+')" data-target="#exampleModalScrollable'+i+'"> Ver más información del pedido </a>'+
                 '</div>'+                                                          
                 '<div class="modal fade" id="exampleModalScrollable'+i+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">'+
@@ -157,7 +157,7 @@ function cargar_popups2(actor)
                 '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
                 '<span aria-hidden="true">&times;</span>'+
                 '</button>'+
-                '<div id="popup'+i+'" style="display: none;">'+  
+                '<div id="popup'+i+'" style="display: none;transform: translateX(-100%);">'+  
                 '<div class="inner">'+                      
                 '<h1>PEDIDO</h1>'+                     
                 '<popup'+i+'></popup'+i+'>'+
@@ -202,10 +202,10 @@ function cargar_popups(actor)
                 '<div class="modal-dialog modal-dialog-scrollable" role="document">'+
                 '<div class="modal-content">'+
                 '<div class="modal-header">'+
-                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                '<button type="button" style="border: none; cursor: pointer; background: transparent; font-size: 1.5rem;" data-dismiss="modal" aria-label="Close">'+
                 '<span aria-hidden="true">&times;</span>'+
                 '</button>'+
-                '<div id="popup'+i+'" style="display: none;">'+  
+                '<div id="popup'+i+'" style="display: none;transform: translateX(-100%);">'+  
                 '<div class="inner">'+                      
                 '<h1>PEDIDO</h1>'+                     
                 '<popup'+i+'></popup'+i+'>'+
@@ -485,11 +485,15 @@ function mandarids(urlpar){
 			var primerID = idsOrdenes[i-1];
 			
 			if(urlpar == 2){
-				for (var j = 1; j< idsOrdenes.length+1; j++) {
+				console.log("quieres comenzar produccion");
+				console.log("idsOrdenes"+idsOrdenes);
+				console.log("idsOrdenes2"+idsOrdenes2);
+				
+				for (var j = 1; j< idsOrdenes2.length+1; j++) {
   
 							var y = j.toString(10);
 							str3 = stri.concat(y);
-							aux2 = document.getElementById(str4);
+							aux2 = document.getElementById(str3);
 							if (aux2.checked){		
 							
 							///
@@ -935,7 +939,8 @@ function imprimeStock(json, i){
 
 
 
-
+//GRANDIOSO JAIME MASTODONTE
+//VVVVVVVVVVVVV
 function parseJSON (stock,actorString) {
 	
 var minMalta_palida = 261;
@@ -1083,7 +1088,7 @@ var minLevadura_lagger = 1;
     }
 }
 
-
+//^^^^^^^^^^^^^^^^
 
 
 

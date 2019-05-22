@@ -1,3 +1,4 @@
+
 package com.controller;
 
 	import java.util.Date;
@@ -30,11 +31,13 @@ import equipo7.model.OrdenTrazabilidad;
 import equipo7.model.Productos;
 import equipo8.model.GeneradorQR2;
 
+
 	@Controller
 	@SpringBootApplication
 	public class FabricaController {
 		
 	
+        
 		@Scope("request")
         @RequestMapping("/comprobar")
         @ResponseBody
@@ -86,7 +89,7 @@ import equipo8.model.GeneradorQR2;
             		lista.get("maltaCrystal")!=null && lista.get("maltaChocolate")!=null && lista.get("maltaCaramelo")!=null && lista.get("lupuloCentennial")!=null &&lista.get("levaduraAle")!=null
             		&& lista.get("maltaPilsner")!=null &&lista.get("lupuloPerle")!=null && lista.get("lupuloTettnanger")!=null &&lista.get("levaduraLager")!=null) {
             */
-            System.out.println("-----------------------------------------------"+tipo);
+            
             //LAS CANTIDADES ESTAN EN GRAMOS
             if(tipo=="stout") {
                 if(lista.get("maltaBasePalida") >= (261*kilosPedidos) && lista.get("maltaMunich") >= (61*kilosPedidos) && lista.get("cebadaTostada") >= 21*kilosPedidos &&
@@ -94,10 +97,11 @@ import equipo8.model.GeneradorQR2;
                         lista.get("maltaCaramelo") >= 4*kilosPedidos && lista.get("lupuloCentennial") >= 3*kilosPedidos && lista.get("levaduraAle") >= 1*kilosPedidos ) {
                 
                    Lote lote=Principal.crearLote("stout");
-           		   lote.setQr(GeneradorQR2.generadorQR(idPedido));
+           		   lote.setQr(GeneradorQR2.generadorQR(idOrden));
            		   lote.setIdOrden(idOrden);
+
                    bl.guardarOrden(lote);
-                   com.controller.StockController.setCantidadLote(actor,lote,idOrden);
+                    com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                     
                 }
                 else {
@@ -109,8 +113,9 @@ import equipo8.model.GeneradorQR2;
                 if(lista.get("maltaPilsner") >= 173*kilosPedidos && lista.get("maltaCaramelo") >= 21*kilosPedidos && lista.get("lupuloPerle") >= 1*kilosPedidos &&
                         lista.get("lupuloTettnanger") >= 2*kilosPedidos && lista.get("levaduraLager") >= 1*kilosPedidos) {
                     Lote lote=Principal.crearLote("pilsner");
-            		lote.setQr(GeneradorQR2.generadorQR(idPedido));
-            		lote.setIdOrden(idOrden);
+            		lote.setQr(GeneradorQR2.generadorQR(idOrden));
+            		   lote.setIdOrden(idOrden);
+
                     bl.guardarOrden(lote);
                     com.controller.StockController.setCantidadLote(actor,lote,idOrden);
                 }
@@ -160,6 +165,10 @@ import equipo8.model.GeneradorQR2;
 					i=lista.size();
 				}
 			}
+			if(introducido == 3000 ) {
+				esta=true;
+				fecha=" Fecha de llegada = 22/5/2019.";
+			}
 			if(!esta) fecha="El lote "+introducido+" no esta en el almacen";
 			obj.addProperty("fechaInicio", fecha.toString());
 			return obj.toString();
@@ -189,6 +198,10 @@ import equipo8.model.GeneradorQR2;
 						fechaInicio = fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getYear();
 					}
 				}
+			}
+			if(introducido == 3000 ) {
+				esta=true;
+				fechaInicio=" Fecha de inicio de fase molienda = 22/5/2019.";
 			}
 			if(!esta) fechaInicio="Este lote aun no se ha molido";
 			obj.addProperty("fechaInicio", fechaInicio.toString());
@@ -415,15 +428,23 @@ import equipo8.model.GeneradorQR2;
 		@RequestMapping("/ponerTabla")
 		@ResponseBody
 		public static String ponerTabla(HttpServletResponse response, Model model) 
-						throws Exception, NotInDatabaseException {
+						throws Throwable {
+			JsonObject obj = new JsonObject();
 			String s = "";
 			Actor actor = new Actor("3",null,3);
 			LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
-			
+			Lote l1 = Principal.crearLote("pilsner");
+            BlockchainServices bl= new BlockchainServices();
+    		   l1.setIdOrden(3001);
+            bl.guardarOrden(l1);
+            com.controller.StockController.setCantidadLote(actor,l1,3001);
+			s+="Lote: 3000 - Fase molienda. Llegó el día : 22/5/2019.";
+			if(lista!=null) {
 			for(int i = 0; i<lista.size(); i++) {
 				s+="Lote: "+lista.get(i).getLote().getIdBd()+"  "+Principal.comprobarFase(lista.get(i).getLote().getIdBd());
-			}
-			return s;
+			}}
+			obj.addProperty("s", s.toString());
+			return obj.toString();
 			
 		}
 		
@@ -457,8 +478,8 @@ import equipo8.model.GeneradorQR2;
 	                prod.getCant_lupulo_centennial()>=(3*cantLotes) &&
 	                prod.getCant_levadura_ale()>=(1*cantLotes)) {
 	                    Lote lote=Principal.crearLote("stout");
-	            		   lote.setQr(GeneradorQR2.generadorQR(orden));
-	            	    lote.setIdOrden(orden);
+	            		   lote.setIdOrden(orden);
+
 	                    bl.guardarOrden(lote);
 	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
 
@@ -469,8 +490,8 @@ import equipo8.model.GeneradorQR2;
 	                prod.getCant_lupulo_tettnanger()>=(2*cantLotes) &&
 	                prod.getCant_levadura_lager()>=(1*cantLotes)) {
 	                    Lote lote=Principal.crearLote("pilsner");
-	            		   lote.setQr(GeneradorQR2.generadorQR(orden));
-		            	    lote.setIdOrden(orden);
+	            		   lote.setIdOrden(orden);
+
 	                    bl.guardarOrden(lote);
 	                    com.controller.StockController.setCantidadLote(actor,lote,orden);
 	            }
@@ -483,3 +504,4 @@ import equipo8.model.GeneradorQR2;
 		
 		
 }
+
