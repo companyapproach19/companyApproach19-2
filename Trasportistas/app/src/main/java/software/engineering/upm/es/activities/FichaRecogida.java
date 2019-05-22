@@ -61,7 +61,7 @@ public class FichaRecogida extends AppCompatActivity {
         sp = SingletonPedidos.getInstance();
 
         // Recuperamos los datos que nos han pasado
-        //posicion = getIntent().getExtras().getInt("posicion");
+        posicion = getIntent().getExtras().getInt("posicion");
         //trasportista = sp.pedidosSinAsignar.get(posicion).getTrasportista();
 
         // Inicializamos nuestras views
@@ -117,12 +117,12 @@ public class FichaRecogida extends AppCompatActivity {
                         .build();
 
                 servicio = retrofit.create(PedidosAPI.class);
-
                 Pedido pedido_a_enviar = sp.pedidosSinAsignar.get(posicion);
 
                 JsonObject json = new JsonObject();
 
                 json.addProperty("id",pedido_a_enviar.getId());
+                System.out.print(pedido_a_enviar.getId());
                 json.addProperty("firmaRecogida", "sldibavabv");
                 JsonObject subJson = new JsonObject();
                 subJson.addProperty("id",1);
