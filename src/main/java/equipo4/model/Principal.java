@@ -27,6 +27,7 @@ public class Principal extends Thread {
 		l.setTipo(tipo);
 		l.setFecha_inicio(fechaActual);
 		l.setIdBd(metodosCompany.idLote());
+		l.setQr(GeneradorQR2.generadorQR(l.getIdBd()));
 		return l;
 	}
 	
@@ -34,8 +35,9 @@ public class Principal extends Thread {
 		return Math.random()*(0.3)+1.1;
 	}
 	
-	public static String comprobarFase(int idLote) {
+	public static String comprobarFase(int idLote) throws ClassNotFoundException, SQLException, equipo5.model.NotInDatabaseException {
 		String res="";
+		actualizarLista();
 		boolean encontrado=false;
 		for(int i=0;i<moliendo.size() && !encontrado;i++) {
 			if (moliendo.get(i).getIdBd()==idLote) {
@@ -79,42 +81,40 @@ public class Principal extends Thread {
 		for(int l=0;l<embotellando.size();l++) {
 			embotellando.remove(l);
 		}
-        Actor actor = new Actor(null,null,null,3);
+        Actor actor = new Actor("3",null,3);
 		LinkedList<StockLote> lista = com.controller.StockController.getListaLotes(actor);
 		for (int i=0; i<lista.size(); i++) {
 			StockLote lote1 = lista.get(i);
 				Lote lote2 = lote1.getLote();
-				Date fechaInicial =  lote2.getFecha_inicio();
+				Date fechaInicial = lote2.getFecha_inicio();
 				Date fechaActual = new Date(System.currentTimeMillis());
-				int tiempo= fechaActual.getMinutes() - fechaInicial.getMinutes();
-				//int tiempo= fechaInicial.getMinutes()-fechaActual.getMinutes();
-			
-				if(tiempo>=13) {
+				double t= fechaActual.getTime()-fechaInicial.getTime();
+				double tiempo = t/60000;
+				if(tiempo>=1.1) {
 					lote2.setMolido(true);
 					lote2.setCocido(true);
 					lote2.setFermentado(true);
 					lote2.setEmbotellado(true);
 				}
-				else if(tiempo<13 && tiempo>=11) {
+				else if(tiempo<1.1 && tiempo>=1) {
 					lote2.setMolido(true);
 					lote2.setCocido(true);
 					lote2.setFermentado(true);
 					embotellando.add(lote2);
 				}
-				else if (tiempo<11 && tiempo>=4) {
+				else if (tiempo<1 && tiempo>=0.7) {
 					lote2.setMolido(true);
 					lote2.setCocido(true);
 					fermentando.add(lote2);
 				}
-				else if (tiempo<4 && tiempo>=2) {
+				else if (tiempo<0.7 && tiempo>=0.5) {
 					lote2.setMolido(true);
 					cociendo.add(lote2);
 				}
-				else if(tiempo<2) {
+				else if(tiempo<0.5) {
 					moliendo.add(lote2);
 				}
 		}
-		//Puede que haya que meter todos los lotes otra vez en la base
 	}
 
 
